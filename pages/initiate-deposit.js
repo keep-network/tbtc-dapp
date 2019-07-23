@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Button } from '../components/Button'
 import { PageTemplate } from '../components/PageTemplate'
 import { MainBlock } from "../components/MainBlock"
+import { IconBlock, FormStep, ContentBlock } from '../components/FormStep';
 
 const CopyAddressBox = styled.div`
     background: white;
@@ -16,18 +17,26 @@ const InitiateDeposit = () => {
     const address = '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa'
     return <PageTemplate>
         <MainBlock>
-            <QRCode value={address}/>
+            <FormStep>
+                <IconBlock>
+                    <QRCode value={address}/>
+                </IconBlock>
 
-            <h1>Pay 1 BTC</h1>
-            <p>Scan the QR code or tap to pay, or copy the address below into your wallet</p>
+                <ContentBlock>
+                    <h1>Pay 1 BTC</h1>
+                    <p>Scan the QR code or tap to pay, or copy the address below into your wallet</p>
 
-            <CopyAddressBox>
-            {address}
-            </CopyAddressBox>
+                    <CopyAddressBox>
+                        {address}
+                    </CopyAddressBox>
 
-            <Link href="/await-deposit-confirm">
-                <Button>Ok, I sent it!</Button>
-            </Link>
+                    <br/>
+                    <Link href="/await-deposit-confirm">
+                        <Button>Ok, I sent it!</Button>
+                    </Link>
+                </ContentBlock>
+
+            </FormStep>
         </MainBlock>
     </PageTemplate>
 }
