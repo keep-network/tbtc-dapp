@@ -1,0 +1,14 @@
+version: 2.1
+
+executors:
+  docker-node:
+    docker:
+      - image: circleci/node:11
+
+jobs:
+  test_solidity:
+    executor: docker-node
+    steps:
+        - checkout
+        - run: npm i
+        - run: npm run build
