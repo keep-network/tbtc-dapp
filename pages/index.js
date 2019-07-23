@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import Landing from '../components/landing'
+import Landing from './landing'
 
 const Index = () => {
     return <Landing/>

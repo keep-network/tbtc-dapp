@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-
+import Link from 'next/link'
+import { Button } from '../components/Button'
 
 const PageWrapper = styled.div`
     min-height: 100vh;
@@ -74,9 +75,6 @@ const Question = styled.li`
 
 `
 
-const Button = styled.button`
-    padding: 1em;
-`
 
 const Landing = () => {
     return <PageWrapper>
@@ -92,7 +90,7 @@ const Landing = () => {
                 <p>
                     Deposit BTC to mint TBTC, trustlessly. Redeem TBTC for BTC, trustlessly. No KYC, no middleman, no bullshit.
                 </p>
-                <Button>Make a Deposit</Button>
+                <Link href="/request-deposit"><Button>Make a Deposit</Button></Link>
             </Hero>
         </MainBlock>
 
