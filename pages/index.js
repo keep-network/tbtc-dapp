@@ -1,5 +1,9 @@
+import styled from 'styled-components'
+
+import Landing from '../components/landing'
+
 const Index = () => {
-    return <div>Hello tBTC!</div>
+    return <Landing/>
 }
 
 export default Index
