@@ -6,7 +6,7 @@ export const FormStep = styled.div`
 `
 
 export const IconBlock = styled.div`
-    max-width: 256px;
+    width: 200px;
     max-height: 256px;
     align-items: center;
     display: flex;

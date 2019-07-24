@@ -1,0 +1,38 @@
+order:
+- request-deposit
+- initiate-deposit
+- await-deposit-confirm
+- prove-deposit
+- tbtc-minted
+
+
+requestADeposit
+    create action
+    call Keep to request a deposit
+    sign the transaction and submit
+    wait for it to be mined
+    get the deposit address
+    now call the deposit contract
+    and get the btc address
+    goto next
+
+sendTbtc
+    onclick "ok I sent it"
+    now show a waiting dialog, with some sort of smart countdown
+    wait for the transaction to be received
+    wait for the transaction to be confirmed
+    wait a certain number of confirmations on this step
+    when it's finally sufficiently confirmed, dispatch the txid
+    goto next
+
+proveDeposit
+    get the txid
+    run through the proof generation process
+    generate a proof
+    again, call the web3 contract, submitting the proof
+    wait for the tx to be mined successfully
+    filter through the contract events to get the transaction id
+    goto next
+
+tbtcMinted
+    show the link to the tx
