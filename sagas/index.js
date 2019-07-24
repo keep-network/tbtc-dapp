@@ -1,9 +1,10 @@
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 
-import { useRouter } from 'next/router'
-const router = useRouter()
-
 export const REQUEST_A_DEPOSIT = 'REQUEST_A_DEPOSIT'
+export const DEPOSIT_REQUEST_BEGIN = 'DEPOSIT_REQUEST_BEGIN'
+export const DEPOSIT_REQUEST_SUCCESS = 'DEPOSIT_REQUEST_SUCCESS'
+export const DEPOSIT_BTC_ADDRESS = 'DEPOSIT_BTC_ADDRESS'
+import Router from 'next/router';
 
 function* requestADeposit() {
     // call Keep to request a deposit
@@ -32,7 +33,7 @@ function* requestADeposit() {
     })
 
     // goto
-    router.push('/initiate-deposit')
+    Router.push('/initiate-deposit')
 }
 
 export default function* () {

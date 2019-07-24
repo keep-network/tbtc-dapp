@@ -3,6 +3,7 @@ import App, { Container } from 'next/app'
 import React from 'react'
 import withReduxStore from '../lib/with-redux-store'
 import { Provider } from 'react-redux'
+import { ConnectedRouter } from 'connected-next-router'
 
 import styled from 'styled-components'
 
@@ -37,7 +38,7 @@ class MyApp extends App {
             `}</style>
 
                 <Provider store={reduxStore}>
-                    <Component {...pageProps} />
+                        <Component {...pageProps} />
                 </Provider>
 
             </Container>
