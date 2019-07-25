@@ -1,0 +1,17 @@
+{
+    "name": "tbtc-dapp",
+    "scripts": {
+        "test": "subpkg run test",
+        "js:lint": "subpkg run js:lint",
+        "js:lint:fix": "subpkg run js:lint:fix"
+    },
+    "subPackages": [
+        "client",
+        "lib/bitcoin-spv",
+        "lib/bitcoin-utils",
+        "lib/electrum-client"
+    ],
+    "devDependencies": {
+        "subpackage": "^1.1.0"
+    }
+}
