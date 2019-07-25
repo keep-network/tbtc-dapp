@@ -3,7 +3,8 @@ import { DEPOSIT_BTC_ADDRESS, DEPOSIT_REQUEST_SUCCESS } from "../sagas";
 const intialState = {
     step: 1,
     btcAddress: null,
-    depositAddress: null
+    depositAddress: null,
+    txid: null
 }
 
 export function form(state = intialState, action) {

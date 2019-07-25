@@ -44,7 +44,7 @@ const AwaitDepositConfirmation = ({ address }) => {
                     </CopyAddressBox>
 
                     <br/>
-                    <Link href="/prove-deposit">next to prove deposit</Link>
+                    <Link href="/prove-deposit">let's prove our deposit and claim tbtc</Link>
                 </ContentBlock>
             </FormStep>
         </MainBlock>
