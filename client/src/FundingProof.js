@@ -1,7 +1,10 @@
 const BitcoinTxParser = require('tbtc-helpers').BitcoinTxParser
+const bitcoinSPV = require('tbtc-helpers').BitcoinSPV
 
-async function getTransactionProof(bitcoinSPV, txID, confirmations) {
+async function getTransactionProof(electrumConfig, txID, confirmations) {
   console.log('Get transaction proof...')
+
+  bitcoinSPV.initialize(electrumConfig)
 
   if (txID.length != 64) {
     throw new Error(`invalid transaction id length [${txID.length}], required: [64]`)
@@ -9,8 +12,11 @@ async function getTransactionProof(bitcoinSPV, txID, confirmations) {
 
   const spvProof = await bitcoinSPV.getTransactionProof(txID, confirmations)
     .catch((err) => {
+      bitcoinSPV.close(electrumConfig)
       return Promise.reject(new Error(`failed to get bitcoin spv proof: ${err}`))
     })
+
+  bitcoinSPV.close(electrumConfig)
 
   let txDetails
   try {
