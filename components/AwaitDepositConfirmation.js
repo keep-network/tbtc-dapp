@@ -30,7 +30,7 @@ const AwaitDepositConfirmation = ({ address }) => {
             <FormStep>
                 <IconBlock>
                     <WaitingForTx>
-                        <i class="fas fa-hourglass"></i>
+                        <i className="fas fa-hourglass"></i>
                         <span>Waiting for a confirmation</span>
                     </WaitingForTx>
                 </IconBlock>
@@ -44,7 +44,7 @@ const AwaitDepositConfirmation = ({ address }) => {
                     </CopyAddressBox>
 
                     <br/>
-                    <Link href="/prove-deposit">let's prove our deposit and claim tbtc</Link>
+                    <a href="/prove-deposit">let's prove our deposit and claim tbtc</a>
                 </ContentBlock>
             </FormStep>
         </MainBlock>
