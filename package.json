@@ -7,9 +7,7 @@
     },
     "subPackages": [
         "client",
-        "lib/bitcoin-spv",
-        "lib/bitcoin-utils",
-        "lib/electrum-client"
+        "lib/tbtc-helpers",
     ],
     "devDependencies": {
         "subpackage": "^1.1.0"

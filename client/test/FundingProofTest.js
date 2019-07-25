@@ -1,6 +1,6 @@
-const FundingProof = require('../src/FundingProof.js')
-const BitcoinSPV = require('bitcoin-spv')
-const ElectrumClient = require('electrum-client')
+const FundingProof = require('../src/FundingProof')
+const BitcoinSPV = require('tbtc-helpers').BitcoinSPV
+const ElectrumClient = require('tbtc-helpers').ElectrumClient
 
 const fs = require('fs')
 const chai = require('chai')
@@ -22,20 +22,18 @@ describe('FundingProof', async () => {
       config.electrum.protocol
     )
 
-    bitcoinSPVProof = BitcoinSPV.Proof
-
-    await bitcoinSPVProof.initialize(electrumClient)
+    await BitcoinSPV.initialize(electrumClient)
   })
 
   after(async () => {
-    bitcoinSPVProof.close()
+    BitcoinSPV.close()
   })
 
   it('getProof', async () => {
     const proofFile = fs.readFileSync('./test/data/proof.json', 'utf8')
     const expectedResult = JSON.parse(proofFile)
 
-    const result = await FundingProof.getTransactionProof(bitcoinSPVProof, TX_ID, CONFIRMATIONS)
+    const result = await FundingProof.getTransactionProof(BitcoinSPV, TX_ID, CONFIRMATIONS)
 
     assert.deepEqual(result, expectedResult)
   })

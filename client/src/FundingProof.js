@@ -1,4 +1,4 @@
-const BitcoinTxParser = require('bitcoin-utils').BitcoinTxParser
+const BitcoinTxParser = require('tbtc-helpers').BitcoinTxParser
 
 async function getTransactionProof(bitcoinSPV, txID, confirmations) {
   console.log('Get transaction proof...')

@@ -13,9 +13,7 @@
     "author": "Jakub Nowakowski <jakub.nowakowski@keep.network>",
     "license": "ISC",
     "dependencies": {
-        "bitcoin-spv": "file:../lib/bitcoin-spv",
-        "bitcoin-utils": "file:../lib/bitcoin-utils",
-        "electrum-client": "file:../lib/electrum-client"
+        "tbtc-helpers": "file:../lib/tbtc-helpers"
     },
     "devDependencies": {
         "chai": "^4.2.0",
