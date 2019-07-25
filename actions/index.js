@@ -1,5 +1,8 @@
 import { createActions, handleActions, combineActions } from 'redux-actions';
-import { REQUEST_A_DEPOSIT, WAIT_CONFIRMATION, SUBMIT_DEPOSIT_PROOF } from '../sagas'
+
+export const REQUEST_A_DEPOSIT = 'REQUEST_A_DEPOSIT'
+export const WAIT_CONFIRMATION = 'WAIT_CONFIRMATION'
+export const SUBMIT_DEPOSIT_PROOF = 'SUBMIT_DEPOSIT_PROOF'
 
 export function requestADeposit() {
     return {
