@@ -9,9 +9,8 @@ const assert = chai.assert
 const TX_ID = '72e7fd57c2adb1ed2305c4247486ff79aec363296f02ec65be141904f80d214e'
 const CONFIRMATIONS = 6
 
-describe('BitcoinSPV', async () => {
-  let tx
-  let bitcoinSPV
+describe('FundingProof', async () => {
+  let bitcoinSPVProof
 
   before(async () => {
     const configFile = fs.readFileSync(process.env.CONFIG_FILE, 'utf8')
@@ -23,20 +22,20 @@ describe('BitcoinSPV', async () => {
       config.electrum.protocol
     )
 
-    bitcoinSPV = new BitcoinSPV()
+    bitcoinSPVProof = BitcoinSPV.Proof
 
-    await bitcoinSPV.initialize(electrumClient)
+    await bitcoinSPVProof.initialize(electrumClient)
   })
 
   after(async () => {
-    bitcoinSPV.close()
+    bitcoinSPVProof.close()
   })
 
   it('getProof', async () => {
     const proofFile = fs.readFileSync('./test/data/proof.json', 'utf8')
-    expectedResult = JSON.parse(proofFile)
+    const expectedResult = JSON.parse(proofFile)
 
-    const result = await FundingProof.getTransactionProof(bitcoinSPV, TX_ID, CONFIRMATIONS)
+    const result = await FundingProof.getTransactionProof(bitcoinSPVProof, TX_ID, CONFIRMATIONS)
 
     assert.deepEqual(result, expectedResult)
   })

@@ -7,7 +7,7 @@ async function getTransactionProof(bitcoinSPV, txID, confirmations) {
     throw new Error(`invalid transaction id length [${txID.length}], required: [64]`)
   }
 
-  const spvProof = await bitcoinSPV.getProof(txID, confirmations)
+  const spvProof = await bitcoinSPV.getTransactionProof(txID, confirmations)
     .catch((err) => {
       return Promise.reject(new Error(`failed to get bitcoin spv proof: ${err}`))
     })

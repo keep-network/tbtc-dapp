@@ -10,6 +10,7 @@
   "author": "Jakub Nowakowski <jakub.nowakowski@keep.network>",
   "license": "ISC",
   "dependencies": {
+    "bcrypto": "^4.1.0",
     "create-hash": "^1.2.0",
     "electrum-client": "file:../electrum-client"
   },
