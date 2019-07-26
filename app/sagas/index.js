@@ -16,6 +16,10 @@ export const DEPOSIT_PROVE_BTC_TX_SUCCESS = 'DEPOSIT_PROVE_BTC_TX_SUCCESS'
 
 import Router from 'next/router';
 
+import {
+    createDeposit
+} from '../chain/eth'
+
 function* requestADeposit() {
     // call Keep to request a deposit
     yield put({ type: DEPOSIT_REQUEST_BEGIN })
