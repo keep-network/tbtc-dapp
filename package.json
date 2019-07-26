@@ -11,5 +11,8 @@
     ],
     "devDependencies": {
         "subpackage": "^1.1.0"
+    },
+    "dependencies": {
+        "truffle-contract": "^4.0.26"
     }
 }
