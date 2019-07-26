@@ -1,0 +1,574 @@
+{
+  "contractName": "MutexUser",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.4.25+commit.59dbf8f1\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/liamz/go/src/github.com/keep-network/tbtc/implementation/contracts/util/Util.sol\":\"MutexUser\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/liamz/go/src/github.com/keep-network/tbtc/implementation/contracts/util/Util.sol\":{\"keccak256\":\"0x02ae504961f05c7371fba4d852c3673d002287060dccc306ce4025ef153401ad\",\"urls\":[\"bzzr://eeb8c59ee49f1f10c1f97ce05de8a7460f07e1d10c76de4572b09a7a74cff585\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3006080604052600080fd00a165627a7a723058209e5b541935a34bbe18458bee4a325e868415785cb9b5671681a29fd0f959d6e30029",
+  "deployedBytecode": "0x6080604052600080fd00a165627a7a723058209e5b541935a34bbe18458bee4a325e868415785cb9b5671681a29fd0f959d6e30029",
+  "sourceMap": "180:217:26:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;180:217:26;;;;;;;",
+  "deployedSourceMap": "180:217:26:-;;;;;",
+  "source": "pragma solidity 0.4.25;\n\n// Taken from maker-dao's token-auction code\n// https://github.com/makerdao/token-auction/blob/eb225cae09788224933264383e958794dc2b4938/contracts/util.sol\ncontract MutexUser {\n    // Prevents re-entry\n    bool private mutex_lock;\n    modifier exclusive {\n        if (mutex_lock) revert(\"re-entry\");\n        mutex_lock = true;\n        _;\n        mutex_lock = false;\n    }\n}",
+  "sourcePath": "/Users/liamz/go/src/github.com/keep-network/tbtc/implementation/contracts/util/Util.sol",
+  "ast": {
+    "absolutePath": "/Users/liamz/go/src/github.com/keep-network/tbtc/implementation/contracts/util/Util.sol",
+    "exportedSymbols": {
+      "MutexUser": [
+        9803
+      ]
+    },
+    "id": 9804,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 9782,
+        "literals": [
+          "solidity",
+          "0.4",
+          ".25"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:26"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 9803,
+        "linearizedBaseContracts": [
+          9803
+        ],
+        "name": "MutexUser",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 9784,
+            "name": "mutex_lock",
+            "nodeType": "VariableDeclaration",
+            "scope": 9803,
+            "src": "230:23:26",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bool",
+              "typeString": "bool"
+            },
+            "typeName": {
+              "id": 9783,
+              "name": "bool",
+              "nodeType": "ElementaryTypeName",
+              "src": "230:4:26",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bool",
+                "typeString": "bool"
+              }
+            },
+            "value": null,
+            "visibility": "private"
+          },
+          {
+            "body": {
+              "id": 9801,
+              "nodeType": "Block",
+              "src": "278:117:26",
+              "statements": [
+                {
+                  "condition": {
+                    "argumentTypes": null,
+                    "id": 9786,
+                    "name": "mutex_lock",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 9784,
+                    "src": "292:10:26",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "falseBody": null,
+                  "id": 9791,
+                  "nodeType": "IfStatement",
+                  "src": "288:34:26",
+                  "trueBody": {
+                    "expression": {
+                      "argumentTypes": null,
+                      "arguments": [
+                        {
+                          "argumentTypes": null,
+                          "hexValue": "72652d656e747279",
+                          "id": 9788,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "kind": "string",
+                          "lValueRequested": false,
+                          "nodeType": "Literal",
+                          "src": "311:10:26",
+                          "subdenomination": null,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_stringliteral_b49d027cb083e7c9ab82687a660326326dfe29a92824e376c37de29c199f3f0d",
+                            "typeString": "literal_string \"re-entry\""
+                          },
+                          "value": "re-entry"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_stringliteral_b49d027cb083e7c9ab82687a660326326dfe29a92824e376c37de29c199f3f0d",
+                            "typeString": "literal_string \"re-entry\""
+                          }
+                        ],
+                        "id": 9787,
+                        "name": "revert",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [
+                          10522,
+                          10523
+                        ],
+                        "referencedDeclaration": 10523,
+                        "src": "304:6:26",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
+                          "typeString": "function (string memory) pure"
+                        }
+                      },
+                      "id": 9789,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "functionCall",
+                      "lValueRequested": false,
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "304:18:26",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_tuple$__$",
+                        "typeString": "tuple()"
+                      }
+                    },
+                    "id": 9790,
+                    "nodeType": "ExpressionStatement",
+                    "src": "304:18:26"
+                  }
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 9794,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 9792,
+                      "name": "mutex_lock",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 9784,
+                      "src": "332:10:26",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "hexValue": "74727565",
+                      "id": 9793,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "bool",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "345:4:26",
+                      "subdenomination": null,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      },
+                      "value": "true"
+                    },
+                    "src": "332:17:26",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 9795,
+                  "nodeType": "ExpressionStatement",
+                  "src": "332:17:26"
+                },
+                {
+                  "id": 9796,
+                  "nodeType": "PlaceholderStatement",
+                  "src": "359:1:26"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 9799,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 9797,
+                      "name": "mutex_lock",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 9784,
+                      "src": "370:10:26",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "hexValue": "66616c7365",
+                      "id": 9798,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "bool",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "383:5:26",
+                      "subdenomination": null,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      },
+                      "value": "false"
+                    },
+                    "src": "370:18:26",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 9800,
+                  "nodeType": "ExpressionStatement",
+                  "src": "370:18:26"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 9802,
+            "name": "exclusive",
+            "nodeType": "ModifierDefinition",
+            "parameters": {
+              "id": 9785,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "278:0:26"
+            },
+            "src": "259:136:26",
+            "visibility": "internal"
+          }
+        ],
+        "scope": 9804,
+        "src": "180:217:26"
+      }
+    ],
+    "src": "0:397:26"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/liamz/go/src/github.com/keep-network/tbtc/implementation/contracts/util/Util.sol",
+    "exportedSymbols": {
+      "MutexUser": [
+        9803
+      ]
+    },
+    "id": 9804,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 9782,
+        "literals": [
+          "solidity",
+          "0.4",
+          ".25"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:26"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 9803,
+        "linearizedBaseContracts": [
+          9803
+        ],
+        "name": "MutexUser",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 9784,
+            "name": "mutex_lock",
+            "nodeType": "VariableDeclaration",
+            "scope": 9803,
+            "src": "230:23:26",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bool",
+              "typeString": "bool"
+            },
+            "typeName": {
+              "id": 9783,
+              "name": "bool",
+              "nodeType": "ElementaryTypeName",
+              "src": "230:4:26",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bool",
+                "typeString": "bool"
+              }
+            },
+            "value": null,
+            "visibility": "private"
+          },
+          {
+            "body": {
+              "id": 9801,
+              "nodeType": "Block",
+              "src": "278:117:26",
+              "statements": [
+                {
+                  "condition": {
+                    "argumentTypes": null,
+                    "id": 9786,
+                    "name": "mutex_lock",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 9784,
+                    "src": "292:10:26",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "falseBody": null,
+                  "id": 9791,
+                  "nodeType": "IfStatement",
+                  "src": "288:34:26",
+                  "trueBody": {
+                    "expression": {
+                      "argumentTypes": null,
+                      "arguments": [
+                        {
+                          "argumentTypes": null,
+                          "hexValue": "72652d656e747279",
+                          "id": 9788,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "kind": "string",
+                          "lValueRequested": false,
+                          "nodeType": "Literal",
+                          "src": "311:10:26",
+                          "subdenomination": null,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_stringliteral_b49d027cb083e7c9ab82687a660326326dfe29a92824e376c37de29c199f3f0d",
+                            "typeString": "literal_string \"re-entry\""
+                          },
+                          "value": "re-entry"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_stringliteral_b49d027cb083e7c9ab82687a660326326dfe29a92824e376c37de29c199f3f0d",
+                            "typeString": "literal_string \"re-entry\""
+                          }
+                        ],
+                        "id": 9787,
+                        "name": "revert",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [
+                          10522,
+                          10523
+                        ],
+                        "referencedDeclaration": 10523,
+                        "src": "304:6:26",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
+                          "typeString": "function (string memory) pure"
+                        }
+                      },
+                      "id": 9789,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "functionCall",
+                      "lValueRequested": false,
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "304:18:26",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_tuple$__$",
+                        "typeString": "tuple()"
+                      }
+                    },
+                    "id": 9790,
+                    "nodeType": "ExpressionStatement",
+                    "src": "304:18:26"
+                  }
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 9794,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 9792,
+                      "name": "mutex_lock",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 9784,
+                      "src": "332:10:26",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "hexValue": "74727565",
+                      "id": 9793,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "bool",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "345:4:26",
+                      "subdenomination": null,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      },
+                      "value": "true"
+                    },
+                    "src": "332:17:26",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 9795,
+                  "nodeType": "ExpressionStatement",
+                  "src": "332:17:26"
+                },
+                {
+                  "id": 9796,
+                  "nodeType": "PlaceholderStatement",
+                  "src": "359:1:26"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 9799,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 9797,
+                      "name": "mutex_lock",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 9784,
+                      "src": "370:10:26",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "hexValue": "66616c7365",
+                      "id": 9798,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "bool",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "383:5:26",
+                      "subdenomination": null,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      },
+                      "value": "false"
+                    },
+                    "src": "370:18:26",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 9800,
+                  "nodeType": "ExpressionStatement",
+                  "src": "370:18:26"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 9802,
+            "name": "exclusive",
+            "nodeType": "ModifierDefinition",
+            "parameters": {
+              "id": 9785,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "278:0:26"
+            },
+            "src": "259:136:26",
+            "visibility": "internal"
+          }
+        ],
+        "scope": 9804,
+        "src": "180:217:26"
+      }
+    ],
+    "src": "0:397:26"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.25+commit.59dbf8f1.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.0.10",
+  "updatedAt": "2019-07-16T19:43:19.622Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

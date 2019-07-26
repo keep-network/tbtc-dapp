@@ -1,0 +1,792 @@
+{
+  "contractName": "ITBTCSystem",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_uniswapFactory",
+          "type": "address"
+        },
+        {
+          "name": "_tbtc",
+          "type": "address"
+        }
+      ],
+      "name": "setExteroriorAddresses",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "fetchOraclePrice",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "fetchRelayCurrentDifficulty",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "fetchRelayPreviousDifficulty",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getUniswapFactory",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity 0.4.25;\n\n/**\n * @title Keep interface\n */\n\ninterface ITBTCSystem {\n\n    // Sets up the TBTC system\n    // - uniswap factory initialisation\n    // - TBTC uniswap exchange creation\n    function setExteroriorAddresses(\n        address _uniswapFactory,\n        address _tbtc\n    ) external;\n\n    // expected behavior:\n    // return the price of 1 sat in wei\n    // these are the native units of the deposit contract\n    function fetchOraclePrice() external view returns (uint256);\n\n    // passthrough requests for the oracle\n    function fetchRelayCurrentDifficulty() external view returns (uint256);\n    function fetchRelayPreviousDifficulty() external view returns (uint256);\n\n    function getUniswapFactory() external view returns (address);\n}\n",
+  "sourcePath": "/Users/liamz/go/src/github.com/keep-network/tbtc/implementation/contracts/interfaces/ITBTCSystem.sol",
+  "ast": {
+    "absolutePath": "/Users/liamz/go/src/github.com/keep-network/tbtc/implementation/contracts/interfaces/ITBTCSystem.sol",
+    "exportedSymbols": {
+      "ITBTCSystem": [
+        8782
+      ]
+    },
+    "id": 8783,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 8754,
+        "literals": [
+          "solidity",
+          "0.4",
+          ".25"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:19"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": "@title Keep interface",
+        "fullyImplemented": false,
+        "id": 8782,
+        "linearizedBaseContracts": [
+          8782
+        ],
+        "name": "ITBTCSystem",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 8761,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "setExteroriorAddresses",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 8759,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8756,
+                  "name": "_uniswapFactory",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8761,
+                  "src": "240:23:19",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 8755,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "240:7:19",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8758,
+                  "name": "_tbtc",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8761,
+                  "src": "273:13:19",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 8757,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "273:7:19",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "230:62:19"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 8760,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "301:0:19"
+            },
+            "scope": 8782,
+            "src": "199:103:19",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 8766,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "fetchOraclePrice",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 8762,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "457:2:19"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 8765,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8764,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8766,
+                  "src": "483:7:19",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 8763,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "483:7:19",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "482:9:19"
+            },
+            "scope": 8782,
+            "src": "432:60:19",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 8771,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "fetchRelayCurrentDifficulty",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 8767,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "577:2:19"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 8770,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8769,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8771,
+                  "src": "603:7:19",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 8768,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "603:7:19",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "602:9:19"
+            },
+            "scope": 8782,
+            "src": "541:71:19",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 8776,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "fetchRelayPreviousDifficulty",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 8772,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "654:2:19"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 8775,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8774,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8776,
+                  "src": "680:7:19",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 8773,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "680:7:19",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "679:9:19"
+            },
+            "scope": 8782,
+            "src": "617:72:19",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 8781,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getUniswapFactory",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 8777,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "721:2:19"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 8780,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8779,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8781,
+                  "src": "747:7:19",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 8778,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "747:7:19",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "746:9:19"
+            },
+            "scope": 8782,
+            "src": "695:61:19",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 8783,
+        "src": "59:699:19"
+      }
+    ],
+    "src": "0:759:19"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/liamz/go/src/github.com/keep-network/tbtc/implementation/contracts/interfaces/ITBTCSystem.sol",
+    "exportedSymbols": {
+      "ITBTCSystem": [
+        8782
+      ]
+    },
+    "id": 8783,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 8754,
+        "literals": [
+          "solidity",
+          "0.4",
+          ".25"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:19"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": "@title Keep interface",
+        "fullyImplemented": false,
+        "id": 8782,
+        "linearizedBaseContracts": [
+          8782
+        ],
+        "name": "ITBTCSystem",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 8761,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "setExteroriorAddresses",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 8759,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8756,
+                  "name": "_uniswapFactory",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8761,
+                  "src": "240:23:19",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 8755,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "240:7:19",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8758,
+                  "name": "_tbtc",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8761,
+                  "src": "273:13:19",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 8757,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "273:7:19",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "230:62:19"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 8760,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "301:0:19"
+            },
+            "scope": 8782,
+            "src": "199:103:19",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 8766,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "fetchOraclePrice",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 8762,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "457:2:19"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 8765,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8764,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8766,
+                  "src": "483:7:19",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 8763,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "483:7:19",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "482:9:19"
+            },
+            "scope": 8782,
+            "src": "432:60:19",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 8771,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "fetchRelayCurrentDifficulty",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 8767,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "577:2:19"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 8770,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8769,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8771,
+                  "src": "603:7:19",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 8768,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "603:7:19",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "602:9:19"
+            },
+            "scope": 8782,
+            "src": "541:71:19",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 8776,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "fetchRelayPreviousDifficulty",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 8772,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "654:2:19"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 8775,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8774,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8776,
+                  "src": "680:7:19",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 8773,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "680:7:19",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "679:9:19"
+            },
+            "scope": 8782,
+            "src": "617:72:19",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 8781,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getUniswapFactory",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 8777,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "721:2:19"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 8780,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8779,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8781,
+                  "src": "747:7:19",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 8778,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "747:7:19",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "746:9:19"
+            },
+            "scope": 8782,
+            "src": "695:61:19",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 8783,
+        "src": "59:699:19"
+      }
+    ],
+    "src": "0:759:19"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.25+commit.59dbf8f1.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.0.10",
+  "updatedAt": "2019-07-19T12:16:26.107Z",
+  "devdoc": {
+    "methods": {},
+    "title": "Keep interface"
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

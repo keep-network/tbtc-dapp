@@ -1,0 +1,23 @@
+createNewDeposit
+
+const result = await deposit.createNewDeposit(
+      tbtcSystem.address, // address _TBTCSystem,
+      '0x0000000000000000000000000000000000000000', // address _TBTCToken,
+      keepBridge.address, // address _KeepBridge,
+      5, // uint256 _m,
+      10 // uint256 _n
+    ).
+
+await deposit.retrieveSignerPubkey()
+
+
+const result = await deposit.provideBTCFundingProof(
+      fundingProof.version,
+      fundingProof.txInVector,
+      fundingProof.txOutVector,
+      fundingProof.locktime,
+      fundingProof.fundingOutputIndex,
+      fundingProof.merkleProof,
+      fundingProof.txInBlockIndex,
+      fundingProof.chainHeaders
+    )
