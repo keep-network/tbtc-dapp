@@ -1,7 +1,9 @@
 {
     "electrum": {
-        "server": "tn.not.fyi",
-        "port": 55002,
-        "protocol": "tls"
+        "testnet": {
+            "server": "tn.not.fyi",
+            "port": 55002,
+            "protocol": "tls"
+        }
     }
 }

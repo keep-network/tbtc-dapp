@@ -10,7 +10,6 @@ const TX_ID = '72e7fd57c2adb1ed2305c4247486ff79aec363296f02ec65be141904f80d214e'
 const CONFIRMATIONS = 6
 
 
-
 describe('FundingProof', async () => {
   let electrumConfig
 
@@ -19,11 +18,10 @@ describe('FundingProof', async () => {
     config = JSON.parse(configFile)
 
     electrumConfig = new ElectrumClient.Config(
-      config.electrum.server,
-      config.electrum.port,
-      config.electrum.protocol
+      config.electrum.testnet.server,
+      config.electrum.testnet.port,
+      config.electrum.testnet.protocol
     )
-
   })
 
   it('getProof', async () => {
