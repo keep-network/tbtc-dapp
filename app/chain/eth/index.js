@@ -6,17 +6,13 @@ import {
   KeepBridge
 } from './contracts'
 
-let tbtcSystem
-let tbtcToken
-let keepBridge
-
-tbtcSystem = await TBTCSystem.deployed()
-tbtcToken = await TBTCToken.deployed()
-keepBridge = await KeepBridge.deployed()
-
-
 export async function createDeposit() {
+  const tbtcSystem = await TBTCSystem.deployed()
+  const tbtcToken = await TBTCToken.deployed()
+  const keepBridge = await KeepBridge.deployed()
+
   const deposit = await Deposit.new()
+
   console.log('new deposit deployed: ', deposit.address)
   
   const result = await deposit.createNewDeposit(
@@ -35,6 +31,8 @@ export async function createDeposit() {
 // getDepositBTCPublicKey calls tBTC to fetch signer's public key from the keep dedicated
 // for the deposit.
 export async function getDepositBTCPublicKey(depositAddress) {
+  const tbtcSystem = await TBTCSystem.deployed()
+  
   // 1. Request it from the deposit
   const deposit = await Deposit.at(depositAddress)
 
