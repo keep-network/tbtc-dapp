@@ -1,5 +1,4 @@
 const FundingProof = require('../src/FundingProof')
-const BitcoinSPV = require('tbtc-helpers').BitcoinSPV
 const ElectrumClient = require('tbtc-helpers').ElectrumClient
 
 const fs = require('fs')
