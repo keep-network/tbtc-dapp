@@ -1,8 +1,8 @@
 {
     "electrum": {
         "testnet": {
-            "server": "tn.not.fyi",
-            "port": 55002,
+            "server": "electrumx-server.tbtc.svc.cluster.local",
+            "port": 50002,
             "protocol": "tls"
         }
     }
