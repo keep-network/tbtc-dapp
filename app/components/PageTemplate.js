@@ -2,7 +2,9 @@ import { Button } from "../components/Button";
 import styled from 'styled-components'
 import Link from 'next/link'
 
-const PageWrapper = styled.div`
+import { DarkBlue } from '../styles'
+
+export const PageWrapper = styled.div`
     min-height: 100vh;
 
     display: flex;
@@ -11,10 +13,22 @@ const PageWrapper = styled.div`
 	justify-content: flex-start;
 	align-items: stretch;
     align-content: stretch;
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        font-weight: 300;
+        color: ${DarkBlue};
+    }
+
+    p {
+        color: ${DarkBlue};
+    }
     
 `
 
-const PageContainer = styled.div`
+export const PageContainer = styled.div`
     
     display: flex;
     justify-content: space-around;
@@ -22,13 +36,13 @@ const PageContainer = styled.div`
     flex: 1;
 `
 
-const HeaderBlock = styled.div`
+export const HeaderBlock = styled.div`
     flex: 0 1;
     padding: 0em 0;
     margin: 2em 4em;
 `
 
-const MainBlock = styled.div`
+export const MainBlock = styled.div`
     flex: 1;
     align-items: center;
     display: flex;
@@ -36,8 +50,13 @@ const MainBlock = styled.div`
     margin: 0em 4em;
 `
 
-const TBTCTitle = styled.div`
+export const TBTCTitle = styled.div`
     font-size: 1.6em;
+    color: ${DarkBlue};
+
+    :hover {
+        cursor: pointer;
+    }
 `
 
 

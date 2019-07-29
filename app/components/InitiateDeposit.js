@@ -11,6 +11,7 @@ const CopyAddressBox = styled.div`
     border: 1px solid #ddd;
     display: inline-block;
     padding: 1em;
+    margin-bottom: 1em;
 `
 
 const InitiateDeposit = ({ address }) => {
@@ -18,11 +19,11 @@ const InitiateDeposit = ({ address }) => {
         <MainBlock>
             <FormStep>
                 <IconBlock>
-                    <QRCode value={address || ''}/>
+                    <QRCode size={160} value={address || ''}/>
                 </IconBlock>
 
                 <ContentBlock>
-                    <h1>Pay 1 BTC</h1>
+                    <h2>Pay 1 BTC</h2>
                     <p>Scan the QR code or tap to pay, or copy the address below into your wallet</p>
 
                     <CopyAddressBox>

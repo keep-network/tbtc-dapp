@@ -1,52 +1,30 @@
 import styled from 'styled-components'
 import Link from 'next/link'
 import { Button } from '../components/Button'
+import { MainBlock } from '../components/MainBlock'
 
-const PageWrapper = styled.div`
-    min-height: 100vh;
-
-    display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	justify-content: flex-start;
-	align-items: stretch;
-    align-content: stretch;
-    
-`
-
-const PageContainer = styled.div`
-    
-    display: flex;
-    justify-content: space-around;
-    flex-direction: column;
-    flex: 1;
-`
-
-const HeaderBlock = styled.div`
-    flex: 0 1;
-    padding: 0em 0;
-    margin: 2em 4em;
-`
-
-const MainBlock = styled.div`
-    flex: 1;
-    align-items: center;
-    display: flex;
-    margin: 0em 4em;
-`
-
-const TBTCTitle = styled.div`
-    font-size: 1.6em;
-`
+import {
+    PageWrapper,
+    PageContainer,
+    HeaderBlock,
+    TBTCTitle
+} from '../components/PageTemplate'
+import { DarkBlue } from '../styles';
 
 const Hero = styled.div`
+    margin: auto 0;
+    color: ${DarkBlue};
+
     h1 {
         font-size: 3.6em;
-        margin-top: 0;
+        margin: 0;
     }
     p {
         max-width: 450px;
+        opacity: 0.8;
+        padding-bottom: 1em;
     }
+
 `
 
 const QuestionBlock = styled.div`
@@ -54,25 +32,29 @@ const QuestionBlock = styled.div`
     text-align: center;
     padding: 2em 1em;
     max-height: 200px;
-    background: #ddd;
+    background: white;
+    color: ${DarkBlue};
 
-    background: #ddd;
-
-    h1 {
-        font-size: 1.6em;
+    h2 {
+        font-size: 2em;
     }
 `
 
-const Questions = styled.ul`
+const Questions = styled.div`
     flex: 1;
+    display: flex;
+    flex-direction: row;
+
     text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 `
 
-const Question = styled.li`
+const Question = styled.div`
     display: block;
     width: 300px;
-
+    margin: 0 3em;
 `
 
 
@@ -98,13 +80,16 @@ const Landing = () => {
             <h2>Questions?</h2>
             <Questions>
                 <Question>
-                    Foobar
+                    <h3>Question One</h3>
+                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
                 </Question>
                 <Question>
-                    Foobar
+                    <h3>Question Two</h3>
+                    <p>Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean</p>
                 </Question>
                 <Question>
-                    Foobar
+                    <h3>Question Three</h3>
+                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia</p>
                 </Question>
             </Questions>
         </QuestionBlock>

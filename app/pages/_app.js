@@ -26,7 +26,7 @@ class MyApp extends App {
 
                  
                 body {
-                    font-family: "Helvetica Neue", 'Open Sans', sans-serif;
+                    font-family: Roboto, 'Open Sans', sans-serif;
                     
                     font-size: 14px;
                     margin: 0;
