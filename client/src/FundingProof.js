@@ -10,6 +10,8 @@ async function getTransactionProof(electrumConfig, txID, confirmations) {
     throw new Error(`invalid transaction id length [${txID.length}], required: [64]`)
   }
 
+  // TODO: We need to calculate confirmations value in a special way:
+  // See: https://github.com/keep-network/tbtc-dapp/pull/8#discussion_r307438648
   const spvProof = await bitcoinSPV.getTransactionProof(txID, confirmations)
     .catch((err) => {
       bitcoinSPV.close(electrumConfig)
