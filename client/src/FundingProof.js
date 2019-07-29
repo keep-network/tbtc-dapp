@@ -24,7 +24,6 @@ const electrumConfig = readElectrumConfig(process.env.CONFIG_FILE)
 
 /**
  * Gets transaction SPV proof from BitcoinSPV.
- *
  * @param {string} txID Transaction ID
  * @param {number} confirmations Required number of confirmations
  */
