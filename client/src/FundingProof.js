@@ -1,6 +1,17 @@
 const BitcoinTxParser = require('tbtc-helpers').BitcoinTxParser
 const bitcoinSPV = require('tbtc-helpers').BitcoinSPV
 
+// PAGE 5: Submit Proof
+// 1. Get transaction proof
+// 2. Submit proof to tBTC
+
+/**
+ * Gets transaction SPV proof from BitcoinSPV.
+ *
+ * @param {ElectrumClient.Config} electrumConfig Electrum Client connection details.
+ * @param {string} txID Transaction ID
+ * @param {int} confirmations Required number of confirmations
+ */
 async function getTransactionProof(electrumConfig, txID, confirmations) {
   console.log('Get transaction proof...')
 
