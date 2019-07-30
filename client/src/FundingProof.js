@@ -1,26 +1,5 @@
 const BitcoinTxParser = require('tbtc-helpers').BitcoinTxParser
 const bitcoinSPV = require('tbtc-helpers').BitcoinSPV
-const ElectrumClient = require('tbtc-helpers').ElectrumClient
-
-const fs = require('fs')
-
-/**
- * Reads electrum client configuration details from a config file.
- * @param {string} configFilePath Path to the configuration file.
- * @return {ElectrumClient.Config} Electrum client configuration.
- */
-function readElectrumConfig(configFilePath) {
-  const configFile = fs.readFileSync(configFilePath, 'utf8')
-  config = JSON.parse(configFile)
-
-  return new ElectrumClient.Config(
-    config.electrum.testnet.server,
-    config.electrum.testnet.port,
-    config.electrum.testnet.protocol
-  )
-}
-
-const electrumConfig = readElectrumConfig(process.env.CONFIG_FILE)
 
 /**
  * Gets transaction SPV proof from BitcoinSPV.
@@ -28,7 +7,7 @@ const electrumConfig = readElectrumConfig(process.env.CONFIG_FILE)
  * @param {number} confirmations Required number of confirmations
  */
 async function getTransactionProof(txID, confirmations) {
-  bitcoinSPV.initialize(electrumConfig)
+  bitcoinSPV.initialize()
 
   const spvProof = await bitcoinSPV.getTransactionProof(txID, confirmations)
     .catch((err) => {
