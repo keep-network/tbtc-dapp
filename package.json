@@ -14,6 +14,8 @@
     "react-scripts": "3.0.1",
     "redux": "^4.0.4",
     "redux-saga": "^1.0.5",
+    "truffle": "^5.0.29",
+    "truffle-contract": "^4.0.26",
     "web3": "^1.2.0"
   },
   "scripts": {
