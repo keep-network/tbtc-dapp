@@ -1,15 +1,19 @@
 import React from 'react';
 
 const Pay = ({ confirming, history }) => {
+  let button;
+
   if (confirming) {
-    return (
-      <button onClick={() => {history.push('/prove')}}>Confirming...</button>
-    )
+    button = <button onClick={() => {history.push('/prove')}}>Confirming...</button>
   } else {
-    return (
-      <button onClick={() => {history.push('/pay/confirming')}}>Send BTC "here"</button>
-    )
+      button = <button onClick={() => {history.push('/pay/confirming')}}>Send BTC "here"</button>
   }
+
+  return (
+    <div className="pay">
+      {button}
+    </div>
+  )
 }
 
 export default Pay

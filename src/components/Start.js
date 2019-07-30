@@ -1,7 +1,9 @@
 import React from 'react';
 
 const Start = ({ history }) => (
-  <button onClick={() => {history.push('/pay')}}>Pay</button>
+  <div className="start">
+    <button onClick={() => {history.push('/pay')}}>Pay</button>
+  </div>
 )
 
 export default Start

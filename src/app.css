@@ -1,6 +1,46 @@
+button {
+  background-color: #4b73c8;
+  color: #fff;
+  border-radius: 4px;
+  border: 0px solid transparent;
+  padding: 40px;
+  font-size: 1.25em;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #2e68e5;
+}
+button:focus {
+  background-color: #345bac;
+}
 body {
   margin: 0;
 }
+a {
+  color: unset;
+  text-decoration: unset;
+}
 .app {
   color: #333;
+  font-family: sans-serif;
+  font-size: 1.5em;
+}
+.app .nav {
+  display: flex;
+  direction: flex-row;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+}
+.app .title,
+.app .balance {
+  padding: 20px;
+}
+.app .congratulations,
+.app .home,
+.app .pay,
+.app .prove,
+.app .start {
+  margin-top: 50px;
+  text-align: center;
 }
