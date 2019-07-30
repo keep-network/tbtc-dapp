@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
+import { withBalance } from '../wrappers/web3'
 
 class App extends Component {
   render() {
-    const { children } = this.props
+    const { children, balance } = this.props
 
     return (
       <div className="app">
         <div className="nav">
-          <div>tBTC</div>
+          <div>Balance (in Wei): {balance}</div>
         </div>
         { children }
       </div>
@@ -15,4 +16,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default withBalance(App)

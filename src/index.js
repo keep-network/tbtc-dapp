@@ -5,8 +5,14 @@ import createSagaMiddleware from 'redux-saga'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import App from './components/App'
+// Styles
 import './app.css'
+
+// Components
+import App from './components/App'
+
+// Wrappers
+import Web3Wrapper from './wrappers/web3'
 
 import sagas from './sagas'
 import reducers from './reducers'
@@ -33,14 +39,16 @@ function AppWrapper() {
   return (
     <Provider store={store}>
       <Router>
-        <App>
-          <Route path="/" exact component={Home} />
-          <Route path="/start" component={Start} />
-          <Route path="/pay" exact component={Pay} />
-          <Route path="/pay/confirming" render={(props) => <Pay {...props} confirming={true} />} />
-          <Route path="/prove" component={Prove} />
-          <Route path="/congratulations" component={Congratulations} />
-        </App>
+        <Web3Wrapper>
+          <App>
+            <Route path="/" exact component={Home} />
+            <Route path="/start" component={Start} />
+            <Route path="/pay" exact component={Pay} />
+            <Route path="/pay/confirming" render={(props) => <Pay {...props} confirming={true} />} />
+            <Route path="/prove" component={Prove} />
+            <Route path="/congratulations" component={Congratulations} />
+          </App>
+        </Web3Wrapper>
       </Router>
     </Provider>
   )

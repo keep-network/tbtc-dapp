@@ -13,7 +13,8 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "redux": "^4.0.4",
-    "redux-saga": "^1.0.5"
+    "redux-saga": "^1.0.5",
+    "web3": "^1.2.0"
   },
   "scripts": {
     "env": "truffle exec ./scripts/env.js",
