@@ -12,6 +12,7 @@ const CopyAddressBox = styled.div`
     display: inline-block;
     padding: 1em;
     margin-bottom: 1em;
+    width: 420px;
 `
 
 const InitiateDeposit = ({ address }) => {
