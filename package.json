@@ -1,5 +1,5 @@
 {
-  "name": "src",
+  "name": "tbtc",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -10,6 +10,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.0",
+    "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "redux": "^4.0.4",
     "redux-saga": "^1.0.5"
@@ -18,10 +19,10 @@
     "env": "truffle exec ./scripts/env.js",
     "build-css": "lessc --clean-css src/css/app.less src/app.css",
     "watch-css": "npm run build-css && less-watch-compiler src/css src app.less",
-    "start-js": "require-link && react-scripts start",
-    "start": "npm run env && npm-run-all -p watch-css start-js",
-    "build": "require-link && npm run build-css && react-scripts build",
-    "test": "require-link && react-scripts test --env=jsdom",
+    "start-js": "react-scripts start",
+    "start": "npm-run-all -p watch-css start-js",
+    "build": "npm run build-css && react-scripts build",
+    "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

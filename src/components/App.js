@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 
 class App extends Component {
   render() {
+    const { children } = this.props
+
     return (
       <div className="app">
-        Hello, tBTC
+        <div className="nav">
+          <div>tBTC</div>
+        </div>
+        { children }
       </div>
     )
   }
