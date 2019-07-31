@@ -1,26 +1,59 @@
 const FundingTransaction = require('../src/FundingTransaction')
+const ElectrumClient = require('tbtc-helpers').ElectrumClient
+const config = require('../config/config.json')
 
 const fs = require('fs')
 const chai = require('chai')
 const assert = chai.assert
 
 describe('FundingTransaction', async () => {
-  it('awaitFundingTransaction', async () => {
-    const txDataFile = fs.readFileSync('node_modules/tbtc-helpers/test/data/tx.json', 'utf8')
-    const txData = JSON.parse(txDataFile)
+  describe('awaitFundingTransaction', async () => {
+    let electrumClient
+    let txData
 
-    const outputPosition = 0
-    const address = txData.outputs[outputPosition].address
+    before(async () => {
+      const txDataFile = fs.readFileSync('node_modules/tbtc-helpers/test/data/tx.json', 'utf8')
+      txData = JSON.parse(txDataFile)
 
-    const expectedResult = {
-      blockHeight: txData.blockHeight,
-      fundingOutputPosition: outputPosition,
-      transactionID: txData.hash,
-      value: txData.outputs[outputPosition].value,
-    }
+      electrumClient = new ElectrumClient.Client(config.electrum.testnet)
 
-    const result = await FundingTransaction.awaitFundingTransaction(address)
+      await electrumClient.connect()
+        .catch((err) => {
+          return Promise.reject(new Error(`failed to connect electrum client: [${err}]`))
+        })
+    })
 
-    assert.deepEqual(result, expectedResult)
+    after(async () => {
+      await electrumClient.close()
+        .catch((err) => {
+          return Promise.reject(new Error(`failed to disconnect from electrum client: [${err}]`))
+        })
+    })
+
+    it('finds a transaction with expected value', async () => {
+      const outputPosition = 0
+      const address = txData.outputs[outputPosition].address
+      const expectedValue = txData.outputs[outputPosition].value
+
+      const expectedResult = {
+        fundingOutputPosition: outputPosition,
+        transactionID: txData.hash,
+        value: txData.outputs[outputPosition].value,
+      }
+
+      const result = await FundingTransaction.awaitFundingTransaction(electrumClient, address, expectedValue)
+
+      assert.deepEqual(result, expectedResult)
+    })
+
+    it.skip('finds a transaction but value does not match', async () => {
+      // TODO: We should implement this test when we have mocked electrum client.
+      // Test scenario:
+      // 1. Transaction for script already exists but value doesn't match.
+      // 2. Function is waiting for a new transaction to be sent.
+      // 3. We mock new transaction being sent and mock the response of unspent
+      //    transaction to match the required value.
+      // 4. Test passes.
+    })
   })
 })
