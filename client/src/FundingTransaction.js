@@ -1,4 +1,3 @@
-const ElectrumClient = require('tbtc-helpers').ElectrumClient
 const Address = require('tbtc-helpers').Address
 
 // PAGE 3: Pay BTC
@@ -14,47 +13,53 @@ async function getAddress(depositAddress) {
  * @type {Object}
  * @property {string} transactionID Transaction ID.
  * @property {number} fundingOutputPosition Position of funding output in the transaction.
- * @property {number} blockHeight Height of the block when transaction was mined.
  * @property {number} value Value of the funding output (satoshis).
 */
 
 /**
  * Waits for a transaction sent to a bitcoin address.
+ * @param {ElectrumClient} electrumClient Electrum Client instance.
  * @param {string} bitcoinAddress Bitcoin address to monitor.
+ * @param {number} expectedValue Expected transaction output value (satoshis).
  * @return {FundingTransaction} Transaction details.
  */
-async function awaitFundingTransaction(bitcoinAddress) {
+async function awaitFundingTransaction(electrumClient, bitcoinAddress, expectedValue) {
   const script = Address.addressToScript(bitcoinAddress)
 
-  const client = new ElectrumClient.Client(electrumConfig)
+  // This function is used as a callback to electrum client. It is invoked when
+  // am existing or a new transaction is found.
+  const checkIfFundingTransaction = async function(status) {
+    // Check if status is null which means there are not transactions for the
+    // script.
+    if (status == null) {
+      return null
+    }
 
-  client.connect()
-    .catch((err) => {
-      return Promise.reject(new Error(`failed to connect electrum client: ${err}`))
-    })
+    // Get list of all unspent bitcoin transactions for the script.
+    const unspentTransactions = await electrumClient.getUnspentToScript(script)
 
-  await client.waitForTransactionToScript(script)
-    .catch((err) => {
-      return Promise.reject(new Error(`failed to wait for a transaction to hash: ${err}`))
-    })
-
-  const unspentTransactions = await client.getUnspentToScript(script)
-
-  if (unspentTransactions.length != 1) {
-    return Promise.reject(new Error(`unexpected number of unspent outputs: [${unspentTransactions.length}], but want [1]`))
+    // Check if any of unspent transactions has required value, if so
+    // return this transaction.
+    for (tx of unspentTransactions) {
+      if (tx.value == expectedValue) {
+        return {
+          transactionID: tx.tx_hash,
+          fundingOutputPosition: tx.tx_pos,
+          value: tx.value,
+        }
+      }
+    }
   }
 
-  client.close()
+  const fundingTransaction = await electrumClient.waitForTransactionToScript(
+    script,
+    checkIfFundingTransaction
+  )
     .catch((err) => {
-      return Promise.reject(new Error(`failed to close electrum client connection: ${err}`))
+      return Promise.reject(new Error(`failed to wait for a transaction to hash: [${err}]`))
     })
 
-  return {
-    transactionID: unspentTransactions[0].tx_hash,
-    fundingOutputPosition: unspentTransactions[0].tx_pos,
-    blockHeight: unspentTransactions[0].height,
-    value: unspentTransactions[0].value,
-  }
+  return fundingTransaction
 }
 
 // PAGE 4. WAITING FOR CONFIRMATIONS
@@ -65,5 +70,5 @@ async function waitForConfirmations(transactionID) {
 }
 
 module.exports = {
-  getAddress, getFundingTransactionID: awaitFundingTransaction, waitForConfirmations,
+  getAddress, awaitFundingTransaction, waitForConfirmations,
 }
