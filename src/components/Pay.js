@@ -1,19 +1,60 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
-const Pay = ({ confirming, history }) => {
-  let button;
+import { waitConfirmation } from '../actions'
 
-  if (confirming) {
-    button = <button onClick={() => {history.push('/prove')}}>Confirming...</button>
-  } else {
-      button = <button onClick={() => {history.push('/pay/confirming')}}>Send BTC "here"</button>
+class Pay extends Component {
+  componentDidMount() {
+    const { history, waitConfirmation } = this.props
+
+    waitConfirmation({ history })
   }
 
-  return (
-    <div className="pay">
-      {button}
-    </div>
+  render() {
+    const { address, btcConfirming } = this.props
+    let renderBody;
+
+    if (!btcConfirming) {
+      renderBody = (
+        <div className="btc-address">
+          {address}
+        </div>
+      )
+    } else {
+      renderBody = (
+        <div className="confirming">
+          Confirming...
+        </div>
+      )
+    }
+
+    return (
+      <div className="pay">
+        {renderBody}
+      </div>
+    )
+  }
+}
+
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+      address: state.app.btcAddress,
+      btcConfirming: !!state.app.btcConfirming
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+      {
+        waitConfirmation
+      },
+      dispatch
   )
 }
 
-export default Pay
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Pay)

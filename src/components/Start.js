@@ -1,9 +1,37 @@
-import React from 'react';
+import React, { Component } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
-const Start = ({ history }) => (
-  <div className="start">
-    <button onClick={() => {history.push('/pay')}}>Pay</button>
-  </div>
-)
+import { requestADeposit } from '../actions'
 
-export default Start
+class Start extends Component {
+
+  handleClickPay = (evt) => {
+    const { requestADeposit, history } = this.props
+
+    requestADeposit({ history })
+  }
+
+  render() {
+    return (
+      <div className="start">
+        <button onClick={this.handleClickPay}>Pay</button>
+      </div>
+    )
+  }
+}
+
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+      {
+        requestADeposit
+      },
+      dispatch
+  )
+}
+
+export default connect(
+  () => ({}),
+  mapDispatchToProps
+)(Start)

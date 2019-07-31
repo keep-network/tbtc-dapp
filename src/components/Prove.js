@@ -1,9 +1,37 @@
-import React from 'react';
+import React, { Component } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
-const Prove = ({ history }) => (
-  <div className="prove">
-    <button onClick={() => {history.push('/congratulations')}}>Submit Proof</button>
-  </div>
-)
+import { submitProof } from '../actions'
 
-export default Prove
+class Prove extends Component {
+
+  handleClickProve = (evt) => {
+    const { submitProof, history } = this.props
+
+    submitProof({ history })
+  }
+
+  render() {
+    return (
+      <div className="prove">
+        <button onClick={this.handleClickProve}>Submit Proof</button>
+      </div>
+    )
+  }
+}
+
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+      {
+        submitProof
+      },
+      dispatch
+  )
+}
+
+export default connect(
+  () => ({}),
+  mapDispatchToProps
+)(Prove)

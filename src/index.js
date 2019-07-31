@@ -40,8 +40,8 @@ function AppWrapper() {
     <Provider store={store}>
       <Router>
         <Web3Wrapper>
+          <Route path="/" exact component={Home} />
           <App>
-            <Route path="/" exact component={Home} />
             <Route path="/start" component={Start} />
             <Route path="/pay" exact component={Pay} />
             <Route path="/pay/confirming" render={(props) => <Pay {...props} confirming={true} />} />

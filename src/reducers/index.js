@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
-// Imports here
+import app from './app.js'
 
-const reducers = combineReducers({ todo: 'TODO' })
+const reducers = combineReducers({ app })
 
 export default reducers
