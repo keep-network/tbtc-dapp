@@ -17,13 +17,13 @@ async function getAddress(depositAddress) {
 */
 
 /**
- * Waits for a transaction sent to a bitcoin address.
+ * Waits for a funding transaction sent to a bitcoin address.
  * @param {ElectrumClient} electrumClient Electrum Client instance.
  * @param {string} bitcoinAddress Bitcoin address to monitor.
  * @param {number} expectedValue Expected transaction output value (satoshis).
  * @return {FundingTransaction} Transaction details.
  */
-async function awaitFundingTransaction(electrumClient, bitcoinAddress, expectedValue) {
+async function watchForFundingTransaction(electrumClient, bitcoinAddress, expectedValue) {
   const script = Address.addressToScript(bitcoinAddress)
 
   // This function is used as a callback to electrum client. It is invoked when
@@ -70,5 +70,5 @@ async function waitForConfirmations(transactionID) {
 }
 
 module.exports = {
-  getAddress, awaitFundingTransaction, waitForConfirmations,
+  getAddress, watchForFundingTransaction, waitForConfirmations,
 }

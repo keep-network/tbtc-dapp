@@ -7,7 +7,7 @@ const chai = require('chai')
 const assert = chai.assert
 
 describe('FundingTransaction', async () => {
-  describe('awaitFundingTransaction', async () => {
+  describe('watchForFundingTransaction', async () => {
     let electrumClient
     let txData
 
@@ -41,7 +41,7 @@ describe('FundingTransaction', async () => {
         value: txData.outputs[outputPosition].value,
       }
 
-      const result = await FundingTransaction.awaitFundingTransaction(electrumClient, address, expectedValue)
+      const result = await FundingTransaction.watchForFundingTransaction(electrumClient, address, expectedValue)
 
       assert.deepEqual(result, expectedResult)
     })
