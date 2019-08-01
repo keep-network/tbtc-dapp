@@ -8,6 +8,7 @@
         "js:lint": "eslint .",
         "js:lint:fix": "eslint --fix ."
     },
+    "main": "src/index.js",
     "config": {
         "file": "./config/config.json"
     },
@@ -15,7 +16,7 @@
     "license": "ISC",
     "dependencies": {
         "tbtc-helpers": "file:../lib/tbtc-helpers",
-        "tbtc-helpers": "file:../lib/tbtc-helpers"
+        "web3": "^1.2.0"
     },
     "devDependencies": {
         "@babel/plugin-transform-runtime": "^7.5.5",
