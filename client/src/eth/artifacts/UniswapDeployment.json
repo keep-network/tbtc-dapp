@@ -1,0 +1,619 @@
+{
+  "contractName": "UniswapDeployment",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "factory",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "exchange",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "_factory",
+          "type": "address"
+        },
+        {
+          "name": "_exchange",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.4.25+commit.59dbf8f1\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[],\"name\":\"factory\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"exchange\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"name\":\"_factory\",\"type\":\"address\"},{\"name\":\"_exchange\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/liamz/go/src/github.com/keep-network/tbtc/implementation/contracts/uniswap/UniswapDeployment.sol\":\"UniswapDeployment\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/liamz/go/src/github.com/keep-network/tbtc/implementation/contracts/uniswap/UniswapDeployment.sol\":{\"keccak256\":\"0x49776aa869cdcd5520b8b4cf3bcb0a429acb9f9d7e729b3c406e06b4d0e091d6\",\"urls\":[\"bzzr://e12119c2568e14a0dbdcc8c54cd2245c70edc10d0fa7d656e2ff86359eeb6b3c\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5060405160408061016483398101604052805160209091015160008054600160a060020a03938416600160a060020a0319918216179091556001805493909216921691909117905560fe806100666000396000f30060806040526004361060485763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663c45a01558114604d578063d2f7265a146088575b600080fd5b348015605857600080fd5b50605f609a565b6040805173ffffffffffffffffffffffffffffffffffffffff9092168252519081900360200190f35b348015609357600080fd5b50605f60b6565b60005473ffffffffffffffffffffffffffffffffffffffff1681565b60015473ffffffffffffffffffffffffffffffffffffffff16815600a165627a7a723058205a0c40d324778ce1fd820faf1d5941160d63c735336d92713c594da139af0b760029",
+  "deployedBytecode": "0x60806040526004361060485763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663c45a01558114604d578063d2f7265a146088575b600080fd5b348015605857600080fd5b50605f609a565b6040805173ffffffffffffffffffffffffffffffffffffffff9092168252519081900360200190f35b348015609357600080fd5b50605f60b6565b60005473ffffffffffffffffffffffffffffffffffffffff1681565b60015473ffffffffffffffffffffffffffffffffffffffff16815600a165627a7a723058205a0c40d324778ce1fd820faf1d5941160d63c735336d92713c594da139af0b760029",
+  "sourceMap": "194:236:25:-;;;285:143;8:9:-1;5:2;;;30:1;27;20:12;5:2;285:143:25;;;;;;;;;;;;;;;;;;;373:7;:18;;-1:-1:-1;;;;;373:18:25;;;-1:-1:-1;;;;;;373:18:25;;;;;;;;401:20;;;;;;;;;;;;;;194:236;;;;;;",
+  "deployedSourceMap": "194:236:25:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;227:22;;8:9:-1;5:2;;;30:1;27;20:12;5:2;227:22:25;;;;;;;;;;;;;;;;;;;;;;;255:23;;8:9:-1;5:2;;;30:1;27;20:12;5:2;255:23:25;;;;227:22;;;;;;:::o;255:23::-;;;;;;:::o",
+  "source": "pragma solidity 0.4.25;\n\n/// @notice A contract for tracking the location of Uniswap testnet deployments\n/// @dev useful for usage in tests/migrations, but SHOULD NOT be used by other contracts\ncontract UniswapDeployment {\n    address public factory;\n    address public exchange;\n\n    constructor(\n        address _factory,\n        address _exchange\n    ) public {\n        factory = _factory;\n        exchange = _exchange;\n    }\n}",
+  "sourcePath": "/Users/liamz/go/src/github.com/keep-network/tbtc/implementation/contracts/uniswap/UniswapDeployment.sol",
+  "ast": {
+    "absolutePath": "/Users/liamz/go/src/github.com/keep-network/tbtc/implementation/contracts/uniswap/UniswapDeployment.sol",
+    "exportedSymbols": {
+      "UniswapDeployment": [
+        9712
+      ]
+    },
+    "id": 9713,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 9691,
+        "literals": [
+          "solidity",
+          "0.4",
+          ".25"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:25"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": "@notice A contract for tracking the location of Uniswap testnet deployments\n @dev useful for usage in tests/migrations, but SHOULD NOT be used by other contracts",
+        "fullyImplemented": true,
+        "id": 9712,
+        "linearizedBaseContracts": [
+          9712
+        ],
+        "name": "UniswapDeployment",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 9693,
+            "name": "factory",
+            "nodeType": "VariableDeclaration",
+            "scope": 9712,
+            "src": "227:22:25",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 9692,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "227:7:25",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 9695,
+            "name": "exchange",
+            "nodeType": "VariableDeclaration",
+            "scope": 9712,
+            "src": "255:23:25",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 9694,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "255:7:25",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 9710,
+              "nodeType": "Block",
+              "src": "363:65:25",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 9704,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 9702,
+                      "name": "factory",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 9693,
+                      "src": "373:7:25",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 9703,
+                      "name": "_factory",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 9697,
+                      "src": "383:8:25",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "373:18:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 9705,
+                  "nodeType": "ExpressionStatement",
+                  "src": "373:18:25"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 9708,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 9706,
+                      "name": "exchange",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 9695,
+                      "src": "401:8:25",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 9707,
+                      "name": "_exchange",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 9699,
+                      "src": "412:9:25",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "401:20:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 9709,
+                  "nodeType": "ExpressionStatement",
+                  "src": "401:20:25"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 9711,
+            "implemented": true,
+            "isConstructor": true,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 9700,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 9697,
+                  "name": "_factory",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 9711,
+                  "src": "306:16:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 9696,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "306:7:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 9699,
+                  "name": "_exchange",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 9711,
+                  "src": "332:17:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 9698,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "332:7:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "296:59:25"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 9701,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "363:0:25"
+            },
+            "scope": 9712,
+            "src": "285:143:25",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 9713,
+        "src": "194:236:25"
+      }
+    ],
+    "src": "0:430:25"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/liamz/go/src/github.com/keep-network/tbtc/implementation/contracts/uniswap/UniswapDeployment.sol",
+    "exportedSymbols": {
+      "UniswapDeployment": [
+        9712
+      ]
+    },
+    "id": 9713,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 9691,
+        "literals": [
+          "solidity",
+          "0.4",
+          ".25"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:25"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": "@notice A contract for tracking the location of Uniswap testnet deployments\n @dev useful for usage in tests/migrations, but SHOULD NOT be used by other contracts",
+        "fullyImplemented": true,
+        "id": 9712,
+        "linearizedBaseContracts": [
+          9712
+        ],
+        "name": "UniswapDeployment",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 9693,
+            "name": "factory",
+            "nodeType": "VariableDeclaration",
+            "scope": 9712,
+            "src": "227:22:25",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 9692,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "227:7:25",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 9695,
+            "name": "exchange",
+            "nodeType": "VariableDeclaration",
+            "scope": 9712,
+            "src": "255:23:25",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 9694,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "255:7:25",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 9710,
+              "nodeType": "Block",
+              "src": "363:65:25",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 9704,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 9702,
+                      "name": "factory",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 9693,
+                      "src": "373:7:25",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 9703,
+                      "name": "_factory",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 9697,
+                      "src": "383:8:25",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "373:18:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 9705,
+                  "nodeType": "ExpressionStatement",
+                  "src": "373:18:25"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 9708,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 9706,
+                      "name": "exchange",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 9695,
+                      "src": "401:8:25",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 9707,
+                      "name": "_exchange",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 9699,
+                      "src": "412:9:25",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "401:20:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 9709,
+                  "nodeType": "ExpressionStatement",
+                  "src": "401:20:25"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 9711,
+            "implemented": true,
+            "isConstructor": true,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 9700,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 9697,
+                  "name": "_factory",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 9711,
+                  "src": "306:16:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 9696,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "306:7:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 9699,
+                  "name": "_exchange",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 9711,
+                  "src": "332:17:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 9698,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "332:7:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "296:59:25"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 9701,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "363:0:25"
+            },
+            "scope": 9712,
+            "src": "285:143:25",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 9713,
+        "src": "194:236:25"
+      }
+    ],
+    "src": "0:430:25"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.25+commit.59dbf8f1.Emscripten.clang"
+  },
+  "networks": {
+    "1563533123569": {
+      "events": {},
+      "links": {},
+      "address": "0x0E608b41CF021184deC0d9D52a5491b7977c0c1b",
+      "transactionHash": "0x3241f6467484a352fa35a0e6053df4a5d651c7d2f50c83fe79478b6d2165dfbc"
+    }
+  },
+  "schemaVersion": "3.0.10",
+  "updatedAt": "2019-07-19T12:16:37.338Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}
