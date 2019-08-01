@@ -1,6 +1,6 @@
 const Web3 = require('web3')
 
-import { createDeposit, setDefaults } from '../src'
+import { createDeposit, setDefaults, initializeDeposit } from '../src'
 import { setElectrumConfig } from '../src/FundingProof';
 
 import {
@@ -40,5 +40,8 @@ describe("Ethereum helpers", async () => {
         expect(await deposit.getCurrentState()).to.eq.BN('1')
     })
 
+    it.only('#initializeDeposit', async () => {
+        await initializeDeposit()
+    })
     
 })

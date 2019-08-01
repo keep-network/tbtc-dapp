@@ -35,7 +35,7 @@ export async function createDeposit() {
 
 
 // PAGE 2: PUT A BOND
-async function initializeDeposit(depositAddress) {
+export async function initializeDeposit(depositAddress) {
   // TODO: Implement:
   // 1. Call deposit to create new keep
   // 2. Watch for ECDSAKeepCreated event from ECDSAKeepFactory contract
