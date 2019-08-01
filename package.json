@@ -1,6 +1,7 @@
 {
     "name": "tbtc-dapp",
     "scripts": {
+        "install": "subpkg run install",
         "test": "subpkg run test",
         "js:lint": "subpkg run js:lint",
         "js:lint:fix": "subpkg run js:lint:fix"
@@ -10,6 +11,13 @@
         "lib/tbtc-helpers"
     ],
     "devDependencies": {
+        "bn-chai": "^1.0.1",
+        "bn.js": "^5.0.0",
+        "mocha": "^6.2.0",
         "subpackage": "^1.1.0"
+    },
+    "dependencies": {
+        "chai": "^4.2.0",
+        "truffle-contract": "^4.0.26"
     }
 }
