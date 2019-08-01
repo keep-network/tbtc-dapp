@@ -2,7 +2,14 @@ const BitcoinTxParser = require('tbtc-helpers').BitcoinTxParser
 const bitcoinSPV = require('tbtc-helpers').BitcoinSPV
 const ElectrumClient = require('tbtc-helpers').ElectrumClient
 
-const fs = require('fs')
+
+let electrumConfig
+
+export function setElectrumConfig(config) {
+  electrumConfig = config
+  // readElectrumConfig(process.env.CONFIG_FILE)
+}
+
 
 /**
  * Reads electrum client configuration details from a config file.
@@ -19,8 +26,6 @@ function readElectrumConfig(configFilePath) {
     config.electrum.testnet.protocol
   )
 }
-
-const electrumConfig = readElectrumConfig(process.env.CONFIG_FILE)
 
 /**
  * Gets transaction SPV proof from BitcoinSPV.
@@ -88,5 +93,6 @@ async function calculateAndSubmitFundingProof(txID, fundingOutputIndex) {
 }
 
 module.exports = {
+  setElectrumConfig,
   calculateAndSubmitFundingProof,
 }
