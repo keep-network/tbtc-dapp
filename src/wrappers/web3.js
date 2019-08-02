@@ -20,7 +20,9 @@ class Web3Wrapper extends Component {
                 })
 
                 // Watch for changes
-                this.intervalId = setInterval(this.getAndSetAccountInfo, 250)
+                const provider = this.state.web3.eth.currentProvider
+                provider.on('networkChanged', this.getAndSetAccountInfo)
+                provider.on('accountsChanged', this.getAndSetAccountInfo)
             })
         }
     }
@@ -46,12 +48,6 @@ class Web3Wrapper extends Component {
 
         if (web3) {
             return await web3.eth.getBalance(account)
-        }
-    }
-
-    componentWillUnmount() {
-        if (this.intervalId) {
-            clearInterval(this.intervalId)
         }
     }
 
