@@ -54,10 +54,9 @@ async function watchForFundingTransaction(electrumClient, bitcoinAddress, expect
   const fundingTransaction = await electrumClient.onTransactionToScript(
     script,
     findFundingTransaction
-  )
-    .catch((err) => {
-      return Promise.reject(new Error(`failed to wait for a transaction to hash: [${err}]`))
-    })
+  ).catch((err) => {
+    return new Error(`failed to wait for a transaction to hash: [${err}]`)
+  })
 
   return fundingTransaction
 }
