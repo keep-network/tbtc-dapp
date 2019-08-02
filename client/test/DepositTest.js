@@ -43,6 +43,6 @@ describe("Ethereum helpers", async () => {
     it('#getDepositBTCPublicKey', async () => {
         const depositAddress = await createDeposit()
         let key = await getDepositBTCPublicKey(depositAddress)
-        expect(key).to.be.of.length(2);
-    })    
+        expect(key.substring(0, 2)).to.equal('tb')
+    })
 })

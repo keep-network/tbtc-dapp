@@ -6,6 +6,11 @@ import {
   Deposit
 } from './eth/contracts'
 
+import {
+  publicKeyToP2WPKHaddress,
+  Network
+} from '../../lib/tbtc-helpers/src/Address'
+
 export async function createDeposit() {  
   const tbtcSystem = await TBTCSystem.deployed()
   const tbtcToken = await TBTCToken.deployed()
@@ -35,10 +40,6 @@ export async function createDeposit() {
 
 
 
-// PAGE 2: PUT A BOND
-export async function initializeDeposit(depositAddress) {
-}
-
 export async function waitDepositBTCPublicKey(depositAddress) {
   const tbtcSystem = await TBTCSystem.deployed()
 
@@ -46,7 +47,6 @@ export async function waitDepositBTCPublicKey(depositAddress) {
     tbtcSystem.RegisteredPubkey({ _depositContractAddress: depositAddress }).on('data', function(data) {
       console.log(data)
       res(data)
-      // https://docs.google.com/document/d/1ekLFGnMsjDIRkjGPifbxHcJeUYLCEvhHISPCl5H1E6s/edit?usp=sharing
     })
 
     setTimeout(rej, 15000)
@@ -71,6 +71,7 @@ export async function getDepositBTCPublicKey(depositAddress) {
   }
 
   // 2. Parse the logs to get it
+  // we can't get this from result.logs, since it's emitted in another contract
   const eventList = await tbtcSystem.getPastEvents(
     'RegisteredPubkey', 
     {
@@ -80,10 +81,18 @@ export async function getDepositBTCPublicKey(depositAddress) {
     }
   )
 
+  if(eventList.length == 0) {
+    throw new Error(`couldn't find RegisteredPubkey event for deposit address: ${depositAddress}`)
+  }
+
   const publicKeyX = eventList[0].args._signingGroupPubkeyX
   const publicKeyY = eventList[0].args._signingGroupPubkeyY
 
   console.log(`Registered public key:\nX: ${publicKeyX}\nY: ${publicKeyY}`)
 
-  return [publicKeyX, publicKeyY]
+  const address = publicKeyToP2WPKHaddress(
+    `${publicKeyX.slice(2)}${publicKeyY.slice(2)}`,
+    Network.testnet
+  )
+  return address
 }
