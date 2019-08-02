@@ -20,13 +20,13 @@
     "web3": "^1.2.0"
   },
   "devDependencies": {
-      "subpackage": "^1.1.0"
+    "subpackage": "^1.1.0"
   },
   "scripts": {
     "env": "truffle exec ./scripts/env.js",
     "build-css": "lessc --clean-css src/css/app.less src/app.css",
     "watch-css": "npm run build-css && less-watch-compiler src/css src app.less",
-    "start-js": "react-scripts start",
+    "start-js": "sleep 2 && react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
     "build": "npm run build-css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
@@ -48,7 +48,7 @@
     ]
   },
   "subPackages": [
-      "client",
-      "lib/tbtc-helpers"
-  ],
+    "client",
+    "lib/tbtc-helpers"
+  ]
 }
