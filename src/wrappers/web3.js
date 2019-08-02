@@ -14,9 +14,15 @@ class Web3Wrapper extends Component {
                 this.getAccountInfo()
             })
         }
+
+        if (window.ethereum) {
+            window.ethereum.on('accountChange', this.getAccountInfo)
+            window.ethereum.on('networkChange', this.getAccountInfo)
+        }
     }
 
     getAccountInfo = async () => {
+        console.log("CHANGE!")
         const { web3 } = this.state
 
         if (web3) {
@@ -35,7 +41,7 @@ class Web3Wrapper extends Component {
         const contextValue = { account, balance, web3 }
 
         if (!web3) {
-            return <span>Please Install MetaMask</span>
+            return <span>Please Install MetaMask and refresh the page</span>
         }
 
         if (!account) {
