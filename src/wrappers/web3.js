@@ -22,7 +22,6 @@ class Web3Wrapper extends Component {
     }
 
     getAccountInfo = async () => {
-        console.log("CHANGE!")
         const { web3 } = this.state
 
         if (web3) {
