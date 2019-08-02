@@ -4,40 +4,61 @@ import Web3 from 'web3'
 const Web3Context = React.createContext({})
 
 class Web3Wrapper extends Component {
-    state = {}
+    state = {
+        loading: true,
+        account: null,
+    }
 
     componentDidMount() {
         if (window.web3) {
             this.setState({
                 web3: new Web3(window.web3.currentProvider)
             }, () => {
-                this.getAccountInfo()
-            })
-        }
+                // Initial fetch
+                this.getAndSetAccountInfo().then(() => {
+                    this.setState({ loading: false })
+                })
 
-        if (window.ethereum) {
-            window.ethereum.on('accountChange', this.getAccountInfo)
-            window.ethereum.on('networkChange', this.getAccountInfo)
+                // Watch for changes
+                const provider = this.state.web3.eth.currentProvider
+                provider.on('networkChanged', this.getAndSetAccountInfo)
+                provider.on('accountsChanged', this.getAndSetAccountInfo)
+            })
         }
     }
 
-    getAccountInfo = async () => {
-        const { web3 } = this.state
+    getAndSetAccountInfo = async () => {
+        const { account:currentAccount, web3 } = this.state
 
         if (web3) {
             const accounts = await web3.eth.getAccounts()
-            if (accounts.length) {
-                web3.eth.getBalance(accounts[0]).then(res => {
-                    this.setState({ balance: res, account: accounts[0] })
+            if (accounts.length && accounts[0] !== currentAccount) {
+                const balance = await this.getBalanceForAccount(accounts[0])
+
+                this.setState({
+                    balance,
+                    account: accounts[0]
                 })
             }
         }
     }
 
+    getBalanceForAccount = async (account) => {
+        const { web3 } = this.state
+
+        if (web3) {
+            return await web3.eth.getBalance(account)
+        }
+    }
+
     render() {
-        const { account, balance, web3 } = this.state
+        const { account, balance, loading, web3 } = this.state
 
         const contextValue = { account, balance, web3 }
+
+        if (loading) {
+            return <span>Loading...</span> 
+        }
 
         if (!web3) {
             return <span>Please Install MetaMask and refresh the page</span>

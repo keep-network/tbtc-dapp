@@ -58,4 +58,6 @@ function AppWrapper() {
 }
 
 // Render to DOM
-ReactDOM.render(<AppWrapper />, document.getElementById('root'))
+window.addEventListener('load', () => {
+  ReactDOM.render(<AppWrapper />, document.getElementById('root'))
+})
