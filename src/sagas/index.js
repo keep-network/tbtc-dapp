@@ -1,4 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
+import history from '../history'
 
 import { REQUEST_A_DEPOSIT, WAIT_CONFIRMATION, SUBMIT_DEPOSIT_PROOF } from '../actions'
 
@@ -15,7 +16,7 @@ export const DEPOSIT_PROVE_BTC_TX_BEGIN = 'DEPOSIT_PROVE_BTC_TX_BEGIN'
 export const DEPOSIT_PROVE_BTC_TX_SUCCESS = 'DEPOSIT_PROVE_BTC_TX_SUCCESS'
 
 
-function* requestADeposit({ history }) {
+function* requestADeposit() {
     // call Keep to request a deposit
     yield put({ type: DEPOSIT_REQUEST_BEGIN })
 
@@ -45,7 +46,7 @@ function* requestADeposit({ history }) {
     history.push('/pay')
 }
 
-function* waitConfirmation({ history }) {
+function* waitConfirmation() {
     // now show a waiting dialog, with some sort of smart countdown
     // wait for the transaction to be received
     // wait for the transaction to be confirmed
@@ -66,10 +67,11 @@ function* waitConfirmation({ history }) {
         }
     })
 
+    // goto
     history.push('/prove')
 }
 
-function* proveDeposit({ btcTxid, history }) {
+function* proveDeposit({ btcTxid }) {
     // get the transaction details from the bitcoin chain
     // run through the proof generation process
     // generate a proof
@@ -85,7 +87,7 @@ function* proveDeposit({ btcTxid, history }) {
         }
     })
 
-    // goto next
+    // goto
     history.push('/congratulations')
 }
 

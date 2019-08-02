@@ -7,9 +7,9 @@ import { requestADeposit } from '../actions'
 class Start extends Component {
 
   handleClickPay = (evt) => {
-    const { requestADeposit, history } = this.props
+    const { requestADeposit } = this.props
 
-    requestADeposit({ history })
+    requestADeposit()
   }
 
   render() {

@@ -3,26 +3,29 @@ import ReactDOM from 'react-dom'
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { Provider } from 'react-redux'
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Router, Route } from "react-router-dom";
 
 // Styles
 import './app.css'
 
 // Components
-import App from './components/App'
 
-// Wrappers
-import Web3Wrapper from './wrappers/web3'
-
-import sagas from './sagas'
-import reducers from './reducers'
 import {
+  App,
   Home,
   Start,
   Pay,
   Prove,
   Congratulations
   } from './components'
+
+// Wrappers
+import Web3Wrapper from './wrappers/web3'
+
+// Redux
+import sagas from './sagas'
+import reducers from './reducers'
+import history from './history'
 
 // Set up our store
 const sagaMiddleware = createSagaMiddleware()
@@ -38,7 +41,7 @@ sagaMiddleware.run(sagas)
 function AppWrapper() {
   return (
     <Provider store={store}>
-      <Router>
+      <Router history={history}>
         <Web3Wrapper>
           <Route path="/" exact component={Home} />
           <App>

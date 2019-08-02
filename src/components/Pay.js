@@ -6,9 +6,9 @@ import { waitConfirmation } from '../actions'
 
 class Pay extends Component {
   componentDidMount() {
-    const { history, waitConfirmation } = this.props
+    const { waitConfirmation } = this.props
 
-    waitConfirmation({ history })
+    waitConfirmation()
   }
 
   render() {

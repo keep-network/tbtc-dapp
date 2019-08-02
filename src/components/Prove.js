@@ -7,9 +7,9 @@ import { submitProof } from '../actions'
 class Prove extends Component {
 
   handleClickProve = (evt) => {
-    const { submitProof, history } = this.props
+    const { submitProof } = this.props
 
-    submitProof({ history })
+    submitProof()
   }
 
   render() {
