@@ -12,7 +12,7 @@ async function getTransactionProof(electrumClient, txID, confirmations) {
 
   const spvProof = await bitcoinSPV.getTransactionProof(txID, confirmations)
     .catch((err) => {
-      return Promise.reject(new Error(`failed to get bitcoin spv proof: ${err}`))
+      throw new Error(`failed to get bitcoin spv proof: ${err}`)
     })
 
   return {
@@ -34,9 +34,7 @@ async function getTransactionProof(electrumClient, txID, confirmations) {
  */
 async function calculateAndSubmitFundingProof(electrumClient, txID, fundingOutputIndex) {
   if (txID.length != 64) {
-    return Promise.reject(
-      new Error(`invalid transaction id length [${txID.length}], required: [64]`)
-    )
+    throw new Error(`invalid transaction id length [${txID.length}], required: [64]`)
   }
 
   // TODO: We need to calculate confirmations value in a special way:
@@ -48,7 +46,7 @@ async function calculateAndSubmitFundingProof(electrumClient, txID, fundingOutpu
   // 2. Parse transaction to get required details.
   const txDetails = await BitcoinTxParser.parse(spvProof.tx)
     .cath((err) => {
-      return Promise.reject(new Error(`failed to parse spv proof: ${err}`))
+      throw new Error(`failed to parse spv proof: ${err}`)
     })
 
   // 3. Submit proof to the contracts
