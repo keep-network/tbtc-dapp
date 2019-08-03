@@ -1,0 +1,33 @@
+version: 2.1
+
+executors:
+  docker-node:
+    docker:
+      - image: circleci/node:11
+
+jobs:
+  test_client:
+    executor: docker-node
+    steps:
+        - checkout
+        - run:
+            name: Run NPM tests
+            working_directory: ~/project/client
+            command: npm install && npm run test
+  test_tbtc_helpers:
+    executor: docker-node
+    steps:
+        - checkout
+        - run:
+            name: Run NPM tests
+            working_directory: ~/project/lib/tbtc-helpers
+            command: npm install && npm run test
+
+workflows:
+  version: 2
+  client:
+    jobs:
+      - test_client
+  tbtc-helpers:
+    jobs:
+      - test_tbtc_helpers
