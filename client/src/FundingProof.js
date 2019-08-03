@@ -45,7 +45,7 @@ async function calculateAndSubmitFundingProof(electrumClient, txID, fundingOutpu
 
   // 2. Parse transaction to get required details.
   const txDetails = await BitcoinTxParser.parse(spvProof.tx)
-    .cath((err) => {
+    .catch((err) => {
       throw new Error(`failed to parse spv proof: ${err}`)
     })
 
