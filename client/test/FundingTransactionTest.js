@@ -2,7 +2,6 @@ const FundingTransaction = require('../src/FundingTransaction')
 const ElectrumClient = require('tbtc-helpers').ElectrumClient
 const config = require('../config/config.json')
 
-const fs = require('fs')
 const chai = require('chai')
 const assert = chai.assert
 
@@ -12,8 +11,7 @@ describe('FundingTransaction', async () => {
     let txData
 
     before(async () => {
-      const txDataFile = fs.readFileSync('node_modules/tbtc-helpers/test/data/tx.json', 'utf8')
-      txData = JSON.parse(txDataFile)
+      txData = require('tbtc-helpers/test/data/tx.json')
 
       electrumClient = new ElectrumClient.Client(config.electrum.testnet)
 
