@@ -1,0 +1,35 @@
+@import 'colors.less';
+@import 'button.less';
+
+
+body {
+    margin: 0;
+}
+
+a {
+    color: unset;
+    text-decoration: unset;
+}
+
+.app {
+    color: @black;
+    font-family: sans-serif;
+    font-size: 1.5em;
+
+    .nav {
+        display: flex;
+        direction: flex-row;
+        justify-content: space-between;
+        align-items: center;
+        height: 100px;
+    }
+
+    .title, .balance {
+        padding: 20px;
+    }
+
+    .congratulations, .home, .pay, .prove, .start {
+        margin-top: 50px;
+        text-align: center;
+    }
+}
