@@ -12,13 +12,37 @@ async function getFundingTransactionID(electrumConfig, bitcoinAddress) {
   // TODO: Implement
 }
 
-// PAGE 4. WAITING FOR CONFIRMATIONS
-async function waitForConfirmations(transactionID) {
-  // TODO: Implement:
-  // 1. Wait for required number of confirmations for the transaction
-  // 2. Monitor confirmations on the chain and return when ready
+/**
+ * Waits until funding transaction gets required number of confirmations.
+ * @param {ElectrumClient} electrumClient Electrum Client instance.
+ * @param {string} transactionID Transaction ID.
+ * @return {string} Number of confirmations for the transaction.
+ * TODO: When we increase required confirmations number above 1 we should probably
+ * emit an event for each new confirmation to update state in the web app.
+ */
+async function watchForConfirmations(electrumClient, transactionID) {
+  const requiredConfirmations = 1 // TODO: This is simplification for demo
+
+  const checkConfirmations = async function() {
+    // Get current state of the transaction.
+    const tx = await electrumClient.getTransaction(transactionID)
+
+    // Check if the transaction has enough confirmations.
+    if (tx.confirmations >= requiredConfirmations) {
+      return tx.confirmations
+    }
+  }
+
+  const confirmations = await electrumClient.onNewBlock(checkConfirmations)
+    .catch((err) => {
+      throw new Error(`failed to wait for a transaction confirmations: [${err}]`)
+    })
+
+  return confirmations
 }
 
 module.exports = {
-  getAddress, getFundingTransactionID, waitForConfirmations,
+  getAddress,
+  getFundingTransactionID,
+  watchForConfirmations,
 }
