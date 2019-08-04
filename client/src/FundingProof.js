@@ -63,7 +63,7 @@ async function calculateAndSubmitFundingProof(txID, fundingOutputIndex) {
 
   // TODO: We need to calculate confirmations value in a special way:
   // See: https://github.com/keep-network/tbtc-dapp/pull/8#discussion_r307438648
-  const confirmations = 6
+  const confirmations = 1
 
   const spvProof = await getTransactionProof(electrumConfig, txID, confirmations)
 
