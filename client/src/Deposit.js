@@ -45,7 +45,7 @@ export async function waitDepositBTCPublicKey(depositAddress) {
 
   return await new Promise((res, rej) => {
     tbtcSystem.RegisteredPubkey({ _depositContractAddress: depositAddress }).on('data', function(data) {
-      console.log(data)
+      console.log(`Registered public key for deposit ${depositAddress}:\nX: ${publicKeyX}\nY: ${publicKeyY}`)
       res(data)
     })
 
@@ -53,8 +53,11 @@ export async function waitDepositBTCPublicKey(depositAddress) {
   })
 }
 
-// getDepositBTCPublicKey calls tBTC to fetch signer's public key from the keep dedicated
-// for the deposit.
+/**
+ * Requests a Bitcoin public key for a Deposit and returns it as a Bitcoin address
+ * @param {*} depositAddress the address of a Deposit contract
+ * @returns a bech32-encoded Bitcoin address
+ */
 export async function getDepositBTCPublicKey(depositAddress) {
   const tbtcSystem = await TBTCSystem.deployed()
   
@@ -86,7 +89,7 @@ export async function getDepositBTCPublicKey(depositAddress) {
   const publicKeyX = eventList[0].args._signingGroupPubkeyX
   const publicKeyY = eventList[0].args._signingGroupPubkeyY
 
-  console.log(`Registered public key:\nX: ${publicKeyX}\nY: ${publicKeyY}`)
+  console.log(`Registered public key for deposit ${depositAddress}:\nX: ${publicKeyX}\nY: ${publicKeyY}`)
 
   const address = publicKeyToP2WPKHaddress(
     `${publicKeyX.slice(2)}${publicKeyY.slice(2)}`,
