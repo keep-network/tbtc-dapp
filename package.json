@@ -1,23 +1,54 @@
 {
-    "name": "tbtc-dapp",
-    "scripts": {
-        "install": "subpkg run install",
-        "test": "subpkg run test",
-        "js:lint": "subpkg run js:lint",
-        "js:lint:fix": "subpkg run js:lint:fix"
-    },
-    "subPackages": [
-        "client",
-        "lib/tbtc-helpers"
+  "name": "tbtc-dapp",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "history": "^4.9.0",
+    "less": "^3.9.0",
+    "less-plugin-clean-css": "^1.5.1",
+    "less-watch-compiler": "^1.10.0",
+    "npm-run-all": "^4.1.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.0.1",
+    "redux": "^4.0.4",
+    "redux-saga": "^1.0.5",
+    "truffle": "^5.0.29",
+    "truffle-contract": "^4.0.26",
+    "web3": "^1.2.0"
+  },
+  "devDependencies": {
+    "subpackage": "^1.1.0"
+  },
+  "scripts": {
+    "env": "truffle exec ./scripts/env.js",
+    "build-css": "lessc --clean-css src/css/app.less src/app.css",
+    "watch-css": "npm run build-css && less-watch-compiler src/css src app.less",
+    "start-js": "sleep 2 && react-scripts start",
+    "start": "npm-run-all -p watch-css start-js",
+    "build": "npm run build-css && react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
     ],
-    "devDependencies": {
-        "bn-chai": "^1.0.1",
-        "bn.js": "^5.0.0",
-        "mocha": "^6.2.0",
-        "subpackage": "^1.1.0"
-    },
-    "dependencies": {
-        "chai": "^4.2.0",
-        "truffle-contract": "^4.0.26"
-    }
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "subPackages": [
+    "client",
+    "lib/tbtc-helpers"
+  ]
 }

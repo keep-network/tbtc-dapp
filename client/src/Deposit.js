@@ -11,6 +11,10 @@ import {
   Network
 } from '../../lib/tbtc-helpers/src/Address'
 
+/**
+ * Creates a new deposit and returns its address
+ * @return {string} Address of the Deposit contract instance
+ */
 export async function createDeposit() {  
   const tbtcSystem = await TBTCSystem.deployed()
   const tbtcToken = await TBTCToken.deployed()

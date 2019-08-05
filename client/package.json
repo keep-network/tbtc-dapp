@@ -3,15 +3,12 @@
     "version": "0.0.1",
     "description": "",
     "scripts": {
-        "test": "CONFIG_FILE=${npm_package_config_file} mocha -r @babel/register --timeout 5000",
-        "test:debug": "CONFIG_FILE=${npm_package_config_file} node --inspect node_modules/.bin/mocha -r @babel/register --timeout 5000",
+        "test": "mocha -r @babel/register --timeout 5000",
+        "test:debug": "node --inspect node_modules/.bin/mocha -r @babel/register --timeout 5000",
         "js:lint": "eslint .",
         "js:lint:fix": "eslint --fix ."
     },
     "main": "src/index.js",
-    "config": {
-        "file": "./config/config.json"
-    },
     "author": "Jakub Nowakowski <jakub.nowakowski@keep.network>",
     "license": "ISC",
     "dependencies": {
@@ -30,6 +27,8 @@
         "eslint-config-keep": "git+https://github.com/keep-network/eslint-config-keep.git#0.2.0",
         "fs": "0.0.1-security",
         "mocha": "^6.2.0",
-        "rewire": "^4.0.1"
+        "rewire": "^4.0.1",
+        "bn.js": "^5.0.0",
+        "truffle-contract": "^4.0.26"
     }
 }
