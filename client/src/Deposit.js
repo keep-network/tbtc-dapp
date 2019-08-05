@@ -39,8 +39,12 @@ export async function createDeposit() {
 }
 
 
-
-export async function waitDepositBTCPublicKey(depositAddress) {
+// A complement to getDepositBTCPublicKey.
+// We don't use this function yet, because we are only on testnet
+// On testnet, there is a race between us getting the deposit address
+// and keep-tecdsa submitting the key, before we can start listening for it
+// Leaving it here for future.
+async function watchForDepositBTCPublicKey(depositAddress) {
   const tbtcSystem = await TBTCSystem.deployed()
 
   return await new Promise((res, rej) => {
