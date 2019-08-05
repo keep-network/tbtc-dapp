@@ -3,21 +3,32 @@
     "version": "0.0.1",
     "description": "",
     "scripts": {
-        "test": "mocha --timeout 5000",
+        "test": "mocha -r @babel/register --timeout 5000",
+        "test:debug": "node --inspect node_modules/.bin/mocha -r @babel/register --timeout 5000",
         "js:lint": "eslint .",
         "js:lint:fix": "eslint --fix ."
     },
+    "main": "src/index.js",
     "author": "Jakub Nowakowski <jakub.nowakowski@keep.network>",
     "license": "ISC",
     "dependencies": {
-        "tbtc-helpers": "file:../lib/tbtc-helpers"
+        "tbtc-helpers": "file:../lib/tbtc-helpers",
+        "web3": "^1.2.0"
     },
     "devDependencies": {
+        "@babel/plugin-transform-runtime": "^7.5.5",
+        "@babel/preset-env": "^7.5.5",
+        "@babel/register": "^7.5.5",
+        "@babel/runtime": "^7.5.5",
+        "bn-chai": "^1.0.1",
         "chai": "^4.2.0",
+        "core-js": "3",
+        "eslint": "^5.16.0",
+        "eslint-config-keep": "git+https://github.com/keep-network/eslint-config-keep.git#0.2.0",
         "fs": "0.0.1-security",
         "mocha": "^6.2.0",
         "rewire": "^4.0.1",
-        "eslint": "^5.16.0",
-        "eslint-config-keep": "git+https://github.com/keep-network/eslint-config-keep.git#0.2.0"
+        "bn.js": "^5.0.0",
+        "truffle-contract": "^4.0.26"
     }
 }
