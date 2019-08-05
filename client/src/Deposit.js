@@ -63,12 +63,10 @@ export async function getDepositBTCPublicKey(depositAddress) {
 
   console.log(`Call getPublicKey for deposit [${deposit.address}]`)
 
-  let result
-  try {
-    result = await deposit.retrieveSignerPubkey()
-  } catch(err) {
-    console.error(`retrieveSignerPubkey failed: ${err}`)
-  }
+  let result = await deposit.retrieveSignerPubkey()
+    .catch((err)=> {
+      console.error(`retrieveSignerPubkey failed: ${err}`)
+    })
 
   // 2. Parse the logs to get it
   // we can't get this from result.logs, since it's emitted in another contract
