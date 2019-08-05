@@ -5,6 +5,10 @@ import {
   DepositFactory
 } from './eth/contracts'
 
+/**
+ * Creates a new deposit and returns its address
+ * @return {string} Address of the Deposit contract instance
+ */
 export async function createDeposit() {  
   const tbtcSystem = await TBTCSystem.deployed()
   const tbtcToken = await TBTCToken.deployed()
@@ -30,14 +34,4 @@ export async function createDeposit() {
   const depositAddress = logs[0].args.depositCloneAddress
 
   return depositAddress
-}
-
-
-
-// PAGE 2: PUT A BOND
-async function initializeDeposit(depositAddress) {
-  // TODO: Implement:
-  // 1. Call deposit to create new keep
-  // 2. Watch for ECDSAKeepCreated event from ECDSAKeepFactory contract
-  // 3. call get public key
 }
