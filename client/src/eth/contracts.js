@@ -26,6 +26,9 @@ const contracts = [
   DepositFactory
 ]
 
+/**
+ * Sets the default Web3 provider and transaction defaults for all tBTC contracts.
+ */
 export async function setDefaults(web3) {
   const accounts = await web3.eth.getAccounts()
   const from = accounts[0]
