@@ -59,7 +59,7 @@ async function watchForDepositBTCPublicKey(depositAddress) {
 
 /**
  * Requests a Bitcoin public key for a Deposit and returns it as a Bitcoin address
- * @param {*} depositAddress the address of a Deposit contract
+ * @param {string} depositAddress the address of a Deposit contract
  * @returns a bech32-encoded Bitcoin address
  */
 export async function getDepositBTCPublicKey(depositAddress) {
