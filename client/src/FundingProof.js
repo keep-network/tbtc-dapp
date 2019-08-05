@@ -64,6 +64,5 @@ async function calculateAndSubmitFundingProof(electrumClient, txID, fundingOutpu
 }
 
 module.exports = {
-  setElectrumConfig,
   calculateAndSubmitFundingProof,
 }
