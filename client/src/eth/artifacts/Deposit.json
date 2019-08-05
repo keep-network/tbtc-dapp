@@ -11658,10 +11658,40 @@
       },
       "address": "0x02D73EC532945Cff99D90349bc258ccCe60D7F25",
       "transactionHash": "0x93f8ba3fa36f76f9075b06a49994dcad0703990dae71e6d6b95bd4d39fc9ad20"
+    },
+    "1564683807489": {
+      "events": {},
+      "links": {
+        "DepositLiquidation": "0xffAD451eeeEd2A987dc7f8E13F9Ce582c15B48b2",
+        "DepositRedemption": "0x3cbF0B80d1741D1988f06E9B47ECa8d0f197b1C9",
+        "DepositFunding": "0x6931051ecF0B9960489931E077192E6581f5E7aD"
+      },
+      "address": "0x6b9a7B45030b98020149e4Aa5088Ea3d7080c31A",
+      "transactionHash": "0x911371d7f02a84455dd9737627b1f2059cb9914b61cfbf0c422d8e3de554a6c6"
+    },
+    "1564760269629": {
+      "events": {},
+      "links": {
+        "DepositLiquidation": "0x469eE32957cAFA45e0DC798f43ACb1fCeEA2525a",
+        "DepositRedemption": "0x72b80ddE9DEF987f6875bEbE8Af58031004981e5",
+        "DepositFunding": "0xaBf84fC9eB5860e2090E23DcED70332F6b34C739"
+      },
+      "address": "0xca23003d71eb4cC6147e8F57bD823E4a73725662",
+      "transactionHash": "0xc1102d07066bf2e546458766679654c2341aae24f3af4ed66df4883528ea0f01"
+    },
+    "1565004617282": {
+      "events": {},
+      "links": {
+        "DepositLiquidation": "0xA85c5aE027F05a870727c663cB3C80D6A388A671",
+        "DepositRedemption": "0x5514b26d9E13148E223711667AEd57f45b4bE314",
+        "DepositFunding": "0x1522092EAcfF8B9D6d1Bd6F1d7503feC7a45e97F"
+      },
+      "address": "0x84038e475934842CCd4E8825e85392AC5da65421",
+      "transactionHash": "0xa52b8f9f479c3201d282cdbb7727119f60fbc60969d06e60fedae3f33570bf90"
     }
   },
   "schemaVersion": "3.0.10",
-  "updatedAt": "2019-08-01T17:39:26.866Z",
+  "updatedAt": "2019-08-05T11:32:37.522Z",
   "devdoc": {
     "methods": {
       "createNewDeposit(address,address,address,uint256,uint256)": {
