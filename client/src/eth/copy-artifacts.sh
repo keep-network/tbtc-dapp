@@ -1,7 +1,9 @@
-#!/bin/sh
+#!/bin/bash
+set -ex
 
-
-cp ../../../../tbtc/implementation/build/contracts/* artifacts/
+for CONTRACT in Deposit TBTCSystem TBTCToken KeepBridge DepositFactory; do
+    cp ../../../../tbtc/implementation/build/contracts/$CONTRACT.json artifacts/
+done
 
 # Can easily replace later with:
 # wget s3.amazonaws.com/keep/testnet/ABC.json
