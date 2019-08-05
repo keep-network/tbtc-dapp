@@ -1,7 +1,6 @@
 const Web3 = require('web3')
 
 import { createDeposit, setDefaults } from '../src'
-import { setElectrumConfig } from '../src/FundingProof';
 
 import {
     TBTCSystem,
@@ -23,14 +22,6 @@ describe("Ethereum helpers", async () => {
         Web3.providers.HttpProvider.prototype.sendAsync = Web3.providers.HttpProvider.prototype.send
         web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
         await setDefaults(web3)
-
-        // setElectrumConfig({
-        //     "testnet": {
-        //         "server": "electrumx-server.tbtc.svc.cluster.local",
-        //         "port": 50002,
-        //         "protocol": "tls"
-        //     }
-        // })
     })
 
     it('#createDeposit', async () => {
@@ -39,6 +30,4 @@ describe("Ethereum helpers", async () => {
 
         expect(await deposit.getCurrentState()).to.eq.BN('1')
     })
-
-    
 })
