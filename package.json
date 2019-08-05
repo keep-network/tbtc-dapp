@@ -1,7 +1,6 @@
 {
     "name": "tbtc-dapp",
     "scripts": {
-        "install": "subpkg run install",
         "test": "subpkg run test",
         "js:lint": "subpkg run js:lint",
         "js:lint:fix": "subpkg run js:lint:fix"
