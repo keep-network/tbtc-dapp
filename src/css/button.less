@@ -1,0 +1,17 @@
+button {
+    background-color: @blue;
+    color: @white;
+    border-radius: 4px;
+    border: 0px solid transparent;
+    padding: 40px;
+    font-size: 1.25em;
+    cursor: pointer;
+
+    &:hover {
+        background-color: saturate(@blue, 25%);
+    }
+
+    &:focus {
+        background-color: darken(@blue, 10%);
+    }
+}
