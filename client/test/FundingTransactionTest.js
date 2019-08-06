@@ -6,7 +6,7 @@ const chai = require('chai')
 const assert = chai.assert
 
 describe('FundingTransaction', async () => {
-  describe('watchForConfirmations', async () => {
+  describe('waitForConfirmations', async () => {
     let electrumClient
     let txData
 
@@ -31,7 +31,7 @@ describe('FundingTransaction', async () => {
     it('succeeds when transaction already has confirmations', async () => {
       const transactionID = txData.hash
 
-      const result = await FundingTransaction.watchForConfirmations(electrumClient, transactionID)
+      const result = await FundingTransaction.waitForConfirmations(electrumClient, transactionID)
 
       assert.isTrue(result >= 1)
     })

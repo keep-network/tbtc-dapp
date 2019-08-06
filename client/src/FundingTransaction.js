@@ -20,7 +20,7 @@ async function getFundingTransactionID(electrumConfig, bitcoinAddress) {
  * TODO: When we increase required confirmations number above 1 we should probably
  * emit an event for each new confirmation to update state in the web app.
  */
-async function watchForConfirmations(electrumClient, transactionID) {
+async function waitForConfirmations(electrumClient, transactionID) {
   const requiredConfirmations = 1 // TODO: This is simplification for demo
 
   const checkConfirmations = async function() {
@@ -44,5 +44,5 @@ async function watchForConfirmations(electrumClient, transactionID) {
 module.exports = {
   getAddress,
   getFundingTransactionID,
-  watchForConfirmations,
+  waitForConfirmations,
 }
