@@ -1,0 +1,14 @@
+{
+    "electrum": {
+        "testnet": {
+            "server": "electrumx-server.tbtc.svc.cluster.local",
+            "port": 50002,
+            "protocol": "ssl"
+        },
+        "testnetPublic": {
+            "server": "testnet1.bauerj.eu",
+            "port": 50002,
+            "protocol": "ssl"
+        }
+    }
+}

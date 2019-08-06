@@ -15,12 +15,10 @@
     "react-scripts": "3.0.1",
     "redux": "^4.0.4",
     "redux-saga": "^1.0.5",
+    "tbtc-client": "file:client",
     "truffle": "^5.0.29",
     "truffle-contract": "^4.0.26",
     "web3": "^1.2.0"
-  },
-  "devDependencies": {
-    "subpackage": "^1.1.0"
   },
   "scripts": {
     "env": "truffle exec ./scripts/env.js",
@@ -46,9 +44,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "subPackages": [
-    "client",
-    "lib/tbtc-helpers"
-  ]
+  }
 }

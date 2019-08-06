@@ -1,44 +1,21 @@
 import { Deposit } from './eth/contracts'
 
 const BitcoinTxParser = require('tbtc-helpers').BitcoinTxParser
-const bitcoinSPV = require('tbtc-helpers').BitcoinSPV
-const ElectrumClient = require('tbtc-helpers').ElectrumClient
-
-const fs = require('fs')
-
-/**
- * Reads electrum client configuration details from a config file.
- * @param {string} configFilePath Path to the configuration file.
- * @return {ElectrumClient.Config} Electrum client configuration.
- */
-function readElectrumConfig(configFilePath) {
-  const configFile = fs.readFileSync(configFilePath, 'utf8')
-  config = JSON.parse(configFile)
-
-  return new ElectrumClient.Config(
-    config.electrum.testnet.server,
-    config.electrum.testnet.port,
-    config.electrum.testnet.protocol
-  )
-}
-
-const electrumConfig = readElectrumConfig(process.env.CONFIG_FILE)
+const bitcoinspv = require('tbtc-helpers').BitcoinSPV
 
 /**
  * Gets transaction SPV proof from BitcoinSPV.
+ * @param {ElectrumClient} electrumClient Electrum client instance.
  * @param {string} txID Transaction ID
  * @param {number} confirmations Required number of confirmations
  */
-async function getTransactionProof(txID, confirmations) {
-  bitcoinSPV.initialize(electrumConfig)
+async function getTransactionProof(electrumClient, txID, confirmations) {
+  const bitcoinSPV = new bitcoinspv.BitcoinSPV(electrumClient)
 
   const spvProof = await bitcoinSPV.getTransactionProof(txID, confirmations)
     .catch((err) => {
-      bitcoinSPV.close()
-      return Promise.reject(new Error(`failed to get bitcoin spv proof: ${err}`))
+      throw new Error(`failed to get bitcoin spv proof: ${err}`)
     })
-
-  bitcoinSPV.close()
 
   return {
     merkleProof: spvProof.merkleProof,
