@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
-import { withBalance } from '../wrappers/web3'
 import { Link } from 'react-router-dom'
+
+import TBTCLogo from './svgs/TBTCLogo'
 
 class App extends Component {
   render() {
-    const { children, balance } = this.props
+    const { children } = this.props
 
     return (
       <div className="app">
         <div className="nav">
-          <div className="title">
-            <Link to='/'>tBTC</Link>
+          <div className="logo">
+            <TBTCLogo width="150" />
           </div>
-          <div className="balance">Balance (in Wei): {balance}</div>
+          <div className="hamburger">&#x2e2c;</div>
         </div>
         { children }
       </div>
@@ -20,4 +21,4 @@ class App extends Component {
   }
 }
 
-export default withBalance(App)
+export default App
