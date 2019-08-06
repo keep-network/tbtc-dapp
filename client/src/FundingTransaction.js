@@ -1,5 +1,8 @@
-import { Network, publicKeyToP2WPKHaddress } from 'tbtc-helpers/src/Address'
+import { Network, publicKeyToP2WPKHaddress } from 'tbtc-helpers'
 import { Deposit, TBTCSystem } from './eth/contracts'
+
+
+
 
 /**
  * Requests a Bitcoin public key for a Deposit and returns it as a Bitcoin address
