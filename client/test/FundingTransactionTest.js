@@ -13,7 +13,7 @@ describe('FundingTransaction', async () => {
     before(async () => {
       txData = require('tbtc-helpers/test/data/tx.json')
 
-      electrumClient = new ElectrumClient.Client(config.electrum.testnet)
+      electrumClient = new ElectrumClient.Client(config.electrum.testnetPublic)
 
       await electrumClient.connect()
         .catch((err) => {
