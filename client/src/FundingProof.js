@@ -1,4 +1,5 @@
-import { BitcoinTxParser, BitcoinSPV as bitcoinspv } from 'tbtc-helpers'
+import BitcoinTxParser from 'tbtc-helpers/src/BitcoinTxParser'
+import BitcoinSPV as bitcoinspv from 'tbtc-helpers/src/BitcoinSPV'
 
 /**
  * Gets transaction SPV proof from BitcoinSPV.

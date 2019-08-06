@@ -1,4 +1,6 @@
-import { Network, publicKeyToP2WPKHaddress, Address } from 'tbtc-helpers'
+import { Network, addressToScript, publicKeyToP2WPKHaddress } from 'tbtc-helpers/src/Address'
+import BitcoinSPV as bitcoinspv from 'tbtc-helpers/src/BitcoinSPV'
+
 import { Deposit, TBTCSystem } from './eth/contracts'
 
 /**
@@ -69,7 +71,7 @@ export async function getDepositBtcAddress(depositAddress) {
  * @return {FundingTransaction} Transaction details.
  */
 export async function watchForFundingTransaction(electrumClient, bitcoinAddress, expectedValue) {
-  const script = Address.addressToScript(bitcoinAddress)
+  const script = addressToScript(bitcoinAddress)
 
   // This function is used as a callback to electrum client. It is invoked when
   // am existing or a new transaction is found.
