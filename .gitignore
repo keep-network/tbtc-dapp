@@ -3,3 +3,4 @@ package-lock.json
 src/app.less/
 *.code-workspace
 build/
+.DS_Store
