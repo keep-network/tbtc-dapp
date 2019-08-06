@@ -12,7 +12,7 @@ const CONFIRMATIONS = 6
 
 describe('FundingProof', async () => {
   it('getTransactionProof', async () => {
-    const electrumClient = new ElectrumClient.Client(config.electrum.testnet)
+    const electrumClient = new ElectrumClient.Client(config.electrum.testnetPublic)
 
     const proofFile = fs.readFileSync('./test/data/proof.json', 'utf8')
     const expectedResult = JSON.parse(proofFile)
