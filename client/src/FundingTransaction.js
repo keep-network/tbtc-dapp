@@ -1,8 +1,5 @@
-import { Network, publicKeyToP2WPKHaddress } from 'tbtc-helpers'
+import { Network, publicKeyToP2WPKHaddress, Address } from 'tbtc-helpers'
 import { Deposit, TBTCSystem } from './eth/contracts'
-
-
-
 
 /**
  * Requests a Bitcoin public key for a Deposit and returns it as a Bitcoin address
@@ -54,7 +51,6 @@ export async function getDepositBtcAddress(depositAddress) {
   )
   return btcAddress
 }
-
 
 /**
  * Funding transaction details.
