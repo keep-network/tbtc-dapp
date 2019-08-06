@@ -14,7 +14,7 @@ export async function getDepositBtcAddress(depositAddress) {
 
   console.log(`Call getPublicKey for deposit [${deposit.address}]`)
 
-  let result = await deposit.retrieveSignerPubkey()
+  await deposit.retrieveSignerPubkey()
     .catch((err)=> {
       // This can happen when the public key was already retrieved before 
       // and we may succeed to get it with tbtcSystem.getPastEvents in the following lines
@@ -50,24 +50,6 @@ export async function getDepositBtcAddress(depositAddress) {
     Network.testnet
   )
   return btcAddress
-}
-
-// A complement to getDepositBTCPublicKey.
-// We don't use this function yet, because we are only on testnet
-// On testnet, there is a race between us getting the deposit address
-// and keep-tecdsa submitting the key, before we can start listening for it
-// Leaving it here for future.
-async function watchForDepositBtcAddress(depositAddress) {
-  const tbtcSystem = await TBTCSystem.deployed()
-
-  return await new Promise((res, rej) => {
-    tbtcSystem.RegisteredPubkey({ _depositContractAddress: depositAddress }).on('data', function(data) {
-      console.log(`Registered public key for deposit ${depositAddress}:\nX: ${publicKeyX}\nY: ${publicKeyY}`)
-      res(data)
-    })
-
-    setTimeout(rej, 15000)
-  })
 }
 
 // Transition from PAGE 3 to PAGE 4
