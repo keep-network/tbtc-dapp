@@ -1,15 +1,4 @@
-import {
-  TBTCSystem,
-  TBTCToken,
-  KeepBridge,
-  DepositFactory,
-  Deposit
-} from './eth/contracts'
-
-import {
-  publicKeyToP2WPKHaddress,
-  Network
-} from 'tbtc-helpers/src/Address'
+import { DepositFactory, KeepBridge, TBTCSystem, TBTCToken } from './eth/contracts';
 
 /**
  * Creates a new deposit and returns its address
