@@ -9,7 +9,7 @@ import {
 import {
   publicKeyToP2WPKHaddress,
   Network
-} from '../../lib/tbtc-helpers/src/Address'
+} from 'tbtc-helpers/src/Address'
 
 /**
  * Creates a new deposit and returns its address
@@ -38,10 +38,8 @@ export async function createDeposit() {
   })
 
   const depositAddress = logs[0].args.depositCloneAddress
-
   return depositAddress
 }
-
 
 // A complement to getDepositBTCPublicKey.
 // We don't use this function yet, because we are only on testnet

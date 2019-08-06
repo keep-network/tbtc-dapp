@@ -1,12 +1,8 @@
 const Web3 = require('web3')
 
-import { createDeposit, setDefaults, initializeDeposit, getDepositBTCPublicKey, waitDepositBTCPublicKey } from '../src'
-import { setElectrumConfig } from '../src/FundingProof';
+import { createDeposit, setDefaults, getDepositBTCPublicKey } from '../src'
 
 import {
-    TBTCSystem,
-    TBTCToken,
-    KeepBridge,
     Deposit
 } from '../src/eth/contracts'
 
