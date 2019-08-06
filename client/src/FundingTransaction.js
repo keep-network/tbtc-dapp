@@ -1,4 +1,5 @@
-import { Network, addressToScript, publicKeyToP2WPKHaddress } from 'tbtc-helpers/src/Address'
+import { Address } from 'tbtc-helpers'
+const { Network, publicKeyToP2WPKHaddress, addressToScript } = Address
 import { Deposit, TBTCSystem } from './eth/contracts'
 
 /**

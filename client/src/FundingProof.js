@@ -1,5 +1,5 @@
-import BitcoinTxParser from 'tbtc-helpers/src/BitcoinTxParser'
-const bitcoinspv = require('tbtc-helpers/src/BitcoinSPV')
+import { BitcoinTxParser } from 'tbtc-helpers'
+const bitcoinspv = require('tbtc-helpers').BitcoinSPV
 
 /**
  * Gets transaction SPV proof from BitcoinSPV.
