@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Web3 from 'web3'
+import { setDefaults } from 'tbtc-client'
 
 const Web3Context = React.createContext({})
 
@@ -35,12 +36,25 @@ class Web3Wrapper extends Component {
             if (accounts.length && accounts[0] !== currentAccount) {
                 const balance = await this.getBalanceForAccount(accounts[0])
 
+                await this.initialiseContracts()
+
                 this.setState({
                     balance,
                     account: accounts[0]
                 })
             }
         }
+    }
+
+    initialiseContracts = async () => {
+        const { web3 } = this.state
+        // TruffleContract was built to use web3 0.3.0, which uses an API method of `sendAsync`
+        // in later versions of web (1.0.0), this method was renamed to `send`
+        // This hack makes them work together again.
+        // https://github.com/ethereum/web3.js/issues/1119
+        web3.providers.HttpProvider.prototype.sendAsync = web3.providers.HttpProvider.prototype.send
+
+        await setDefaults(web3)
     }
 
     getBalanceForAccount = async (account) => {
