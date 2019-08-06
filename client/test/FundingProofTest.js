@@ -1,5 +1,7 @@
 const rewire = require('rewire')
 const FundingProof = rewire('../src/FundingProof')
+const ElectrumClient = require('tbtc-helpers').ElectrumClient
+const config = require('../../config/config.json')
 
 const fs = require('fs')
 const chai = require('chai')
@@ -10,10 +12,12 @@ const CONFIRMATIONS = 6
 
 describe('FundingProof', async () => {
   it('getTransactionProof', async () => {
+    const electrumClient = new ElectrumClient.Client(config.electrum.testnetPublic)
+
     const proofFile = fs.readFileSync('./test/data/proof.json', 'utf8')
     const expectedResult = JSON.parse(proofFile)
 
-    const result = await FundingProof.__get__('getTransactionProof')(TX_ID, CONFIRMATIONS)
+    const result = await FundingProof.__get__('getTransactionProof')(electrumClient, TX_ID, CONFIRMATIONS)
 
     assert.deepEqual(result, expectedResult)
   })
