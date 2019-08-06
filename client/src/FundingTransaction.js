@@ -4,7 +4,7 @@ import { Deposit, TBTCSystem } from './eth/contracts';
 /**
  * Requests a Bitcoin public key for a Deposit and returns it as a Bitcoin address
  * @param {string} depositAddress the address of a Deposit contract
- * @returns a bech32-encoded Bitcoin address, generated from a SegWit P2WPKH script
+ * @return {string} a bech32-encoded Bitcoin address, generated from a SegWit P2WPKH script
  */
 export async function getDepositBtcAddress(depositAddress) {
   const tbtcSystem = await TBTCSystem.deployed()
