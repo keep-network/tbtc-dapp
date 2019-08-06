@@ -1,6 +1,4 @@
 import { Network, addressToScript, publicKeyToP2WPKHaddress } from 'tbtc-helpers/src/Address'
-import BitcoinSPV as bitcoinspv from 'tbtc-helpers/src/BitcoinSPV'
-
 import { Deposit, TBTCSystem } from './eth/contracts'
 
 /**
