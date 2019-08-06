@@ -16,6 +16,9 @@ export async function getDepositBtcAddress(depositAddress) {
 
   let result = await deposit.retrieveSignerPubkey()
     .catch((err)=> {
+      // This can happen when the public key was already retrieved before 
+      // and we may succeed to get it with tbtcSystem.getPastEvents in the following lines
+      // TODO: there may be other errors that this allows to pass, refactor in future
       console.error(`retrieveSignerPubkey failed: ${err}`)
     })
 
@@ -42,11 +45,11 @@ export async function getDepositBtcAddress(depositAddress) {
 
   console.log(`Registered public key for deposit ${depositAddress}:\nX: ${publicKeyX}\nY: ${publicKeyY}`)
 
-  const address = publicKeyToP2WPKHaddress(
+  const btcAddress = publicKeyToP2WPKHaddress(
     `${publicKeyX}${publicKeyY}`,
     Network.testnet
   )
-  return address
+  return btcAddress
 }
 
 // A complement to getDepositBTCPublicKey.
