@@ -1,0 +1,86 @@
+.start {
+    display: flex;
+    flex-direction: row;
+    font-family: 'apercu-mono-regular-pro';
+
+    a {
+        color: @blue;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    .page-left {
+        position: relative;
+        min-width: 460px;
+        min-height: 600px;
+
+        .peanuts {
+            position: absolute;
+            left: -378px;
+            bottom: -100px;
+            transform: rotate(90deg);
+            overflow: hidden;
+
+            svg {
+                path {
+                    fill: @purple;
+                }
+            }
+            // right-most
+            svg:first-of-type {
+                transform: translate(122px, 0)
+            }
+
+            // left-most
+            svg:last-of-type {
+                transform: translate(122px, 0)
+            }
+        }
+    }
+
+    .page-right {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+
+        .step {
+            flex: 0 1;
+            color: @blue;
+            font-size: .5em;
+            margin-bottom: 30px;
+        }
+
+        .title {
+            flex: 0 1;
+            font-size: 1.75em;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        hr {
+            flex: 0 1;
+            border-style: dashed;
+            border-width: 2px 0 0 0;
+            border-color: @blue;
+            width: 150px;
+            margin: 0 0 30px 0;
+        }
+
+        .description {
+            flex: 0 1;
+            font-size: .8em;
+            margin-bottom: 20px;
+        }
+
+        .cta {
+            flex: 1 1;
+            font-size: .8em;
+        }
+
+        .metamask {
+            flex: 0 0;
+            font-size: .8em;
+            margin-bottom: 80px;
+        }
+    }
+}
