@@ -1,6 +1,6 @@
 const Web3 = require('web3')
 
-import { createDeposit, setDefaults, getDepositBTCPublicKey } from '../src'
+import { createDeposit, setDefaults, getDepositBtcAddress } from '../src'
 
 import {
     Deposit
@@ -33,9 +33,9 @@ describe("Ethereum helpers", async () => {
         expect(await deposit.getCurrentState()).to.eq.BN('1')
     })
 
-    it('#getDepositBTCPublicKey', async () => {
+    it('#getDepositBtcAddress', async () => {
         const depositAddress = await createDeposit()
-        let key = await getDepositBTCPublicKey(depositAddress)
-        expect(key.substring(0, 2)).to.equal('tb')
+        const btcAddress = await getDepositBtcAddress(depositAddress)
+        expect(btcAddress.substring(0, 2)).to.equal('tb')
     })
 })
