@@ -8,9 +8,9 @@ metadata:
     type: dapp
 spec:
   ports:
-  - port: 
-    targetPort: 
-    name: tcp-
+  - port: 3000
+    targetPort: 3000
+    name: tcp-3000
   selector:
     app: tbtc
     type: dapp
@@ -38,7 +38,7 @@ spec:
       - name: tbtc-dapp
         image: gcr.io/keep-dev-fe24/tbtc-dapp
         ports:
-          - containerPort: 
+          - containerPort: 3000
         command: ["tbtc", "-config", "/tbtc-dapp/config/config.json", "start"]
       volumes:
       - name: tbtc-dapp
