@@ -40,7 +40,7 @@ async function watchForFundingTransaction(electrumClient, bitcoinAddress, expect
 
     // Check if any of unspent transactions has required value, if so
     // return this transaction.
-    for (tx of unspentTransactions) {
+    for (const tx of unspentTransactions) {
       if (tx.value == expectedValue) {
         return {
           transactionID: tx.tx_hash,
