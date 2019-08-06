@@ -28,7 +28,7 @@ describe('FundingTransaction', async () => {
         })
     })
 
-    it('transaction already has confirmations', async () => {
+    it('succeeds when transaction already has confirmations', async () => {
       const transactionID = txData.hash
 
       const result = await FundingTransaction.watchForConfirmations(electrumClient, transactionID)
