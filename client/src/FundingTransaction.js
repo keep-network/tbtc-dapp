@@ -34,13 +34,15 @@ export async function getDepositBtcAddress(depositAddress) {
     throw new Error(`couldn't find RegisteredPubkey event for deposit address: ${depositAddress}`)
   }
 
-  const publicKeyX = eventList[0].args._signingGroupPubkeyX
-  const publicKeyY = eventList[0].args._signingGroupPubkeyY
+  let publicKeyX = eventList[0].args._signingGroupPubkeyX
+  let publicKeyY = eventList[0].args._signingGroupPubkeyY
+  publicKeyX = publicKeyX.replace('0x', '')
+  publicKeyY = publicKeyY.replace('0x', '')
 
   console.log(`Registered public key for deposit ${depositAddress}:\nX: ${publicKeyX}\nY: ${publicKeyY}`)
 
   const address = publicKeyToP2WPKHaddress(
-    `${publicKeyX.slice(2)}${publicKeyY.slice(2)}`,
+    `${publicKeyX}${publicKeyY}`,
     Network.testnet
   )
   return address
