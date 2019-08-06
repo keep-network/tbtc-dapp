@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import { call, put, takeLatest } from 'redux-saga/effects'
 import history from '../history'
 
@@ -21,20 +22,20 @@ export const DEPOSIT_PROVE_BTC_TX_SUCCESS = 'DEPOSIT_PROVE_BTC_TX_SUCCESS'
 function* requestADeposit() {
     // call Keep to request a deposit
     yield put({ type: DEPOSIT_REQUEST_BEGIN })
-    
+
     let depositAddress
     try {
         // sign the transaction and submit
         depositAddress = yield call(createDeposit)
         yield put({ type: DEPOSIT_REQUEST_METAMASK_SUCCESS })
-    } catch(err) {
-        if(err.message.includes(METAMASK_TX_DENIED_ERROR)) return
+    } catch (err) {
+        if (err.message.includes(METAMASK_TX_DENIED_ERROR)) return
         throw err
     }
 
     // wait for it to be mined
     // get the deposit address
-    yield put({ 
+    yield put({
         type: DEPOSIT_REQUEST_SUCCESS,
         payload: {
             depositAddress,
@@ -89,7 +90,7 @@ function* proveDeposit({ btcTxid }) {
     yield put({ type: DEPOSIT_PROVE_BTC_TX_BEGIN })
 
     // wait for the tx to be mined successfully
-    yield put({ 
+    yield put({
         type: DEPOSIT_PROVE_BTC_TX_SUCCESS,
         payload: {
             tbtcMintedTxId: '0x2260fac5e5542a773aa44fbcfedf7c193bc2c599'
