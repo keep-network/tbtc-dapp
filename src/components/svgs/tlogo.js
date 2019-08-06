@@ -1,6 +1,6 @@
 import React from 'react'
 
-const tLogo = ({ width, height }) => {
+const TLogo = ({ width, height }) => {
     return (
         <svg width={width} height={height} viewBox="0 0 106 106" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M48.4087 57.7096H34.1487V48.7896H72.9787V57.7096H58.7187V76.8096H48.4087V57.7096Z" fill="black"/>
@@ -10,4 +10,4 @@ const tLogo = ({ width, height }) => {
     )
 }
 
-export default tLogo
+export default TLogo
