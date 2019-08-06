@@ -9,7 +9,7 @@ import { Deposit, TBTCSystem } from './eth/contracts';
 export async function getDepositBtcAddress(depositAddress) {
   const tbtcSystem = await TBTCSystem.deployed()
   
-  // 1. Request it from the deposit
+  // 1. Request public key from the deposit
   const deposit = await Deposit.at(depositAddress)
 
   console.log(`Call getPublicKey for deposit [${deposit.address}]`)
@@ -19,8 +19,9 @@ export async function getDepositBtcAddress(depositAddress) {
       console.error(`retrieveSignerPubkey failed: ${err}`)
     })
 
-  // 2. Parse the logs to get it
-  // we can't get this from result.logs, since it's emitted in another contract
+  // 2. Parse the logs to get the public key
+  // since the public key event is emitted in another contract, we
+  // can't get this from result.logs
   const eventList = await tbtcSystem.getPastEvents(
     'RegisteredPubkey', 
     {
