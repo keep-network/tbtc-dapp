@@ -1,0 +1,46 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tbtc-dapp
+  labels:
+    app: tbtc
+    type: dapp
+spec:
+  ports:
+  - port: 
+    targetPort: 
+    name: tcp-
+  selector:
+    app: tbtc
+    type: dapp
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: tbtc-dapp
+  labels:
+    app: tbtc
+    type: dapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tbtc
+      type: dapp
+  template:
+    metadata:
+      labels:
+        app: tbtc
+        type: dapp
+    spec:
+      containers:
+      - name: tbtc-dapp
+        image: gcr.io/keep-dev-fe24/tbtc-dapp
+        ports:
+          - containerPort: 
+        command: ["tbtc", "-config", "/tbtc-dapp/config/config.json", "start"]
+      volumes:
+      - name: tbtc-dapp
+        persistentVolumeClaim:
+          claimName: tbtc-dapp
