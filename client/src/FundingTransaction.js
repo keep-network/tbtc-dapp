@@ -135,9 +135,3 @@ export async function waitForConfirmations(electrumClient, transactionID) {
 
   return confirmations
 }
-
-module.exports = {
-  getAddress,
-  watchForFundingTransaction,
-  waitForConfirmations,
-}
