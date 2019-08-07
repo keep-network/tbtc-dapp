@@ -8,9 +8,9 @@ metadata:
     type: dapp
 spec:
   ports:
-  - port: 3000
-    targetPort: 3000
-    name: tcp-3000
+  - port: 80
+    targetPort: 80
+    name: tcp-80
   selector:
     app: tbtc
     type: dapp
@@ -20,6 +20,7 @@ kind: Deployment
 metadata:
   name: tbtc-dapp
   labels:
+    keel.sh/policy: all
     app: tbtc
     type: dapp
 spec:
@@ -38,9 +39,4 @@ spec:
       - name: tbtc-dapp
         image: gcr.io/keep-dev-fe24/tbtc-dapp
         ports:
-          - containerPort: 3000
-        command: ["tbtc", "-config", "/tbtc-dapp/config/config.json", "start"]
-      volumes:
-      - name: tbtc-dapp
-        persistentVolumeClaim:
-          claimName: tbtc-dapp
+          - containerPort: 80
