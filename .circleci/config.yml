@@ -22,13 +22,31 @@ jobs:
             name: Run NPM tests
             working_directory: ~/project/lib/tbtc-helpers
             command: npm install && npm run test
-  build_dapp:
+  build_and_test_dapp:
     executor: docker-node
     steps:
-        - checkout
-        - run:
-            name: Run NPM tests
-            command: npm install && npm run build
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - checkout
+      - run:
+          name: Run Docker build
+          command: |
+            docker build -t build --target build .
+            docker build -t $GCR_REGISTRY_URL/$GOOGLE_PROJECT_ID/tbtc-dapp .
+      # Test are not available yet. 
+      # - run:
+      #     name: Run NPM tests
+      #     command: |
+      #       docker run -w /app build npm run test
+      - run:
+          name: Save tbtc-dapp image
+          command: |
+            mkdir -p /tmp/images/tbtc-dapp/
+            docker save -o /tmp/images/tbtc-dapp/tbtc-dapp.tar $GCR_REGISTRY_URL/$GOOGLE_PROJECT_ID/tbtc-dapp
+      - persist_to_workspace:
+          root: /tmp/images
+          paths:
+            - tbtc-dapp
 
 workflows:
   version: 2
@@ -40,4 +58,5 @@ workflows:
       - test_tbtc_helpers
   dapp:
     jobs:
-      - build_dapp
+      - build_and_test_dapp:
+          context: keep-dev
