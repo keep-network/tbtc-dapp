@@ -20,9 +20,6 @@
     "truffle-contract": "^4.0.26",
     "web3": "^1.2.0"
   },
-  "devDependencies": {
-    "subpackage": "^1.1.0"
-  },
   "scripts": {
     "env": "truffle exec ./scripts/env.js",
     "build-css": "lessc --clean-css src/css/app.less src/app.css",
@@ -47,9 +44,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "subPackages": [
-    "client",
-    "lib/tbtc-helpers"
-  ]
+  }
 }
