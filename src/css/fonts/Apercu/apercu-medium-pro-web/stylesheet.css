@@ -1,0 +1,23 @@
+/*
+ * Web Fonts from colophon-foundry.org
+ *
+ * The fonts included in this stylesheet are subject to the End User License you purchased
+ * from Colophon Foundry. The fonts are protected under domestic and international trademark and
+ * copyright law. You are prohibited from modifying, reverse engineering, duplicating, or
+ * distributing this font software.
+ *
+ * (c) 2019 Colophon Foundry
+ *
+ * Licenced to Michael Gluzman Thesis
+ */
+
+@font-face {
+    font-family: 'apercu-medium-pro';
+    src: url('apercu-medium-pro.eot');
+    src: url('apercu-medium-pro.eot?#iefix') format('embedded-opentype'),
+         url('apercu-medium-pro.woff2') format('woff2'),
+         url('apercu-medium-pro.woff') format('woff'),
+         url('apercu-medium-pro.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
