@@ -1,4 +1,4 @@
-const BitcoinTxParser = require('tbtc-helpers').BitcoinTxParser
+import { BitcoinTxParser } from 'tbtc-helpers'
 const bitcoinspv = require('tbtc-helpers').BitcoinSPV
 
 /**
@@ -32,7 +32,7 @@ async function getTransactionProof(electrumClient, txID, confirmations) {
  * @param {string} txID Funding transaction ID.
  * @param {number} fundingOutputIndex Position of a funding output in the transaction.
  */
-async function calculateAndSubmitFundingProof(electrumClient, txID, fundingOutputIndex) {
+export async function calculateAndSubmitFundingProof(electrumClient, txID, fundingOutputIndex) {
   if (txID.length != 64) {
     throw new Error(`invalid transaction id length [${txID.length}], required: [64]`)
   }
@@ -61,8 +61,4 @@ async function calculateAndSubmitFundingProof(electrumClient, txID, fundingOutpu
 
 
   // return eth transaction id to later convert it to etherscan link
-}
-
-module.exports = {
-  calculateAndSubmitFundingProof,
 }

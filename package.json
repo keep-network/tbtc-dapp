@@ -16,6 +16,7 @@
     "redux": "^4.0.4",
     "redux-saga": "^1.0.5",
     "tbtc-client": "file:client",
+    "tbtc-helpers": "file:./lib/tbtc-helpers",
     "truffle": "^5.0.29",
     "truffle-contract": "^4.0.26",
     "web3": "^1.2.0"
@@ -26,7 +27,7 @@
     "watch-css": "npm run build-css && less-watch-compiler src/css src app.less",
     "start-js": "sleep 2 && react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
-    "build": "npm run build-css && react-scripts build",
+    "build": "npm run build-css && react-scripts --max_old_space_size=8192 build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
