@@ -49,7 +49,7 @@ jobs:
       - persist_to_workspace:
           root: /tmp/tbtc-dapp
           paths:
-            - tbtc-dapp
+            - docker-images
   publish_dapp:
     executor: gcp-gcr/default
     steps:
