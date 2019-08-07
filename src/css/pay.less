@@ -1,0 +1,83 @@
+.pay {
+    .page-left {
+        .peanuts {
+            position: absolute;
+            left: -378px;
+            bottom: -100px;
+            transform: rotate(90deg);
+            overflow: hidden;
+
+            svg {
+                path {
+                    fill: @purple;
+                }
+            }
+            // right-most
+            svg:first-of-type {
+                transform: translate(122px, 0)
+            }
+
+            // left-most
+            svg:last-of-type {
+                transform: translate(122px, 0)
+            }
+        }
+    }
+
+    .page-right {
+        // What is broken that makes me need this?
+        max-width: 300px;
+
+        .custodial-fee {
+            flex: 0 1;
+            font-size: .8em;
+            margin-bottom: 20px;
+        }
+
+        .copy-address {
+            .address {
+                color: @blue;
+                text-decoration: underline;
+                cursor: pointer;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                min-width: 1px;
+            }
+
+            .copied {
+                color: red;
+            }
+        }
+    }
+
+    .hidden-copy-field {
+        position: absolute;
+        right: 999999px;
+    }
+
+    .confirming  {
+
+        svg {
+            stroke-dasharray: 500;
+            stroke-dashoffset: 500;
+            animation: dash 4s linear infinite;
+            transform: rotate(270deg);
+            stroke-linecap: round;
+
+            path {
+                stroke: @purple;
+                transform: translate(175px, 175px)
+            }
+        }
+      
+        @keyframes dash {
+            from {
+                stroke-dashoffset:1000;
+            }
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+    }
+}
