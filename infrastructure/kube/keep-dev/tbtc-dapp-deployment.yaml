@@ -1,0 +1,42 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tbtc-dapp
+  labels:
+    app: tbtc
+    type: dapp
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+    name: tcp-80
+  selector:
+    app: tbtc
+    type: dapp
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: tbtc-dapp
+  labels:
+    keel.sh/policy: all
+    app: tbtc
+    type: dapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tbtc
+      type: dapp
+  template:
+    metadata:
+      labels:
+        app: tbtc
+        type: dapp
+    spec:
+      containers:
+      - name: tbtc-dapp
+        image: gcr.io/keep-dev-fe24/tbtc-dapp
+        ports:
+          - containerPort: 80
