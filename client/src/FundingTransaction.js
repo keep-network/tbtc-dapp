@@ -1,5 +1,6 @@
-import { Network, publicKeyToP2WPKHaddress, Address } from 'tbtc-helpers'
+import { Address } from 'tbtc-helpers'
 import { Deposit, TBTCSystem } from './eth/contracts'
+const { Network, publicKeyToP2WPKHaddress, addressToScript } = Address
 
 /**
  * Requests a Bitcoin public key for a Deposit and returns it as a Bitcoin address
@@ -16,7 +17,7 @@ export async function getDepositBtcAddress(depositAddress) {
 
   await deposit.retrieveSignerPubkey()
     .catch((err) => {
-      // This can happen when the public key was already retrieved before 
+      // This can happen when the public key was already retrieved before
       // and we may succeed to get it with tbtcSystem.getPastEvents in the following lines
       // TODO: there may be other errors that this allows to pass, refactor in future
       console.error(`retrieveSignerPubkey failed: ${err}`)
@@ -30,7 +31,7 @@ export async function getDepositBtcAddress(depositAddress) {
     {
       fromBlock: '0',
       toBlock: 'latest',
-      filter: { _depositContractAddress: depositAddress }
+      filter: { _depositContractAddress: depositAddress },
     }
   )
 
@@ -69,11 +70,11 @@ export async function getDepositBtcAddress(depositAddress) {
  * @return {FundingTransaction} Transaction details.
  */
 export async function watchForFundingTransaction(electrumClient, bitcoinAddress, expectedValue) {
-  const script = Address.addressToScript(bitcoinAddress)
+  const script = addressToScript(bitcoinAddress)
 
   // This function is used as a callback to electrum client. It is invoked when
   // am existing or a new transaction is found.
-  const findFundingTransaction = async function (status) {
+  const findFundingTransaction = async function(status) {
     // Check if status is null which means there are not transactions for the
     // script.
     if (status == null) {
@@ -117,7 +118,7 @@ export async function watchForFundingTransaction(electrumClient, bitcoinAddress,
 export async function waitForConfirmations(electrumClient, transactionID) {
   const requiredConfirmations = 1 // TODO: This is simplification for demo
 
-  const checkConfirmations = async function () {
+  const checkConfirmations = async function() {
     // Get current state of the transaction.
     const tx = await electrumClient.getTransaction(transactionID)
 
@@ -133,10 +134,4 @@ export async function waitForConfirmations(electrumClient, transactionID) {
     })
 
   return confirmations
-}
-
-module.exports = {
-  getAddress,
-  watchForFundingTransaction,
-  waitForConfirmations,
 }
