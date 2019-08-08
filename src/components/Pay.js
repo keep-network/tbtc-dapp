@@ -75,7 +75,7 @@ class Pay extends Component {
           </div>
           <div className="copy-address">
             <div className="address" onClick={this.copyAddress}>
-              {address || 'paoifjp3a98rjpawicj3oinacowijndoijp0awe98ur984759283764529874y5qui4oqyuoq'}
+              {address}
             </div>
             {
               copied
