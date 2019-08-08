@@ -1,9 +1,4 @@
-import {
-  TBTCSystem,
-  TBTCToken,
-  KeepBridge,
-  DepositFactory
-} from './eth/contracts'
+import { DepositFactory, KeepBridge, TBTCSystem, TBTCToken } from './eth/contracts';
 
 /**
  * Creates a new deposit and returns its address
@@ -32,6 +27,5 @@ export async function createDeposit() {
   })
 
   const depositAddress = logs[0].args.depositCloneAddress
-
   return depositAddress
 }

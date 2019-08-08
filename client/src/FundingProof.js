@@ -1,6 +1,6 @@
 import { Deposit } from './eth/contracts'
+import { BitcoinTxParser } from 'tbtc-helpers'
 
-const BitcoinTxParser = require('tbtc-helpers').BitcoinTxParser
 const bitcoinspv = require('tbtc-helpers').BitcoinSPV
 
 /**
@@ -36,7 +36,7 @@ async function getTransactionProof(electrumClient, txID, confirmations) {
  * @param {number} fundingOutputIndex Position of a funding output in the transaction.
  * @return {string} ID of transaction submitting the proof to the deposit contract.
  */
-async function calculateAndSubmitFundingProof(
+export async function calculateAndSubmitFundingProof(
   electrumClient,
   depositAddress,
   txID,
@@ -76,8 +76,4 @@ async function calculateAndSubmitFundingProof(
   })
 
   return result.tx
-}
-
-module.exports = {
-  calculateAndSubmitFundingProof,
 }

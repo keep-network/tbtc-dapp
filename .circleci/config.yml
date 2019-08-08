@@ -5,6 +5,9 @@ executors:
     docker:
       - image: circleci/node:11
 
+orbs:
+  gcp-gcr: circleci/gcp-gcr@0.0.4
+
 jobs:
   test_client:
     executor: docker-node
@@ -22,13 +25,50 @@ jobs:
             name: Run NPM tests
             working_directory: ~/project/lib/tbtc-helpers
             command: npm install && npm run test
-  build_dapp:
+  build_and_test_dapp:
     executor: docker-node
     steps:
-        - checkout
-        - run:
-            name: Run NPM tests
-            command: npm install && npm run build
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - checkout
+      - run:
+          name: Run Docker build
+          command: |
+            docker build -t build --target build .
+            docker build -t $GCR_REGISTRY_URL/$GOOGLE_PROJECT_ID/tbtc-dapp .
+      # Test are not available yet. 
+      # - run:
+      #     name: Run NPM tests
+      #     command: |
+      #       docker run -w /app build npm run test
+      - run:
+          name: Save tbtc-dapp image
+          command: |
+            mkdir -p /tmp/tbtc-dapp/docker-images/
+            docker save -o /tmp/tbtc-dapp/docker-images/tbtc-dapp.tar $GCR_REGISTRY_URL/$GOOGLE_PROJECT_ID/tbtc-dapp
+      - persist_to_workspace:
+          root: /tmp/tbtc-dapp
+          paths:
+            - docker-images
+  publish_dapp:
+    executor: gcp-gcr/default
+    steps:
+      - attach_workspace:
+          at: /tmp/tbtc-dapp
+      - run:
+          name: Load tbtc-dapp image
+          command: |
+            docker load -i /tmp/tbtc-dapp/docker-images/tbtc-dapp.tar
+      - gcp-gcr/gcr-auth:
+          google-project-id: GOOGLE_PROJECT_ID
+          google-compute-zone: GOOGLE_COMPUTE_ZONE_A
+          # This param doesn't actually set anything, leaving here as a reminder to check when they fix it.
+          gcloud-service-key: GCLOUD_SERVICE_KEY
+      - gcp-gcr/push-image:
+          google-project-id: GOOGLE_PROJECT_ID
+          registry-url: $GCR_REGISTRY_URL
+          image: tbtc-dapp
+          tag: latest
 
 workflows:
   version: 2
@@ -40,4 +80,12 @@ workflows:
       - test_tbtc_helpers
   dapp:
     jobs:
-      - build_dapp
+      - build_and_test_dapp:
+          context: keep-dev
+      - publish_dapp:
+          filters:
+            branches:
+              only: master
+          context: keep-dev
+          requires:
+            - build_and_test_dapp
