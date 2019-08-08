@@ -13,7 +13,7 @@ class Pay extends Component {
   componentDidMount() {
     const { waitConfirmation } = this.props
 
-    // waitConfirmation()
+    waitConfirmation()
   }
 
   copyAddress = (evt) => {
