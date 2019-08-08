@@ -5,7 +5,6 @@ import { REQUEST_A_DEPOSIT, WAIT_CONFIRMATION, SUBMIT_DEPOSIT_PROOF } from '../a
 import { createDeposit, getDepositBtcAddress, watchForFundingTransaction, waitForConfirmations } from 'tbtc-client'
 import { METAMASK_TX_DENIED_ERROR } from '../chain'
 const ElectrumClient = require('tbtc-helpers').ElectrumClient
-const fs = require('fs')
 
 export const DEPOSIT_REQUEST_BEGIN = 'DEPOSIT_REQUEST_BEGIN'
 export const DEPOSIT_REQUEST_METAMASK_SUCCESS = 'DEPOSIT_REQUEST_METAMASK_SUCCESS'
@@ -20,7 +19,7 @@ export const DEPOSIT_PROVE_BTC_TX_BEGIN = 'DEPOSIT_PROVE_BTC_TX_BEGIN'
 export const DEPOSIT_PROVE_BTC_TX_SUCCESS = 'DEPOSIT_PROVE_BTC_TX_SUCCESS'
 
 function getElectrumClient() {
-    const config = JSON.parse(fs.readFileSync('../../config/config.json'))
+    const config = require('../config/config')
     const electrumClient = new ElectrumClient.Client(config.electrum.testnetPublic)
     return electrumClient
 }
