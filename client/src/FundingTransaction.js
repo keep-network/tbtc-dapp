@@ -13,7 +13,7 @@ export async function getDepositBtcAddress(depositAddress) {
   // 1. Request public key from the deposit
   const deposit = await Deposit.at(depositAddress)
 
-  console.log(`Call getPublicKey for deposit [${deposit.address}]`)
+  console.log(`Get Public Key for deposit [${deposit.address}]`)
 
   await deposit.retrieveSignerPubkey()
     .catch((err) => {
@@ -36,7 +36,7 @@ export async function getDepositBtcAddress(depositAddress) {
   )
 
   if (eventList.length == 0) {
-    throw new Error(`couldn't find RegisteredPubkey event for deposit address: ${depositAddress}`)
+    throw new Error(`couldn't find RegisteredPubkey event for deposit address: [${depositAddress}]`)
   }
 
   let publicKeyX = eventList[0].args._signingGroupPubkeyX
@@ -44,12 +44,15 @@ export async function getDepositBtcAddress(depositAddress) {
   publicKeyX = publicKeyX.replace('0x', '')
   publicKeyY = publicKeyY.replace('0x', '')
 
-  console.log(`Registered public key for deposit ${depositAddress}:\nX: ${publicKeyX}\nY: ${publicKeyY}`)
+  console.log(`Registered Public Key coordinates: X=[${publicKeyX}] Y=[${publicKeyY}]`)
 
   const btcAddress = publicKeyToP2WPKHaddress(
     `${publicKeyX}${publicKeyY}`,
     Network.testnet
   )
+
+  console.log(`Calculated Bitcoin address: [${btcAddress}]`)
+
   return btcAddress
 }
 
