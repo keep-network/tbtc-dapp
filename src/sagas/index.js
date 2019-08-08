@@ -2,7 +2,7 @@ import { call, put, takeLatest, select } from 'redux-saga/effects'
 import history from '../history'
 
 import { REQUEST_A_DEPOSIT, WAIT_CONFIRMATION, SUBMIT_DEPOSIT_PROOF } from '../actions'
-import { createDeposit, watchForFundingTransaction, waitForConfirmations } from 'tbtc-client'
+import { createDeposit, getDepositBtcAddress, watchForFundingTransaction, waitForConfirmations } from 'tbtc-client'
 import { METAMASK_TX_DENIED_ERROR } from '../chain'
 const ElectrumClient = require('tbtc-helpers').ElectrumClient
 const fs = require('fs')
@@ -48,13 +48,21 @@ function* requestADeposit() {
         }
     })
 
-    // now call the deposit contract
-    // and get the btc address
-    // goto next
+    let btcAddress
+    try {
+        // now call the deposit contract
+        // and get the btc address
+        btcAddress = yield call(getDepositBtcAddress, depositAddress)
+        yield put({ type: DEPOSIT_REQUEST_METAMASK_SUCCESS })
+    } catch (err) {
+        if (err.message.includes(METAMASK_TX_DENIED_ERROR)) return
+        throw err
+    }
+
     yield put({
         type: DEPOSIT_BTC_ADDRESS,
         payload: {
-            btcAddress: '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa'
+            btcAddress,
         }
     })
 

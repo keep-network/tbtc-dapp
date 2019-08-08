@@ -21,6 +21,9 @@ class Pay extends Component {
     document.execCommand('copy')
     this.hiddenCopyField.blur()
     this.setState({ copied: true })
+    // TODO: Uncomment when wait for confirmations is integrated to the UI.
+    // This is just a temporary solution so the address page stays displayed.
+    // waitConfirmation()
   }
 
   render() {
@@ -96,17 +99,17 @@ class Pay extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-      address: state.app.btcAddress,
-      btcConfirming: !!state.app.btcConfirming
+    address: state.app.btcAddress,
+    btcConfirming: !!state.app.btcConfirming
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
-      {
-        waitConfirmation
-      },
-      dispatch
+    {
+      waitConfirmation
+    },
+    dispatch
   )
 }
 
