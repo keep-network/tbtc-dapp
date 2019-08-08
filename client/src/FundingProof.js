@@ -48,6 +48,8 @@ export async function calculateAndSubmitFundingProof(
 
   // TODO: We need to calculate confirmations value in a special way:
   // See: https://github.com/keep-network/tbtc-dapp/pull/8#discussion_r307438648
+  // TODO: Original value `6` was decreased to `1` for demo simplification. Set it
+  // back to `6`.
   const confirmations = 1
 
   // Get transaction SPV proof.
