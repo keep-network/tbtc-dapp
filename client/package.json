@@ -3,8 +3,8 @@
     "version": "0.0.1",
     "description": "",
     "scripts": {
-        "test": "mocha -r @babel/register --timeout 5000",
-        "test:debug": "node --inspect node_modules/.bin/mocha -r @babel/register --timeout 5000",
+        "test": "mocha -r @babel/register --timeout 10000",
+        "test:debug": "node --inspect node_modules/.bin/mocha -r @babel/register --timeout 10000",
         "js:lint": "eslint .",
         "js:lint:fix": "eslint --fix ."
     },
