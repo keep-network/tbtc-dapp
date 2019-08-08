@@ -44,21 +44,21 @@ jobs:
       - run:
           name: Save tbtc-dapp image
           command: |
-            mkdir -p /tmp/images/tbtc-dapp/
-            docker save -o /tmp/images/tbtc-dapp/tbtc-dapp.tar $GCR_REGISTRY_URL/$GOOGLE_PROJECT_ID/tbtc-dapp
+            mkdir -p /tmp/tbtc-dapp/docker-images/
+            docker save -o /tmp/tbtc-dapp/docker-images/tbtc-dapp.tar $GCR_REGISTRY_URL/$GOOGLE_PROJECT_ID/tbtc-dapp
       - persist_to_workspace:
-          root: /tmp/images
+          root: /tmp/tbtc-dapp
           paths:
-            - tbtc-dapp
+            - docker-images
   publish_dapp:
     executor: gcp-gcr/default
     steps:
       - attach_workspace:
-          at: /tmp/images
+          at: /tmp/tbtc-dapp
       - run:
           name: Load tbtc-dapp image
           command: |
-            docker load -i /tmp/images/tbtc-dapp/tbtc-dapp.tar
+            docker load -i /tmp/tbtc-dapp/docker-images/tbtc-dapp.tar
       - gcp-gcr/gcr-auth:
           google-project-id: GOOGLE_PROJECT_ID
           google-compute-zone: GOOGLE_COMPUTE_ZONE_A
