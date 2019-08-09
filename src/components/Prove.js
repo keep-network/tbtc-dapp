@@ -76,7 +76,7 @@ class Prove extends Component {
           </div>
           <div className="cta">
             <a href="/pay" onClick={this.handleOpenModal}>
-              Begin now >>>
+              Submit Proof >>>
             </a>
           </div>
         </div>

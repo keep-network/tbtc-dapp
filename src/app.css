@@ -1,5 +1,5 @@
 button {
-  background-color: #6cb9fd;
+  background-color: #479CFF;
   color: #fff;
   border-radius: 4px;
   border: 0px solid transparent;
@@ -8,10 +8,10 @@ button {
   cursor: pointer;
 }
 button:hover {
-  background-color: #6ab9ff;
+  background-color: #479cff;
 }
 button:focus {
-  background-color: #3aa1fc;
+  background-color: #1481ff;
 }
 .peanuts {
   z-index: 1;
@@ -66,7 +66,7 @@ footer {
 .pay .page-right .step,
 .prove .page-right .step {
   flex: 0 1;
-  color: #6cb9fd;
+  color: #479CFF;
   font-size: 0.5em;
   margin-bottom: 30px;
 }
@@ -80,7 +80,7 @@ hr {
   flex: 0 1;
   border-style: dashed;
   border-width: 2px 0 0 0;
-  border-color: #6cb9fd;
+  border-color: #479CFF;
   width: 150px;
   margin: 0 0 30px 0;
 }
@@ -125,7 +125,7 @@ hr {
   overflow: hidden;
 }
 .start .page-left .peanuts svg path {
-  fill: #3b1471;
+  fill: #370C5F;
 }
 .start .page-left .peanuts svg:first-of-type {
   transform: translate(122px, 0);
@@ -156,7 +156,7 @@ hr {
   margin-bottom: 20px;
 }
 .pay .page-right .copy-address .address {
-  color: #6cb9fd;
+  color: #479CFF;
   text-decoration: underline;
   cursor: pointer;
   white-space: nowrap;
@@ -179,7 +179,7 @@ hr {
   stroke-linecap: round;
 }
 .pay .confirming svg path {
-  stroke: #3b1471;
+  stroke: #370C5F;
   transform: translate(175px, 175px);
 }
 @keyframes dash {
@@ -228,7 +228,7 @@ hr {
   overflow: hidden;
 }
 .prove-modal .modal-right .peanuts svg path {
-  fill: #3b1471;
+  fill: #370C5F;
 }
 .prove-modal .modal-right .peanuts svg:first-of-type {
   transform: translate(-50px, 8px);
@@ -244,7 +244,7 @@ body,
   font-family: 'apercu-mono-regular-pro';
 }
 a {
-  color: #6cb9fd;
+  color: #479CFF;
   text-decoration: underline;
   cursor: pointer;
 }
@@ -325,7 +325,7 @@ footer .footer-content .white-paper .white-paper-link {
 }
 footer .footer-content .white-paper .white-paper-link a {
   white-space: nowrap;
-  color: #6cb9fd;
+  color: #479CFF;
   text-decoration: underline;
 }
 footer .footer-content .footer-logo {
