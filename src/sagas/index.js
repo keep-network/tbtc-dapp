@@ -72,7 +72,7 @@ function* requestADeposit() {
 
 function* waitConfirmation() {
     const electrumClient = getElectrumClient()
-    const TESTNET_FUNDING_AMOUNT_SATOSHIS = 200
+    const TESTNET_FUNDING_AMOUNT_SATOSHIS = 100
 
     // wait for the transaction to be received and mined
     const btcAddress = yield select(state => state.app.btcAddress)
