@@ -1,5 +1,5 @@
 import { Address } from 'tbtc-helpers'
-import { Deposit, TBTCSystem } from './eth/contracts'
+import { Deposit, TBTCSystem, truffleToWeb3Contract } from './eth/contracts'
 import { Deferred, promiseWithTimeout } from './util'
 const { Network, publicKeyToP2WPKHaddress, addressToScript } = Address
 
@@ -9,14 +9,14 @@ const { Network, publicKeyToP2WPKHaddress, addressToScript } = Address
  * @return {string} a bech32-encoded Bitcoin address, generated from a SegWit P2WPKH script
  */
 export async function getDepositBtcAddress(depositAddress) {
-  const tbtcSystem = await TBTCSystem.deployed()
+  const tbtcSystem = truffleToWeb3Contract(await TBTCSystem.deployed())
 
   const deposit = await Deposit.at(depositAddress)
 
   // 1. Listen for the public key registration event, before we request it
   //    This is to avoid race conditions.
   const registeredPubKeyEvent = new Deferred()
-  tbtcSystem.RegisteredPubkey({ filter: { _depositContractAddress: depositAddress } })
+  tbtcSystem.events.RegisteredPubkey({ filter: { _depositContractAddress: depositAddress } })
     .once('data', function(event) {
       registeredPubKeyEvent.resolve(event)
     })
@@ -37,9 +37,9 @@ export async function getDepositBtcAddress(depositAddress) {
     .catch((err) => {
       throw new Error(`couldn't find RegisteredPubkey event for deposit address: [${depositAddress}]\nError: ${err}`)
     })
-
-  let publicKeyX = event.args._signingGroupPubkeyX
-  let publicKeyY = event.args._signingGroupPubkeyY
+  
+  let publicKeyX = event.returnValues._signingGroupPubkeyX
+  let publicKeyY = event.returnValues._signingGroupPubkeyY
   publicKeyX = publicKeyX.replace('0x', '')
   publicKeyY = publicKeyY.replace('0x', '')
 
