@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout 5000",
+    "test": "mocha --timeout 10000",
     "js:lint": "eslint .",
     "js:lint:fix": "eslint --fix ."
   },
