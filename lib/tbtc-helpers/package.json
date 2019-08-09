@@ -11,12 +11,12 @@
   "author": "Jakub Nowakowski <jakub.nowakowski@keep.network>",
   "license": "ISC",
   "dependencies": {
+    "bcoin": "git+https://github.com/bcoin-org/bcoin.git#v1.0.2",
     "bcrypto": "^4.1.0",
     "bufio": "^1.0.6",
     "electrum-client-js": "git+https://github.com/nkuba/electrum-client-js#websocket"
   },
   "devDependencies": {
-    "bcoin": "git+https://github.com/bcoin-org/bcoin.git#v1.0.2",
     "chai": "^4.2.0",
     "eslint": "^5.16.0",
     "eslint-config-keep": "git+https://github.com/keep-network/eslint-config-keep.git#0.2.0",
