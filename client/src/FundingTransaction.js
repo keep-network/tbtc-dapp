@@ -1,6 +1,6 @@
 import { Address } from 'tbtc-helpers'
 import { Deposit, TBTCSystem } from './eth/contracts'
-import { promiseWithTimeout, timeout, Deferred } from './util'
+import { Deferred, promiseWithTimeout } from './util'
 const { Network, publicKeyToP2WPKHaddress, addressToScript } = Address
 
 /**
