@@ -4,7 +4,8 @@ const intialState = {
   btcAddress: null,
   depositAddress: null,
   btcDepositedTxid: null,
-  tbtcMintedTxId: null
+  tbtcMintedTxId: null,
+  fundingOutputIndex: null
 }
 
 const app = (state = intialState, action) => {
@@ -22,7 +23,8 @@ const app = (state = intialState, action) => {
     case BTC_TX_CONFIRMED:
       return {
           ...state,
-          btcDepositedTxid: action.payload.btcDepositedTxid
+          btcDepositedTxid: action.payload.btcDepositedTxid,
+          fundingOutputIndex: action.payload.fundingOutputIndex
       }
     case DEPOSIT_PROVE_BTC_TX_SUCCESS:
       return {
