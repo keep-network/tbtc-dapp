@@ -21,9 +21,6 @@ class Pay extends Component {
     document.execCommand('copy')
     this.hiddenCopyField.blur()
     this.setState({ copied: true })
-    // TODO: Uncomment when wait for confirmations is integrated to the UI.
-    // This is just a temporary solution so the address page stays displayed.
-    // waitConfirmation()
   }
 
   render() {
@@ -31,7 +28,7 @@ class Pay extends Component {
     const { copied } = this.state
     let renderLeft, renderTitle;
 
-    if (btcConfirming) {
+    if (!btcConfirming) {
       renderLeft = (
         <div className="qr-code">
           TODO: QR CODE
