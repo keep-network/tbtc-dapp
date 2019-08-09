@@ -1,4 +1,6 @@
-const BitcoinTxParser = require('tbtc-helpers').BitcoinTxParser
+import { Deposit } from './eth/contracts'
+import { BitcoinTxParser } from 'tbtc-helpers'
+
 const bitcoinspv = require('tbtc-helpers').BitcoinSPV
 
 /**
@@ -29,40 +31,51 @@ async function getTransactionProof(electrumClient, txID, confirmations) {
 /**
  * Calculates deposit funding proof and submits it to tBTC.
  * @param {ElectrumClient} electrumClient Electrum client instance.
+ * @param {string} depositAddress Deposit contract address.
  * @param {string} txID Funding transaction ID.
  * @param {number} fundingOutputIndex Position of a funding output in the transaction.
+ * @return {string} ID of transaction submitting the proof to the deposit contract.
  */
-async function calculateAndSubmitFundingProof(electrumClient, txID, fundingOutputIndex) {
+export async function calculateAndSubmitFundingProof(
+  electrumClient,
+  depositAddress,
+  txID,
+  fundingOutputIndex
+) {
   if (txID.length != 64) {
     throw new Error(`invalid transaction id length [${txID.length}], required: [64]`)
   }
 
   // TODO: We need to calculate confirmations value in a special way:
   // See: https://github.com/keep-network/tbtc-dapp/pull/8#discussion_r307438648
-  const confirmations = 6
+  // TODO: Original value `6` was decreased to `1` for demo simplification. Set it
+  // back to `6`.
+  const confirmations = 1
 
+  // Get transaction SPV proof.
   const spvProof = await getTransactionProof(electrumClient, txID, confirmations)
 
-  // 2. Parse transaction to get required details.
+  // Parse transaction to get required details.
   const txDetails = await BitcoinTxParser.parse(spvProof.tx)
     .catch((err) => {
-      throw new Error(`failed to parse spv proof: ${err}`)
+      throw new Error(`failed to parse spv proof: [${err}]`)
     })
 
-  // 3. Submit proof to the contracts
-  // version: txDetails.version,
-  // txInVector: txDetails.txInVector,
-  // txOutVector: txDetails.txOutVector,
-  // fundingOutputIndex: fundingOutputIndex,
-  // locktime: txDetails.locktime,
-  // merkleProof: spvProof.merkleProof,
-  // txInBlockIndex: spvProof.txInBlockIndex,
-  // chainHeaders: spvProof.chainHeaders,
+  // Submit funding proof to the deposit contract.
+  const deposit = await Deposit.at(depositAddress)
 
+  const result = await deposit.provideBTCFundingProof(
+    txDetails.version,
+    txDetails.txInVector,
+    txDetails.txOutVector,
+    txDetails.locktime,
+    fundingOutputIndex,
+    spvProof.merkleProof,
+    spvProof.txInBlockIndex,
+    spvProof.chainHeaders
+  ).catch((err) => {
+    throw new Error(`failed to submit funding transaction proof: [${err}]`)
+  })
 
-  // return eth transaction id to later convert it to etherscan link
-}
-
-module.exports = {
-  calculateAndSubmitFundingProof,
+  return result.tx
 }

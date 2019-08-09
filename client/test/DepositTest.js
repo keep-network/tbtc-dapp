@@ -1,10 +1,7 @@
-import { createDeposit, setDefaults } from '../src'
+import { createDeposit, setDefaults, getDepositBtcAddress } from '../src'
 
 import {
-    TBTCSystem,
-    TBTCToken,
-    KeepBridge,
-    Deposit
+  Deposit
 } from '../src/eth/contracts'
 
 const Web3 = require('web3')
@@ -29,7 +26,7 @@ describe.skip('Ethereum helpers', async () => {
     Web3.providers.HttpProvider.prototype.sendAsync = Web3.providers.HttpProvider.prototype.send
 
     web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'))
-        await setDefaults(web3)
+    await setDefaults(web3)
   })
 
   it('#createDeposit', async () => {
@@ -37,5 +34,11 @@ describe.skip('Ethereum helpers', async () => {
     const deposit = await Deposit.at(depositAddress)
 
     expect(await deposit.getCurrentState()).to.eq.BN('1')
+  })
+
+  it('#getDepositBtcAddress', async () => {
+    const depositAddress = await createDeposit()
+    const btcAddress = await getDepositBtcAddress(depositAddress)
+    expect(btcAddress.substring(0, 2)).to.equal('tb')
   })
 })

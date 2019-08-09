@@ -1,10 +1,59 @@
-const Address = require('tbtc-helpers').Address
+import { Address } from 'tbtc-helpers'
+import { Deposit, TBTCSystem } from './eth/contracts'
+const { Network, publicKeyToP2WPKHaddress, addressToScript } = Address
 
-// PAGE 3: Pay BTC
-async function getAddress(depositAddress) {
-  // TODO: Implement:
-  // 1. Get keep public key from the deposit
-  // 2. Calculate P2WPKH address from the key
+/**
+ * Requests a Bitcoin public key for a Deposit and returns it as a Bitcoin address
+ * @param {string} depositAddress the address of a Deposit contract
+ * @return {string} a bech32-encoded Bitcoin address, generated from a SegWit P2WPKH script
+ */
+export async function getDepositBtcAddress(depositAddress) {
+  const tbtcSystem = await TBTCSystem.deployed()
+
+  // 1. Request public key from the deposit
+  const deposit = await Deposit.at(depositAddress)
+
+  console.log(`Get Public Key for deposit [${deposit.address}]`)
+
+  await deposit.retrieveSignerPubkey()
+    .catch((err) => {
+      // This can happen when the public key was already retrieved before
+      // and we may succeed to get it with tbtcSystem.getPastEvents in the following lines
+      // TODO: there may be other errors that this allows to pass, refactor in future
+      console.error(`retrieveSignerPubkey failed: ${err}`)
+    })
+
+  // 2. Parse the logs to get the public key
+  // since the public key event is emitted in another contract, we
+  // can't get this from result.logs
+  const eventList = await tbtcSystem.getPastEvents(
+    'RegisteredPubkey',
+    {
+      fromBlock: '0',
+      toBlock: 'latest',
+      filter: { _depositContractAddress: depositAddress },
+    }
+  )
+
+  if (eventList.length == 0) {
+    throw new Error(`couldn't find RegisteredPubkey event for deposit address: [${depositAddress}]`)
+  }
+
+  let publicKeyX = eventList[0].args._signingGroupPubkeyX
+  let publicKeyY = eventList[0].args._signingGroupPubkeyY
+  publicKeyX = publicKeyX.replace('0x', '')
+  publicKeyY = publicKeyY.replace('0x', '')
+
+  console.log(`Registered Public Key coordinates: X=[${publicKeyX}] Y=[${publicKeyY}]`)
+
+  const btcAddress = publicKeyToP2WPKHaddress(
+    `${publicKeyX}${publicKeyY}`,
+    Network.testnet
+  )
+
+  console.log(`Calculated Bitcoin address: [${btcAddress}]`)
+
+  return btcAddress
 }
 
 /**
@@ -23,8 +72,8 @@ async function getAddress(depositAddress) {
  * @param {number} expectedValue Expected transaction output value (satoshis).
  * @return {FundingTransaction} Transaction details.
  */
-async function watchForFundingTransaction(electrumClient, bitcoinAddress, expectedValue) {
-  const script = Address.addressToScript(bitcoinAddress)
+export async function watchForFundingTransaction(electrumClient, bitcoinAddress, expectedValue) {
+  const script = addressToScript(bitcoinAddress)
 
   // This function is used as a callback to electrum client. It is invoked when
   // am existing or a new transaction is found.
@@ -69,7 +118,7 @@ async function watchForFundingTransaction(electrumClient, bitcoinAddress, expect
  * TODO: When we increase required confirmations number above 1 we should probably
  * emit an event for each new confirmation to update state in the web app.
  */
-async function waitForConfirmations(electrumClient, transactionID) {
+export async function waitForConfirmations(electrumClient, transactionID) {
   const requiredConfirmations = 1 // TODO: This is simplification for demo
 
   const checkConfirmations = async function() {
@@ -88,10 +137,4 @@ async function waitForConfirmations(electrumClient, transactionID) {
     })
 
   return confirmations
-}
-
-module.exports = {
-  getAddress,
-  watchForFundingTransaction,
-  waitForConfirmations,
 }
