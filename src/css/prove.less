@@ -1,0 +1,62 @@
+.prove {
+    .page-right {
+        .cta {
+            flex: 1 1;
+            font-size: .8em;
+            margin-top: 40px;
+        }
+    }
+}
+
+.prove-modal {
+    display: flex;
+    flex-direction: row;
+
+    .modal-left {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+
+        .description {
+            font-size: 1em;
+        }
+
+        .cta, .cti {
+            margin: 10px 0 20px 0;
+        }
+
+        .cti {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    }
+
+    .modal-right {
+        position: relative;
+        overflow: hidden;
+        min-width: 460px;
+
+        .peanuts {
+            position: absolute;
+            left: 0;
+            top: 0;
+            transform: rotate(90deg);
+            overflow: hidden;
+
+            svg {
+                path {
+                    fill: @purple;
+                }
+            }
+            // right-most
+            svg:first-of-type {
+                transform: translate(-50px, 8px)
+            }
+
+            // left-most
+            svg:last-of-type {
+                transform: translate(-50px, -8px)
+            }
+        }
+    }
+}

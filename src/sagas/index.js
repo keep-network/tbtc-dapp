@@ -2,7 +2,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
 import history from '../history'
 
-import { REQUEST_A_DEPOSIT, WAIT_CONFIRMATION, SUBMIT_DEPOSIT_PROOF } from '../actions'
+import { REQUEST_A_DEPOSIT, WAIT_CONFIRMATION, SUBMIT_DEPOSIT_PROOF, CLOSE_MODAL } from '../actions'
 import { createDeposit } from 'tbtc-client'
 import { METAMASK_TX_DENIED_ERROR } from '../chain'
 
@@ -95,6 +95,10 @@ function* proveDeposit({ btcTxid }) {
         payload: {
             tbtcMintedTxId: '0x2260fac5e5542a773aa44fbcfedf7c193bc2c599'
         }
+    })
+
+    yield put({
+        type: CLOSE_MODAL
     })
 
     // goto
