@@ -19,6 +19,9 @@ button:focus {
 footer {
   z-index: 2;
 }
+.modal {
+  z-index: 3;
+}
 /*
  * Web Fonts from colophon-foundry.org
  *
@@ -39,45 +42,41 @@ footer {
   font-style: normal;
 }
 .start,
-.pay {
+.pay,
+.prove {
   display: flex;
   flex-direction: row;
   font-family: 'apercu-mono-regular-pro';
 }
-.start a,
-.pay a {
-  color: #6cb9fd;
-  text-decoration: underline;
-  cursor: pointer;
-}
 .start .page-left,
-.pay .page-left {
+.pay .page-left,
+.prove .page-left {
   position: relative;
   min-width: 460px;
   min-height: 600px;
 }
 .start .page-right,
-.pay .page-right {
+.pay .page-right,
+.prove .page-right {
   display: flex;
   flex-direction: column;
   text-align: left;
 }
 .start .page-right .step,
-.pay .page-right .step {
+.pay .page-right .step,
+.prove .page-right .step {
   flex: 0 1;
   color: #6cb9fd;
   font-size: 0.5em;
   margin-bottom: 30px;
 }
-.start .page-right .title,
-.pay .page-right .title {
+.title {
   flex: 0 1;
   font-size: 1.75em;
   font-weight: bold;
   margin-bottom: 30px;
 }
-.start .page-right hr,
-.pay .page-right hr {
+hr {
   flex: 0 1;
   border-style: dashed;
   border-width: 2px 0 0 0;
@@ -85,11 +84,38 @@ footer {
   width: 150px;
   margin: 0 0 30px 0;
 }
-.start .page-right .description,
-.pay .page-right .description {
+.description {
   flex: 0 1;
   font-size: 0.8em;
   margin-bottom: 20px;
+}
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.modal.closed {
+  display: none;
+}
+.modal.open {
+  display: block;
+}
+.modal .close {
+  text-align: end;
+  padding: 10px;
+}
+.modal .close .x {
+  display: inline-block;
+  cursor: pointer;
+}
+.modal .modal-body {
+  margin: 200px auto;
+  padding: 20px 25px 40px 80px;
+  width: 768px;
+  background-color: #fff;
 }
 .start .page-left .peanuts {
   position: absolute;
@@ -107,11 +133,6 @@ footer {
 .start .page-left .peanuts svg:last-of-type {
   transform: translate(122px, 0);
 }
-.start .page-right {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-}
 .start .page-right .description {
   flex: 0 1;
   font-size: 0.8em;
@@ -125,22 +146,6 @@ footer {
   flex: 0 0;
   font-size: 0.8em;
   margin-bottom: 80px;
-}
-.pay .page-left .peanuts {
-  position: absolute;
-  left: -378px;
-  bottom: -100px;
-  transform: rotate(90deg);
-  overflow: hidden;
-}
-.pay .page-left .peanuts svg path {
-  fill: #3b1471;
-}
-.pay .page-left .peanuts svg:first-of-type {
-  transform: translate(122px, 0);
-}
-.pay .page-left .peanuts svg:last-of-type {
-  transform: translate(122px, 0);
 }
 .pay .page-right {
   max-width: 300px;
@@ -185,6 +190,52 @@ footer {
     stroke-dashoffset: 0;
   }
 }
+.prove .page-right .cta {
+  flex: 1 1;
+  font-size: 0.8em;
+  margin-top: 40px;
+}
+.prove-modal {
+  display: flex;
+  flex-direction: row;
+}
+.prove-modal .modal-left {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+.prove-modal .modal-left .description {
+  font-size: 1em;
+}
+.prove-modal .modal-left .cta,
+.prove-modal .modal-left .cti {
+  margin: 10px 0 20px 0;
+}
+.prove-modal .modal-left .cti {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.prove-modal .modal-right {
+  position: relative;
+  overflow: hidden;
+  min-width: 460px;
+}
+.prove-modal .modal-right .peanuts {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: rotate(90deg);
+  overflow: hidden;
+}
+.prove-modal .modal-right .peanuts svg path {
+  fill: #3b1471;
+}
+.prove-modal .modal-right .peanuts svg:first-of-type {
+  transform: translate(-50px, 8px);
+}
+.prove-modal .modal-right .peanuts svg:last-of-type {
+  transform: translate(-50px, -8px);
+}
 html,
 body,
 #root {
@@ -193,8 +244,9 @@ body,
   font-family: 'apercu-mono-regular-pro';
 }
 a {
-  color: unset;
-  text-decoration: unset;
+  color: #6cb9fd;
+  text-decoration: underline;
+  cursor: pointer;
 }
 .main {
   display: flex;
