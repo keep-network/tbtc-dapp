@@ -2,6 +2,7 @@
 Dockerfile
 .*
 .circleci
+infrastructure
 
 # Build output.
 **/build/*
