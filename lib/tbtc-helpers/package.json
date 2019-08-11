@@ -14,7 +14,7 @@
     "bcoin": "git+https://github.com/bcoin-org/bcoin.git#v1.0.2",
     "bcrypto": "^4.1.0",
     "bufio": "^1.0.6",
-    "electrum-client-js": "git+https://github.com/nkuba/electrum-client-js.git#websocket"
+    "electrum-client-js": "git+https://github.com/nkuba/electrum-client-js.git#7dc1a0c290d9a77a05620682b3ef13ffa25a1254"
   },
   "devDependencies": {
     "chai": "^4.2.0",
