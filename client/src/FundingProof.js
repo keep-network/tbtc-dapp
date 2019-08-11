@@ -18,9 +18,10 @@ async function getTransactionProof(electrumClient, txID, confirmations) {
     })
 
   return {
+    tx: spvProof.tx,
     merkleProof: spvProof.merkleProof,
     txInBlockIndex: spvProof.txInBlockIndex,
-    chainHeaders: spvProof.chainHeaders,
+    chainHeaders: spvProof.chainHeaders
   }
 }
 
