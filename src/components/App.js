@@ -1,24 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 
-import { closeModal } from '../actions'
 import TBTCLogo from './svgs/TBTCLogo'
+import { Modal } from './lib'
 
 class App extends Component {
   render() {
-    const { children, renderModal, closeModal } = this.props
+    const { children, renderModal } = this.props
 
     return (
       <div className="main">
-        <div className={`modal ${renderModal ? 'open' : 'closed'}`}>
-          <div className="modal-body">
-            <div className="close">
-              <div className="x" onClick={closeModal}>&#9587;</div>
-            </div>
-            { renderModal && renderModal()}
-          </div>
-        </div>
+        <Modal isOpen={!!renderModal} render={renderModal} />
         <div className="app">
           <header className="nav">
             <div className="logo">
@@ -71,16 +63,6 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(
-      {
-        closeModal
-      },
-      dispatch
-  )
-}
-
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 )(App)
