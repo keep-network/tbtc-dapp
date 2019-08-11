@@ -70,21 +70,21 @@ export async function calculateAndSubmitFundingProof(
   try {
     txDetails = await BitcoinTxParser.parse(spvProof.tx)
   } catch (err) {
-      throw new Error(`failed to parse spv proof: [${err}]`)
+    throw new Error(`failed to parse spv proof: [${err}]`)
   }
 
   // Submit funding proof to the deposit contract.
   const deposit = await Deposit.at(depositAddress)
 
   const result = await deposit.provideBTCFundingProof(
-    txDetails.version,
-    txDetails.txInVector,
-    txDetails.txOutVector,
-    txDetails.locktime,
+    Buffer.from(txDetails.version, 'hex'),
+    Buffer.from(txDetails.txInVector, 'hex'),
+    Buffer.from(txDetails.txOutVector, 'hex'),
+    Buffer.from(txDetails.locktime, 'hex'),
     fundingOutputIndex,
-    spvProof.merkleProof,
+    Buffer.from(spvProof.merkleProof, 'hex'),
     spvProof.txInBlockIndex,
-    spvProof.chainHeaders
+    Buffer.from(spvProof.chainHeaders, 'hex')
   ).catch((err) => {
     throw new Error(`failed to submit funding transaction proof: [${err}]`)
   })
