@@ -66,10 +66,12 @@ export async function calculateAndSubmitFundingProof(
   const spvProof = await getTransactionProof(electrumClient, txID, confirmations)
 
   // Parse transaction to get required details.
-  const txDetails = await BitcoinTxParser.parse(spvProof.tx)
-    .catch((err) => {
+  let txDetails
+  try {
+    txDetails = await BitcoinTxParser.parse(spvProof.tx)
+  } catch (err) {
       throw new Error(`failed to parse spv proof: [${err}]`)
-    })
+  }
 
   // Submit funding proof to the deposit contract.
   const deposit = await Deposit.at(depositAddress)
