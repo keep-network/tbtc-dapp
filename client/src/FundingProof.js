@@ -4,10 +4,19 @@ import { BitcoinTxParser } from 'tbtc-helpers'
 const bitcoinspv = require('tbtc-helpers').BitcoinSPV
 
 /**
+ * @typedef {Object} Proof
+ * @property {string} tx - Raw transaction in hexadecimal format.
+ * @property {string} merkleProof - Transaction merkle proof.
+ * @property {string} txInBlockIndex - Transaction index in a block.
+ * @property {string} chainHeaders - Chain of blocks headers.
+ */
+
+/**
  * Gets transaction SPV proof from BitcoinSPV.
  * @param {ElectrumClient} electrumClient Electrum client instance.
- * @param {string} txID Transaction ID
- * @param {number} confirmations Required number of confirmations
+ * @param {string} txID Transaction ID.
+ * @param {number} confirmations Required number of confirmations.
+ * @return {Proof} SPV transaction proof.
  */
 async function getTransactionProof(electrumClient, txID, confirmations) {
   const bitcoinSPV = new bitcoinspv.BitcoinSPV(electrumClient)
