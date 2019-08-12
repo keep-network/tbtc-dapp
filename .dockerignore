@@ -1,0 +1,11 @@
+# Top-level directories unrelated to the build.
+Dockerfile
+.*
+.circleci
+infrastructure
+
+# Build output.
+**/build/*
+
+# NPM stuff.
+**/node_modules/*

@@ -1,23 +1,32 @@
-import { DEPOSIT_BTC_ADDRESS, DEPOSIT_REQUEST_SUCCESS, DEPOSIT_PROVE_BTC_TX_SUCCESS, BTC_TX_CONFIRMED } from "../sagas";
+import { BTC_TX_CONFIRMED, BTC_TX_CONFIRMED_WAIT, DEPOSIT_BTC_ADDRESS, DEPOSIT_PROVE_BTC_TX_SUCCESS, DEPOSIT_REQUEST_SUCCESS } from "../sagas"
 
 const intialState = {
   btcAddress: null,
   depositAddress: null,
   btcDepositedTxid: null,
-  tbtcMintedTxId: null
+  tbtcMintedTxId: null,
+  fundingOutputIndex: null,
+  btcConfirming: false
 }
 
 const app = (state = intialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case DEPOSIT_BTC_ADDRESS:
       return {
-          ...state,
-          btcAddress: action.payload.btcAddress
+        ...state,
+        btcAddress: action.payload.btcAddress
       }
     case DEPOSIT_REQUEST_SUCCESS:
       return {
+        ...state,
+        depositAddress: action.payload.depositAddress
+      }
+    case BTC_TX_CONFIRMED_WAIT:
+      return {
           ...state,
-          depositAddress: action.payload.depositAddress
+          btcConfirming: true,
+          btcDepositedTxid: action.payload.btcDepositedTxid,
+          fundingOutputIndex: action.payload.fundingOutputIndex
       }
     case BTC_TX_CONFIRMED:
       return {
@@ -26,11 +35,11 @@ const app = (state = intialState, action) => {
       }
     case DEPOSIT_PROVE_BTC_TX_SUCCESS:
       return {
-          ...state,
-          tbtcMintedTxId: action.payload.tbtcMintedTxId
+        ...state,
+        tbtcMintedTxId: action.payload.tbtcMintedTxId
       }
     default:
-        return state
+      return state
   }
 }
 

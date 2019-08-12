@@ -2,24 +2,25 @@
   "name": "tbtc-helpers",
   "version": "0.0.1",
   "description": "",
+  "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout 5000",
+    "test": "mocha --timeout 10000",
     "js:lint": "eslint .",
     "js:lint:fix": "eslint --fix ."
   },
   "author": "Jakub Nowakowski <jakub.nowakowski@keep.network>",
   "license": "ISC",
   "dependencies": {
-    "bcoin": "git+https://github.com/bcoin-org/bcoin.git",
+    "bcoin": "git+https://github.com/bcoin-org/bcoin.git#v1.0.2",
     "bcrypto": "^4.1.0",
     "bufio": "^1.0.6",
-    "electrumjs": "^0.1.3"
+    "electrum-client-js": "git+https://github.com/nkuba/electrum-client-js.git#7dc1a0c290d9a77a05620682b3ef13ffa25a1254"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "fs": "0.0.1-security",
-    "mocha": "^6.2.0",
     "eslint": "^5.16.0",
-    "eslint-config-keep": "git+https://github.com/keep-network/eslint-config-keep.git#0.2.0"
+    "eslint-config-keep": "git+https://github.com/keep-network/eslint-config-keep.git#0.2.0",
+    "fs": "0.0.1-security",
+    "mocha": "^6.2.0"
   }
 }
