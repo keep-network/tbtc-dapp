@@ -19,14 +19,10 @@ class Start extends Component {
   render() {
     return (
       <div className="start">
-        <div className="page-left">
-          <div className="peanuts">
-            <Peanut width="900"/>
-            <Peanut width="900"/>
-            <Peanut width="900"/>
-          </div>
+        <div className="page-top">
+          <Peanut width="250px" />
         </div>
-        <div className="page-right">
+        <div className="page-body">
           <div className="step">
             Step 1/5
           </div>
@@ -41,9 +37,6 @@ class Start extends Component {
             <a href="/pay" onClick={this.handleClickPay}>
               Begin now >>>
             </a>
-          </div>
-          <div className="metamask">
-            FYI: You will need a web3-enabled wallet, we suggest <a href="https://metamask.io/" target="_blank">Metamask</a>.
           </div>
         </div>
       </div>

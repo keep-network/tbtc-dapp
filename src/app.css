@@ -45,49 +45,62 @@ footer {
 .pay,
 .prove {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   font-family: 'apercu-mono-regular-pro';
+  text-align: center;
 }
-.start .page-left,
-.pay .page-left,
-.prove .page-left {
-  position: relative;
-  min-width: 460px;
-  min-height: 600px;
+.start .page-top,
+.pay .page-top,
+.prove .page-top {
+  margin: 25px 0 100px 0;
 }
-.start .page-right,
-.pay .page-right,
-.prove .page-right {
+.start .page-body,
+.pay .page-body,
+.prove .page-body {
   display: flex;
   flex-direction: column;
-  text-align: left;
+  min-height: 500px;
+  max-width: 500px;
+  margin: 0 auto;
 }
-.start .page-right .step,
-.pay .page-right .step,
-.prove .page-right .step {
+.start .page-body .step,
+.pay .page-body .step,
+.prove .page-body .step {
   flex: 0 1;
   color: #479CFF;
   font-size: 0.5em;
   margin-bottom: 30px;
 }
-.title {
+.start .page-body .title,
+.pay .page-body .title,
+.prove .page-body .title {
   flex: 0 1;
   font-size: 1.75em;
   font-weight: bold;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
-hr {
+.start .page-body hr,
+.pay .page-body hr,
+.prove .page-body hr {
   flex: 0 1;
   border-style: dashed;
   border-width: 2px 0 0 0;
   border-color: #479CFF;
   width: 150px;
-  margin: 0 0 30px 0;
+  margin: 0 auto 40px auto;
 }
-.description {
+.start .page-body .description,
+.pay .page-body .description,
+.prove .page-body .description {
   flex: 0 1;
   font-size: 0.8em;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+}
+.start .page-body .cta,
+.pay .page-body .cta,
+.prove .page-body .cta {
+  flex: 1 1;
+  font-size: 0.8em;
 }
 .modal {
   position: absolute;
@@ -116,36 +129,6 @@ hr {
   padding: 20px 25px 40px 80px;
   width: 768px;
   background-color: #fff;
-}
-.start .page-left .peanuts {
-  position: absolute;
-  left: -378px;
-  bottom: -100px;
-  transform: rotate(90deg);
-  overflow: hidden;
-}
-.start .page-left .peanuts svg path {
-  fill: #370C5F;
-}
-.start .page-left .peanuts svg:first-of-type {
-  transform: translate(122px, 0);
-}
-.start .page-left .peanuts svg:last-of-type {
-  transform: translate(122px, 0);
-}
-.start .page-right .description {
-  flex: 0 1;
-  font-size: 0.8em;
-  margin-bottom: 20px;
-}
-.start .page-right .cta {
-  flex: 1 1;
-  font-size: 0.8em;
-}
-.start .page-right .metamask {
-  flex: 0 0;
-  font-size: 0.8em;
-  margin-bottom: 80px;
 }
 .pay .page-right {
   max-width: 300px;
@@ -281,14 +264,6 @@ a {
 }
 .app .nav .logo svg {
   display: block;
-}
-.app .congratulations,
-.app .home,
-.app .pay,
-.app .prove,
-.app .start {
-  margin-top: 50px;
-  text-align: center;
 }
 footer {
   flex-shrink: 0;
