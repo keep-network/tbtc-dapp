@@ -1,10 +1,10 @@
-// eslint-disable-next-line
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { call, put, takeLatest, select } from 'redux-saga/effects'
 import history from '../history'
 
 import { REQUEST_A_DEPOSIT, WAIT_CONFIRMATION, SUBMIT_DEPOSIT_PROOF } from '../actions'
-import { createDeposit, getDepositBtcAddress } from 'tbtc-client'
+import { createDeposit, getDepositBtcAddress, watchForFundingTransaction, waitForConfirmations } from 'tbtc-client'
 import { METAMASK_TX_DENIED_ERROR } from '../chain'
+const ElectrumClient = require('tbtc-helpers').ElectrumClient
 
 export const DEPOSIT_REQUEST_BEGIN = 'DEPOSIT_REQUEST_BEGIN'
 export const DEPOSIT_REQUEST_METAMASK_SUCCESS = 'DEPOSIT_REQUEST_METAMASK_SUCCESS'
@@ -18,6 +18,12 @@ export const BTC_TX_CONFIRMED = 'BTC_TX_CONFIRMED'
 export const DEPOSIT_PROVE_BTC_TX_BEGIN = 'DEPOSIT_PROVE_BTC_TX_BEGIN'
 export const DEPOSIT_PROVE_BTC_TX_SUCCESS = 'DEPOSIT_PROVE_BTC_TX_SUCCESS'
 
+async function getElectrumClient() {
+    const config = require('../config/config.json')
+    const electrumClient = new ElectrumClient.Client(config.electrum.testnetWS)
+    await electrumClient.connect()
+    return electrumClient
+}
 
 function* requestADeposit() {
     // call Keep to request a deposit
@@ -65,9 +71,13 @@ function* requestADeposit() {
 }
 
 function* waitConfirmation() {
-    // now show a waiting dialog, with some sort of smart countdown
-    // wait for the transaction to be received
-    // wait for the transaction to be confirmed
+    const electrumClient = yield call(getElectrumClient)
+    const TESTNET_FUNDING_AMOUNT_SATOSHIS = 1000
+
+    // wait for the transaction to be received and mined
+    const btcAddress = yield select(state => state.app.btcAddress)
+    const fundingTx = yield call(watchForFundingTransaction, electrumClient, btcAddress, TESTNET_FUNDING_AMOUNT_SATOSHIS)
+
     yield put({
         type: BTC_TX_MINED
     })
@@ -76,12 +86,13 @@ function* waitConfirmation() {
     yield put({
         type: BTC_TX_CONFIRMED_WAIT
     })
+    yield call(waitForConfirmations, electrumClient, fundingTx.transactionID)
 
     // when it's finally sufficiently confirmed, dispatch the txid
     yield put({
         type: BTC_TX_CONFIRMED,
         payload: {
-            btcDepositedTxid: 'ed469d3afbe6a4f69b729fc782ed6bf15fb7017d7f4349227d48753c68ac04b3'
+            btcDepositedTxid: fundingTx.transactionID
         }
     })
 

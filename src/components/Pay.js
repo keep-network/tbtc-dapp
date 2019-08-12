@@ -13,9 +13,7 @@ class Pay extends Component {
   componentDidMount() {
     const { waitConfirmation } = this.props
 
-    // TODO: Uncomment when wait for confirmations is integrated to the UI.
-    // This is just a temporary solution so the address page stays displayed.
-    // waitConfirmation()
+    waitConfirmation()
   }
 
   copyAddress = (evt) => {
