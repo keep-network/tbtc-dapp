@@ -18,8 +18,7 @@ export const BTC_TX_CONFIRMED = 'BTC_TX_CONFIRMED'
 export const DEPOSIT_PROVE_BTC_TX_BEGIN = 'DEPOSIT_PROVE_BTC_TX_BEGIN'
 export const DEPOSIT_PROVE_BTC_TX_SUCCESS = 'DEPOSIT_PROVE_BTC_TX_SUCCESS'
 
-
-function getElectrumClient() {
+async function getElectrumClient() {
     const config = require('../config/config.json')
     const electrumClient = new ElectrumClient.Client(config.electrum.testnetWS)
     await electrumClient.connect()
@@ -72,8 +71,8 @@ function* requestADeposit() {
 }
 
 function* waitConfirmation() {
-    const electrumClient = getElectrumClient()
-    const TESTNET_FUNDING_AMOUNT_SATOSHIS = 200
+    const electrumClient = yield call(getElectrumClient)
+    const TESTNET_FUNDING_AMOUNT_SATOSHIS = 1000
 
     // wait for the transaction to be received and mined
     const btcAddress = yield select(state => state.app.btcAddress)
