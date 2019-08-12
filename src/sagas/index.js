@@ -2,8 +2,7 @@ import { call, put, takeLatest, select } from 'redux-saga/effects'
 import history from '../history'
 
 import { REQUEST_A_DEPOSIT, WAIT_CONFIRMATION, SUBMIT_DEPOSIT_PROOF } from '../actions'
-import { createDeposit, getDepositBtcAddress, watchForFundingTransaction, waitForConfirmations } from 'tbtc-client'
-import { calculateAndSubmitFundingProof } from 'tbtc-helpers'
+import { createDeposit, getDepositBtcAddress, watchForFundingTransaction, waitForConfirmations, calculateAndSubmitFundingProof } from 'tbtc-client'
 import { METAMASK_TX_DENIED_ERROR } from '../chain'
 const ElectrumClient = require('tbtc-helpers').ElectrumClient
 
@@ -115,7 +114,7 @@ function* proveDeposit() {
     const fundingOutputIndex = yield select(state => state.app.fundingOutputIndex)
     const electrumClient = getElectrumClient()
     let tbtcMintedTxId;
-   
+
     try {
         tbtcMintedTxId = yield call(calculateAndSubmitFundingProof, electrumClient, depositAddress, btcDepositedTxid, fundingOutputIndex)
     } catch (err) {
