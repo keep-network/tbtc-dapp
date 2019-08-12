@@ -1,4 +1,4 @@
-import { DEPOSIT_BTC_ADDRESS, DEPOSIT_REQUEST_SUCCESS, DEPOSIT_PROVE_BTC_TX_SUCCESS, BTC_TX_CONFIRMED, BTC_TX_CONFIRMED_WAIT, BTC_TX_MINED } from "../sagas";
+import { BTC_TX_CONFIRMED, BTC_TX_CONFIRMED_WAIT, DEPOSIT_BTC_ADDRESS, DEPOSIT_PROVE_BTC_TX_SUCCESS, DEPOSIT_REQUEST_SUCCESS } from "../sagas"
 
 const intialState = {
   btcAddress: null,
@@ -21,16 +21,17 @@ const app = (state = intialState, action) => {
         ...state,
         depositAddress: action.payload.depositAddress
       }
-    case BTC_TX_CONFIRMED:
-      return {
-        ...state,
-        btcDepositedTxid: action.payload.btcDepositedTxid,
-        fundingOutputIndex: action.payload.fundingOutputIndex
-      }
     case BTC_TX_CONFIRMED_WAIT:
       return {
-        ...state,
-        btcConfirming: true
+          ...state,
+          btcConfirming: true,
+          btcDepositedTxid: action.payload.btcDepositedTxid,
+          fundingOutputIndex: action.payload.fundingOutputIndex
+      }
+    case BTC_TX_CONFIRMED:
+      return {
+          ...state,
+          btcDepositedTxid: action.payload.btcDepositedTxid
       }
     case DEPOSIT_PROVE_BTC_TX_SUCCESS:
       return {
