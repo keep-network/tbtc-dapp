@@ -97,7 +97,7 @@ class Pay extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     address: state.app.btcAddress,
-    btcConfirming: !!state.app.btcConfirming
+    btcConfirming: state.app.btcConfirming
   }
 }
 
