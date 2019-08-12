@@ -87,22 +87,22 @@ function* waitConfirmation() {
     const fundingTx = yield call(watchForFundingTransaction, electrumClient, btcAddress, TESTNET_FUNDING_AMOUNT_SATOSHIS)
 
     yield put({
-        type: BTC_TX_MINED
+        type: BTC_TX_MINED,
+        payload: {
+            btcDepositedTxid: fundingTx.transactionID,
+            fundingOutputIndex: fundingTx.fundingOutputPosition
+        }
     })
 
     // wait a certain number of confirmations on this step
     yield put({
-        type: BTC_TX_CONFIRMED_WAIT
+        type: BTC_TX_CONFIRMED_WAIT,
     })
     yield call(waitForConfirmations, electrumClient, fundingTx.transactionID)
 
     // when it's finally sufficiently confirmed, dispatch the txid
     yield put({
-        type: BTC_TX_CONFIRMED,
-        payload: {
-            btcDepositedTxid: fundingTx.transactionID,
-            fundingOutputIndex: fundingTx.fundingOutputPosition
-        }
+        type: BTC_TX_CONFIRMED
     })
 
     // goto
