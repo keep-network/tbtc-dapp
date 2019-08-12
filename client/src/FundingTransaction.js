@@ -104,7 +104,7 @@ export async function watchForFundingTransaction(electrumClient, bitcoinAddress,
     script,
     findFundingTransaction
   ).catch((err) => {
-    return new Error(`failed to wait for a transaction to hash: [${err}]`)
+    throw new Error(`failed to wait for a transaction to hash: [${err}]`)
   })
 
   return fundingTransaction
