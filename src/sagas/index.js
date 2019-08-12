@@ -96,8 +96,9 @@ function* waitConfirmation() {
 
     // wait a certain number of confirmations on this step
     yield put({
-        type: BTC_TX_CONFIRMED_WAIT,
+        type: BTC_TX_CONFIRMED_WAIT
     })
+    
     yield call(waitForConfirmations, electrumClient, fundingTx.transactionID)
 
     // when it's finally sufficiently confirmed, dispatch the txid
