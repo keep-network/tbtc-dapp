@@ -9,8 +9,8 @@ import {
 const intialState = {
   btcAddress: null,
   depositAddress: null,
-  btcDepositedTxid: null,
-  tbtcMintedTxId: null,
+  btcDepositedTxID: null,
+  tbtcMintedTxID: null,
   fundingOutputIndex: null,
   btcConfirming: false
 }
@@ -30,7 +30,7 @@ const app = (state = intialState, action) => {
     case BTC_TX_MINED:
       return {
         ...state,
-        btcDepositedTxid: action.payload.btcDepositedTxid,
+        btcDepositedTxID: action.payload.btcDepositedTxID,
         fundingOutputIndex: action.payload.fundingOutputIndex
       }
     case BTC_TX_CONFIRMED_WAIT:
@@ -42,7 +42,7 @@ const app = (state = intialState, action) => {
     case DEPOSIT_PROVE_BTC_TX_SUCCESS:
       return {
         ...state,
-        tbtcMintedTxId: action.payload.tbtcMintedTxId
+        tbtcMintedTxID: action.payload.tbtcMintedTxID
       }
     default:
       return state

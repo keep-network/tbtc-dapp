@@ -89,7 +89,7 @@ function* waitConfirmation() {
     yield put({
         type: BTC_TX_MINED,
         payload: {
-            btcDepositedTxid: fundingTx.transactionID,
+            btcDepositedTxID: fundingTx.transactionID,
             fundingOutputIndex: fundingTx.fundingOutputPosition
         }
     })
@@ -113,7 +113,7 @@ function* proveDeposit() {
     yield put({ type: DEPOSIT_PROVE_BTC_TX_BEGIN })
 
     const depositAddress = yield select(state => state.app.depositAddress)
-    const btcDepositedTxid = yield select(state => state.app.btcDepositedTxid)
+    const btcDepositedTxID = yield select(state => state.app.btcDepositedTxID)
     const fundingOutputIndex = yield select(state => state.app.fundingOutputIndex)
 
     const electrumClient = yield call(getElectrumClient)
@@ -122,13 +122,13 @@ function* proveDeposit() {
     // run through the proof generation process
     // generate a proof
     // again, call the web3 contract, submitting the proof
-    let tbtcMintedTxId
+    let tbtcMintedTxID
     try {
-        tbtcMintedTxId = yield call(
+        tbtcMintedTxID = yield call(
             calculateAndSubmitFundingProof,
             electrumClient,
             depositAddress,
-            btcDepositedTxid,
+            btcDepositedTxID,
             fundingOutputIndex
         )
     } catch (err) {
@@ -139,7 +139,7 @@ function* proveDeposit() {
     yield put({
         type: DEPOSIT_PROVE_BTC_TX_SUCCESS,
         payload: {
-            tbtcMintedTxId,
+            tbtcMintedTxID,
         }
     })
 
