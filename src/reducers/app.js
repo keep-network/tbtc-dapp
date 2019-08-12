@@ -20,15 +20,15 @@ const app = (state = intialState, action) => {
           ...state,
           depositAddress: action.payload.depositAddress
       }
-    case BTC_TX_CONFIRMED:
-      return {
-          ...state,
-          btcDepositedTxid: action.payload.btcDepositedTxid
-      }
     case BTC_TX_CONFIRMED_WAIT:
       return {
           ...state,
           btcConfirming: true
+      }
+    case BTC_TX_CONFIRMED:
+      return {
+          ...state,
+          btcDepositedTxid: action.payload.btcDepositedTxid
       }
     case DEPOSIT_PROVE_BTC_TX_SUCCESS:
       return {
