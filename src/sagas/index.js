@@ -87,22 +87,23 @@ function* waitConfirmation() {
     const fundingTx = yield call(watchForFundingTransaction, electrumClient, btcAddress, TESTNET_FUNDING_AMOUNT_SATOSHIS)
 
     yield put({
-        type: BTC_TX_MINED
+        type: BTC_TX_MINED,
+        payload: {
+            btcDepositedTxID: fundingTx.transactionID,
+            fundingOutputIndex: fundingTx.fundingOutputPosition
+        }
     })
 
     // wait a certain number of confirmations on this step
     yield put({
         type: BTC_TX_CONFIRMED_WAIT
     })
+    
     yield call(waitForConfirmations, electrumClient, fundingTx.transactionID)
 
     // when it's finally sufficiently confirmed, dispatch the txid
     yield put({
-        type: BTC_TX_CONFIRMED,
-        payload: {
-            btcDepositedTxid: fundingTx.transactionID,
-            fundingOutputIndex: fundingTx.fundingOutputPosition
-        }
+        type: BTC_TX_CONFIRMED
     })
 
     // goto
@@ -113,7 +114,7 @@ function* proveDeposit() {
     yield put({ type: DEPOSIT_PROVE_BTC_TX_BEGIN })
 
     const depositAddress = yield select(state => state.app.depositAddress)
-    const btcDepositedTxid = yield select(state => state.app.btcDepositedTxid)
+    const btcDepositedTxID = yield select(state => state.app.btcDepositedTxID)
     const fundingOutputIndex = yield select(state => state.app.fundingOutputIndex)
 
     const electrumClient = yield call(getElectrumClient)
@@ -122,13 +123,13 @@ function* proveDeposit() {
     // run through the proof generation process
     // generate a proof
     // again, call the web3 contract, submitting the proof
-    let tbtcMintedTxId
+    let tbtcMintedTxID
     try {
-        tbtcMintedTxId = yield call(
+        tbtcMintedTxID = yield call(
             calculateAndSubmitFundingProof,
             electrumClient,
             depositAddress,
-            btcDepositedTxid,
+            btcDepositedTxID,
             fundingOutputIndex
         )
     } catch (err) {
@@ -139,7 +140,7 @@ function* proveDeposit() {
     yield put({
         type: DEPOSIT_PROVE_BTC_TX_SUCCESS,
         payload: {
-            tbtcMintedTxId,
+            tbtcMintedTxID,
         }
     })
 
