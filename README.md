@@ -44,3 +44,8 @@ Add custom network to your MetaMask:<br>
 
 *Note*: It was confirmed to work on Chrome browser, there were some problems with
 connection to the custom RPC on Firefox.
+
+### ElectrumX Server Connection
+
+Connection to ElectrumX Server is established with `wss` (WebSocket Secure).
+You need to install the server's certificate to your key chain.
