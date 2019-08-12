@@ -28,9 +28,9 @@ class Pay extends Component {
   render() {
     const { address, btcConfirming } = this.props
     const { copied } = this.state
-    let renderTop, renderTitle;
+    let renderTop, renderTitle, step;
 
-    if (!btcConfirming) {
+    if (btcConfirming) {
       renderTop = (
         <Peanut width="250px" />
       )
@@ -40,6 +40,8 @@ class Pay extends Component {
           Pay: 1 BTC
         </div>
       )
+
+      step = 2
     } else {
       renderTop = (
         <div className="confirming">
@@ -52,6 +54,8 @@ class Pay extends Component {
             Confirming...
           </div>
       )
+
+      step = 3
     }
 
     return (
@@ -61,7 +65,7 @@ class Pay extends Component {
         </div>
         <div className="page-body">
           <div className="step">
-            Step 2/5
+            Step {step}/5
           </div>
           {renderTitle}
           <hr />

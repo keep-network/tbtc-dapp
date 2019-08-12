@@ -155,6 +155,20 @@ footer {
   position: absolute;
   right: 999999px;
 }
+.pay .confirming svg path {
+  animation: pulse 3s linear infinite;
+}
+@keyframes pulse {
+  0% {
+    fill: transparent;
+  }
+  50% {
+    fill: #370C5F;
+  }
+  100% {
+    fill: transparent;
+  }
+}
 .prove .page-top svg path {
   fill: #479CFF;
 }
