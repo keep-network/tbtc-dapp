@@ -155,10 +155,8 @@ footer {
   position: absolute;
   right: 999999px;
 }
-.prove .page-right .cta {
-  flex: 1 1;
-  font-size: 0.8em;
-  margin-top: 40px;
+.prove .page-top svg path {
+  fill: #479CFF;
 }
 .prove-modal {
   display: flex;

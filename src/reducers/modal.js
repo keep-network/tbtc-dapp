@@ -1,19 +1,29 @@
-import { OPEN_MODAL, CLOSE_MODAL } from "../actions";
+import { OPEN_MODAL, CLOSE_MODAL, SET_RENDER_CONTENT } from "../actions";
 
 const intialState = {
-  renderModal: undefined
+  isOpen: false,
+  renderContent: null
 }
 
 const modal = (state = intialState, action) => {
   switch(action.type) {
     case OPEN_MODAL:
+        // console.log("OPEN!")
       return {
-          renderModal: action.payload.renderModal
+          ...state,
+          isOpen: true
       }
     case CLOSE_MODAL:
       return {
-          renderModal: undefined
+          ...state,
+          isOpen: false
       }
+    case SET_RENDER_CONTENT:
+        // console.log("GOTEM: ", typeof action.payload.renderContent)
+        return {
+          ...state,
+          renderContent: action.payload.renderContent
+        }
     default:
         return state
   }

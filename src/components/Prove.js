@@ -2,27 +2,15 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { submitProof, openModal, closeModal } from '../actions'
+import { submitProof, setRenderContent, closeModal } from '../actions'
 import Peanut from './svgs/Peanut'
 
 class Prove extends Component {
 
-  handleClickProve = (evt) => {
-    evt.preventDefault()
-    evt.stopPropagation()
+  componentDidMount() {
+    const { setRenderContent, closeModal } = this.props
 
-    const { submitProof } = this.props
-
-    submitProof()
-  }
-
-  handleOpenModal = (evt) => {
-    evt.preventDefault()
-    evt.stopPropagation()
-
-    const { openModal, closeModal } = this.props
-
-    const renderModalBody = () => {
+    const renderContent = () => {
       return (
         <div className="prove-modal">
           <div className="modal-left">
@@ -53,19 +41,35 @@ class Prove extends Component {
       )
     }
 
-    openModal(renderModalBody)
+    setRenderContent(renderContent)
+  }
+
+  componentWillUnmount() {
+    const { setRenderContent, closeModal } = this.props
+
+    setRenderContent(null)
+    closeModal()
+  }
+
+  handleClickProve = (evt) => {
+    evt.preventDefault()
+    evt.stopPropagation()
+
+    const { submitProof } = this.props
+
+    submitProof()
   }
 
   render() {
 
     return (
       <div className="prove">
-        <div className="page-left">
-          TODO: SOMETHING HERE
+        <div className="page-top">
+          <Peanut width="250px" />
         </div>
-        <div className="page-right">
+        <div className="page-body">
           <div className="step">
-            Step 3/5
+            Step 4/5
           </div>
           <div className="title">
             Received!
@@ -75,7 +79,7 @@ class Prove extends Component {
             Finally, let’s submit proof to the sidechain and get you your tBTC.
           </div>
           <div className="cta">
-            <a href="/pay" onClick={this.handleOpenModal}>
+            <a href="/pay" onClick={this.handleClickProve}>
               Submit Proof >>>
             </a>
           </div>
@@ -90,7 +94,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
       {
         submitProof,
-        openModal,
+        setRenderContent,
         closeModal
       },
       dispatch
