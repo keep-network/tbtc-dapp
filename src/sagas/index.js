@@ -18,9 +18,11 @@ export const BTC_TX_CONFIRMED = 'BTC_TX_CONFIRMED'
 export const DEPOSIT_PROVE_BTC_TX_BEGIN = 'DEPOSIT_PROVE_BTC_TX_BEGIN'
 export const DEPOSIT_PROVE_BTC_TX_SUCCESS = 'DEPOSIT_PROVE_BTC_TX_SUCCESS'
 
+
 function getElectrumClient() {
     const config = require('../config/config')
-    const electrumClient = new ElectrumClient.Client(config.electrum.testnetPublic)
+    const electrumClient = new ElectrumClient.Client(config.electrum.testnetWS)
+    await electrumClient.connect()
     return electrumClient
 }
 
