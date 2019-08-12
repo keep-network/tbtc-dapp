@@ -30,7 +30,7 @@ class Pay extends Component {
     const { copied } = this.state
     let renderTop, renderTitle, step;
 
-    if (btcConfirming) {
+    if (!btcConfirming) {
       renderTop = (
         <Peanut width="250px" />
       )
