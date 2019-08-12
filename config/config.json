@@ -1,9 +1,0 @@
-{
-    "electrum": {
-        "testnetWS": {
-            "server": "electrumx-server.tbtc.svc.cluster.local",
-            "port": 50003,
-            "protocol": "ws"
-        }
-    }
-}

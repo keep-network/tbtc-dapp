@@ -1,7 +1,7 @@
 const rewire = require('rewire')
 const FundingProof = rewire('../src/FundingProof')
 const ElectrumClient = require('tbtc-helpers').ElectrumClient
-const config = require('../../config/config.json')
+const config = require('../../src/config/config.json')
 
 const fs = require('fs')
 const chai = require('chai')
