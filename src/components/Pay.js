@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import { waitConfirmation } from '../actions'
-import Loading from './svgs/Loading'
+import Peanut from './svgs/Peanut'
 
 class Pay extends Component {
   state = {
@@ -28,26 +28,22 @@ class Pay extends Component {
   render() {
     const { address, btcConfirming } = this.props
     const { copied } = this.state
-    let renderLeft, renderTitle;
+    let renderTop, renderTitle;
 
     if (!btcConfirming) {
-      renderLeft = (
-        <div className="qr-code">
-          TODO: QR CODE
-        </div>
+      renderTop = (
+        <Peanut width="250px" />
       )
 
       renderTitle = (
         <div className="title">
-          Pay:
-          <br />
-          1 BTC
+          Pay: 1 BTC
         </div>
       )
     } else {
-      renderLeft = (
+      renderTop = (
         <div className="confirming">
-          <Loading width="500px" />
+          <Peanut width="250px" />
         </div>
       )
 
@@ -60,24 +56,26 @@ class Pay extends Component {
 
     return (
       <div className="pay">
-        <div className="page-left">
-          {renderLeft}
+        <div className="page-top">
+          {renderTop}
         </div>
-        <div className="page-right">
+        <div className="page-body">
           <div className="step">
             Step 2/5
           </div>
           {renderTitle}
           <hr />
           <div className="description">
-            Scan the QR code or tap to pay, or copy the address below into your wallet
-          </div>
-          <div className="custodial-fee">
-            <b>Custodial Fee:</b> .02 BTC*
+            <div>
+              Scan the QR code or tap to pay, or copy the address below into your wallet
+            </div>
+            <div className="custodial-fee">
+              <b>Custodial Fee:</b> .02 BTC*
+            </div>
           </div>
           <div className="copy-address">
             <div className="address" onClick={this.copyAddress}>
-              {address}
+              {address || '23980q9wufeu0q9832fy40cnw9qr3092n8q09ndq902n8jq390jnaewjdhfaoiweuhfoawiufhaowifuhaoiewuhfaowieufhaowieufhaoiseufhaowieuhfaoiweuhfaowieuhofiwesuahfoeiauhwefiauweh'}
             </div>
             {
               copied

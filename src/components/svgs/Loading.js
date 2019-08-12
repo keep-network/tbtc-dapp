@@ -2,8 +2,8 @@ import React from 'react'
 
 const Loading = ({ width, height }) => {
     return (
-        <svg version="1.1" id="Layer_1" x="0px" y="0px"
-            width={width} height={height} viewBox="0 0 500 500" enableBackground="new 0 0 340 333">
+        <svg version="1.1" id="Layer_1" x="0px" y="0px" preserveAspectRatio="none"
+            width={width} height={height} viewBox="0 0 252 252" enableBackground="new 0 0 340 333">
 
             <linearGradient id='grad'>
             <stop stopColor='#479CFF'/>
