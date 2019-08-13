@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { requestADeposit } from '../actions'
-import Peanut from './svgs/Peanut'
+import history from '../history'
 
 class Start extends Component {
 
@@ -11,16 +9,14 @@ class Start extends Component {
     evt.preventDefault()
     evt.stopPropagation()
 
-    const { requestADeposit } = this.props
-
-    requestADeposit()
+    history.push('/invoice')
   }
 
   render() {
     return (
       <div className="start">
         <div className="page-top">
-          <Peanut width="250px" />
+          {/* TODO: Add Web3 indicator*/}
         </div>
         <div className="page-body">
           <div className="step">
@@ -34,7 +30,7 @@ class Start extends Component {
             Maecenas sed diam eget risus varius blandit sit amet non magna.  Maecenas sed diam eget risus varius blandit sit amet non magna.
           </div>
           <div className="cta">
-            <a href="/pay" onClick={this.handleClickPay}>
+            <a href="/invoice" onClick={this.handleClickPay}>
               Begin now >>>
             </a>
           </div>
@@ -45,16 +41,5 @@ class Start extends Component {
 }
 
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(
-      {
-        requestADeposit
-      },
-      dispatch
-  )
-}
-
 export default connect(
-  () => ({}),
-  mapDispatchToProps
 )(Start)
