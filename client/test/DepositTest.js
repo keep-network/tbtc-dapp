@@ -1,9 +1,6 @@
-import { createDeposit, setDefaults, getDepositBtcAddress } from '../src'
-
-import {
-  Deposit
-} from '../src/eth/contracts'
-
+import { createDeposit, getDepositBtcAddress, setDefaults } from '../src'
+import { Deposit } from '../src/eth/contracts'
+import { TESTNET_RPC_WS } from './constants'
 const Web3 = require('web3')
 
 const BN = require('bn.js')
@@ -17,7 +14,9 @@ let web3
 // We skip this test until we configure ethereum chain and deployment for the
 // CI. Currently this test can be executed only manually on prepared ethereum
 // environment with deployed contracts.
-describe.skip('Ethereum helpers', async () => {
+describe('Ethereum helpers', function() {
+  this.timeout(70*1000)
+
   before(async () => {
     // TruffleContract was built to use web3 0.3.0, which uses an API method of `sendAsync`
     // in later versions of web (1.0.0), this method was renamed to `send`
@@ -25,7 +24,7 @@ describe.skip('Ethereum helpers', async () => {
     // https://github.com/ethereum/web3.js/issues/1119
     Web3.providers.HttpProvider.prototype.sendAsync = Web3.providers.HttpProvider.prototype.send
 
-    web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'))
+    web3 = new Web3(new Web3.providers.WebsocketProvider(TESTNET_RPC_WS))
     await setDefaults(web3)
   })
 
