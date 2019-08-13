@@ -17,7 +17,7 @@ const Congratulations = () => (
       <hr />
       <div className="description">
         <div className="description-content">
-          You are now the proud beneficiary of 1 tbtc
+          You are now the proud beneficiary of 1 TBTC
         </div>
         <div className="bond-duration">
           Bond duration: 6 months
