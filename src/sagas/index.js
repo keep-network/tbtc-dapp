@@ -9,7 +9,8 @@ import {
     getDepositBtcAddress,
     watchForFundingTransaction,
     waitForConfirmations,
-    calculateAndSubmitFundingProof
+    calculateAndSubmitFundingProof,
+    watchForPublicKeyPublished
 } from 'tbtc-client'
 
 export const DEPOSIT_REQUEST_BEGIN = 'DEPOSIT_REQUEST_BEGIN'
@@ -55,6 +56,9 @@ function* requestADeposit() {
             depositAddress,
         }
     })
+
+    // wait for deposit's public key to be published by the Keep
+    yield call(watchForPublicKeyPublished, depositAddress)
 
     let btcAddress
     try {
