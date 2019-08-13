@@ -32,7 +32,10 @@ class Pay extends Component {
     if (!btcConfirming) {
       renderTop = (
         <div className="qr-code">
-          <QRCode value={address}/>
+          <QRCode
+            value={address}
+            renderAs="svg"
+            size={225} />
         </div>
       )
 
