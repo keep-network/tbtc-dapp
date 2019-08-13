@@ -35,19 +35,26 @@ export async function watchForPublicKeyPublished(depositAddress) {
   const deposit = await Deposit.at(depositAddress)
   const keepAddress = await deposit.keepAddress()
   const ecdsaKeep = truffleToWeb3Contract(await ECDSAKeep.at(keepAddress))
+  
+  let evs = await ecdsaKeep.getPastEvents('PublicKeyPublished', {
+    fromBlock: '0',
+    toBlock: 'latest'
+  })
 
-  const publicKeyPublished = new Deferred()
-  console.log(`Watching for PublicKeyPublished event for Keep [${keepAddress}]`)
-  ecdsaKeep.events.PublicKeyPublished()
-    .once('data', function(event) {
-      publicKeyPublished.resolve(event)
-    })
+  if(evs.length !== 0) {
+    const publicKeyPublishedEvent = evs[0]
+    console.log(`Found event PublicKeyPublished [publicKey=${publicKeyPublishedEvent.returnValues.publicKey}] for Keep [${keepAddress}]`)
+    return publicKeyPublishedEvent
+  }
   
-  const publicKeyPublishedEvent = await promiseWithTimeout(publicKeyPublished.promise, 45000)
-    .catch((err) => {
-      throw new Error(`couldn't find RegisteredPubkey event for deposit address: [${depositAddress}]\nError: ${err}`)
-    })
-  
+  const publicKeyPublished = await new Promise((res, rej) => {
+    ecdsaKeep.events.PublicKeyPublished()
+      .once('data', function(event) {
+        res(event)
+      })
+  })
+
+  const publicKeyPublishedEvent = await promiseWithTimeout(publicKeyPublished, 60000)
   console.log(`Received event PublicKeyPublished [publicKey=${publicKeyPublishedEvent.returnValues.publicKey}] for Keep [${keepAddress}]`)
   
   return publicKeyPublishedEvent
