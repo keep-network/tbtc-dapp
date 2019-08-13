@@ -30,11 +30,12 @@ addresses:
 
 | Name           | Address                                    |
 | -------------- | ------------------------------------------ |
-| Deposit        | 0xb6DA25a12F6E68CEE445e3Ae5953A07B9884A6a9 |
-| DepositFactory | 0xEc258E27825FC283fC5e3E817CD8c4F61F6a6614 |
-| KeepBridge     | 0x68B40b654C5058b9CC42Da9fAB4aB4537662b74D |
-| TBTCSystem     | 0xFC1738a42417dc64a620Fee7F976ec20c27baF23 |
-| TBTCToken      | 0xACeFDe79B10dAb55039Ef3AAFEdaAD54d0fd867E |
+| Deposit        | 0xEe10E8766500713E6Afab48D0e9E6C1EcEb5b4eA |
+| DepositFactory | 0xeaf438317eb5DEbC3d45262B31B77d25CAc49fD6 |
+| KeepBridge     | 0xCB7bdb38cd5f34655E33F7192136785Bd89E3884 |
+| TBTCSystem     | 0x73aA4d669030B2455442C340b3D3E10B8d79e87d |
+| TBTCToken      | 0xd434F7131c4f560fd7384B04383392F128fB9981 |
+| ECDSAKeep      | deployed via keep factory                  |
 
 ### MetaMask
 

@@ -77,7 +77,7 @@ export async function watchForFundingTransaction(electrumClient, bitcoinAddress,
 
   // This function is used as a callback to electrum client. It is invoked when
   // am existing or a new transaction is found.
-  const findFundingTransaction = async function(status) {
+  const findFundingTransaction = async function (status) {
     // Check if status is null which means there are not transactions for the
     // script.
     if (status == null) {
@@ -104,7 +104,7 @@ export async function watchForFundingTransaction(electrumClient, bitcoinAddress,
     script,
     findFundingTransaction
   ).catch((err) => {
-    return new Error(`failed to wait for a transaction to hash: [${err}]`)
+    throw new Error(`failed to wait for a transaction to hash: [${err}]`)
   })
 
   return fundingTransaction
@@ -121,7 +121,7 @@ export async function watchForFundingTransaction(electrumClient, bitcoinAddress,
 export async function waitForConfirmations(electrumClient, transactionID) {
   const requiredConfirmations = 1 // TODO: This is simplification for demo
 
-  const checkConfirmations = async function() {
+  const checkConfirmations = async function () {
     // Get current state of the transaction.
     const tx = await electrumClient.getTransaction(transactionID)
 

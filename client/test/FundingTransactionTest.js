@@ -1,6 +1,6 @@
 const FundingTransaction = require('../src/FundingTransaction')
 const ElectrumClient = require('tbtc-helpers').ElectrumClient
-const config = require('../../config/config.json')
+const config = require('../../src/config/config.json')
 
 const chai = require('chai')
 const assert = chai.assert

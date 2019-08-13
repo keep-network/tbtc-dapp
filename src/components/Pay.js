@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import { waitConfirmation } from '../actions'
-import Peanut from './svgs/Peanut'
+import QRCode from 'qrcode.react'
 
 class Pay extends Component {
   state = {
@@ -13,9 +13,7 @@ class Pay extends Component {
   componentDidMount() {
     const { waitConfirmation } = this.props
 
-    // TODO: Uncomment when wait for confirmations is integrated to the UI.
-    // This is just a temporary solution so the address page stays displayed.
-    // waitConfirmation()
+    waitConfirmation()
   }
 
   copyAddress = (evt) => {
@@ -32,7 +30,9 @@ class Pay extends Component {
 
     if (!btcConfirming) {
       renderTop = (
-        <Peanut width="250px" />
+        <div className="qr-code">
+          <QRCode value={address}/>
+        </div>
       )
 
       renderTitle = (
@@ -49,10 +49,10 @@ class Pay extends Component {
         </div>
       )
 
-        renderTitle = (
-          <div className="title">
-            Confirming...
-          </div>
+      renderTitle = (
+        <div className="title">
+          Confirming...
+        </div>
       )
 
       step = 3
@@ -101,7 +101,7 @@ class Pay extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     address: state.app.btcAddress,
-    btcConfirming: !!state.app.btcConfirming
+    btcConfirming: state.app.btcConfirming
   }
 }
 

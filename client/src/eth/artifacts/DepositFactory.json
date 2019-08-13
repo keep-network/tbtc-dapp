@@ -78,24 +78,24 @@
       "signature": "0xf791940e"
     }
   ],
-  "bytecode": "0x608060405234801561001057600080fd5b5060405161036d38038061036d8339818101604052602081101561003357600080fd5b505160008054600160a060020a03909216600160a060020a0319909216919091179055610308806100656000396000f3fe608060405234801561001057600080fd5b5060043610610052577c010000000000000000000000000000000000000000000000000000000060003504639da1e2448114610057578063f791940e1461007b575b600080fd5b61005f6100bd565b60408051600160a060020a039092168252519081900360200190f35b61005f600480360360a081101561009157600080fd5b50600160a060020a038135811691602081013582169160408201351690606081013590608001356100cc565b600054600160a060020a031681565b6000805481906100e490600160a060020a0316610260565b604080517fe64bc829000000000000000000000000000000000000000000000000000000008152600160a060020a038a8116600483015289811660248301528881166044830152606482018890526084820187905291519293509083169163e64bc8299160a4808201926020929091908290030181600087803b15801561016a57600080fd5b505af115801561017e573d6000803e3d6000fd5b505050506040513d602081101561019457600080fd5b5050604080517f40c10f19000000000000000000000000000000000000000000000000000000008152336004820152600160a060020a038381166024830152915189928316916340c10f1991604480830192600092919082900301818387803b15801561020057600080fd5b505af1158015610214573d6000803e3d6000fd5b505060408051600160a060020a038616815290517f1d6e7961301df0f19b325bf7669f5b932069b5ad8f9b71292351c7bed17cf4f19350908190036020019150a1509695505050505050565b6040517f3d602d80600a3d3981f3363d3d373d3d3d363d7300000000000000000000000081526c010000000000000000000000008202601482018190527f5af43d82803e903d91602b57fd5bf30000000000000000000000000000000000602883015260009160378184f094935050505056fea265627a7a723058201511c0cd7cda717e7dc17e4eb6c9818693bb8730298ab2a2d6a097e44ef6478e64736f6c634300050a0032",
-  "deployedBytecode": "0x608060405234801561001057600080fd5b5060043610610052577c010000000000000000000000000000000000000000000000000000000060003504639da1e2448114610057578063f791940e1461007b575b600080fd5b61005f6100bd565b60408051600160a060020a039092168252519081900360200190f35b61005f600480360360a081101561009157600080fd5b50600160a060020a038135811691602081013582169160408201351690606081013590608001356100cc565b600054600160a060020a031681565b6000805481906100e490600160a060020a0316610260565b604080517fe64bc829000000000000000000000000000000000000000000000000000000008152600160a060020a038a8116600483015289811660248301528881166044830152606482018890526084820187905291519293509083169163e64bc8299160a4808201926020929091908290030181600087803b15801561016a57600080fd5b505af115801561017e573d6000803e3d6000fd5b505050506040513d602081101561019457600080fd5b5050604080517f40c10f19000000000000000000000000000000000000000000000000000000008152336004820152600160a060020a038381166024830152915189928316916340c10f1991604480830192600092919082900301818387803b15801561020057600080fd5b505af1158015610214573d6000803e3d6000fd5b505060408051600160a060020a038616815290517f1d6e7961301df0f19b325bf7669f5b932069b5ad8f9b71292351c7bed17cf4f19350908190036020019150a1509695505050505050565b6040517f3d602d80600a3d3981f3363d3d373d3d3d363d7300000000000000000000000081526c010000000000000000000000008202601482018190527f5af43d82803e903d91602b57fd5bf30000000000000000000000000000000000602883015260009160378184f094935050505056fea265627a7a723058201511c0cd7cda717e7dc17e4eb6c9818693bb8730298ab2a2d6a097e44ef6478e64736f6c634300050a0032",
+  "bytecode": "0x608060405234801561001057600080fd5b5060405161036d38038061036d8339818101604052602081101561003357600080fd5b505160008054600160a060020a03909216600160a060020a0319909216919091179055610308806100656000396000f3fe608060405234801561001057600080fd5b5060043610610052577c010000000000000000000000000000000000000000000000000000000060003504639da1e2448114610057578063f791940e1461007b575b600080fd5b61005f6100bd565b60408051600160a060020a039092168252519081900360200190f35b61005f600480360360a081101561009157600080fd5b50600160a060020a038135811691602081013582169160408201351690606081013590608001356100cc565b600054600160a060020a031681565b6000805481906100e490600160a060020a0316610260565b604080517fe64bc829000000000000000000000000000000000000000000000000000000008152600160a060020a038a8116600483015289811660248301528881166044830152606482018890526084820187905291519293509083169163e64bc8299160a4808201926020929091908290030181600087803b15801561016a57600080fd5b505af115801561017e573d6000803e3d6000fd5b505050506040513d602081101561019457600080fd5b5050604080517f40c10f19000000000000000000000000000000000000000000000000000000008152336004820152600160a060020a038381166024830152915189928316916340c10f1991604480830192600092919082900301818387803b15801561020057600080fd5b505af1158015610214573d6000803e3d6000fd5b505060408051600160a060020a038616815290517f1d6e7961301df0f19b325bf7669f5b932069b5ad8f9b71292351c7bed17cf4f19350908190036020019150a1509695505050505050565b6040517f3d602d80600a3d3981f3363d3d373d3d3d363d7300000000000000000000000081526c010000000000000000000000008202601482018190527f5af43d82803e903d91602b57fd5bf30000000000000000000000000000000000602883015260009160378184f094935050505056fea265627a7a7230582080f15f58d3b921e5ede92ce90538c233535cf15d0234810a667391bff2ef44d864736f6c634300050a0032",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b5060043610610052577c010000000000000000000000000000000000000000000000000000000060003504639da1e2448114610057578063f791940e1461007b575b600080fd5b61005f6100bd565b60408051600160a060020a039092168252519081900360200190f35b61005f600480360360a081101561009157600080fd5b50600160a060020a038135811691602081013582169160408201351690606081013590608001356100cc565b600054600160a060020a031681565b6000805481906100e490600160a060020a0316610260565b604080517fe64bc829000000000000000000000000000000000000000000000000000000008152600160a060020a038a8116600483015289811660248301528881166044830152606482018890526084820187905291519293509083169163e64bc8299160a4808201926020929091908290030181600087803b15801561016a57600080fd5b505af115801561017e573d6000803e3d6000fd5b505050506040513d602081101561019457600080fd5b5050604080517f40c10f19000000000000000000000000000000000000000000000000000000008152336004820152600160a060020a038381166024830152915189928316916340c10f1991604480830192600092919082900301818387803b15801561020057600080fd5b505af1158015610214573d6000803e3d6000fd5b505060408051600160a060020a038616815290517f1d6e7961301df0f19b325bf7669f5b932069b5ad8f9b71292351c7bed17cf4f19350908190036020019150a1509695505050505050565b6040517f3d602d80600a3d3981f3363d3d373d3d3d363d7300000000000000000000000081526c010000000000000000000000008202601482018190527f5af43d82803e903d91602b57fd5bf30000000000000000000000000000000000602883015260009160378184f094935050505056fea265627a7a7230582080f15f58d3b921e5ede92ce90538c233535cf15d0234810a667391bff2ef44d864736f6c634300050a0032",
   "sourceMap": "509:2001:17:-;;;991:111;8:9:-1;5:2;;;30:1;27;20:12;5:2;991:111:17;;;;;;;;;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;991:111:17;1051:20;:44;;-1:-1:-1;;;;;1051:44:17;;;-1:-1:-1;;;;;;1051:44:17;;;;;;;;;509:2001;;;;;;",
   "deployedSourceMap": "509:2001:17:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;509:2001:17;;;;;;;;;;;;;;;;;;;;;;;;664:35;;;:::i;:::-;;;;-1:-1:-1;;;;;664:35:17;;;;;;;;;;;;;;1914:594;;;;;;13:3:-1;8;5:12;2:2;;;30:1;27;20:12;2:2;-1:-1;;;;;;1914:594:17;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;664:35::-;;;-1:-1:-1;;;;;664:35:17;;:::o;1914:594::-;2104:7;2158:20;;2104:7;;2146:33;;-1:-1:-1;;;;;2158:20:17;2146:11;:33::i;:::-;2189:121;;;;;;-1:-1:-1;;;;;2189:121:17;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2123:56;;-1:-1:-1;2189:56:17;;;;;;:121;;;;;;;;;;;;;;;-1:-1:-1;2189:56:17;:121;;;5:2:-1;;;;30:1;27;20:12;5:2;2189:121:17;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;2189:121:17;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;;2375:47:17;;;;;;2388:10;2375:47;;;;-1:-1:-1;;;;;2400:21:17;;;2375:47;;;;;;2353:11;;2375:12;;;;;:47;;;;;2321:18;;2375:47;;;;;;;2321:18;2375:12;:47;;;5:2:-1;;;;30:1;27;20:12;5:2;2375:47:17;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;-1:-1;;2438:33:17;;;-1:-1:-1;;;;;2438:33:17;;;;;;;;-1:-1:-1;2438:33:17;;;;;;;-1:-1:-1;2438:33:17;-1:-1:-1;2489:12:17;1914:594;-1:-1:-1;;;;;;1914:594:17:o;1497:441:16:-;1653:4;1647:11;1679:66;1665:81;;1596:15;;;1771:4;1760:16;;1753:37;;;1822:66;1815:4;1804:16;;1797:92;1552:14;;1923:4;1647:11;1552:14;1906:22;1896:32;1626:308;-1:-1:-1;;;;1626:308:16:o",
   "source": "pragma solidity ^0.5.10;\n\nimport \"./CloneFactory.sol\";\nimport \"../deposit/Deposit.sol\";\nimport \"../system/TBTCSystem.sol\";\n\n/// @title Deposit Factory\n/// @notice Factory for the creation of new deposit clones.\n/// @dev We avoid redeployment of deposit contract by using the clone factory.\n/// Proxy delegates calls to Deposit and therefore does not affect deposit state.\n/// This means that we only need to deploy the deposit contracts once.\n/// The factory provides clean state for every new deposit clone.\ncontract DepositFactory is CloneFactory{\n\n    // Holds the address of the deposit contract\n    // which will be used as a master contract for cloning.\n    address public masterDepositAddress;\n\n    event DepositCloneCreated(address depositCloneAddress);\n\n    /// @dev                          Set the master deposit contract address\n    ///                               on contract initialization\n    /// @param _masterDepositAddress  The address of the master deposit contract\n    constructor(address _masterDepositAddress) public {\n        masterDepositAddress = _masterDepositAddress;\n    }\n\n    /// @notice                Creates a new deposit instance\n    /// @dev                   Calls createNewDeposit from deposit contract as init method.\n    ///                        We don't offer pure createClone, meaning that the only way\n    ///                        to create a clone is by also calling createNewDeposit()\n    ///                        Deposits created this way will never pass by state 0 (START)\n    /// @param _TBTCSystem     Address of system contract\n    /// @param _TBTCToken      Address of TBTC token contract\n    /// @param _KeepBridge     Address of Keep Bridge contract\n    /// @param _keepThreshold  Minimum number of honest keep members\n    /// @param _keepSize       Number of all members in a keep\n    /// @return                True if successful, otherwise revert\n    function createDeposit (\n        address _TBTCSystem,\n        address _TBTCToken,\n        address _KeepBridge,\n        uint256 _keepThreshold,\n        uint256 _keepSize\n    ) public returns(address) {\n        address cloneAddress = createClone(masterDepositAddress);\n        Deposit(address(uint160(cloneAddress))).createNewDeposit(_TBTCSystem, _TBTCToken, _KeepBridge, _keepThreshold, _keepSize);\n\n        TBTCSystem _system = TBTCSystem(_TBTCSystem);\n        _system.mint(msg.sender, uint256(cloneAddress));\n\n        emit DepositCloneCreated(cloneAddress);\n\n        return cloneAddress;\n    }\n}",
-  "sourcePath": "/tmp/892801fc84e9285e647acdc157d705c8aca4a9b5/implementation/contracts/proxy/DepositFactory.sol",
+  "sourcePath": "/tmp/358743cca199ccaa605af9301d63352604b8a90d/implementation/contracts/proxy/DepositFactory.sol",
   "ast": {
-    "absolutePath": "/tmp/892801fc84e9285e647acdc157d705c8aca4a9b5/implementation/contracts/proxy/DepositFactory.sol",
+    "absolutePath": "/tmp/358743cca199ccaa605af9301d63352604b8a90d/implementation/contracts/proxy/DepositFactory.sol",
     "exportedSymbols": {
       "DepositFactory": [
-        6166
+        6215
       ]
     },
-    "id": 6167,
+    "id": 6216,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 6085,
+        "id": 6134,
         "literals": [
           "solidity",
           "^",
@@ -106,34 +106,34 @@
         "src": "0:24:17"
       },
       {
-        "absolutePath": "/tmp/892801fc84e9285e647acdc157d705c8aca4a9b5/implementation/contracts/proxy/CloneFactory.sol",
+        "absolutePath": "/tmp/358743cca199ccaa605af9301d63352604b8a90d/implementation/contracts/proxy/CloneFactory.sol",
         "file": "./CloneFactory.sol",
-        "id": 6086,
+        "id": 6135,
         "nodeType": "ImportDirective",
-        "scope": 6167,
-        "sourceUnit": 6084,
+        "scope": 6216,
+        "sourceUnit": 6133,
         "src": "26:28:17",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
-        "absolutePath": "/tmp/892801fc84e9285e647acdc157d705c8aca4a9b5/implementation/contracts/deposit/Deposit.sol",
+        "absolutePath": "/tmp/358743cca199ccaa605af9301d63352604b8a90d/implementation/contracts/deposit/Deposit.sol",
         "file": "../deposit/Deposit.sol",
-        "id": 6087,
+        "id": 6136,
         "nodeType": "ImportDirective",
-        "scope": 6167,
+        "scope": 6216,
         "sourceUnit": 966,
         "src": "55:32:17",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
-        "absolutePath": "/tmp/892801fc84e9285e647acdc157d705c8aca4a9b5/implementation/contracts/system/TBTCSystem.sol",
+        "absolutePath": "/tmp/358743cca199ccaa605af9301d63352604b8a90d/implementation/contracts/system/TBTCSystem.sol",
         "file": "../system/TBTCSystem.sol",
-        "id": 6088,
+        "id": 6137,
         "nodeType": "ImportDirective",
-        "scope": 6167,
-        "sourceUnit": 6248,
+        "scope": 6216,
+        "sourceUnit": 6297,
         "src": "88:34:17",
         "symbolAliases": [],
         "unitAlias": ""
@@ -144,41 +144,41 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 6089,
+              "id": 6138,
               "name": "CloneFactory",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 6083,
+              "referencedDeclaration": 6132,
               "src": "536:12:17",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_CloneFactory_$6083",
+                "typeIdentifier": "t_contract$_CloneFactory_$6132",
                 "typeString": "contract CloneFactory"
               }
             },
-            "id": 6090,
+            "id": 6139,
             "nodeType": "InheritanceSpecifier",
             "src": "536:12:17"
           }
         ],
         "contractDependencies": [
-          6083
+          6132
         ],
         "contractKind": "contract",
         "documentation": "@title Deposit Factory\n @notice Factory for the creation of new deposit clones.\n @dev We avoid redeployment of deposit contract by using the clone factory.\n Proxy delegates calls to Deposit and therefore does not affect deposit state.\n This means that we only need to deploy the deposit contracts once.\n The factory provides clean state for every new deposit clone.",
         "fullyImplemented": true,
-        "id": 6166,
+        "id": 6215,
         "linearizedBaseContracts": [
-          6166,
-          6083
+          6215,
+          6132
         ],
         "name": "DepositFactory",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 6092,
+            "id": 6141,
             "name": "masterDepositAddress",
             "nodeType": "VariableDeclaration",
-            "scope": 6166,
+            "scope": 6215,
             "src": "664:35:17",
             "stateVariable": true,
             "storageLocation": "default",
@@ -187,7 +187,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 6091,
+              "id": 6140,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "664:7:17",
@@ -203,20 +203,20 @@
           {
             "anonymous": false,
             "documentation": null,
-            "id": 6096,
+            "id": 6145,
             "name": "DepositCloneCreated",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 6095,
+              "id": 6144,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 6094,
+                  "id": 6143,
                   "indexed": false,
                   "name": "depositCloneAddress",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6096,
+                  "scope": 6145,
                   "src": "732:27:17",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -225,7 +225,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 6093,
+                    "id": 6142,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "732:7:17",
@@ -245,25 +245,25 @@
           },
           {
             "body": {
-              "id": 6105,
+              "id": 6154,
               "nodeType": "Block",
               "src": "1041:61:17",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 6103,
+                    "id": 6152,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 6101,
+                      "id": 6150,
                       "name": "masterDepositAddress",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 6092,
+                      "referencedDeclaration": 6141,
                       "src": "1051:20:17",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -274,11 +274,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 6102,
+                      "id": 6151,
                       "name": "_masterDepositAddress",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 6098,
+                      "referencedDeclaration": 6147,
                       "src": "1074:21:17",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -291,29 +291,29 @@
                       "typeString": "address"
                     }
                   },
-                  "id": 6104,
+                  "id": 6153,
                   "nodeType": "ExpressionStatement",
                   "src": "1051:44:17"
                 }
               ]
             },
             "documentation": "@dev                          Set the master deposit contract address\n                               on contract initialization\n @param _masterDepositAddress  The address of the master deposit contract",
-            "id": 6106,
+            "id": 6155,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 6099,
+              "id": 6148,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 6098,
+                  "id": 6147,
                   "name": "_masterDepositAddress",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6106,
+                  "scope": 6155,
                   "src": "1003:29:17",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -322,7 +322,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 6097,
+                    "id": 6146,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "1003:7:17",
@@ -339,12 +339,12 @@
               "src": "1002:31:17"
             },
             "returnParameters": {
-              "id": 6100,
+              "id": 6149,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1041:0:17"
             },
-            "scope": 6166,
+            "scope": 6215,
             "src": "991:111:17",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -352,21 +352,21 @@
           },
           {
             "body": {
-              "id": 6164,
+              "id": 6213,
               "nodeType": "Block",
               "src": "2113:395:17",
               "statements": [
                 {
                   "assignments": [
-                    6122
+                    6171
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 6122,
+                      "id": 6171,
                       "name": "cloneAddress",
                       "nodeType": "VariableDeclaration",
-                      "scope": 6164,
+                      "scope": 6213,
                       "src": "2123:20:17",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -375,7 +375,7 @@
                         "typeString": "address"
                       },
                       "typeName": {
-                        "id": 6121,
+                        "id": 6170,
                         "name": "address",
                         "nodeType": "ElementaryTypeName",
                         "src": "2123:7:17",
@@ -389,17 +389,17 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 6126,
+                  "id": 6175,
                   "initialValue": {
                     "argumentTypes": null,
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 6124,
+                        "id": 6173,
                         "name": "masterDepositAddress",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6092,
+                        "referencedDeclaration": 6141,
                         "src": "2158:20:17",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -414,18 +414,18 @@
                           "typeString": "address"
                         }
                       ],
-                      "id": 6123,
+                      "id": 6172,
                       "name": "createClone",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 6065,
+                      "referencedDeclaration": 6114,
                       "src": "2146:11:17",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_address_$returns$_t_address_$",
                         "typeString": "function (address) returns (address)"
                       }
                     },
-                    "id": 6125,
+                    "id": 6174,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -448,11 +448,11 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 6135,
+                        "id": 6184,
                         "name": "_TBTCSystem",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6108,
+                        "referencedDeclaration": 6157,
                         "src": "2246:11:17",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -461,11 +461,11 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 6136,
+                        "id": 6185,
                         "name": "_TBTCToken",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6110,
+                        "referencedDeclaration": 6159,
                         "src": "2259:10:17",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -474,11 +474,11 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 6137,
+                        "id": 6186,
                         "name": "_KeepBridge",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6112,
+                        "referencedDeclaration": 6161,
                         "src": "2271:11:17",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -487,11 +487,11 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 6138,
+                        "id": 6187,
                         "name": "_keepThreshold",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6114,
+                        "referencedDeclaration": 6163,
                         "src": "2284:14:17",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -500,11 +500,11 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 6139,
+                        "id": 6188,
                         "name": "_keepSize",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6116,
+                        "referencedDeclaration": 6165,
                         "src": "2300:9:17",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -546,11 +546,11 @@
                                 "arguments": [
                                   {
                                     "argumentTypes": null,
-                                    "id": 6130,
+                                    "id": 6179,
                                     "name": "cloneAddress",
                                     "nodeType": "Identifier",
                                     "overloadedDeclarations": [],
-                                    "referencedDeclaration": 6122,
+                                    "referencedDeclaration": 6171,
                                     "src": "2213:12:17",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_address",
@@ -565,7 +565,7 @@
                                       "typeString": "address"
                                     }
                                   ],
-                                  "id": 6129,
+                                  "id": 6178,
                                   "isConstant": false,
                                   "isLValue": false,
                                   "isPure": true,
@@ -578,7 +578,7 @@
                                   },
                                   "typeName": "uint160"
                                 },
-                                "id": 6131,
+                                "id": 6180,
                                 "isConstant": false,
                                 "isLValue": false,
                                 "isPure": false,
@@ -600,7 +600,7 @@
                                   "typeString": "uint160"
                                 }
                               ],
-                              "id": 6128,
+                              "id": 6177,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
@@ -613,7 +613,7 @@
                               },
                               "typeName": "address"
                             },
-                            "id": 6132,
+                            "id": 6181,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -635,7 +635,7 @@
                               "typeString": "address payable"
                             }
                           ],
-                          "id": 6127,
+                          "id": 6176,
                           "name": "Deposit",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
@@ -646,7 +646,7 @@
                             "typeString": "type(contract Deposit)"
                           }
                         },
-                        "id": 6133,
+                        "id": 6182,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -660,7 +660,7 @@
                           "typeString": "contract Deposit"
                         }
                       },
-                      "id": 6134,
+                      "id": 6183,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -674,7 +674,7 @@
                         "typeString": "function (address,address,address,uint256,uint256) payable external returns (bool)"
                       }
                     },
-                    "id": 6140,
+                    "id": 6189,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -688,37 +688,37 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 6141,
+                  "id": 6190,
                   "nodeType": "ExpressionStatement",
                   "src": "2189:121:17"
                 },
                 {
                   "assignments": [
-                    6143
+                    6192
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 6143,
+                      "id": 6192,
                       "name": "_system",
                       "nodeType": "VariableDeclaration",
-                      "scope": 6164,
+                      "scope": 6213,
                       "src": "2321:18:17",
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_TBTCSystem_$6247",
+                        "typeIdentifier": "t_contract$_TBTCSystem_$6296",
                         "typeString": "contract TBTCSystem"
                       },
                       "typeName": {
                         "contractScope": null,
-                        "id": 6142,
+                        "id": 6191,
                         "name": "TBTCSystem",
                         "nodeType": "UserDefinedTypeName",
-                        "referencedDeclaration": 6247,
+                        "referencedDeclaration": 6296,
                         "src": "2321:10:17",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_TBTCSystem_$6247",
+                          "typeIdentifier": "t_contract$_TBTCSystem_$6296",
                           "typeString": "contract TBTCSystem"
                         }
                       },
@@ -726,17 +726,17 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 6147,
+                  "id": 6196,
                   "initialValue": {
                     "argumentTypes": null,
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 6145,
+                        "id": 6194,
                         "name": "_TBTCSystem",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6108,
+                        "referencedDeclaration": 6157,
                         "src": "2353:11:17",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -751,18 +751,18 @@
                           "typeString": "address"
                         }
                       ],
-                      "id": 6144,
+                      "id": 6193,
                       "name": "TBTCSystem",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 6247,
+                      "referencedDeclaration": 6296,
                       "src": "2342:10:17",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_TBTCSystem_$6247_$",
+                        "typeIdentifier": "t_type$_t_contract$_TBTCSystem_$6296_$",
                         "typeString": "type(contract TBTCSystem)"
                       }
                     },
-                    "id": 6146,
+                    "id": 6195,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -772,7 +772,7 @@
                     "nodeType": "FunctionCall",
                     "src": "2342:23:17",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_TBTCSystem_$6247",
+                      "typeIdentifier": "t_contract$_TBTCSystem_$6296",
                       "typeString": "contract TBTCSystem"
                     }
                   },
@@ -787,18 +787,18 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 6151,
+                          "id": 6200,
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 10344,
+                          "referencedDeclaration": 10393,
                           "src": "2388:3:17",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
                             "typeString": "msg"
                           }
                         },
-                        "id": 6152,
+                        "id": 6201,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -817,11 +817,11 @@
                         "arguments": [
                           {
                             "argumentTypes": null,
-                            "id": 6154,
+                            "id": 6203,
                             "name": "cloneAddress",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 6122,
+                            "referencedDeclaration": 6171,
                             "src": "2408:12:17",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
@@ -836,7 +836,7 @@
                               "typeString": "address"
                             }
                           ],
-                          "id": 6153,
+                          "id": 6202,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -849,7 +849,7 @@
                           },
                           "typeName": "uint256"
                         },
-                        "id": 6155,
+                        "id": 6204,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -877,32 +877,32 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 6148,
+                        "id": 6197,
                         "name": "_system",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6143,
+                        "referencedDeclaration": 6192,
                         "src": "2375:7:17",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_TBTCSystem_$6247",
+                          "typeIdentifier": "t_contract$_TBTCSystem_$6296",
                           "typeString": "contract TBTCSystem"
                         }
                       },
-                      "id": 6150,
+                      "id": 6199,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "mint",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 6246,
+                      "referencedDeclaration": 6295,
                       "src": "2375:12:17",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_uint256_$returns$__$",
                         "typeString": "function (address,uint256) external"
                       }
                     },
-                    "id": 6156,
+                    "id": 6205,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -916,7 +916,7 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 6157,
+                  "id": 6206,
                   "nodeType": "ExpressionStatement",
                   "src": "2375:47:17"
                 },
@@ -926,11 +926,11 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 6159,
+                        "id": 6208,
                         "name": "cloneAddress",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6122,
+                        "referencedDeclaration": 6171,
                         "src": "2458:12:17",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -945,18 +945,18 @@
                           "typeString": "address"
                         }
                       ],
-                      "id": 6158,
+                      "id": 6207,
                       "name": "DepositCloneCreated",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 6096,
+                      "referencedDeclaration": 6145,
                       "src": "2438:19:17",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_address_$returns$__$",
                         "typeString": "function (address)"
                       }
                     },
-                    "id": 6160,
+                    "id": 6209,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -970,48 +970,48 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 6161,
+                  "id": 6210,
                   "nodeType": "EmitStatement",
                   "src": "2433:38:17"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 6162,
+                    "id": 6211,
                     "name": "cloneAddress",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 6122,
+                    "referencedDeclaration": 6171,
                     "src": "2489:12:17",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   },
-                  "functionReturnParameters": 6120,
-                  "id": 6163,
+                  "functionReturnParameters": 6169,
+                  "id": 6212,
                   "nodeType": "Return",
                   "src": "2482:19:17"
                 }
               ]
             },
             "documentation": "@notice                Creates a new deposit instance\n @dev                   Calls createNewDeposit from deposit contract as init method.\n                        We don't offer pure createClone, meaning that the only way\n                        to create a clone is by also calling createNewDeposit()\n                        Deposits created this way will never pass by state 0 (START)\n @param _TBTCSystem     Address of system contract\n @param _TBTCToken      Address of TBTC token contract\n @param _KeepBridge     Address of Keep Bridge contract\n @param _keepThreshold  Minimum number of honest keep members\n @param _keepSize       Number of all members in a keep\n @return                True if successful, otherwise revert",
-            "id": 6165,
+            "id": 6214,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "createDeposit",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 6117,
+              "id": 6166,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 6108,
+                  "id": 6157,
                   "name": "_TBTCSystem",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6165,
+                  "scope": 6214,
                   "src": "1947:19:17",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1020,7 +1020,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 6107,
+                    "id": 6156,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "1947:7:17",
@@ -1035,10 +1035,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 6110,
+                  "id": 6159,
                   "name": "_TBTCToken",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6165,
+                  "scope": 6214,
                   "src": "1976:18:17",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1047,7 +1047,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 6109,
+                    "id": 6158,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "1976:7:17",
@@ -1062,10 +1062,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 6112,
+                  "id": 6161,
                   "name": "_KeepBridge",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6165,
+                  "scope": 6214,
                   "src": "2004:19:17",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1074,7 +1074,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 6111,
+                    "id": 6160,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "2004:7:17",
@@ -1089,10 +1089,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 6114,
+                  "id": 6163,
                   "name": "_keepThreshold",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6165,
+                  "scope": 6214,
                   "src": "2033:22:17",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1101,7 +1101,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 6113,
+                    "id": 6162,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "2033:7:17",
@@ -1115,10 +1115,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 6116,
+                  "id": 6165,
                   "name": "_keepSize",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6165,
+                  "scope": 6214,
                   "src": "2065:17:17",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1127,7 +1127,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 6115,
+                    "id": 6164,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "2065:7:17",
@@ -1143,15 +1143,15 @@
               "src": "1937:151:17"
             },
             "returnParameters": {
-              "id": 6120,
+              "id": 6169,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 6119,
+                  "id": 6168,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6165,
+                  "scope": 6214,
                   "src": "2104:7:17",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1160,7 +1160,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 6118,
+                    "id": 6167,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "2104:7:17",
@@ -1176,31 +1176,31 @@
               ],
               "src": "2103:9:17"
             },
-            "scope": 6166,
+            "scope": 6215,
             "src": "1914:594:17",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 6167,
+        "scope": 6216,
         "src": "509:2001:17"
       }
     ],
     "src": "0:2510:17"
   },
   "legacyAST": {
-    "absolutePath": "/tmp/892801fc84e9285e647acdc157d705c8aca4a9b5/implementation/contracts/proxy/DepositFactory.sol",
+    "absolutePath": "/tmp/358743cca199ccaa605af9301d63352604b8a90d/implementation/contracts/proxy/DepositFactory.sol",
     "exportedSymbols": {
       "DepositFactory": [
-        6166
+        6215
       ]
     },
-    "id": 6167,
+    "id": 6216,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 6085,
+        "id": 6134,
         "literals": [
           "solidity",
           "^",
@@ -1211,34 +1211,34 @@
         "src": "0:24:17"
       },
       {
-        "absolutePath": "/tmp/892801fc84e9285e647acdc157d705c8aca4a9b5/implementation/contracts/proxy/CloneFactory.sol",
+        "absolutePath": "/tmp/358743cca199ccaa605af9301d63352604b8a90d/implementation/contracts/proxy/CloneFactory.sol",
         "file": "./CloneFactory.sol",
-        "id": 6086,
+        "id": 6135,
         "nodeType": "ImportDirective",
-        "scope": 6167,
-        "sourceUnit": 6084,
+        "scope": 6216,
+        "sourceUnit": 6133,
         "src": "26:28:17",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
-        "absolutePath": "/tmp/892801fc84e9285e647acdc157d705c8aca4a9b5/implementation/contracts/deposit/Deposit.sol",
+        "absolutePath": "/tmp/358743cca199ccaa605af9301d63352604b8a90d/implementation/contracts/deposit/Deposit.sol",
         "file": "../deposit/Deposit.sol",
-        "id": 6087,
+        "id": 6136,
         "nodeType": "ImportDirective",
-        "scope": 6167,
+        "scope": 6216,
         "sourceUnit": 966,
         "src": "55:32:17",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
-        "absolutePath": "/tmp/892801fc84e9285e647acdc157d705c8aca4a9b5/implementation/contracts/system/TBTCSystem.sol",
+        "absolutePath": "/tmp/358743cca199ccaa605af9301d63352604b8a90d/implementation/contracts/system/TBTCSystem.sol",
         "file": "../system/TBTCSystem.sol",
-        "id": 6088,
+        "id": 6137,
         "nodeType": "ImportDirective",
-        "scope": 6167,
-        "sourceUnit": 6248,
+        "scope": 6216,
+        "sourceUnit": 6297,
         "src": "88:34:17",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1249,41 +1249,41 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 6089,
+              "id": 6138,
               "name": "CloneFactory",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 6083,
+              "referencedDeclaration": 6132,
               "src": "536:12:17",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_CloneFactory_$6083",
+                "typeIdentifier": "t_contract$_CloneFactory_$6132",
                 "typeString": "contract CloneFactory"
               }
             },
-            "id": 6090,
+            "id": 6139,
             "nodeType": "InheritanceSpecifier",
             "src": "536:12:17"
           }
         ],
         "contractDependencies": [
-          6083
+          6132
         ],
         "contractKind": "contract",
         "documentation": "@title Deposit Factory\n @notice Factory for the creation of new deposit clones.\n @dev We avoid redeployment of deposit contract by using the clone factory.\n Proxy delegates calls to Deposit and therefore does not affect deposit state.\n This means that we only need to deploy the deposit contracts once.\n The factory provides clean state for every new deposit clone.",
         "fullyImplemented": true,
-        "id": 6166,
+        "id": 6215,
         "linearizedBaseContracts": [
-          6166,
-          6083
+          6215,
+          6132
         ],
         "name": "DepositFactory",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 6092,
+            "id": 6141,
             "name": "masterDepositAddress",
             "nodeType": "VariableDeclaration",
-            "scope": 6166,
+            "scope": 6215,
             "src": "664:35:17",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1292,7 +1292,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 6091,
+              "id": 6140,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "664:7:17",
@@ -1308,20 +1308,20 @@
           {
             "anonymous": false,
             "documentation": null,
-            "id": 6096,
+            "id": 6145,
             "name": "DepositCloneCreated",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 6095,
+              "id": 6144,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 6094,
+                  "id": 6143,
                   "indexed": false,
                   "name": "depositCloneAddress",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6096,
+                  "scope": 6145,
                   "src": "732:27:17",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1330,7 +1330,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 6093,
+                    "id": 6142,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "732:7:17",
@@ -1350,25 +1350,25 @@
           },
           {
             "body": {
-              "id": 6105,
+              "id": 6154,
               "nodeType": "Block",
               "src": "1041:61:17",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 6103,
+                    "id": 6152,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 6101,
+                      "id": 6150,
                       "name": "masterDepositAddress",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 6092,
+                      "referencedDeclaration": 6141,
                       "src": "1051:20:17",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -1379,11 +1379,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 6102,
+                      "id": 6151,
                       "name": "_masterDepositAddress",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 6098,
+                      "referencedDeclaration": 6147,
                       "src": "1074:21:17",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -1396,29 +1396,29 @@
                       "typeString": "address"
                     }
                   },
-                  "id": 6104,
+                  "id": 6153,
                   "nodeType": "ExpressionStatement",
                   "src": "1051:44:17"
                 }
               ]
             },
             "documentation": "@dev                          Set the master deposit contract address\n                               on contract initialization\n @param _masterDepositAddress  The address of the master deposit contract",
-            "id": 6106,
+            "id": 6155,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 6099,
+              "id": 6148,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 6098,
+                  "id": 6147,
                   "name": "_masterDepositAddress",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6106,
+                  "scope": 6155,
                   "src": "1003:29:17",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1427,7 +1427,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 6097,
+                    "id": 6146,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "1003:7:17",
@@ -1444,12 +1444,12 @@
               "src": "1002:31:17"
             },
             "returnParameters": {
-              "id": 6100,
+              "id": 6149,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1041:0:17"
             },
-            "scope": 6166,
+            "scope": 6215,
             "src": "991:111:17",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -1457,21 +1457,21 @@
           },
           {
             "body": {
-              "id": 6164,
+              "id": 6213,
               "nodeType": "Block",
               "src": "2113:395:17",
               "statements": [
                 {
                   "assignments": [
-                    6122
+                    6171
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 6122,
+                      "id": 6171,
                       "name": "cloneAddress",
                       "nodeType": "VariableDeclaration",
-                      "scope": 6164,
+                      "scope": 6213,
                       "src": "2123:20:17",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -1480,7 +1480,7 @@
                         "typeString": "address"
                       },
                       "typeName": {
-                        "id": 6121,
+                        "id": 6170,
                         "name": "address",
                         "nodeType": "ElementaryTypeName",
                         "src": "2123:7:17",
@@ -1494,17 +1494,17 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 6126,
+                  "id": 6175,
                   "initialValue": {
                     "argumentTypes": null,
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 6124,
+                        "id": 6173,
                         "name": "masterDepositAddress",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6092,
+                        "referencedDeclaration": 6141,
                         "src": "2158:20:17",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -1519,18 +1519,18 @@
                           "typeString": "address"
                         }
                       ],
-                      "id": 6123,
+                      "id": 6172,
                       "name": "createClone",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 6065,
+                      "referencedDeclaration": 6114,
                       "src": "2146:11:17",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_address_$returns$_t_address_$",
                         "typeString": "function (address) returns (address)"
                       }
                     },
-                    "id": 6125,
+                    "id": 6174,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1553,11 +1553,11 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 6135,
+                        "id": 6184,
                         "name": "_TBTCSystem",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6108,
+                        "referencedDeclaration": 6157,
                         "src": "2246:11:17",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -1566,11 +1566,11 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 6136,
+                        "id": 6185,
                         "name": "_TBTCToken",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6110,
+                        "referencedDeclaration": 6159,
                         "src": "2259:10:17",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -1579,11 +1579,11 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 6137,
+                        "id": 6186,
                         "name": "_KeepBridge",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6112,
+                        "referencedDeclaration": 6161,
                         "src": "2271:11:17",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -1592,11 +1592,11 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 6138,
+                        "id": 6187,
                         "name": "_keepThreshold",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6114,
+                        "referencedDeclaration": 6163,
                         "src": "2284:14:17",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -1605,11 +1605,11 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 6139,
+                        "id": 6188,
                         "name": "_keepSize",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6116,
+                        "referencedDeclaration": 6165,
                         "src": "2300:9:17",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -1651,11 +1651,11 @@
                                 "arguments": [
                                   {
                                     "argumentTypes": null,
-                                    "id": 6130,
+                                    "id": 6179,
                                     "name": "cloneAddress",
                                     "nodeType": "Identifier",
                                     "overloadedDeclarations": [],
-                                    "referencedDeclaration": 6122,
+                                    "referencedDeclaration": 6171,
                                     "src": "2213:12:17",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_address",
@@ -1670,7 +1670,7 @@
                                       "typeString": "address"
                                     }
                                   ],
-                                  "id": 6129,
+                                  "id": 6178,
                                   "isConstant": false,
                                   "isLValue": false,
                                   "isPure": true,
@@ -1683,7 +1683,7 @@
                                   },
                                   "typeName": "uint160"
                                 },
-                                "id": 6131,
+                                "id": 6180,
                                 "isConstant": false,
                                 "isLValue": false,
                                 "isPure": false,
@@ -1705,7 +1705,7 @@
                                   "typeString": "uint160"
                                 }
                               ],
-                              "id": 6128,
+                              "id": 6177,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
@@ -1718,7 +1718,7 @@
                               },
                               "typeName": "address"
                             },
-                            "id": 6132,
+                            "id": 6181,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -1740,7 +1740,7 @@
                               "typeString": "address payable"
                             }
                           ],
-                          "id": 6127,
+                          "id": 6176,
                           "name": "Deposit",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
@@ -1751,7 +1751,7 @@
                             "typeString": "type(contract Deposit)"
                           }
                         },
-                        "id": 6133,
+                        "id": 6182,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -1765,7 +1765,7 @@
                           "typeString": "contract Deposit"
                         }
                       },
-                      "id": 6134,
+                      "id": 6183,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -1779,7 +1779,7 @@
                         "typeString": "function (address,address,address,uint256,uint256) payable external returns (bool)"
                       }
                     },
-                    "id": 6140,
+                    "id": 6189,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1793,37 +1793,37 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 6141,
+                  "id": 6190,
                   "nodeType": "ExpressionStatement",
                   "src": "2189:121:17"
                 },
                 {
                   "assignments": [
-                    6143
+                    6192
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 6143,
+                      "id": 6192,
                       "name": "_system",
                       "nodeType": "VariableDeclaration",
-                      "scope": 6164,
+                      "scope": 6213,
                       "src": "2321:18:17",
                       "stateVariable": false,
                       "storageLocation": "default",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_TBTCSystem_$6247",
+                        "typeIdentifier": "t_contract$_TBTCSystem_$6296",
                         "typeString": "contract TBTCSystem"
                       },
                       "typeName": {
                         "contractScope": null,
-                        "id": 6142,
+                        "id": 6191,
                         "name": "TBTCSystem",
                         "nodeType": "UserDefinedTypeName",
-                        "referencedDeclaration": 6247,
+                        "referencedDeclaration": 6296,
                         "src": "2321:10:17",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_TBTCSystem_$6247",
+                          "typeIdentifier": "t_contract$_TBTCSystem_$6296",
                           "typeString": "contract TBTCSystem"
                         }
                       },
@@ -1831,17 +1831,17 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 6147,
+                  "id": 6196,
                   "initialValue": {
                     "argumentTypes": null,
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 6145,
+                        "id": 6194,
                         "name": "_TBTCSystem",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6108,
+                        "referencedDeclaration": 6157,
                         "src": "2353:11:17",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -1856,18 +1856,18 @@
                           "typeString": "address"
                         }
                       ],
-                      "id": 6144,
+                      "id": 6193,
                       "name": "TBTCSystem",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 6247,
+                      "referencedDeclaration": 6296,
                       "src": "2342:10:17",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_type$_t_contract$_TBTCSystem_$6247_$",
+                        "typeIdentifier": "t_type$_t_contract$_TBTCSystem_$6296_$",
                         "typeString": "type(contract TBTCSystem)"
                       }
                     },
-                    "id": 6146,
+                    "id": 6195,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1877,7 +1877,7 @@
                     "nodeType": "FunctionCall",
                     "src": "2342:23:17",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_TBTCSystem_$6247",
+                      "typeIdentifier": "t_contract$_TBTCSystem_$6296",
                       "typeString": "contract TBTCSystem"
                     }
                   },
@@ -1892,18 +1892,18 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 6151,
+                          "id": 6200,
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 10344,
+                          "referencedDeclaration": 10393,
                           "src": "2388:3:17",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
                             "typeString": "msg"
                           }
                         },
-                        "id": 6152,
+                        "id": 6201,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -1922,11 +1922,11 @@
                         "arguments": [
                           {
                             "argumentTypes": null,
-                            "id": 6154,
+                            "id": 6203,
                             "name": "cloneAddress",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 6122,
+                            "referencedDeclaration": 6171,
                             "src": "2408:12:17",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
@@ -1941,7 +1941,7 @@
                               "typeString": "address"
                             }
                           ],
-                          "id": 6153,
+                          "id": 6202,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -1954,7 +1954,7 @@
                           },
                           "typeName": "uint256"
                         },
-                        "id": 6155,
+                        "id": 6204,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -1982,32 +1982,32 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 6148,
+                        "id": 6197,
                         "name": "_system",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6143,
+                        "referencedDeclaration": 6192,
                         "src": "2375:7:17",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_TBTCSystem_$6247",
+                          "typeIdentifier": "t_contract$_TBTCSystem_$6296",
                           "typeString": "contract TBTCSystem"
                         }
                       },
-                      "id": 6150,
+                      "id": 6199,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "mint",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 6246,
+                      "referencedDeclaration": 6295,
                       "src": "2375:12:17",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_uint256_$returns$__$",
                         "typeString": "function (address,uint256) external"
                       }
                     },
-                    "id": 6156,
+                    "id": 6205,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2021,7 +2021,7 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 6157,
+                  "id": 6206,
                   "nodeType": "ExpressionStatement",
                   "src": "2375:47:17"
                 },
@@ -2031,11 +2031,11 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 6159,
+                        "id": 6208,
                         "name": "cloneAddress",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6122,
+                        "referencedDeclaration": 6171,
                         "src": "2458:12:17",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -2050,18 +2050,18 @@
                           "typeString": "address"
                         }
                       ],
-                      "id": 6158,
+                      "id": 6207,
                       "name": "DepositCloneCreated",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 6096,
+                      "referencedDeclaration": 6145,
                       "src": "2438:19:17",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_address_$returns$__$",
                         "typeString": "function (address)"
                       }
                     },
-                    "id": 6160,
+                    "id": 6209,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2075,48 +2075,48 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 6161,
+                  "id": 6210,
                   "nodeType": "EmitStatement",
                   "src": "2433:38:17"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 6162,
+                    "id": 6211,
                     "name": "cloneAddress",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 6122,
+                    "referencedDeclaration": 6171,
                     "src": "2489:12:17",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   },
-                  "functionReturnParameters": 6120,
-                  "id": 6163,
+                  "functionReturnParameters": 6169,
+                  "id": 6212,
                   "nodeType": "Return",
                   "src": "2482:19:17"
                 }
               ]
             },
             "documentation": "@notice                Creates a new deposit instance\n @dev                   Calls createNewDeposit from deposit contract as init method.\n                        We don't offer pure createClone, meaning that the only way\n                        to create a clone is by also calling createNewDeposit()\n                        Deposits created this way will never pass by state 0 (START)\n @param _TBTCSystem     Address of system contract\n @param _TBTCToken      Address of TBTC token contract\n @param _KeepBridge     Address of Keep Bridge contract\n @param _keepThreshold  Minimum number of honest keep members\n @param _keepSize       Number of all members in a keep\n @return                True if successful, otherwise revert",
-            "id": 6165,
+            "id": 6214,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "createDeposit",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 6117,
+              "id": 6166,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 6108,
+                  "id": 6157,
                   "name": "_TBTCSystem",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6165,
+                  "scope": 6214,
                   "src": "1947:19:17",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2125,7 +2125,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 6107,
+                    "id": 6156,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "1947:7:17",
@@ -2140,10 +2140,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 6110,
+                  "id": 6159,
                   "name": "_TBTCToken",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6165,
+                  "scope": 6214,
                   "src": "1976:18:17",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2152,7 +2152,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 6109,
+                    "id": 6158,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "1976:7:17",
@@ -2167,10 +2167,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 6112,
+                  "id": 6161,
                   "name": "_KeepBridge",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6165,
+                  "scope": 6214,
                   "src": "2004:19:17",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2179,7 +2179,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 6111,
+                    "id": 6160,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "2004:7:17",
@@ -2194,10 +2194,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 6114,
+                  "id": 6163,
                   "name": "_keepThreshold",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6165,
+                  "scope": 6214,
                   "src": "2033:22:17",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2206,7 +2206,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 6113,
+                    "id": 6162,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "2033:7:17",
@@ -2220,10 +2220,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 6116,
+                  "id": 6165,
                   "name": "_keepSize",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6165,
+                  "scope": 6214,
                   "src": "2065:17:17",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2232,7 +2232,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 6115,
+                    "id": 6164,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "2065:7:17",
@@ -2248,15 +2248,15 @@
               "src": "1937:151:17"
             },
             "returnParameters": {
-              "id": 6120,
+              "id": 6169,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 6119,
+                  "id": 6168,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6165,
+                  "scope": 6214,
                   "src": "2104:7:17",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2265,7 +2265,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 6118,
+                    "id": 6167,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "2104:7:17",
@@ -2281,14 +2281,14 @@
               ],
               "src": "2103:9:17"
             },
-            "scope": 6166,
+            "scope": 6215,
             "src": "1914:594:17",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 6167,
+        "scope": 6216,
         "src": "509:2001:17"
       }
     ],
@@ -2302,12 +2302,12 @@
     "1101": {
       "events": {},
       "links": {},
-      "address": "0xEc258E27825FC283fC5e3E817CD8c4F61F6a6614",
-      "transactionHash": "0xdf11196e238507742194dd60ea5701e64d2fc1af56bff96e57e8749365a3897c"
+      "address": "0xeaf438317eb5DEbC3d45262B31B77d25CAc49fD6",
+      "transactionHash": "0xb234a59ee30074eca23d836d47dc9e8f9e4b855c8ee808286a7ba46b06e59e27"
     }
   },
   "schemaVersion": "3.0.2",
-  "updatedAt": "2019-08-06T12:54:21.933Z",
+  "updatedAt": "2019-08-13T10:57:10.419Z",
   "devdoc": {
     "details": "We avoid redeployment of deposit contract by using the clone factory. Proxy delegates calls to Deposit and therefore does not affect deposit state. This means that we only need to deploy the deposit contracts once. The factory provides clean state for every new deposit clone.",
     "methods": {
