@@ -1,6 +1,6 @@
-import { Address } from 'tbtc-helpers'
-import { Deposit, TBTCSystem, truffleToWeb3Contract } from './eth/contracts'
-import { Deferred, promiseWithTimeout } from './util'
+import { Address } from 'tbtc-helpers';
+import { TBTCSystem, Deposit, ECDSAKeep, truffleToWeb3Contract } from './eth/contracts';
+import { Deferred, promiseWithTimeout } from './util';
 const { Network, publicKeyToP2WPKHaddress, addressToScript } = Address
 
 /**
@@ -9,19 +9,26 @@ const { Network, publicKeyToP2WPKHaddress, addressToScript } = Address
  * @return {string} a bech32-encoded Bitcoin address, generated from a SegWit P2WPKH script
  */
 export async function getDepositBtcAddress(depositAddress) {
-  const tbtcSystem = truffleToWeb3Contract(await TBTCSystem.deployed())
-
+  const tbtcSystem = await TBTCSystem.deployed()
   const deposit = await Deposit.at(depositAddress)
+  const keepAddress = await deposit.keepAddress()
+  const ecdsaKeep = truffleToWeb3Contract(await ECDSAKeep.at(keepAddress))
 
-  // 1. Listen for the public key registration event, before we request it
-  //    This is to avoid race conditions.
-  const registeredPubKeyEvent = new Deferred()
-  tbtcSystem.events.RegisteredPubkey({ filter: { _depositContractAddress: depositAddress } })
+  // 1. Listen for the public key publication
+  const publicKeyPublished = new Deferred()
+  console.log(`Listening for PublicKeyPublished event for Keep [${keepAddress}]`)
+  ecdsaKeep.events.PublicKeyPublished()
     .once('data', function(event) {
-      registeredPubKeyEvent.resolve(event)
+      publicKeyPublished.resolve(event)
+    })
+  
+  const publicKeyPublishedEvent = await promiseWithTimeout(publicKeyPublished.promise, 45000)
+    .catch((err) => {
+      throw new Error(`couldn't find RegisteredPubkey event for deposit address: [${depositAddress}]\nError: ${err}`)
     })
 
-  console.log(`Get Public Key for deposit [${deposit.address}]`)
+  console.log(`Received event PublicKeyPublished [publicKey=${publicKeyPublishedEvent.returnValues.publicKey}] for Keep [${keepAddress}]`)
+  console.log(`Requesting Public Key for deposit [${deposit.address}]`)
 
   // 2. Request public key from the deposit
   await deposit.retrieveSignerPubkey()
@@ -32,14 +39,24 @@ export async function getDepositBtcAddress(depositAddress) {
       console.error(`retrieveSignerPubkey failed: ${err}`)
     })
 
-  // 3. Wait for the event to be emitted, or time out after 45s
-  const event = await promiseWithTimeout(registeredPubKeyEvent.promise, 45000)
-    .catch((err) => {
-      throw new Error(`couldn't find RegisteredPubkey event for deposit address: [${depositAddress}]\nError: ${err}`)
-    })
-  
-  let publicKeyX = event.returnValues._signingGroupPubkeyX
-  let publicKeyY = event.returnValues._signingGroupPubkeyY
+  // 3. Parse the logs to get the public key.
+  // Since the public key event is emitted in another contract, we can't get this from result.logs
+  // TODO: refactor, below we are retrieving the public key again
+  const eventList = await tbtcSystem.getPastEvents(
+    'RegisteredPubkey',
+    {
+      fromBlock: '0',
+      toBlock: 'latest',
+      filter: { _depositContractAddress: depositAddress },
+    }
+  )
+
+  if (eventList.length == 0) {
+    throw new Error(`couldn't find RegisteredPubkey event for deposit address: [${depositAddress}]`)
+  }
+
+  let publicKeyX = eventList[0].args._signingGroupPubkeyX
+  let publicKeyY = eventList[0].args._signingGroupPubkeyY
   publicKeyX = publicKeyX.replace('0x', '')
   publicKeyY = publicKeyY.replace('0x', '')
 
