@@ -1,13 +1,14 @@
-const TruffleContract = require("truffle-contract");
+const TruffleContract = require('truffle-contract')
+const Web3 = require('web3')
 
 // Just a simple wrapper so we can prototype quickly
 const artifacts = {
   require: (name) => {
-    if(name.startsWith('./')) throw new Error("bad path")
-    let contractName = name.split('.sol')[0]
+    if (name.startsWith('./')) throw new Error('bad path')
+    const contractName = name.split('.sol')[0]
     const json = require(`./artifacts/${contractName}.json`)
     const contract = TruffleContract(json)
-    
+
     return contract
   }
 }
@@ -17,13 +18,15 @@ export const TBTCSystem = artifacts.require('TBTCSystem.sol')
 export const TBTCToken = artifacts.require('TBTCToken.sol')
 export const KeepBridge = artifacts.require('KeepBridge.sol')
 export const DepositFactory = artifacts.require('DepositFactory.sol')
+export const ECDSAKeep = artifacts.require('ECDSAKeep.sol')
 
 const contracts = [
   Deposit,
   TBTCSystem,
   TBTCToken,
   KeepBridge,
-  DepositFactory
+  DepositFactory,
+  ECDSAKeep
 ]
 
 /**
@@ -36,8 +39,24 @@ export async function setDefaults(web3) {
 
   const txDefaults = { from }
 
-  for(let contract of contracts) {
+  for (let contract of contracts) {
     contract.setProvider(web3.currentProvider)
     contract.defaults(txDefaults)
   }
+}
+
+/**
+ * Wraps a Truffle contract into a Web3 contract
+ * Useful for contract events, for which Truffle has NO documentation
+ * TODO standardise on one Web3 provider (Truffle/Web3)
+ * @param {*} truffleContract TruffleContract instance
+ * @returns {web3.eth.Contract} a Web3 contract
+ */
+export function truffleToWeb3Contract(truffleContract) {
+  const web3 = new Web3(truffleContract.contract.currentProvider)
+  let contract = new web3.eth.Contract(
+    truffleContract.abi,
+    truffleContract.address
+  )
+  return contract
 }

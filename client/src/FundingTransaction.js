@@ -9,12 +9,10 @@ const { Network, publicKeyToP2WPKHaddress, addressToScript } = Address
  */
 export async function getDepositBtcAddress(depositAddress) {
   const tbtcSystem = await TBTCSystem.deployed()
-
-  // 1. Request public key from the deposit
   const deposit = await Deposit.at(depositAddress)
 
-  console.log(`Get Public Key for deposit [${deposit.address}]`)
-
+  // 1. Request public key from the deposit
+  console.log(`Requesting Public Key for deposit [${deposit.address}]`)
   await deposit.retrieveSignerPubkey()
     .catch((err) => {
       // This can happen when the public key was already retrieved before
@@ -23,9 +21,9 @@ export async function getDepositBtcAddress(depositAddress) {
       console.error(`retrieveSignerPubkey failed: ${err}`)
     })
 
-  // 2. Parse the logs to get the public key
-  // since the public key event is emitted in another contract, we
-  // can't get this from result.logs
+  // 2. Parse the logs to get the public key.
+  // Since the public key event is emitted in another contract, we can't get this from result.logs
+  // TODO: refactor, below we are retrieving the public key again
   const eventList = await tbtcSystem.getPastEvents(
     'RegisteredPubkey',
     {
