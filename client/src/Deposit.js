@@ -31,22 +31,33 @@ export async function createDeposit() {
   return depositAddress
 }
 
+async function getKeepAddress(depositAddress) {
+  const tbtcSystem = await TBTCSystem.deployed()
+  let evs = await tbtcSystem.getPastEvents('Created', { 
+    fromBlock: 0, 
+    toBlock: 'latest', 
+    filter: { _depositContractAddress: depositAddress }
+  })
+  return evs[0].returnValues._keepAddress
+}
+
 export async function watchForPublicKeyPublished(depositAddress) {
   const deposit = await Deposit.at(depositAddress)
-  const keepAddress = await deposit.keepAddress()
+  const keepAddress = await getKeepAddress(depositAddress)
   const ecdsaKeep = truffleToWeb3Contract(await ECDSAKeep.at(keepAddress))
   
   let evs = await ecdsaKeep.getPastEvents('PublicKeyPublished', {
-    fromBlock: '0',
+    fromBlock: 0,
     toBlock: 'latest'
   })
 
-  if(evs.length !== 0) {
+  if(evs.length != 0) {
     const publicKeyPublishedEvent = evs[0]
     console.log(`Found event PublicKeyPublished [publicKey=${publicKeyPublishedEvent.returnValues.publicKey}] for Keep [${keepAddress}]`)
     return publicKeyPublishedEvent
   }
   
+  console.log(`Watching for PublicKeyPublished event `)
   const publicKeyPublished = await new Promise((res, rej) => {
     ecdsaKeep.events.PublicKeyPublished()
       .once('data', function(event) {
