@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 import { waitConfirmation } from '../actions'
 import Loading from './svgs/Loading'
+import QRCode from 'qrcode.react'
 
 class Pay extends Component {
   state = {
@@ -31,7 +32,7 @@ class Pay extends Component {
     if (!btcConfirming) {
       renderLeft = (
         <div className="qr-code">
-          TODO: QR CODE
+          <QRCode value={address}/>
         </div>
       )
 
@@ -49,10 +50,10 @@ class Pay extends Component {
         </div>
       )
 
-        renderTitle = (
-          <div className="title">
-            Confirming...
-          </div>
+      renderTitle = (
+        <div className="title">
+          Confirming...
+        </div>
       )
     }
 
