@@ -1,5 +1,5 @@
-import { createDeposit, getDepositBtcAddress, setDefaults, watchForPublicKeyPublished } from '../src';
-import { Deposit } from '../src/eth/contracts';
+import { createDeposit, getDepositBtcAddress, setDefaults, watchForPublicKeyPublished } from '../src'
+import { Deposit } from '../src/eth/contracts'
 const Web3 = require('web3')
 
 const BN = require('bn.js')

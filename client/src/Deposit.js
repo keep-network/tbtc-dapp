@@ -1,5 +1,4 @@
-import { DepositFactory, KeepBridge, TBTCSystem, TBTCToken, truffleToWeb3Contract, ECDSAKeep, Deposit } from './eth/contracts'
-import { Deferred, promiseWithTimeout } from './util'
+import { Deposit, DepositFactory, ECDSAKeep, KeepBridge, TBTCSystem, TBTCToken, truffleToWeb3Contract } from './eth/contracts'
 
 /**
  * Creates a new deposit and returns its address
