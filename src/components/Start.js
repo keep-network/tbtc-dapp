@@ -11,11 +11,53 @@ class Start extends Component {
     history.push('/invoice')
   }
 
+  getWeb3Status() {
+    const { account, loading, web3} = this.props
+
+    if (loading) {
+      return (
+        <div className="web3-status loading">
+          loading...
+        </div>
+      )
+    }
+
+    if (!web3) {
+      return (
+        <div className="web3-status alert">
+          Web3 not detected.  We suggest <a href="http://metamask.io" target="_blank" rel="noopener noreferrer">Metamask</a>.
+        </div>
+      )
+    }
+
+    if (!web3.eth.currentProvider.isConnected()) {
+      return (
+        <div className="web3-status notify">
+          Web3 detected, but you need to Connect this dApp.
+        </div>
+      )
+    }
+
+    if (!account) {
+      return (
+        <div className="web3-status notify">
+          Web3 connected, but you need to log into an Account.
+        </div>
+      )
+    }
+
+    return (
+      <div className="web3-status success">
+        Account logged in
+      </div>
+    )
+  }
+
   render() {
     return (
       <div className="start">
         <div className="page-top">
-          {/* TODO: Add Web3 indicator*/}
+          { this.getWeb3Status() }
         </div>
         <div className="page-body">
           <div className="step">
