@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import history from '../history'
+import Check from './svgs/Check'
 
 class Start extends Component {
 
@@ -33,7 +34,7 @@ class Start extends Component {
     if (!web3.eth.currentProvider.isConnected()) {
       return (
         <div className="web3-status notify">
-          Web3 detected, but you need to Connect this dApp.
+          Web3 detected, but you need to connect this dApp.
         </div>
       )
     }
@@ -41,14 +42,14 @@ class Start extends Component {
     if (!account) {
       return (
         <div className="web3-status notify">
-          Web3 connected, but you need to log into an Account.
+          Web3 connected, but you need to log into an cccount.
         </div>
       )
     }
 
     return (
       <div className="web3-status success">
-        Account logged in
+        <Check width="25px" /> Account logged in
       </div>
     )
   }

@@ -170,6 +170,11 @@ footer {
   border-color: #CBFCC7;
   color: #5CE783;
 }
+.start .page-top .web3-status svg {
+  display: inline-block;
+  vertical-align: text-bottom;
+  margin-bottom: -2px;
+}
 .invoice .building svg path {
   animation: pulse 3s linear infinite;
 }
