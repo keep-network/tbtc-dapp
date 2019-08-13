@@ -10,7 +10,7 @@ const artifacts = {
     const contract = TruffleContract(json)
 
     return contract
-  },
+  }
 }
 
 export const Deposit = artifacts.require('Deposit.sol')
@@ -48,6 +48,7 @@ export async function setDefaults(web3) {
 /**
  * Wraps a Truffle contract into a Web3 contract
  * Useful for contract events, for which Truffle has NO documentation
+ * TODO standardise on one Web3 provider (Truffle/Web3)
  * @param {*} truffleContract TruffleContract instance
  * @returns {web3.eth.Contract} a Web3 contract
  */

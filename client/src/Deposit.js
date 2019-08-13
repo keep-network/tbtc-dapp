@@ -1,4 +1,4 @@
-import { Deposit, DepositFactory, ECDSAKeep, KeepBridge, TBTCSystem, TBTCToken, truffleToWeb3Contract } from './eth/contracts'
+import { DepositFactory, ECDSAKeep, KeepBridge, TBTCSystem, TBTCToken, truffleToWeb3Contract } from './eth/contracts';
 
 /**
  * Creates a new deposit and returns its address
@@ -40,10 +40,8 @@ async function getKeepAddress(depositAddress) {
   return events[0].returnValues._keepAddress
 }
 
-
 export async function watchForPublicKeyPublished(depositAddress) {
   return new Promise(async (resolve, reject) => {
-    const deposit = await Deposit.at(depositAddress)
     const keepAddress = await getKeepAddress(depositAddress)
     const ecdsaKeep = truffleToWeb3Contract(await ECDSAKeep.at(keepAddress))
     
@@ -64,7 +62,7 @@ export async function watchForPublicKeyPublished(depositAddress) {
     if(events.length != 0) {
       const event = events[0]
       console.log(`Found event PublicKeyPublished [publicKey=${event.returnValues.publicKey}] for Keep [${keepAddress}]`)
-      resolve(event)
+      return resolve(event)
     }
   })
 }

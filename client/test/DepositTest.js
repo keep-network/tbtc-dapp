@@ -13,7 +13,7 @@ let web3
 // We skip this test until we configure ethereum chain and deployment for the
 // CI. Currently this test can be executed only manually on prepared ethereum
 // environment with deployed contracts.
-describe('Ethereum helpers', function() {
+describe.skip('Ethereum helpers', function() {
   this.timeout(70*1000)
 
   before(async () => {
@@ -23,7 +23,6 @@ describe('Ethereum helpers', function() {
     // https://github.com/ethereum/web3.js/issues/1119
     Web3.providers.HttpProvider.prototype.sendAsync = Web3.providers.HttpProvider.prototype.send
 
-    // web3 = new Web3(new Web3.providers.WebsocketProvider(TESTNET_RPC_WS))
     web3 = new Web3(new Web3.providers.WebsocketProvider('ws://localhost:8545'))
     await setDefaults(web3)
   })
