@@ -35,6 +35,7 @@ addresses:
 | KeepBridge     | 0x2592ddC02be8eA8054fd76cEA895f892A577C0BA |
 | TBTCSystem     | 0xb3f7c202Cf2789A592D5ad43B681D6693e6e6024 |
 | TBTCToken      | 0x46c3884E5242b2330215e71E2F9907bdfB5A5cb3 |
+| ECDSAKeep      | deployed via keep factory                  |
 
 ### MetaMask
 
