@@ -33,7 +33,7 @@ class Pay extends Component {
       renderTop = (
         <div className="qr-code">
           <QRCode
-            value={"1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2" || address}
+            value={address}
             renderAs="svg"
             size={225} />
         </div>
