@@ -41,32 +41,31 @@ async function getKeepAddress(depositAddress) {
   return events[0].returnValues._keepAddress
 }
 
-export async function watchForPublicKeyPublished(depositAddress) {
-  const deposit = await Deposit.at(depositAddress)
-  const keepAddress = await getKeepAddress(depositAddress)
-  const ecdsaKeep = truffleToWeb3Contract(await ECDSAKeep.at(keepAddress))
-  
-  let events = await ecdsaKeep.getPastEvents('PublicKeyPublished', {
-    fromBlock: 0,
-    toBlock: 'latest'
-  })
 
-  if(events.length != 0) {
-    const publicKeyPublishedEvent = events[0]
-    console.log(`Found event PublicKeyPublished [publicKey=${publicKeyPublishedEvent.returnValues.publicKey}] for Keep [${keepAddress}]`)
-    return publicKeyPublishedEvent
-  }
-  
-  console.log(`Watching for PublicKeyPublished event `)
-  const publicKeyPublished = await new Promise((res, rej) => {
+export async function watchForPublicKeyPublished(depositAddress) {
+  return new Promise(async (resolve, reject) => {
+    const deposit = await Deposit.at(depositAddress)
+    const keepAddress = await getKeepAddress(depositAddress)
+    const ecdsaKeep = truffleToWeb3Contract(await ECDSAKeep.at(keepAddress))
+    
+    // Start watching for events
+    console.log(`Watching for PublicKeyPublished event `)
     ecdsaKeep.events.PublicKeyPublished()
       .once('data', function(event) {
-        res(event)
+        console.log(`Received event PublicKeyPublished [publicKey=${event.returnValues.publicKey}] for Keep [${keepAddress}]`)
+        resolve(event)
       })
-  })
+    
+    // Query if an event was already emitted after we start watching
+    let events = await ecdsaKeep.getPastEvents('PublicKeyPublished', {
+      fromBlock: 0,
+      toBlock: 'latest'
+    })
 
-  const publicKeyPublishedEvent = await promiseWithTimeout(publicKeyPublished, 60000)
-  console.log(`Received event PublicKeyPublished [publicKey=${publicKeyPublishedEvent.returnValues.publicKey}] for Keep [${keepAddress}]`)
-  
-  return publicKeyPublishedEvent
+    if(events.length != 0) {
+      const event = events[0]
+      console.log(`Found event PublicKeyPublished [publicKey=${event.returnValues.publicKey}] for Keep [${keepAddress}]`)
+      resolve(event)
+    }
+  })
 }
