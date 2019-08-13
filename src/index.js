@@ -14,10 +14,11 @@ import {
   App,
   Home,
   Start,
+  Invoice,
   Pay,
   Prove,
   Congratulations
-  } from './components'
+} from './components'
 
 // Wrappers
 import Web3Wrapper from './wrappers/web3'
@@ -46,6 +47,7 @@ function AppWrapper() {
           <Route path="/" exact component={Home} />
           <App>
             <Route path="/start" component={Start} />
+            <Route path="/invoice" component={Invoice} />
             <Route path="/pay" exact component={Pay} />
             <Route path="/pay/confirming" render={(props) => <Pay {...props} confirming={true} />} />
             <Route path="/prove" component={Prove} />
