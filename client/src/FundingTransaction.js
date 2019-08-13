@@ -1,6 +1,6 @@
 import { Address } from 'tbtc-helpers';
-import { TBTCSystem, Deposit, ECDSAKeep, truffleToWeb3Contract } from './eth/contracts';
-import { Deferred, promiseWithTimeout } from './util';
+import { watchForPublicKeyPublished } from './Deposit';
+import { Deposit, TBTCSystem } from './eth/contracts';
 const { Network, publicKeyToP2WPKHaddress, addressToScript } = Address
 
 /**
@@ -11,23 +11,9 @@ const { Network, publicKeyToP2WPKHaddress, addressToScript } = Address
 export async function getDepositBtcAddress(depositAddress) {
   const tbtcSystem = await TBTCSystem.deployed()
   const deposit = await Deposit.at(depositAddress)
-  const keepAddress = await deposit.keepAddress()
-  const ecdsaKeep = truffleToWeb3Contract(await ECDSAKeep.at(keepAddress))
 
   // 1. Listen for the public key publication
-  const publicKeyPublished = new Deferred()
-  console.log(`Listening for PublicKeyPublished event for Keep [${keepAddress}]`)
-  ecdsaKeep.events.PublicKeyPublished()
-    .once('data', function(event) {
-      publicKeyPublished.resolve(event)
-    })
-  
-  const publicKeyPublishedEvent = await promiseWithTimeout(publicKeyPublished.promise, 45000)
-    .catch((err) => {
-      throw new Error(`couldn't find RegisteredPubkey event for deposit address: [${depositAddress}]\nError: ${err}`)
-    })
-
-  console.log(`Received event PublicKeyPublished [publicKey=${publicKeyPublishedEvent.returnValues.publicKey}] for Keep [${keepAddress}]`)
+  await watchForPublicKeyPublished(depositAddress)
   console.log(`Requesting Public Key for deposit [${deposit.address}]`)
 
   // 2. Request public key from the deposit
