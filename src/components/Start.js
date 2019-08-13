@@ -31,6 +31,7 @@ class Start extends Component {
       )
     }
 
+    // TODO: Figure out why this is always true
     if (!web3.eth.currentProvider.isConnected()) {
       return (
         <div className="web3-status notify">
@@ -42,7 +43,7 @@ class Start extends Component {
     if (!account) {
       return (
         <div className="web3-status notify">
-          Web3 connected, but you need to log into an cccount.
+          Web3 connected, but you need to log into an acccount.
         </div>
       )
     }

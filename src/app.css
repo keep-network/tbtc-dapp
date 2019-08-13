@@ -175,6 +175,9 @@ footer {
   vertical-align: text-bottom;
   margin-bottom: -2px;
 }
+.start .page-top .web3-status a {
+  color: unset;
+}
 .invoice .building svg path {
   animation: pulse 3s linear infinite;
 }
