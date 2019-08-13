@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 
 import history from '../history'
 
@@ -40,6 +39,4 @@ class Start extends Component {
   }
 }
 
-
-export default connect(
-)(Start)
+export default Start
