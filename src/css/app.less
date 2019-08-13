@@ -1,12 +1,14 @@
+@content-width: 768px;
+
 @import 'colors.less';
 @import 'button.less';
 @import 'z-index.less';
 @import './fonts/apercu.less';
 @import 'structure.less';
+@import 'modal.less';
 @import 'start.less';
 @import 'pay.less';
-
-@content-width: 768px;
+@import 'prove.less';
 
 html, body, #root {
     margin: 0;
@@ -15,8 +17,9 @@ html, body, #root {
 }
 
 a {
-    color: unset;
-    text-decoration: unset;
+    color: @blue;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .main {
@@ -56,11 +59,6 @@ a {
                 display: block;
             }
         }
-    }
-
-    .congratulations, .home, .pay, .prove, .start {
-        margin-top: 50px;
-        text-align: center;
     }
 }
 

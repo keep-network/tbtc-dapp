@@ -1,37 +1,7 @@
 .pay {
-    .page-left {
-        .peanuts {
-            position: absolute;
-            left: -378px;
-            bottom: -100px;
-            transform: rotate(90deg);
-            overflow: hidden;
-
-            svg {
-                path {
-                    fill: @purple;
-                }
-            }
-            // right-most
-            svg:first-of-type {
-                transform: translate(122px, 0)
-            }
-
-            // left-most
-            svg:last-of-type {
-                transform: translate(122px, 0)
-            }
-        }
-    }
-
-    .page-right {
-        // What is broken that makes me need this?
-        max-width: 300px;
-
+    .page-body {
         .custodial-fee {
-            flex: 0 1;
-            font-size: .8em;
-            margin-bottom: 20px;
+            margin-top: 40px;
         }
 
         .copy-address {
@@ -43,6 +13,13 @@
                 text-overflow: ellipsis;
                 overflow: hidden;
                 min-width: 1px;
+
+                &:hover {
+                    text-overflow: unset;
+                    white-space: unset;
+                    overflow: unset;
+                    word-wrap: break-word;
+                }
             }
 
             .copied {
@@ -58,26 +35,40 @@
 
     .confirming  {
 
-        svg {
-            stroke-dasharray: 500;
-            stroke-dashoffset: 500;
-            animation: dash 4s linear infinite;
-            transform: rotate(270deg);
-            stroke-linecap: round;
+        // This is for the "Loading" svg, NOT the "Peanut" svg
+        // Leaving as a WIP
+        // svg {
+        //     stroke-dasharray: 500;
+        //     stroke-dashoffset: 500;
+        //     animation: dash 4s linear infinite;
+        //     transform: rotate(270deg);
+        //     stroke-linecap: round;
 
-            path {
-                stroke: @purple;
-                transform: translate(175px, 175px)
-            }
-        }
+        //     path {
+        //         stroke: @purple;
+        //         transform: translate(175px, 175px)
+        //     }
+        // }
       
-        @keyframes dash {
-            from {
-                stroke-dashoffset:1000;
-            }
-            to {
-                stroke-dashoffset: 0;
+        // @keyframes dash {
+        //     from {
+        //         stroke-dashoffset:1000;
+        //     }
+        //     to {
+        //         stroke-dashoffset: 0;
+        //     }
+        // }
+
+        svg {
+            path {
+                animation: pulse 3s linear infinite;
             }
         }
+
+        @keyframes pulse {
+            0% { fill: transparent; }
+            50% { fill: @purple; }
+            100% { fill: transparent; }
+          }
     }
 }

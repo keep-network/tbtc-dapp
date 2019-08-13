@@ -1,5 +1,5 @@
 button {
-  background-color: #6cb9fd;
+  background-color: #479CFF;
   color: #fff;
   border-radius: 4px;
   border: 0px solid transparent;
@@ -8,16 +8,19 @@ button {
   cursor: pointer;
 }
 button:hover {
-  background-color: #6ab9ff;
+  background-color: #479cff;
 }
 button:focus {
-  background-color: #3aa1fc;
+  background-color: #1481ff;
 }
 .peanuts {
   z-index: 1;
 }
 footer {
   z-index: 2;
+}
+.modal {
+  z-index: 3;
 }
 /*
  * Web Fonts from colophon-foundry.org
@@ -39,119 +42,99 @@ footer {
   font-style: normal;
 }
 .start,
-.pay {
-  display: flex;
-  flex-direction: row;
-  font-family: 'apercu-mono-regular-pro';
-}
-.start a,
-.pay a {
-  color: #6cb9fd;
-  text-decoration: underline;
-  cursor: pointer;
-}
-.start .page-left,
-.pay .page-left {
-  position: relative;
-  min-width: 460px;
-  min-height: 600px;
-}
-.start .page-right,
-.pay .page-right {
+.pay,
+.prove {
   display: flex;
   flex-direction: column;
-  text-align: left;
+  font-family: 'apercu-mono-regular-pro';
+  text-align: center;
 }
-.start .page-right .step,
-.pay .page-right .step {
+.start .page-top,
+.pay .page-top,
+.prove .page-top {
+  margin: 25px 0 100px 0;
+}
+.start .page-body,
+.pay .page-body,
+.prove .page-body {
+  display: flex;
+  flex-direction: column;
+  min-height: 500px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.start .page-body .step,
+.pay .page-body .step,
+.prove .page-body .step {
   flex: 0 1;
-  color: #6cb9fd;
+  color: #479CFF;
   font-size: 0.5em;
   margin-bottom: 30px;
 }
-.start .page-right .title,
-.pay .page-right .title {
+.start .page-body .title,
+.pay .page-body .title,
+.prove .page-body .title {
   flex: 0 1;
   font-size: 1.75em;
   font-weight: bold;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
-.start .page-right hr,
-.pay .page-right hr {
+.start .page-body hr,
+.pay .page-body hr,
+.prove .page-body hr {
   flex: 0 1;
   border-style: dashed;
   border-width: 2px 0 0 0;
-  border-color: #6cb9fd;
+  border-color: #479CFF;
   width: 150px;
-  margin: 0 0 30px 0;
+  margin: 0 auto 40px auto;
 }
-.start .page-right .description,
-.pay .page-right .description {
+.start .page-body .description,
+.pay .page-body .description,
+.prove .page-body .description {
   flex: 0 1;
   font-size: 0.8em;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
-.start .page-left .peanuts {
-  position: absolute;
-  left: -378px;
-  bottom: -100px;
-  transform: rotate(90deg);
-  overflow: hidden;
-}
-.start .page-left .peanuts svg path {
-  fill: #3b1471;
-}
-.start .page-left .peanuts svg:first-of-type {
-  transform: translate(122px, 0);
-}
-.start .page-left .peanuts svg:last-of-type {
-  transform: translate(122px, 0);
-}
-.start .page-right {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-}
-.start .page-right .description {
-  flex: 0 1;
-  font-size: 0.8em;
-  margin-bottom: 20px;
-}
-.start .page-right .cta {
+.start .page-body .cta,
+.pay .page-body .cta,
+.prove .page-body .cta {
   flex: 1 1;
   font-size: 0.8em;
 }
-.start .page-right .metamask {
-  flex: 0 0;
-  font-size: 0.8em;
-  margin-bottom: 80px;
-}
-.pay .page-left .peanuts {
+.modal {
   position: absolute;
-  left: -378px;
-  bottom: -100px;
-  transform: rotate(90deg);
-  overflow: hidden;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
 }
-.pay .page-left .peanuts svg path {
-  fill: #3b1471;
+.modal.closed {
+  display: none;
 }
-.pay .page-left .peanuts svg:first-of-type {
-  transform: translate(122px, 0);
+.modal.open {
+  display: block;
 }
-.pay .page-left .peanuts svg:last-of-type {
-  transform: translate(122px, 0);
+.modal .close {
+  text-align: end;
+  padding: 10px;
 }
-.pay .page-right {
-  max-width: 300px;
+.modal .close .x {
+  display: inline-block;
+  cursor: pointer;
 }
-.pay .page-right .custodial-fee {
-  flex: 0 1;
-  font-size: 0.8em;
-  margin-bottom: 20px;
+.modal .modal-body {
+  margin: 200px auto;
+  padding: 20px 25px 40px 80px;
+  width: 768px;
+  background-color: #fff;
 }
-.pay .page-right .copy-address .address {
-  color: #6cb9fd;
+.pay .page-body .custodial-fee {
+  margin-top: 40px;
+}
+.pay .page-body .copy-address .address {
+  color: #479CFF;
   text-decoration: underline;
   cursor: pointer;
   white-space: nowrap;
@@ -159,31 +142,76 @@ footer {
   overflow: hidden;
   min-width: 1px;
 }
-.pay .page-right .copy-address .copied {
+.pay .page-body .copy-address .address:hover {
+  text-overflow: unset;
+  white-space: unset;
+  overflow: unset;
+  word-wrap: break-word;
+}
+.pay .page-body .copy-address .copied {
   color: red;
 }
 .pay .hidden-copy-field {
   position: absolute;
   right: 999999px;
 }
-.pay .confirming svg {
-  stroke-dasharray: 500;
-  stroke-dashoffset: 500;
-  animation: dash 4s linear infinite;
-  transform: rotate(270deg);
-  stroke-linecap: round;
-}
 .pay .confirming svg path {
-  stroke: #3b1471;
-  transform: translate(175px, 175px);
+  animation: pulse 3s linear infinite;
 }
-@keyframes dash {
-  from {
-    stroke-dashoffset: 1000;
+@keyframes pulse {
+  0% {
+    fill: transparent;
   }
-  to {
-    stroke-dashoffset: 0;
+  50% {
+    fill: #370C5F;
   }
+  100% {
+    fill: transparent;
+  }
+}
+.prove .page-top svg path {
+  fill: #479CFF;
+}
+.prove-modal {
+  display: flex;
+  flex-direction: row;
+}
+.prove-modal .modal-left {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+.prove-modal .modal-left .description {
+  font-size: 1em;
+}
+.prove-modal .modal-left .cta,
+.prove-modal .modal-left .cti {
+  margin: 10px 0 20px 0;
+}
+.prove-modal .modal-left .cti {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.prove-modal .modal-right {
+  position: relative;
+  overflow: hidden;
+  min-width: 460px;
+}
+.prove-modal .modal-right .peanuts {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: rotate(90deg);
+  overflow: hidden;
+}
+.prove-modal .modal-right .peanuts svg path {
+  fill: #370C5F;
+}
+.prove-modal .modal-right .peanuts svg:first-of-type {
+  transform: translate(-50px, 8px);
+}
+.prove-modal .modal-right .peanuts svg:last-of-type {
+  transform: translate(-50px, -8px);
 }
 html,
 body,
@@ -193,8 +221,9 @@ body,
   font-family: 'apercu-mono-regular-pro';
 }
 a {
-  color: unset;
-  text-decoration: unset;
+  color: #479CFF;
+  text-decoration: underline;
+  cursor: pointer;
 }
 .main {
   display: flex;
@@ -229,14 +258,6 @@ a {
 }
 .app .nav .logo svg {
   display: block;
-}
-.app .congratulations,
-.app .home,
-.app .pay,
-.app .prove,
-.app .start {
-  margin-top: 50px;
-  text-align: center;
 }
 footer {
   flex-shrink: 0;
@@ -273,7 +294,7 @@ footer .footer-content .white-paper .white-paper-link {
 }
 footer .footer-content .white-paper .white-paper-link a {
   white-space: nowrap;
-  color: #6cb9fd;
+  color: #479CFF;
   text-decoration: underline;
 }
 footer .footer-content .footer-logo {

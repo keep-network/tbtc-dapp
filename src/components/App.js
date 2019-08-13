@@ -1,14 +1,18 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import React, { Component } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 import TBTCLogo from './svgs/TBTCLogo'
+import { Modal } from './lib'
+import { openModal } from '../actions'
 
 class App extends Component {
   render() {
-    const { children } = this.props
+    const { children, openModal } = this.props
 
     return (
-      <div className="main">
+      <div className="main" onMouseLeave={openModal}>
+        <Modal />
         <div className="app">
           <header className="nav">
             <div className="logo">
@@ -55,4 +59,16 @@ class App extends Component {
   }
 }
 
-export default App
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+      {
+        openModal
+      },
+      dispatch
+  )
+}
+
+export default connect(
+  () => ({}),
+  mapDispatchToProps
+)(App)
