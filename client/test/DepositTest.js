@@ -1,6 +1,5 @@
-import { createDeposit, getDepositBtcAddress, setDefaults } from '../src'
-import { Deposit } from '../src/eth/contracts'
-import { TESTNET_RPC_WS } from './constants'
+import { createDeposit, getDepositBtcAddress, setDefaults, watchForPublicKeyPublished } from '../src';
+import { Deposit } from '../src/eth/contracts';
 const Web3 = require('web3')
 
 const BN = require('bn.js')
@@ -24,7 +23,8 @@ describe('Ethereum helpers', function() {
     // https://github.com/ethereum/web3.js/issues/1119
     Web3.providers.HttpProvider.prototype.sendAsync = Web3.providers.HttpProvider.prototype.send
 
-    web3 = new Web3(new Web3.providers.WebsocketProvider(TESTNET_RPC_WS))
+    // web3 = new Web3(new Web3.providers.WebsocketProvider(TESTNET_RPC_WS))
+    web3 = new Web3(new Web3.providers.WebsocketProvider('ws://localhost:8545'))
     await setDefaults(web3)
   })
 
@@ -39,5 +39,11 @@ describe('Ethereum helpers', function() {
     const depositAddress = await createDeposit()
     const btcAddress = await getDepositBtcAddress(depositAddress)
     expect(btcAddress.substring(0, 2)).to.equal('tb')
+  })
+
+  it('#watchForPublicKeyPublished', async () => {
+    const depositAddress = await createDeposit()
+    const event = await watchForPublicKeyPublished(depositAddress)
+    expect(event.returnValues.publicKey).to.not.be.empty
   })
 })
