@@ -43,7 +43,8 @@ footer {
 }
 .start,
 .pay,
-.prove {
+.prove,
+.congratulations {
   display: flex;
   flex-direction: column;
   font-family: 'apercu-mono-regular-pro';
@@ -51,12 +52,14 @@ footer {
 }
 .start .page-top,
 .pay .page-top,
-.prove .page-top {
+.prove .page-top,
+.congratulations .page-top {
   margin: 25px 0 100px 0;
 }
 .start .page-body,
 .pay .page-body,
-.prove .page-body {
+.prove .page-body,
+.congratulations .page-body {
   display: flex;
   flex-direction: column;
   min-height: 500px;
@@ -65,7 +68,8 @@ footer {
 }
 .start .page-body .step,
 .pay .page-body .step,
-.prove .page-body .step {
+.prove .page-body .step,
+.congratulations .page-body .step {
   flex: 0 1;
   color: #479CFF;
   font-size: 0.5em;
@@ -73,7 +77,8 @@ footer {
 }
 .start .page-body .title,
 .pay .page-body .title,
-.prove .page-body .title {
+.prove .page-body .title,
+.congratulations .page-body .title {
   flex: 0 1;
   font-size: 1.75em;
   font-weight: bold;
@@ -81,7 +86,8 @@ footer {
 }
 .start .page-body hr,
 .pay .page-body hr,
-.prove .page-body hr {
+.prove .page-body hr,
+.congratulations .page-body hr {
   flex: 0 1;
   border-style: dashed;
   border-width: 2px 0 0 0;
@@ -91,14 +97,16 @@ footer {
 }
 .start .page-body .description,
 .pay .page-body .description,
-.prove .page-body .description {
+.prove .page-body .description,
+.congratulations .page-body .description {
   flex: 0 1;
   font-size: 0.8em;
   margin-bottom: 40px;
 }
 .start .page-body .cta,
 .pay .page-body .cta,
-.prove .page-body .cta {
+.prove .page-body .cta,
+.congratulations .page-body .cta {
   flex: 1 1;
   font-size: 0.8em;
 }
@@ -212,6 +220,16 @@ footer {
 }
 .prove-modal .modal-right .peanuts svg:last-of-type {
   transform: translate(-50px, -8px);
+}
+.congratulations .page-top {
+  margin: 0 0 75px 0;
+}
+.congratulations .page-body {
+  min-height: 345px;
+}
+.congratulations .page-body .description .bond-duration {
+  font-weight: bold;
+  margin-top: 30px;
 }
 html,
 body,
