@@ -13,6 +13,8 @@ import {
     watchForPublicKeyPublished
 } from 'tbtc-client'
 
+import { notifyTransactionConfirmed } from '../lib/NotificationWrapper'
+
 export const DEPOSIT_REQUEST_BEGIN = 'DEPOSIT_REQUEST_BEGIN'
 export const DEPOSIT_REQUEST_METAMASK_SUCCESS = 'DEPOSIT_REQUEST_METAMASK_SUCCESS'
 export const DEPOSIT_REQUEST_SUCCESS = 'DEPOSIT_REQUEST_SUCCESS'
@@ -102,13 +104,16 @@ function* waitConfirmation() {
     yield put({
         type: BTC_TX_CONFIRMED_WAIT
     })
-    
+
     yield call(waitForConfirmations, electrumClient, fundingTx.transactionID)
 
     // when it's finally sufficiently confirmed, dispatch the txid
     yield put({
         type: BTC_TX_CONFIRMED
     })
+
+    // emit a notification
+    notifyTransactionConfirmed()
 
     // goto
     history.push('/prove')
