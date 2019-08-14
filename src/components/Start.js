@@ -2,8 +2,13 @@ import React, { Component } from 'react'
 
 import history from '../history'
 import { Web3Status } from './lib'
+import { requestPermission } from '../lib/NotificationWrapper'
 
 class Start extends Component {
+
+  componentDidMount() {
+    requestPermission()
+  }
 
   handleClickPay = (evt) => {
     evt.preventDefault()
