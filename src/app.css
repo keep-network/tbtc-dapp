@@ -240,6 +240,45 @@ footer {
     line-height: 2em
 }
 
+.start .page-top .web3-status {
+    display: inline-block;
+    padding: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    font-size: .8em
+}
+
+.start .page-top .web3-status.loading {
+    border-color: lighter(#370C5F, 33%);
+    color: #370C5F
+}
+
+.start .page-top .web3-status.alert {
+    border-color: #FFDDD6;
+    color: #E7755C
+}
+
+.start .page-top .web3-status.notify {
+    border-color: #D4E8FF;
+    color: #479CFF
+}
+
+.start .page-top .web3-status.success {
+    border-color: #CBFCC7;
+    color: #5CE783
+}
+
+.start .page-top .web3-status svg {
+    display: inline-block;
+    vertical-align: text-bottom;
+    margin-bottom: -2px
+}
+
+.start .page-top .web3-status a {
+    color: unset
+}
+
 .invoice .building svg path {
     animation: pulse 3s linear infinite
 }

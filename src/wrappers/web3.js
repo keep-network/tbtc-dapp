@@ -68,19 +68,7 @@ class Web3Wrapper extends Component {
     render() {
         const { account, balance, loading, web3 } = this.state
 
-        const contextValue = { account, balance, web3 }
-
-        if (loading) {
-            return <span>Loading...</span> 
-        }
-
-        if (!web3) {
-            return <span>Please Install MetaMask and refresh the page</span>
-        }
-
-        if (!account) {
-            return <span>Please Log Into MetaMask</span>
-        }
+        const contextValue = { account, balance, loading, web3 }
 
         return (
             <Web3Context.Provider value={contextValue}>
