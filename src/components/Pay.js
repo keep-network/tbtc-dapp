@@ -29,7 +29,7 @@ class Pay extends Component {
     const { copied } = this.state
     let renderTop, renderTitle, renderCopyAddress, descriptionText, step;
 
-    if (btcConfirming) {
+    if (!btcConfirming) {
       renderTop = (
         <div className="qr-code">
           <QRCode
