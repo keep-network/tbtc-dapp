@@ -27,7 +27,7 @@ class Start extends Component {
           </div>
           <hr />
           <div className="description">
-            Maecenas sed diam eget risus varius blandit sit amet non magna.  Maecenas sed diam eget risus varius blandit sit amet non magna.
+            To mint tBTC, we first need to initiate a bond. This is where we will send BTC.
           </div>
           <div className="cta">
             <a href="/invoice" onClick={this.handleClickPay}>
