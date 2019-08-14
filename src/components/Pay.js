@@ -79,7 +79,7 @@ class Pay extends Component {
             </div>
             <div className="custodial-fee">
               <span className="custodial-fee-label">Custodial Fee: </span>
-              .02 BTC*
+              .005 BTC*
             </div>
           </div>
           <div className="copy-address">
