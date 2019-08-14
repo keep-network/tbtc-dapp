@@ -23,12 +23,11 @@ class Start extends Component {
             Step 1/5
           </div>
           <div className="title">
-            Begin a bond
+            Initiate a deposit
           </div>
           <hr />
           <div className="description">
-            <p>To mint tBTC, we first need to initiate a bond. This is where we will send BTC.</p>
-
+            <p>To mint tBTC, we first need to initiate a deposit. This is where we will send BTC.</p>
             <p>This should take less than 1 minute.</p>
           </div>
           <div className="cta">

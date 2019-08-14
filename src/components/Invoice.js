@@ -34,10 +34,10 @@ class Invoice extends Component {
         </div>
         <div className="page-body">
           <div className="step">
-            Step 2/5
+            Step 1/5
           </div>
           <div className="title">
-            Building invoice
+            Initiating deposit
           </div>
           <hr />
           <div className="description">
