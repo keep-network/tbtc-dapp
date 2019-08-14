@@ -34,7 +34,7 @@ class Invoice extends Component {
         </div>
         <div className="page-body">
           <div className="step">
-            Step 1/5
+            Step 2/5
           </div>
           <div className="title">
             Initiating deposit
@@ -43,7 +43,6 @@ class Invoice extends Component {
           <div className="description">
             {statusText}
           </div>
-          <hr />
         </div>
       </div >
     )
