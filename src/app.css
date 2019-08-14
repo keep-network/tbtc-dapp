@@ -375,6 +375,7 @@ body,
   margin: 0;
   height: 100%;
   font-family: 'apercu-mono-regular-pro';
+  overflow-x: hidden;
 }
 a {
   color: #479CFF;
