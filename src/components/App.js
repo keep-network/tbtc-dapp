@@ -8,7 +8,7 @@ import { openModal } from '../actions'
 
 class App extends Component {
   render() {
-    const { children, openModal, match } = this.props
+    const { children, openModal, location } = this.props
 
     return (
       <div className="main" onMouseLeave={openModal}>
@@ -17,7 +17,7 @@ class App extends Component {
           <Header />
           { children }
         </div>
-        <Footer includeSubscription={match.path === '/'} />
+        <Footer includeSubscription={location.pathname === '/'} />
       </div>
     )
   }

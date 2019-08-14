@@ -7,29 +7,33 @@ const Header = ({ includeSubscription }) => (
     <div className="footer-content">
       <div className="white-paper">
         <div className="white-paper-label">
-          How does it work?
+          Learn how
         </div>
         <hr />
         <div className="white-paper-link">
-          <a href="keep.network" target="_blank">
-            Read the White Paper >>>>
+          <a href="http://docs.keep.network/tbtc/index.pdf" target="_blank" rel="noopener noreferrer">
+            Read the Spec >>>>
           </a>
         </div>
       </div>
-      {
-        includeSubscription && (
-          <div className="mailing-list">
-            TODO
-          </div>
-        )
-      }
-      <div className="footer-logo">
-        <TBTCLogo width="150" />
-      </div>
-      <div className="footer-links">
-        <a href="keep.network" target="_blank">
-          about
-        </a>
+    </div>
+    {
+      includeSubscription && (
+        <div className="mailing-list">
+          TODO
+        </div>
+      )
+    }
+    <div className="footer-content">
+      <div className="footer-bottom">
+        <div className="footer-logo">
+          <TBTCLogo width="150" />
+        </div>
+        <div className="footer-links">
+          <a href="http://keep.network/" target="_blank" rel="noopener noreferrer">
+            about
+          </a>
+        </div>
       </div>
     </div>
   </footer>

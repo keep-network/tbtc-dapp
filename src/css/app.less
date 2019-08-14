@@ -67,20 +67,22 @@ a {
 
 footer {
     flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
     width: 100%;
     background-color: @black;
-    padding: 50px 0;
+    padding: 80px 0;
 
     .footer-content {
-        max-width: @content-width;
-        margin: 0 auto;
-
         .white-paper {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
-
+            width: @content-width;
+            margin: 0 auto;
+    
             .white-paper-label {
                 font-size: 2.25em;
                 color: @white;
@@ -88,7 +90,7 @@ footer {
                 flex: 1;
                 font-family: 'apercu-bold-pro';
             }
-
+    
             hr {
                 border-style: dashed;
                 border-width: 1px 0 0 0;
@@ -96,11 +98,11 @@ footer {
                 margin: 0 50px;
                 flex: 1;
             }
-
+    
             .white-paper-link {
                 font-size: 1.2em;
                 flex: 0;
-
+    
                 a {
                     white-space: nowrap;
                     color: @blue;
@@ -108,21 +110,42 @@ footer {
                 }
             }
         }
+    
+        .footer-bottom {
+            width: @content-width;
+            margin: 0 auto;
 
-        .footer-logo {
-            margin: 80px 0 20px 0;
-
-            path {
-                fill: @white;
+            .footer-logo {
+                margin: 80px 0 20px 0;
+        
+                path {
+                    fill: @white;
+                }
+            }
+        
+            .footer-links {
+                a {
+                    display: block;
+                    color: @white;
+                    font-size: 1.2em;
+                    margin: 5px 0;
+                }
             }
         }
+    }
 
-        .footer-links {
-            a {
-                display: block;
-                color: @white;
-                font-size: 1.2em;
-                margin: 5px 0;
+    &.include-subscription {
+        background-image: url('static/Flow.png');
+        background-position: center top;
+        background-size: 100% auto;
+        padding: 50px 0 0 0;
+
+        .footer-content {
+            background-color: @black;
+            padding: 80px;
+
+            .footer-logo {
+                margin-top: 0;
             }
         }
     }
