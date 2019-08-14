@@ -1,587 +1,510 @@
 button {
-    background-color: #479CFF;
-    color: #fff;
-    border-radius: 4px;
-    border: 0 solid transparent;
-    padding: 40px;
-    font-size: 1.25em;
-    cursor: pointer
+  background-color: #479CFF;
+  color: #fff;
+  border-radius: 4px;
+  border: 0px solid transparent;
+  padding: 40px;
+  font-size: 1.25em;
+  cursor: pointer;
 }
-
 button:hover {
-    background-color: #479cff
+  background-color: #479cff;
 }
-
 button:focus {
-    background-color: #1481ff
+  background-color: #1481ff;
 }
-
 .peanuts {
-    z-index: 1
+  z-index: 1;
 }
-
 footer {
-    z-index: 2
+  z-index: 2;
 }
-
 .modal {
-    z-index: 3
+  z-index: 3;
 }
-
+/*
+ * Web Fonts from colophon-foundry.org
+ *
+ * The fonts included in this stylesheet are subject to the End User License you purchased
+ * from Colophon Foundry. The fonts are protected under domestic and international trademark and
+ * copyright law. You are prohibited from modifying, reverse engineering, duplicating, or
+ * distributing this font software.
+ *
+ * (c) 2019 Colophon Foundry
+ *
+ * Licenced to Michael Gluzman Thesis
+ */
 @font-face {
-    font-family: apercu-mono-regular-pro;
-    src: url(css/fonts/Apercu/apercu-mono-regular-pro-web/apercu-mono-regular-pro.eot);
-    src: url(css/fonts/Apercu/apercu-mono-regular-pro-web/apercu-mono-regular-pro.eot?#iefix) format('embedded-opentype'), url(css/fonts/Apercu/apercu-mono-regular-pro-web/apercu-mono-regular-pro.woff2) format('woff2'), url(css/fonts/Apercu/apercu-mono-regular-pro-web/apercu-mono-regular-pro.woff) format('woff'), url(css/fonts/Apercu/apercu-mono-regular-pro-web/apercu-mono-regular-pro.ttf) format('truetype');
-    font-weight: 400;
-    font-style: normal
+  font-family: 'apercu-mono-regular-pro';
+  src: url('css/fonts/Apercu/apercu-mono-regular-pro-web/apercu-mono-regular-pro.eot');
+  src: url('css/fonts/Apercu/apercu-mono-regular-pro-web/apercu-mono-regular-pro.eot?#iefix') format('embedded-opentype'), url('css/fonts/Apercu/apercu-mono-regular-pro-web/apercu-mono-regular-pro.woff2') format('woff2'), url('css/fonts/Apercu/apercu-mono-regular-pro-web/apercu-mono-regular-pro.woff') format('woff'), url('css/fonts/Apercu/apercu-mono-regular-pro-web/apercu-mono-regular-pro.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
-
 @font-face {
-    font-family: apercu-bold-pro;
-    src: url(css/fonts/Apercu/apercu-bold-pro-web/apercu-bold-pro.eot);
-    src: url(css/fonts/Apercu/apercu-bold-pro-web/apercu-bold-pro.eot?#iefix) format('embedded-opentype'), url(css/fonts/Apercu/apercu-bold-pro-web/apercu-bold-pro.woff2) format('woff2'), url(css/fonts/Apercu/apercu-bold-pro-web/apercu-bold-pro.woff) format('woff'), url(css/fonts/Apercu/apercu-bold-pro-web/apercu-bold-pro.ttf) format('truetype');
-    font-weight: 400;
-    font-style: normal
+  font-family: 'apercu-bold-pro';
+  src: url('css/fonts/Apercu/apercu-bold-pro-web/apercu-bold-pro.eot');
+  src: url('css/fonts/Apercu/apercu-bold-pro-web/apercu-bold-pro.eot?#iefix') format('embedded-opentype'), url('css/fonts/Apercu/apercu-bold-pro-web/apercu-bold-pro.woff2') format('woff2'), url('css/fonts/Apercu/apercu-bold-pro-web/apercu-bold-pro.woff') format('woff'), url('css/fonts/Apercu/apercu-bold-pro-web/apercu-bold-pro.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
-
-.congratulations,
+.start,
 .invoice,
 .pay,
 .prove,
-.start {
-    display: flex;
-    flex-direction: column;
-    font-family: apercu-mono-regular-pro;
-    text-align: center;
-    min-height: 625px
+.congratulations {
+  display: flex;
+  flex-direction: column;
+  font-family: 'apercu-mono-regular-pro';
+  text-align: center;
+  min-height: 625px;
 }
-
-.congratulations .page-top,
+.start .page-top,
 .invoice .page-top,
 .pay .page-top,
 .prove .page-top,
-.start .page-top {
-    margin: 25px 0 100px 0
+.congratulations .page-top {
+  margin: 25px 0 100px 0;
 }
-
-.congratulations .page-body,
+.start .page-body,
 .invoice .page-body,
 .pay .page-body,
 .prove .page-body,
-.start .page-body {
-    display: flex;
-    flex-direction: column;
-    max-width: 500px;
-    margin: 0 auto
+.congratulations .page-body {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 0 auto;
 }
-
-.congratulations .page-body .step,
+.start .page-body .step,
 .invoice .page-body .step,
 .pay .page-body .step,
 .prove .page-body .step,
-.start .page-body .step {
-    flex: 0 1;
-    color: #479CFF;
-    font-size: .5em;
-    margin-bottom: 30px
+.congratulations .page-body .step {
+  flex: 0 1;
+  color: #479CFF;
+  font-size: 0.5em;
+  margin-bottom: 30px;
 }
-
-.congratulations .page-body .title,
+.start .page-body .title,
 .invoice .page-body .title,
 .pay .page-body .title,
 .prove .page-body .title,
-.start .page-body .title {
-    flex: 0 1;
-    font-size: 1.75em;
-    font-weight: 700;
-    margin-bottom: 40px;
-    font-family: apercu-bold-pro
+.congratulations .page-body .title {
+  flex: 0 1;
+  font-size: 1.75em;
+  font-weight: bold;
+  margin-bottom: 40px;
+  font-family: 'apercu-bold-pro';
 }
-
-.congratulations .page-body hr,
+.start .page-body hr,
 .invoice .page-body hr,
 .pay .page-body hr,
 .prove .page-body hr,
-.start .page-body hr {
-    flex: 0 1;
-    border-style: dashed;
-    border-width: 2px 0 0 0;
-    border-color: #479CFF;
-    width: 150px;
-    margin: 0 auto 40px auto
+.congratulations .page-body hr {
+  flex: 0 1;
+  border-style: dashed;
+  border-width: 2px 0 0 0;
+  border-color: #479CFF;
+  width: 150px;
+  margin: 0 auto 40px auto;
 }
-
-.congratulations .page-body .description,
+.start .page-body .description,
 .invoice .page-body .description,
 .pay .page-body .description,
 .prove .page-body .description,
-.start .page-body .description {
-    flex: 0 1;
-    font-size: .8em;
-    margin-bottom: 40px
+.congratulations .page-body .description {
+  flex: 0 1;
+  font-size: 0.8em;
+  margin-bottom: 40px;
 }
-
-.congratulations .page-body .cta,
+.start .page-body .cta,
 .invoice .page-body .cta,
 .pay .page-body .cta,
 .prove .page-body .cta,
-.start .page-body .cta {
-    flex: 1 1;
-    font-size: .8em
+.congratulations .page-body .cta {
+  flex: 1 1;
+  font-size: 0.8em;
 }
-
 .modal {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, .6)
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
 }
-
 .modal.closed {
-    display: none
+  display: none;
 }
-
 .modal.open {
-    display: block
+  display: block;
 }
-
 .modal .close {
-    text-align: end;
-    padding: 10px
+  text-align: end;
+  padding: 10px;
 }
-
 .modal .close .x {
-    display: inline-block;
-    cursor: pointer
+  display: inline-block;
+  cursor: pointer;
 }
-
 .modal .modal-body {
-    margin: 200px auto;
-    padding: 20px 25px 40px 80px;
-    width: 768px;
-    background-color: #fff
+  margin: 200px auto;
+  padding: 20px 25px 40px 80px;
+  width: 768px;
+  background-color: #fff;
 }
-
 .home {
-    font-family: apercu-mono-regular-pro
+  font-family: 'apercu-mono-regular-pro';
 }
-
 .home .title {
-    font-size: 4em;
-    position: relative;
-    font-family: apercu-bold-pro
+  font-size: 4em;
+  position: relative;
+  font-family: 'apercu-bold-pro';
 }
-
 .home .title .subtitle {
-    font-size: .2em;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    text-align: right;
-    font-family: apercu-mono-regular-pro
+  font-size: 0.2em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: right;
+  font-family: 'apercu-mono-regular-pro';
 }
-
 .home .title .subtitle .vertical-aligned {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%)
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
-
 .home .step-by-step {
-    width: 100vw;
-    margin-left: calc((100vw - 100%)/ -2);
-    margin-top: 80px;
-    border-width: 1px 0;
-    border-style: solid;
-    border-color: #9bcfff;
-    background-color: #f9f9f9;
-    font-size: .75em
+  width: 100vw;
+  margin-left: calc((100vw - 100%) / -2);
+  margin-top: 80px;
+  border-width: 1px 0;
+  border-style: solid;
+  border-color: #9bcfff;
+  background-color: #f9f9f9;
+  font-size: 0.75em;
 }
-
 .home .step-by-step ol {
-    counter-reset: step-by-step;
-    list-style: none;
-    width: 768px;
-    margin: 0 auto;
-    padding: 75px 0;
-    display: flex
+  counter-reset: step-by-step;
+  list-style: none;
+  width: 768px;
+  margin: 0 auto;
+  padding: 75px 0;
+  display: flex;
 }
-
 .home .step-by-step ol li {
-    counter-increment: step-by-step;
-    flex: 1;
-    color: #333
+  counter-increment: step-by-step;
+  flex: 1;
+  color: #333;
 }
-
 .home .step-by-step ol li::before {
-    content: "0" counter(step-by-step);
-    display: block;
-    color: #479CFF;
-    font-weight: 700;
-    line-height: 2em
+  content: "0" counter(step-by-step);
+  display: block;
+  color: #479CFF;
+  font-weight: bold;
+  line-height: 2em;
 }
-
 .home .mission-statement {
-    padding: 60px 0
+  padding: 60px 0;
 }
-
 .home .mission-statement .hook {
-    font-size: 2em;
-    line-height: 2em;
-    font-family: apercu-bold-pro
+  font-size: 2em;
+  line-height: 2em;
+  font-family: 'apercu-bold-pro';
 }
-
 .home .mission-statement .line-and-sinker {
-    font-size: .8em;
-    line-height: 2em
+  font-size: 0.8em;
+  line-height: 2em;
 }
-
 .start .page-top .web3-status {
-    display: inline-block;
-    padding: 20px;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-    font-size: .8em
+  display: inline-block;
+  padding: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  font-size: 0.8em;
 }
-
 .start .page-top .web3-status.loading {
-    border-color: lighter(#370C5F, 33%);
-    color: #370C5F
+  border-color: lighter(#370C5F, 33%);
+  color: #370C5F;
 }
-
 .start .page-top .web3-status.alert {
-    border-color: #FFDDD6;
-    color: #E7755C
+  border-color: #FFDDD6;
+  color: #E7755C;
 }
-
 .start .page-top .web3-status.notify {
-    border-color: #D4E8FF;
-    color: #479CFF
+  border-color: #D4E8FF;
+  color: #479CFF;
 }
-
 .start .page-top .web3-status.success {
-    border-color: #CBFCC7;
-    color: #5CE783
+  border-color: #CBFCC7;
+  color: #5CE783;
 }
-
 .start .page-top .web3-status svg {
-    display: inline-block;
-    vertical-align: text-bottom;
-    margin-bottom: -2px
+  display: inline-block;
+  vertical-align: text-bottom;
+  margin-bottom: -2px;
 }
-
 .start .page-top .web3-status a {
-    color: unset
+  color: unset;
 }
-
 .invoice .building svg path {
-    animation: pulse 3s linear infinite
+  animation: pulse 3s linear infinite;
 }
-
 @keyframes pulse {
-    0% {
-        fill: transparent
-    }
-    50% {
-        fill: #370C5F
-    }
-    100% {
-        fill: transparent
-    }
+  0% {
+    fill: transparent;
+  }
+  50% {
+    fill: #370C5F;
+  }
+  100% {
+    fill: transparent;
+  }
 }
-
 .pay .page-top {
-    margin: -25px 0 25px 0
+  margin: -25px 0 25px 0;
 }
-
 .pay .page-body .custodial-fee {
-    margin-top: 40px
+  margin-top: 40px;
 }
-
 .pay .page-body .custodial-fee .custodial-fee-label {
-    font-family: apercu-bold-pro
+  font-family: 'apercu-bold-pro';
 }
-
 .pay .page-body .copy-address .address {
-    color: #479CFF;
-    text-decoration: underline;
-    cursor: pointer;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    min-width: 1px
+  color: #479CFF;
+  text-decoration: underline;
+  cursor: pointer;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  min-width: 1px;
 }
-
 .pay .page-body .copy-address .address:hover {
-    text-overflow: unset;
-    white-space: unset;
-    overflow: unset;
-    word-wrap: break-word
+  text-overflow: unset;
+  white-space: unset;
+  overflow: unset;
+  word-wrap: break-word;
 }
-
 .pay .page-body .copy-address .copied {
-    color: red
+  color: red;
 }
-
 .pay .hidden-copy-field {
-    position: absolute;
-    right: 999999px
+  position: absolute;
+  right: 999999px;
 }
-
 .pay .confirming svg path {
-    animation: pulse 3s linear infinite
+  animation: pulse 3s linear infinite;
 }
-
 @keyframes pulse {
-    0% {
-        fill: transparent
-    }
-    50% {
-        fill: #370C5F
-    }
-    100% {
-        fill: transparent
-    }
+  0% {
+    fill: transparent;
+  }
+  50% {
+    fill: #370C5F;
+  }
+  100% {
+    fill: transparent;
+  }
 }
-
 .prove .page-top svg path {
-    fill: #479CFF
+  fill: #479CFF;
 }
-
 .prove-modal {
-    display: flex;
-    flex-direction: row
+  display: flex;
+  flex-direction: row;
 }
-
 .prove-modal .modal-left {
-    display: flex;
-    flex-direction: column;
-    text-align: left
+  display: flex;
+  flex-direction: column;
+  text-align: left;
 }
-
 .prove-modal .modal-left .description {
-    font-size: 1em
+  font-size: 1em;
 }
-
 .prove-modal .modal-left .cta,
 .prove-modal .modal-left .cti {
-    margin: 10px 0 20px 0
+  margin: 10px 0 20px 0;
 }
-
 .prove-modal .modal-left .cti {
-    cursor: pointer;
-    text-decoration: underline
+  cursor: pointer;
+  text-decoration: underline;
 }
-
 .prove-modal .modal-right {
-    position: relative;
-    overflow: hidden;
-    min-width: 460px
+  position: relative;
+  overflow: hidden;
+  min-width: 460px;
 }
-
 .prove-modal .modal-right .peanuts {
-    position: absolute;
-    left: 0;
-    top: 0;
-    transform: rotate(90deg);
-    overflow: hidden
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: rotate(90deg);
+  overflow: hidden;
 }
-
 .prove-modal .modal-right .peanuts svg path {
-    fill: #370C5F
+  fill: #370C5F;
 }
-
 .prove-modal .modal-right .peanuts svg:first-of-type {
-    transform: translate(-50px, 8px)
+  transform: translate(-50px, 8px);
 }
-
 .prove-modal .modal-right .peanuts svg:last-of-type {
-    transform: translate(-50px, -8px)
+  transform: translate(-50px, -8px);
 }
-
 .congratulations .page-top {
-    margin: 0 0 75px 0
+  margin: 0 0 75px 0;
 }
-
 .congratulations .page-body .description .bond-duration {
-    font-family: apercu-bold-pro;
-    margin-top: 30px
+  font-family: 'apercu-bold-pro';
+  margin-top: 30px;
 }
-
-#root,
+html,
 body,
-html {
-    margin: 0;
-    height: 100%;
-    font-family: apercu-mono-regular-pro
+#root {
+  margin: 0;
+  height: 100%;
+  font-family: 'apercu-mono-regular-pro';
 }
-
 a {
-    color: #479CFF;
-    text-decoration: underline;
-    cursor: pointer
+  color: #479CFF;
+  text-decoration: underline;
+  cursor: pointer;
 }
-
 .main {
-    display: flex;
-    flex-direction: column;
-    min-height: 100%
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
 }
-
 .app {
-    flex: 1;
-    color: #000;
-    font-family: sans-serif;
-    font-size: 1.5em;
-    width: 768px;
-    margin: 0 auto
+  flex: 1;
+  color: #000;
+  font-family: sans-serif;
+  font-size: 1.5em;
+  width: 768px;
+  margin: 0 auto;
 }
-
 .app .nav {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin: 80px 0
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 80px 0;
 }
-
 .app .nav .hamburger {
-    flex-grow: 0;
-    cursor: pointer;
-    font-size: 1.5em
+  flex-grow: 0;
+  cursor: pointer;
+  font-size: 1.5em;
 }
-
 .app .nav .hamburger:hover {
-    color: #888
+  color: #888;
 }
-
 .app .nav .logo {
-    flex-grow: 0
+  flex-grow: 0;
 }
-
 .app .nav .logo svg {
-    display: block
+  display: block;
 }
-
 footer {
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    width: 100%;
-    background-color: #000;
-    padding: 80px 0
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  background-color: #000;
+  padding: 80px 0;
+  overflow: hidden;
 }
-
 footer .footer-content .white-paper {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 768px;
-    margin: 0 auto
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 768px;
+  margin: 0 auto;
 }
-
 footer .footer-content .white-paper .white-paper-label {
-    font-size: 2.25em;
-    color: #fff;
-    max-width: 200px;
-    flex: 1;
-    font-family: apercu-bold-pro
+  font-size: 2.25em;
+  color: #fff;
+  max-width: 200px;
+  flex: 1;
+  font-family: 'apercu-bold-pro';
 }
-
 footer .footer-content .white-paper hr {
-    border-style: dashed;
-    border-width: 1px 0 0 0;
-    border-color: #fff;
-    margin: 0 50px;
-    flex: 1
+  border-style: dashed;
+  border-width: 1px 0 0 0;
+  border-color: #fff;
+  margin: 0 50px;
+  flex: 1;
 }
-
 footer .footer-content .white-paper .white-paper-link {
-    font-size: 1.2em;
-    flex: 0
+  font-size: 1.2em;
+  flex: 0;
 }
-
 footer .footer-content .white-paper .white-paper-link a {
-    white-space: nowrap;
-    color: #479CFF;
-    text-decoration: underline
+  white-space: nowrap;
+  color: #479CFF;
+  text-decoration: underline;
 }
-
 footer .footer-content .footer-bottom {
-    width: 768px;
-    margin: 0 auto
+  width: 768px;
+  margin: 0 auto;
 }
-
 footer .footer-content .footer-bottom .footer-logo {
-    margin: 80px 0 20px 0
+  margin: 80px 0 20px 0;
 }
-
 footer .footer-content .footer-bottom .footer-logo path {
-    fill: #fff
+  fill: #fff;
 }
-
 footer .footer-content .footer-bottom .footer-links a {
-    display: block;
-    color: #fff;
-    font-size: 1.2em;
-    margin: 5px 0
+  display: block;
+  color: #fff;
+  font-size: 1.2em;
+  margin: 5px 0;
 }
-
 footer.include-subscription {
-    background-image: url(static/Flow.png);
-    background-position: center top;
-    background-size: 100% auto;
-    padding: 50px 0 0 0
+  background-image: url('static/Flow.png');
+  background-color: #D4E8FF;
+  background-position: center top;
+  background-size: 100% auto;
+  padding: 50px 0 0 0;
 }
-
 footer.include-subscription .footer-content {
-    background-color: #000;
-    padding: 80px
+  background-color: #000;
+  padding: 80px;
 }
-
 footer.include-subscription .footer-content .footer-logo {
-    margin-top: 0
+  margin-top: 0;
 }
-
 footer.include-subscription .mailing-list {
-    margin: 75px auto;
-    width: 768px
+  margin: 75px auto;
+  width: 768px;
 }
-
 footer.include-subscription .mailing-list form {
-    display: flex;
-    width: 100%
+  display: flex;
+  width: 100%;
 }
-
 footer.include-subscription .mailing-list form input {
-    border: 0;
-    font-family: apercu-mono-regular-pro
+  border: 0;
+  font-family: 'apercu-mono-regular-pro';
 }
-
-footer.include-subscription .mailing-list form input[type=text] {
-    flex: 1 0;
-    padding-left: 10px;
-    color: #333;
-    font-size: 1.3em
+footer.include-subscription .mailing-list form input[type="text"] {
+  flex: 1 0;
+  padding-left: 10px;
+  color: #333;
+  font-size: 1.3em;
 }
-
-footer.include-subscription .mailing-list form input[type=submit] {
-    flex: 0 1;
-    padding: 20px 30px;
-    background-color: #000;
-    color: #fff;
-    font-size: 1.2em;
-    text-decoration: underline;
-    cursor: pointer
+footer.include-subscription .mailing-list form input[type="submit"] {
+  flex: 0 1;
+  padding: 20px 30px;
+  background-color: #000;
+  color: #fff;
+  font-size: 1.2em;
+  text-decoration: underline;
+  cursor: pointer;
 }
-
-footer.include-subscription .mailing-list form input[type=submit]:hover {
-    background-color: #5CE783
+footer.include-subscription .mailing-list form input[type="submit"]:hover {
+  background-color: #5CE783;
 }
