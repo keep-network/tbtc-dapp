@@ -45,7 +45,7 @@ class Pay extends Component {
         </div>
       )
 
-      descriptionText =  'Scan the QR code or click to copy the address below into your wallet'
+      descriptionText =  'Scan the QR code or click to copy the address below into your wallet.'
 
       step = 2
 
@@ -76,7 +76,7 @@ class Pay extends Component {
 
       descriptionText =  (
         <span>
-          Waiting for confirmations. We’ll send you a notification when your tBTC is ready to be minted.
+          Waiting for transaction confirmations. We’ll send you a notification when your tBTC is ready to be minted.
           <p><i>A watched block never boils.</i></p>
         </span>
       )
