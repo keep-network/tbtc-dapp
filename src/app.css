@@ -126,6 +126,14 @@ footer {
   flex: 1 1;
   font-size: 0.8em;
 }
+.start .page-body .cta.disabled a,
+.invoice .page-body .cta.disabled a,
+.pay .page-body .cta.disabled a,
+.prove .page-body .cta.disabled a,
+.congratulations .page-body .cta.disabled a {
+  color: #666;
+  cursor: not-allowed;
+}
 .modal {
   position: absolute;
   top: 0;

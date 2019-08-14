@@ -48,6 +48,13 @@
         .cta {
             flex: 1 1;
             font-size: .8em;
+
+            &.disabled {
+                a {
+                    color: @grey;
+                    cursor: not-allowed;
+                }
+            }
         }
     }
 }
