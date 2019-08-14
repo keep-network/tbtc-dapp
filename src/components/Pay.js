@@ -33,7 +33,7 @@ class Pay extends Component {
       renderTop = (
         <div className="qr-code">
           <QRCode
-            value={address || '23980q9wufeu0q9832fy40cnw9qr3092n8q09ndq902n8jq390jnaewjdhfaoiweuhfoawiufhaowifuhaoiewuhfaowieufhaowieufhaoiseufhaowieuhfaoiweuhfaowieuhofiwesuahfoeiauhwefiauweh'}
+            value={address}
             renderAs="svg"
             size={225} />
         </div>
@@ -84,7 +84,7 @@ class Pay extends Component {
           </div>
           <div className="copy-address">
             <div className="address" onClick={this.copyAddress}>
-              {address || '23980q9wufeu0q9832fy40cnw9qr3092n8q09ndq902n8jq390jnaewjdhfaoiweuhfoawiufhaowifuhaoiewuhfaowieufhaowieufhaoiseufhaowieuhfaoiweuhfaowieuhofiwesuahfoeiauhwefiauweh'}
+              {address}
             </div>
             {
               copied
