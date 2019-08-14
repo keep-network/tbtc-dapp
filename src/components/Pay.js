@@ -29,7 +29,7 @@ class Pay extends Component {
     const { copied } = this.state
     let renderTop, renderTitle, renderCopyAddress, descriptionText, step;
 
-    if (!btcConfirming) {
+    if (btcConfirming) {
       renderTop = (
         <div className="qr-code">
           <QRCode
@@ -76,7 +76,8 @@ class Pay extends Component {
 
       descriptionText =  (
         <span>
-          Waiting for confirmations. We’ll send you a notification when your tBTC is ready to be minted - <i>a watched block never boils</i>.
+          Waiting for confirmations. We’ll send you a notification when your tBTC is ready to be minted.
+          <p><i>A watched block never boils.</i></p>
         </span>
       )
 
