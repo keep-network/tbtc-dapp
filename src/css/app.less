@@ -6,6 +6,7 @@
 @import './fonts/apercu.less';
 @import 'structure.less';
 @import 'modal.less';
+@import 'home.less';
 @import 'start.less';
 @import 'invoice.less';
 @import 'pay.less';
@@ -66,27 +67,30 @@ a {
 
 footer {
     flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
     width: 100%;
     background-color: @black;
-    padding: 50px 0;
+    padding: 80px 0;
 
     .footer-content {
-        max-width: @content-width;
-        margin: 0 auto;
-
         .white-paper {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
-
+            width: @content-width;
+            margin: 0 auto;
+    
             .white-paper-label {
                 font-size: 2.25em;
                 color: @white;
                 max-width: 200px;
                 flex: 1;
+                font-family: 'apercu-bold-pro';
             }
-
+    
             hr {
                 border-style: dashed;
                 border-width: 1px 0 0 0;
@@ -94,11 +98,11 @@ footer {
                 margin: 0 50px;
                 flex: 1;
             }
-
+    
             .white-paper-link {
                 font-size: 1.2em;
                 flex: 0;
-
+    
                 a {
                     white-space: nowrap;
                     color: @blue;
@@ -106,21 +110,78 @@ footer {
                 }
             }
         }
+    
+        .footer-bottom {
+            width: @content-width;
+            margin: 0 auto;
 
-        .footer-logo {
-            margin: 80px 0 20px 0;
+            .footer-logo {
+                margin: 80px 0 20px 0;
+        
+                path {
+                    fill: @white;
+                }
+            }
+        
+            .footer-links {
+                a {
+                    display: block;
+                    color: @white;
+                    font-size: 1.2em;
+                    margin: 5px 0;
+                }
+            }
+        }
+    }
 
-            path {
-                fill: @white;
+    &.include-subscription {
+        background-image: url('static/Flow.png');
+        background-position: center top;
+        background-size: 100% auto;
+        padding: 50px 0 0 0;
+
+        .footer-content {
+            background-color: @black;
+            padding: 80px;
+
+            .footer-logo {
+                margin-top: 0;
             }
         }
 
-        .footer-links {
-            a {
-                display: block;
-                color: @white;
-                font-size: 1.2em;
-                margin: 5px 0;
+        .mailing-list {
+            margin: 75px auto;
+            width: @content-width;
+
+            form {
+                display: flex;
+                width: 100%;
+
+                input {
+                    border: 0;
+                    font-family: 'apercu-mono-regular-pro';
+                }
+
+                input[type="text"] {
+                    flex: 1 0;
+                    padding-left: 10px;
+                    color: @dark-grey;
+                    font-size: 1.3em;
+                }
+    
+                input[type="submit"] {
+                    flex: 0 1;
+                    padding: 20px 30px;
+                    background-color: @black;
+                    color: @white;
+                    font-size: 1.2em;
+                    text-decoration: underline;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: @success;
+                    }
+                }
             }
         }
     }
