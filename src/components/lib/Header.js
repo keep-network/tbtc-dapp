@@ -7,7 +7,7 @@ const Header = props => (
     <div className="logo">
       <TBTCLogo width="150" />
     </div>
-    <div className="hamburger">&#x2e2c;</div>
+    {/* <div className="hamburger">&#x2e2c;</div> */}
   </header>
 )
 

@@ -1,50 +1,50 @@
 {
-  "name": "tbtc-dapp",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "history": "^4.9.0",
-    "less": "^3.9.0",
-    "less-plugin-clean-css": "^1.5.1",
-    "less-watch-compiler": "^1.10.0",
-    "npm-run-all": "^4.1.2",
-    "qrcode.react": "^0.9.3",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-redux": "^7.1.0",
-    "react-router-dom": "^5.0.1",
-    "react-scripts": "3.0.1",
-    "redux": "^4.0.4",
-    "redux-saga": "^1.0.5",
-    "tbtc-client": "file:client",
-    "tbtc-helpers": "file:lib/tbtc-helpers",
-    "truffle": "^5.0.29",
-    "truffle-contract": "^4.0.26",
-    "web3": "^1.2.0"
-  },
-  "scripts": {
-    "env": "truffle exec ./scripts/env.js",
-    "build-css": "lessc --clean-css src/css/app.less src/app.css",
-    "watch-css": "npm run build-css && less-watch-compiler src/css src app.less",
-    "start-js": "sleep 2 && react-scripts start",
-    "start": "npm-run-all -p watch-css start-js",
-    "build": "npm run build-css && react-scripts --max_old_space_size=8192 build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+    "name": "tbtc-dapp",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "history": "^4.9.0",
+        "less": "^3.9.0",
+        "less-plugin-clean-css": "^1.5.1",
+        "less-watch-compiler": "^1.10.0",
+        "npm-run-all": "^4.1.2",
+        "qrcode.react": "^0.9.3",
+        "react": "^16.8.6",
+        "react-dom": "^16.8.6",
+        "react-redux": "^7.1.0",
+        "react-router-dom": "^5.0.1",
+        "react-scripts": "3.0.1",
+        "redux": "^4.0.4",
+        "redux-saga": "^1.0.5",
+        "tbtc-client": "file:client",
+        "tbtc-helpers": "file:lib/tbtc-helpers",
+        "truffle": "^5.0.29",
+        "truffle-contract": "^4.0.26",
+        "web3": "^1.2.0"
+    },
+    "scripts": {
+        "env": "truffle exec ./scripts/env.js",
+        "build-css": "lessc --clean-css src/css/app.less src/app.css",
+        "watch-css": "npm run build-css && less-watch-compiler src/css src app.less",
+        "start-js": "sleep 2 && react-scripts start",
+        "start": "npm-run-all -p watch-css start-js",
+        "build": "npm run build-css && react-scripts --max_old_space_size=8192 build",
+        "test": "react-scripts test --env=jsdom",
+        "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
 }
