@@ -24,7 +24,7 @@
         }
     }
 
-    .step-by-step-container {
+    .step-by-step {
         width: 100vw;
         margin-left: calc((100vw - 100%) / -2);
         margin-top: 80px;
@@ -34,7 +34,7 @@
         background-color: @light-grey;
         font-size: .75em;
 
-        .step-by-step {
+        ol {
             counter-reset: step-by-step;
             list-style: none;
     
@@ -45,11 +45,13 @@
     
             li {
                 counter-increment: step-by-step;
+
                 flex: 1;
                 color: @dark-grey;
     
                 &::before {
                     content: "0" counter(step-by-step);
+                    display: block;
                     color: @blue;
                     font-weight: bold;
                     line-height: 2em;

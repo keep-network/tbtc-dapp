@@ -14,22 +14,16 @@ const Home = ({ history }) => (
         </div>
       </div>
     </div>
-    <div className="step-by-step-container">
-      <ol className="step-by-step">
+    <div className="step-by-step">
+      <ol>
         <li>
-          <div className="instruction">
-            Deposit BTC
-          </div>
+          Deposit BTC
         </li>
         <li>
-          <div className="instruction">
-            Mint tBTC
-          </div>
+          Mint tBTC
         </li>
         <li>
-          <div className="instruction">
-            Lend and earn interest on your BTC.
-          </div>
+          Lend and earn interest on your BTC.
         </li>
       </ol>
     </div>

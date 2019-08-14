@@ -177,7 +177,7 @@ footer {
   top: 50%;
   transform: translateY(-50%);
 }
-.home .step-by-step-container {
+.home .step-by-step {
   width: 100vw;
   margin-left: calc((100vw - 100%) / -2);
   margin-top: 80px;
@@ -187,7 +187,7 @@ footer {
   background-color: #f9f9f9;
   font-size: 0.75em;
 }
-.home .step-by-step-container .step-by-step {
+.home .step-by-step ol {
   counter-reset: step-by-step;
   list-style: none;
   width: 768px;
@@ -195,13 +195,14 @@ footer {
   padding: 75px 0;
   display: flex;
 }
-.home .step-by-step-container .step-by-step li {
+.home .step-by-step ol li {
   counter-increment: step-by-step;
   flex: 1;
   color: #333;
 }
-.home .step-by-step-container .step-by-step li::before {
+.home .step-by-step ol li::before {
   content: "0" counter(step-by-step);
+  display: block;
   color: #479CFF;
   font-weight: bold;
   line-height: 2em;
