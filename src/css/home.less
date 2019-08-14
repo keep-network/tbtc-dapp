@@ -1,0 +1,72 @@
+.home {
+    font-family: 'apercu-mono-regular-pro';
+
+    .title {
+        font-size: 4em;
+        position: relative;
+
+        .subtitle {
+            font-size: .2em;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            text-align: right;
+
+            .vertical-aligned {
+                position: relative;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+    }
+
+    .step-by-step-container {
+        width: 100vw;
+        margin-left: calc((100vw - 100%) / -2);
+        margin-top: 80px;
+        border-width: 1px 0;
+        border-style: solid;
+        border-color: @light-blue;
+        background-color: @light-grey;
+        font-size: .75em;
+
+        .step-by-step {
+            counter-reset: step-by-step;
+            list-style: none;
+    
+            width: @content-width;
+            margin: 0 auto;
+            padding: 75px 0;
+            display: flex;
+    
+            li {
+                counter-increment: step-by-step;
+                flex: 1;
+                color: @dark-grey;
+    
+                &::before {
+                    content: "0" counter(step-by-step);
+                    color: @blue;
+                    font-weight: bold;
+                    line-height: 2em;
+                }
+            }
+        }
+    }
+
+    .mission-statement {
+        padding: 60px 0;
+
+        .hook {
+            font-size: 2em;
+            line-height: 2em;
+        }
+
+        .line-and-sinker {
+            font-size: .8em;
+            line-height: 2em;
+        }
+    }
+}

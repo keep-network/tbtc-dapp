@@ -146,6 +146,67 @@ footer {
   width: 768px;
   background-color: #fff;
 }
+.home {
+  font-family: 'apercu-mono-regular-pro';
+}
+.home .title {
+  font-size: 4em;
+  position: relative;
+}
+.home .title .subtitle {
+  font-size: 0.2em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: right;
+}
+.home .title .subtitle .vertical-aligned {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.home .step-by-step-container {
+  width: 100vw;
+  margin-left: calc((100vw - 100%) / -2);
+  margin-top: 80px;
+  border-width: 1px 0;
+  border-style: solid;
+  border-color: #9bcfff;
+  background-color: #f9f9f9;
+  font-size: 0.75em;
+}
+.home .step-by-step-container .step-by-step {
+  counter-reset: step-by-step;
+  list-style: none;
+  width: 768px;
+  margin: 0 auto;
+  padding: 75px 0;
+  display: flex;
+}
+.home .step-by-step-container .step-by-step li {
+  counter-increment: step-by-step;
+  flex: 1;
+  color: #333;
+}
+.home .step-by-step-container .step-by-step li::before {
+  content: "0" counter(step-by-step);
+  color: #479CFF;
+  font-weight: bold;
+  line-height: 2em;
+}
+.home .mission-statement {
+  padding: 60px 0;
+}
+.home .mission-statement .hook {
+  font-size: 2em;
+  line-height: 2em;
+}
+.home .mission-statement .line-and-sinker {
+  font-size: 0.8em;
+  line-height: 2em;
+}
 .invoice .building svg path {
   animation: pulse 3s linear infinite;
 }
