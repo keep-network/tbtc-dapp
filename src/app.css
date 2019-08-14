@@ -52,7 +52,8 @@ footer {
     display: flex;
     flex-direction: column;
     font-family: apercu-mono-regular-pro;
-    text-align: center
+    text-align: center;
+    min-height: 625px
 }
 
 .congratulations .page-top,
@@ -70,7 +71,6 @@ footer {
 .start .page-body {
     display: flex;
     flex-direction: column;
-    min-height: 500px;
     max-width: 500px;
     margin: 0 auto
 }
@@ -299,10 +299,6 @@ footer {
     margin: -25px 0 25px 0
 }
 
-.pay .page-body {
-    min-height: 450px
-}
-
 .pay .page-body .custodial-fee {
     margin-top: 40px
 }
@@ -410,10 +406,6 @@ footer {
 
 .congratulations .page-top {
     margin: 0 0 75px 0
-}
-
-.congratulations .page-body {
-    min-height: 345px
 }
 
 .congratulations .page-body .description .bond-duration {
