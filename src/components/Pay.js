@@ -27,7 +27,7 @@ class Pay extends Component {
   render() {
     const { address, btcConfirming } = this.props
     const { copied } = this.state
-    let renderTop, renderTitle, step;
+    let renderTop, renderTitle, renderCopyAddress, descriptionText, step;
 
     if (!btcConfirming) {
       renderTop = (
@@ -45,7 +45,22 @@ class Pay extends Component {
         </div>
       )
 
+      descriptionText =  'Scan the QR code or click to copy the address below into your wallet'
+
       step = 2
+
+      renderCopyAddress = (
+        <div className="copy-address">
+          <div className="address" onClick={this.copyAddress}>
+            {address}
+          </div>
+          {
+            copied
+            ? <div className="copied">Copied!</div>
+            : ''
+          }
+        </div>
+      )
     } else {
       renderTop = (
         <div className="confirming">
@@ -59,7 +74,11 @@ class Pay extends Component {
         </div>
       )
 
+      descriptionText =  'Watching for confirmation blocks now'
+
       step = 3
+
+      renderCopyAddress = ''
     }
 
     return (
@@ -75,23 +94,14 @@ class Pay extends Component {
           <hr />
           <div className="description">
             <div>
-              Scan the QR code or click to copy the address below into your wallet
+              {descriptionText}
             </div>
             <div className="custodial-fee">
               <span className="custodial-fee-label">Custodial Fee: </span>
               .005 BTC*
             </div>
           </div>
-          <div className="copy-address">
-            <div className="address" onClick={this.copyAddress}>
-              {address}
-            </div>
-            {
-              copied
-              ? <div className="copied">Copied!</div>
-              : ''
-            }
-          </div>
+          { renderCopyAddress }
         </div>
         <textarea
           className="hidden-copy-field"
