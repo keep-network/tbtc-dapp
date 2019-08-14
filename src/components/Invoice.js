@@ -14,6 +14,17 @@ class Invoice extends Component {
   }
 
   render() {
+    const { status } = this.props
+    let statusText
+
+    if(status === 1) {
+      statusText = 'Waiting on transaction 1/2'
+    } else if(status === 2) {
+      statusText = 'Retrieving BTC address...'
+    } else if(status === 3) {
+      statusText = 'Waiting on transaction 2/2'
+    }
+
     return (
       <div className="invoice">
         <div className="page-top">
@@ -29,9 +40,19 @@ class Invoice extends Component {
             Building invoice
           </div>
           <hr />
+          <div className="description">
+            {statusText}
+          </div>
+          <hr />
         </div>
       </div >
     )
+  }
+}
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    status: state.app.invoiceStatus
   }
 }
 
@@ -45,6 +66,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(
-  () => ({}),
+  mapStateToProps,
   mapDispatchToProps
 )(Invoice)

@@ -16,6 +16,7 @@ import {
 export const DEPOSIT_REQUEST_BEGIN = 'DEPOSIT_REQUEST_BEGIN'
 export const DEPOSIT_REQUEST_METAMASK_SUCCESS = 'DEPOSIT_REQUEST_METAMASK_SUCCESS'
 export const DEPOSIT_REQUEST_SUCCESS = 'DEPOSIT_REQUEST_SUCCESS'
+export const DEPOSIT_PUBKEY_PUBLISHED = 'DEPOSIT_PUBKEY_PUBLISHED'
 export const DEPOSIT_BTC_ADDRESS = 'DEPOSIT_BTC_ADDRESS'
 
 export const BTC_TX_MINED = 'BTC_TX_MINED'
@@ -59,6 +60,9 @@ function* requestADeposit() {
 
     // wait for deposit's public key to be published by the Keep
     yield call(watchForPublicKeyPublished, depositAddress)
+    yield put({
+        type: DEPOSIT_PUBKEY_PUBLISHED
+    })
 
     let btcAddress
     try {
