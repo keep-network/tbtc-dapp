@@ -74,7 +74,11 @@ class Pay extends Component {
         </div>
       )
 
-      descriptionText =  "Waiting for confirmations. We’ll send you a notification when your tBTC is ready to be minted - a watched block never boils."
+      descriptionText =  (
+        <span>
+          Waiting for confirmations. We’ll send you a notification when your tBTC is ready to be minted - <i>a watched block never boils</i>.
+        </span>
+      )
 
       step = 3
 
