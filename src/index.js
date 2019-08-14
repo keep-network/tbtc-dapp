@@ -3,13 +3,12 @@ import ReactDOM from 'react-dom'
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { Provider } from 'react-redux'
-import { Router, Route } from "react-router-dom";
+import { Router, Route } from 'react-router-dom'
 
 // Styles
 import './app.css'
 
 // Components
-
 import {
   App,
   Home,
@@ -44,8 +43,8 @@ function AppWrapper() {
     <Provider store={store}>
       <Router history={history}>
         <Web3Wrapper>
-          <Route path="/" exact component={Home} />
           <App>
+            <Route path="/" exact component={Home} />
             <Route path="/start" component={Start} />
             <Route path="/invoice" component={Invoice} />
             <Route path="/pay" exact component={Pay} />

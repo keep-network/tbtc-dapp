@@ -1,59 +1,23 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 
-import TBTCLogo from './svgs/TBTCLogo'
-import { Modal } from './lib'
+import { Footer, Header, Modal } from './lib'
 import { openModal } from '../actions'
 
 class App extends Component {
   render() {
-    const { children, openModal } = this.props
+    const { children, openModal, match } = this.props
 
     return (
       <div className="main" onMouseLeave={openModal}>
         <Modal />
         <div className="app">
-          <header className="nav">
-            <div className="logo">
-              <TBTCLogo width="150" />
-            </div>
-            <div className="hamburger">&#x2e2c;</div>
-          </header>
+          <Header />
           { children }
         </div>
-        <footer>
-          <div className="footer-content">
-            <div className="white-paper">
-              <div className="white-paper-label">
-                How does it work?
-              </div>
-              <hr />
-              <div className="white-paper-link">
-                <a href="keep.network" target="_blank">
-                  Read the White Paper >>>>
-                </a>
-              </div>
-            </div>
-            <div className="footer-logo">
-              <TBTCLogo width="150" />
-            </div>
-            <div className="footer-links">
-              <a href="keep.network" target="_blank">
-                about
-              </a>
-              <a href="keep.network" target="_blank">
-                press
-              </a>
-              <a href="keep.network" target="_blank">
-                related
-              </a>
-              <a href="keep.network" target="_blank">
-                contact
-              </a>
-            </div>
-          </div>
-        </footer>
+        <Footer includeSubscription={match.path === '/'} />
       </div>
     )
   }
@@ -71,4 +35,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   () => ({}),
   mapDispatchToProps
-)(App)
+)(withRouter(App))
