@@ -75,7 +75,7 @@ class Pay extends Component {
           <hr />
           <div className="description">
             <div>
-              Scan the QR code or tap to pay, or copy the address below into your wallet
+              Scan the QR code or click to copy the address below into your wallet
             </div>
             <div className="custodial-fee">
               <span className="custodial-fee-label">Custodial Fee: </span>
@@ -84,7 +84,7 @@ class Pay extends Component {
           </div>
           <div className="copy-address">
             <div className="address" onClick={this.copyAddress}>
-              {address || '23980q9wufeu0q9832fy40cnw9qr3092n8q09ndq902n8jq390jnaewjdhfaoiweuhfoawiufhaowifuhaoiewuhfaowieufhaowieufhaoiseufhaowieuhfaoiweuhfaowieuhofiwesuahfoeiauhwefiauweh'}
+              {address}
             </div>
             {
               copied
