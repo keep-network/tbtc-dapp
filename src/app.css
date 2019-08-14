@@ -41,6 +41,13 @@ footer {
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: 'apercu-bold-pro';
+  src: url('css/fonts/Apercu/apercu-bold-pro-web/apercu-bold-pro.eot');
+  src: url('css/fonts/Apercu/apercu-bold-pro-web/apercu-bold-pro.eot?#iefix') format('embedded-opentype'), url('css/fonts/Apercu/apercu-bold-pro-web/apercu-bold-pro.woff2') format('woff2'), url('css/fonts/Apercu/apercu-bold-pro-web/apercu-bold-pro.woff') format('woff'), url('css/fonts/Apercu/apercu-bold-pro-web/apercu-bold-pro.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 .start,
 .invoice,
 .pay,
@@ -88,6 +95,7 @@ footer {
   font-size: 1.75em;
   font-weight: bold;
   margin-bottom: 40px;
+  font-family: 'apercu-bold-pro';
 }
 .start .page-body hr,
 .invoice .page-body hr,
@@ -152,6 +160,7 @@ footer {
 .home .title {
   font-size: 4em;
   position: relative;
+  font-family: 'apercu-bold-pro';
 }
 .home .title .subtitle {
   font-size: 0.2em;
@@ -161,6 +170,7 @@ footer {
   right: 0;
   bottom: 0;
   text-align: right;
+  font-family: 'apercu-mono-regular-pro';
 }
 .home .title .subtitle .vertical-aligned {
   position: relative;
@@ -202,6 +212,7 @@ footer {
 .home .mission-statement .hook {
   font-size: 2em;
   line-height: 2em;
+  font-family: 'apercu-bold-pro';
 }
 .home .mission-statement .line-and-sinker {
   font-size: 0.8em;
@@ -229,6 +240,9 @@ footer {
 }
 .pay .page-body .custodial-fee {
   margin-top: 40px;
+}
+.pay .page-body .custodial-fee .custodial-fee-label {
+  font-family: 'apercu-bold-pro';
 }
 .pay .page-body .copy-address .address {
   color: #479CFF;
@@ -317,7 +331,7 @@ footer {
   min-height: 345px;
 }
 .congratulations .page-body .description .bond-duration {
-  font-weight: bold;
+  font-family: 'apercu-bold-pro';
   margin-top: 30px;
 }
 html,
@@ -387,6 +401,7 @@ footer .footer-content .white-paper .white-paper-label {
   color: #fff;
   max-width: 200px;
   flex: 1;
+  font-family: 'apercu-bold-pro';
 }
 footer .footer-content .white-paper hr {
   border-style: dashed;

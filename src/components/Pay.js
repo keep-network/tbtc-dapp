@@ -78,7 +78,8 @@ class Pay extends Component {
               Scan the QR code or tap to pay, or copy the address below into your wallet
             </div>
             <div className="custodial-fee">
-              <b>Custodial Fee:</b> .02 BTC*
+              <span className="custodial-fee-label">Custodial Fee: </span>
+              .02 BTC*
             </div>
           </div>
           <div className="copy-address">
