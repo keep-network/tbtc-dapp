@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import history from '../history'
 import { Web3Status } from './lib'
 import { requestPermission } from '../lib/NotificationWrapper'
+import { withAccount } from '../wrappers/web3'
 
 class Start extends Component {
 
@@ -14,10 +15,16 @@ class Start extends Component {
     evt.preventDefault()
     evt.stopPropagation()
 
-    history.push('/invoice')
+    const { account } = this.props
+
+    if (account) {
+      history.push('/invoice')
+    }
   }
 
   render() {
+    const { account } = this.props
+
     return (
       <div className="start">
         <div className="page-top">
@@ -34,7 +41,7 @@ class Start extends Component {
           <div className="description">
             Maecenas sed diam eget risus varius blandit sit amet non magna.  Maecenas sed diam eget risus varius blandit sit amet non magna.
           </div>
-          <div className="cta">
+          <div className={`cta ${!account ? 'disabled' : ''}`}>
             <a href="/invoice" onClick={this.handleClickPay}>
               Begin now >>>
             </a>
@@ -45,4 +52,4 @@ class Start extends Component {
   }
 }
 
-export default Start
+export default withAccount(Start)
