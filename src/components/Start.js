@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import history from '../history'
+import { Web3Status } from './lib'
 
 class Start extends Component {
 
@@ -15,7 +16,7 @@ class Start extends Component {
     return (
       <div className="start">
         <div className="page-top">
-          {/* TODO: Add Web3 indicator*/}
+          <Web3Status />
         </div>
         <div className="page-body">
           <div className="step">
