@@ -450,3 +450,33 @@ footer.include-subscription .footer-content {
 footer.include-subscription .footer-content .footer-logo {
   margin-top: 0;
 }
+footer.include-subscription .mailing-list {
+  margin: 75px auto;
+  width: 768px;
+}
+footer.include-subscription .mailing-list form {
+  display: flex;
+  width: 100%;
+}
+footer.include-subscription .mailing-list form input {
+  border: 0;
+  font-family: 'apercu-mono-regular-pro';
+}
+footer.include-subscription .mailing-list form input[type="text"] {
+  flex: 1 0;
+  padding-left: 10px;
+  color: #333;
+  font-size: 1.3em;
+}
+footer.include-subscription .mailing-list form input[type="submit"] {
+  flex: 0 1;
+  padding: 20px 30px;
+  background-color: #000;
+  color: #fff;
+  font-size: 1.2em;
+  text-decoration: underline;
+  cursor: pointer;
+}
+footer.include-subscription .mailing-list form input[type="submit"]:hover {
+  background-color: #5CE783;
+}

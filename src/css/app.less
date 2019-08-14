@@ -148,5 +148,41 @@ footer {
                 margin-top: 0;
             }
         }
+
+        .mailing-list {
+            margin: 75px auto;
+            width: @content-width;
+
+            form {
+                display: flex;
+                width: 100%;
+
+                input {
+                    border: 0;
+                    font-family: 'apercu-mono-regular-pro';
+                }
+
+                input[type="text"] {
+                    flex: 1 0;
+                    padding-left: 10px;
+                    color: @dark-grey;
+                    font-size: 1.3em;
+                }
+    
+                input[type="submit"] {
+                    flex: 0 1;
+                    padding: 20px 30px;
+                    background-color: @black;
+                    color: @white;
+                    font-size: 1.2em;
+                    text-decoration: underline;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: @success;
+                    }
+                }
+            }
+        }
     }
 }
