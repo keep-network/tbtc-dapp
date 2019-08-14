@@ -18,11 +18,11 @@ class Invoice extends Component {
     let statusText
 
     if(status === 1) {
-      statusText = 'Waiting on transaction 1/2'
+      statusText = 'Initiating...'
     } else if(status === 2) {
-      statusText = 'Retrieving BTC address...'
+      statusText = 'Generating BTC address...'
     } else if(status === 3) {
-      statusText = 'Waiting on transaction 2/2'
+      statusText = 'Fetching BTC address...'
     }
 
     return (
