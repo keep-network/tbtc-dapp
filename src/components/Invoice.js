@@ -43,7 +43,6 @@ class Invoice extends Component {
           <div className="description">
             {statusText}
           </div>
-          <hr />
         </div>
       </div >
     )
