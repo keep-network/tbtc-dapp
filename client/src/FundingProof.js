@@ -30,7 +30,7 @@ async function getTransactionProof(electrumClient, txID, confirmations) {
     tx: spvProof.tx,
     merkleProof: spvProof.merkleProof,
     txInBlockIndex: spvProof.txInBlockIndex,
-    chainHeaders: spvProof.chainHeaders
+    chainHeaders: spvProof.chainHeaders,
   }
 }
 
