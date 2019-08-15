@@ -13,7 +13,8 @@ jobs:
     executor: docker-node
     working_directory: ~/project/client
     steps:
-        - checkout
+        - checkout:
+            path: ~/project
 
         # Download and cache dependencies.
         - restore_cache:
@@ -32,13 +33,15 @@ jobs:
         # Run tests.
         - run:
             name: Run NPM tests
+            working_directory: ~/project/client
             command: npm test
 
   test_tbtc_helpers:
     executor: docker-node
     working_directory: ~/project/lib/tbtc-helpers
     steps:
-        - checkout
+        - checkout:
+            path: ~/project
 
         # Download and cache dependencies.
         - restore_cache:
