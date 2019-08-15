@@ -562,6 +562,12 @@ footer.include-subscription .mailing-list form input[type="submit"] {
 footer.include-subscription .mailing-list form input[type="submit"]:hover {
   background-color: #5CE783;
 }
+footer.include-subscription .mailing-list form input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0;
+}
 footer.include-subscription .mailing-list .error {
   margin-top: 20px;
   padding: 10px;
@@ -611,9 +617,6 @@ footer.include-subscription .mailing-list .success svg path {
   footer.include-subscription .mailing-list form input[type="submit"] {
     padding: 15px;
     font-size: 1em;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
   }
   footer.include-subscription .mailing-list form input[type="submit"]:hover {
     background-color: #000;

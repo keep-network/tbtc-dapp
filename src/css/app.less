@@ -196,6 +196,13 @@ footer {
                         background-color: @success;
                     }
                 }
+
+                input {
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    appearance: none;
+                    border-radius: 0;
+                }
             }
 
             .error {
@@ -260,9 +267,6 @@ footer {
                     input[type="submit"] {
                         padding: 15px;
                         font-size: 1em;
-                        -webkit-appearance: none;
-                        -moz-appearance: none;
-                        appearance: none;
 
                         &:hover {
                             background-color: @black;
