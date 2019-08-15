@@ -23,7 +23,7 @@ class Footer extends Component {
     const { email } = this.state
 
     if (email.match(validEmailRegex)) {
-      fetch('/mailing-list/signup', {
+      fetch('https://backend.tbtc.network/mailing-list/signup', {
         method: 'POST',
         data: JSON.stringify({ email })
       }).then(res => res.json())
