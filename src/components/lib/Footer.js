@@ -69,7 +69,7 @@ class Footer extends Component {
                   type="text"
                   onChange={this.handleInput}
                   value={email}
-                  placeholder="enter your email to recieve updates" />
+                  placeholder="enter your email to receive updates" />
                 <input type="submit" value="Submit >>>>" />
               </form>
               { error
