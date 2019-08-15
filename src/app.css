@@ -516,7 +516,7 @@ footer .footer-content .footer-bottom .footer-links a {
 }
 footer.include-subscription {
   background-image: url('static/Flow.png');
-  background-color: #D4E8FF;
+  background-color: #370C5F;
   background-position: center top;
   background-size: 100% auto;
   padding: 50px 0 0 0;
@@ -608,6 +608,9 @@ footer.include-subscription .mailing-list .success svg path {
   footer.include-subscription .mailing-list form input[type="submit"] {
     padding: 15px;
     font-size: 1em;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
   }
   footer.include-subscription .mailing-list form input[type="submit"]:hover {
     background-color: #000;
