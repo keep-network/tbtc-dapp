@@ -9,7 +9,8 @@ class Footer extends Component {
   state = {
     email: '',
     success: false,
-    error: ''
+    error: '',
+    loading: false
   }
 
   handleInput = (evt) => {
@@ -23,28 +24,40 @@ class Footer extends Component {
     const { email } = this.state
 
     if (email.match(validEmailRegex)) {
+
+      this.setState({ loading: true })
+
       fetch('https://backend.tbtc.network/mailing-list/signup', {
         method: 'POST',
         data: JSON.stringify({ email })
       }).then(res => res.json())
         .then(data => {
           console.log("SUCCESS: ", data)
-          this.setState({ success: true, error: '' })
+          this.setState({
+            success: true,
+            error: '',
+            loading: false
+          })
         })
         .catch(err => {
           console.log("ERROR: ", err)
-          this.setState({ error: err.toString() })
+          this.setState({
+            error: err.toString(),
+            loading: false
+          })
         })
+
     } else {
       this.setState({
-        error: 'Invalid email'
+        error: 'Invalid email',
+        loading: false
       })
     }
   }
 
   render() {
     const { includeSubscription } = this.props
-    const { email, error, success } = this.state
+    const { email, error, success, loading } = this.state
 
     return (
       <footer className={includeSubscription ? 'include-subscription' : ''}>
@@ -67,20 +80,20 @@ class Footer extends Component {
               <form onSubmit={this.handleSubmit}>
                 <input
                   type="text"
+                  disabled={loading || success}
                   onChange={this.handleInput}
                   value={email}
                   placeholder="enter your email to receive updates" />
-                <input type="submit" value="Submit >>>>" />
+                { success
+                  ? <div className="success">
+                      <Check width="30px" height="30px" />
+                    </div>
+                  : <input type="submit" value={loading ? "(submitting...)" : "Submit >>>>"} />
+                }
               </form>
               { error
                 ? <div className="error">
                     { error }
-                  </div>
-                : ''
-              }
-              { success
-                ? <div className="success">
-                    <Check width="80px" height="80px" />
                   </div>
                 : ''
               }

@@ -213,14 +213,9 @@ footer {
             }
 
             .success {
-                position: absolute;
-                top: -20px;
-                left: -20px;
-                right: -20px;
-                bottom: -20px;
-                background-color: fade(@success, 90%);
+                background-color: @success;
                 text-align: center;
-                padding: 10px;
+                padding: 8px 0 5px 0;
 
                 svg {
                     circle {
@@ -262,6 +257,10 @@ footer {
                     input[type="text"] {
                         padding: 16px;
                         font-size: .9em;
+
+                        &:disabled {
+                            background-color: @grey;
+                        }
                     }
 
                     input[type="submit"] {
@@ -272,10 +271,6 @@ footer {
                             background-color: @black;
                         }
                     }
-                }
-
-                .success {
-                    padding-top: 50px;
                 }
             }
         }

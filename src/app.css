@@ -575,14 +575,9 @@ footer.include-subscription .mailing-list .error {
   color: #E7755C;
 }
 footer.include-subscription .mailing-list .success {
-  position: absolute;
-  top: -20px;
-  left: -20px;
-  right: -20px;
-  bottom: -20px;
-  background-color: rgba(92, 231, 131, 0.9);
+  background-color: #5CE783;
   text-align: center;
-  padding: 10px;
+  padding: 8px 0 5px 0;
 }
 footer.include-subscription .mailing-list .success svg circle {
   fill: #fff;
@@ -614,14 +609,14 @@ footer.include-subscription .mailing-list .success svg path {
     padding: 16px;
     font-size: 0.9em;
   }
+  footer.include-subscription .mailing-list form input[type="text"]:disabled {
+    background-color: #666;
+  }
   footer.include-subscription .mailing-list form input[type="submit"] {
     padding: 15px;
     font-size: 1em;
   }
   footer.include-subscription .mailing-list form input[type="submit"]:hover {
     background-color: #000;
-  }
-  footer.include-subscription .mailing-list .success {
-    padding-top: 50px;
   }
 }
