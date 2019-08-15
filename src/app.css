@@ -429,13 +429,6 @@ a {
   width: 768px;
   margin: 0 auto;
 }
-@media (max-width: 768px) {
-  .app {
-    padding: 40px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-}
 .app .nav {
   display: flex;
   flex-direction: row;
@@ -456,6 +449,16 @@ a {
 }
 .app .nav .logo svg {
   display: block;
+}
+@media (max-width: 768px) {
+  .app {
+    padding: 40px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .app .nav {
+    margin: 30px 0 80px 0;
+  }
 }
 footer {
   flex-shrink: 0;

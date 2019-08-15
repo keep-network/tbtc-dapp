@@ -40,12 +40,6 @@ a {
     width: @content-width;
     margin: 0 auto;
 
-    @media (max-width: @content-width) {
-        padding: 40px;
-        width: 100%;
-        box-sizing: border-box;
-    }
-
     .nav {
         display: flex;
         flex-direction: row;
@@ -68,6 +62,16 @@ a {
             svg {
                 display: block;
             }
+        }
+    }
+
+    @media (max-width: @content-width) {
+        padding: 40px;
+        width: 100%;
+        box-sizing: border-box;
+
+        .nav {
+            margin: 30px 0 80px 0;
         }
     }
 }
