@@ -93,7 +93,7 @@ class Footer extends Component {
               <TBTCLogo width="150" />
             </div>
             <div className="footer-links">
-              <a href="http://keep.network/" target="_blank" rel="noopener noreferrer">
+              <a href="https://crosschain.group" target="_blank" rel="noopener noreferrer">
                 about
               </a>
             </div>
