@@ -21,12 +21,12 @@ jobs:
             keys:
               # Find a cache corresponding to this specific package-lock.json checksum
               # when this file is changed, this key will fail
-              - client-npm-deps-{{ checksum "package-lock.json" }}
+              - v1-client-npm-deps-{{ checksum "package-lock.json" }}
               # Find the most recently generated cache used from any branch
-              - client-npm-deps-
+              - v1-client-npm-deps-
         - run: npm install
         - save_cache:
-            key: client-npm-deps-{{ checksum "package-lock.json" }}
+            key: v1-client-npm-deps-{{ checksum "package-lock.json" }}
             paths:
               - node_modules
 
@@ -48,12 +48,12 @@ jobs:
             keys:
               # Find a cache corresponding to this specific package-lock.json checksum
               # when this file is changed, this key will fail
-              - helpers-npm-deps-{{ checksum "package-lock.json" }}
+              - v1-helpers-npm-deps-{{ checksum "package-lock.json" }}
               # Find the most recently generated cache used from any branch
-              - helpers-npm-deps-
+              - v1-helpers-npm-deps-
         - run: npm install
         - save_cache:
-            key: helpers-npm-deps-{{ checksum "package-lock.json" }}
+            key: v1-helpers-npm-deps-{{ checksum "package-lock.json" }}
             paths:
               - node_modules
 
