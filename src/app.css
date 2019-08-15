@@ -615,4 +615,7 @@ footer.include-subscription .mailing-list .success svg path {
   footer.include-subscription .mailing-list form input[type="submit"]:hover {
     background-color: #000;
   }
+  footer.include-subscription .mailing-list .success {
+    padding-top: 50px;
+  }
 }
