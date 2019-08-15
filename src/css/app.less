@@ -181,6 +181,10 @@ footer {
                     padding-left: 24px;
                     color: @dark-grey;
                     font-size: 1.3em;
+
+                    &:disabled {
+                        background-color: #888;
+                    }
                 }
     
                 input[type="submit"] {
@@ -215,7 +219,8 @@ footer {
             .success {
                 background-color: @success;
                 text-align: center;
-                padding: 8px 0 5px 0;
+                padding: 14px 0 11px 0;
+                width: 190px;
 
                 svg {
                     circle {
@@ -257,10 +262,6 @@ footer {
                     input[type="text"] {
                         padding: 16px;
                         font-size: .9em;
-
-                        &:disabled {
-                            background-color: @grey;
-                        }
                     }
 
                     input[type="submit"] {
@@ -271,6 +272,11 @@ footer {
                             background-color: @black;
                         }
                     }
+                }
+
+                .success {
+                    padding: 8px 0 5px 0;
+                    width: unset;
                 }
             }
         }
