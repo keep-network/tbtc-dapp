@@ -490,6 +490,7 @@ footer.include-subscription .footer-content .footer-logo {
 footer.include-subscription .mailing-list {
   margin: 75px auto;
   width: 768px;
+  position: relative;
 }
 footer.include-subscription .mailing-list form {
   display: flex;
@@ -516,4 +517,27 @@ footer.include-subscription .mailing-list form input[type="submit"] {
 }
 footer.include-subscription .mailing-list form input[type="submit"]:hover {
   background-color: #5CE783;
+}
+footer.include-subscription .mailing-list .error {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #fff;
+  color: #E7755C;
+}
+footer.include-subscription .mailing-list .success {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  background-color: rgba(92, 231, 131, 0.9);
+  text-align: center;
+  padding: 10px;
+}
+footer.include-subscription .mailing-list .success svg circle {
+  fill: #fff;
+  stroke: #000;
+}
+footer.include-subscription .mailing-list .success svg path {
+  stroke: #000;
 }

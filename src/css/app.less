@@ -155,6 +155,7 @@ footer {
         .mailing-list {
             margin: 75px auto;
             width: @content-width;
+            position: relative;
 
             form {
                 display: flex;
@@ -183,6 +184,35 @@ footer {
 
                     &:hover {
                         background-color: @success;
+                    }
+                }
+            }
+
+            .error {
+                margin-top: 20px;
+                padding: 10px;
+                background-color: @white;
+                color: @alert;
+            }
+
+            .success {
+                position: absolute;
+                top: -20px;
+                left: -20px;
+                right: -20px;
+                bottom: -20px;
+                background-color: fade(@success, 90%);
+                text-align: center;
+                padding: 10px;
+
+                svg {
+                    circle {
+                        fill: @white;
+                        stroke: @black;
+                    }
+
+                    path {
+                        stroke: @black;
                     }
                 }
             }
