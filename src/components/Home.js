@@ -12,6 +12,8 @@ class Home extends Component {
   }
 
   render() {
+    const { noEntry } = this.props
+
     return (
       <div className="home">
         <div className="title">
@@ -29,9 +31,12 @@ class Home extends Component {
         <div className="step-by-step">
           <ol>
             <li>
-              <a href="/start" onClick={this.handleClickPay}>
-                Deposit BTC
-              </a>
+              { noEntry
+                ? 'Deposit BTC'
+                : <a href="/start" onClick={this.handleClickPay}>
+                    Deposit BTC
+                  </a>
+              }
             </li>
             <li>
               Mint tBTC
