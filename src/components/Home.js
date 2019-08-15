@@ -13,6 +13,7 @@ class Home extends Component {
 
   render() {
     const { noEntry } = this.props
+    const isMobile = window.innerWidth < 768
 
     return (
       <div className="home">
@@ -24,7 +25,16 @@ class Home extends Component {
           Ethereum
 		      <div className="subtitle">
             <div className="vertical-aligned">
-              No KYC, no middlemen, no bullshit.
+              { isMobile
+                ? <span>
+                    No KYC,
+                    <br />
+                    no middlemen,
+                    <br />
+                    no bullshit.
+                  </span>
+                : <span>No KYC, no middlemen, no bullshit.</span>
+              }
 		        </div>
           </div>
         </div>
@@ -51,7 +61,7 @@ class Home extends Component {
             No middlemen. Period.
 		      </div>
           <div className="line-and-sinker">
-            Censorship resistant, seizure resistant, inflation resistant
+            Censorship resistant, seizure resistant, inflation resistant.
 		      </div>
         </div>
       </div>

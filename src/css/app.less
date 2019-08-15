@@ -40,6 +40,12 @@ a {
     width: @content-width;
     margin: 0 auto;
 
+    @media (max-width: @content-width) {
+        padding: 40px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
     .nav {
         display: flex;
         flex-direction: row;
@@ -213,6 +219,47 @@ footer {
 
                     path {
                         stroke: @black;
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: @content-width) {
+        &.include-subscription {
+            .footer-content {
+                padding: 80px 50px;
+    
+                .white-paper {
+                    flex-direction: column;
+                    align-items: flex-start;
+    
+                    .white-paper-link {
+                        margin-top: 40px;
+                    }
+                }
+            }
+
+            .mailing-list {
+                width: 100%;
+                padding: 0 40px;
+                box-sizing: border-box;
+
+                form {
+                    flex-direction: column;
+
+                    input[type="text"] {
+                        padding: 16px;
+                        font-size: .9em;
+                    }
+
+                    input[type="submit"] {
+                        padding: 15px;
+                        font-size: 1em;
+
+                        &:hover {
+                            background-color: @black;
+                        }
                     }
                 }
             }
