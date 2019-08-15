@@ -25,7 +25,7 @@ class Footer extends Component {
     if (email.match(validEmailRegex)) {
       fetch('https://backend.tbtc.network/mailing-list/signup', {
         method: 'POST',
-        data: JSON.stringify({ email })
+        body: JSON.stringify({ email })
       }).then(res => res.json())
         .then(data => {
           console.log("SUCCESS: ", data)
