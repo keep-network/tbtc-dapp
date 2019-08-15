@@ -11,20 +11,54 @@ orbs:
 jobs:
   test_client:
     executor: docker-node
+    working_directory: ~/project/client
     steps:
         - checkout
+
+        # Download and cache dependencies.
+        - restore_cache:
+            keys:
+              # Find a cache corresponding to this specific package-lock.json checksum
+              # when this file is changed, this key will fail
+              - client-npm-deps-{{ checksum "package-lock.json" }}
+              # Find the most recently generated cache used from any branch
+              - client-npm-deps-
+        - run: npm install
+        - save_cache:
+            key: client-npm-deps-{{ checksum "package-lock.json" }}
+            paths:
+              - node_modules
+
+        # Run tests.
         - run:
             name: Run NPM tests
-            working_directory: ~/project/client
-            command: npm install && npm run test
+            command: npm test
+
   test_tbtc_helpers:
     executor: docker-node
+    working_directory: ~/project/lib/tbtc-helpers
     steps:
         - checkout
+
+        # Download and cache dependencies.
+        - restore_cache:
+            keys:
+              # Find a cache corresponding to this specific package-lock.json checksum
+              # when this file is changed, this key will fail
+              - helpers-npm-deps-{{ checksum "package-lock.json" }}
+              # Find the most recently generated cache used from any branch
+              - helpers-npm-deps-
+        - run: npm install
+        - save_cache:
+            key: helpers-npm-deps-{{ checksum "package-lock.json" }}
+            paths:
+              - node_modules
+
+        # Run tests.
         - run:
             name: Run NPM tests
-            working_directory: ~/project/lib/tbtc-helpers
-            command: npm install && npm run test
+            command: npm test
+
   build_and_test_dapp:
     executor: docker-node
     steps:
@@ -50,6 +84,7 @@ jobs:
           root: /tmp/tbtc-dapp
           paths:
             - docker-images
+
   publish_dapp:
     executor: gcp-gcr/default
     steps:
