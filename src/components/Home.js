@@ -49,7 +49,7 @@ class Home extends Component {
               }
             </li>
             <li>
-              Mint tBTC
+              Mint TBTC
 		        </li>
             <li>
               Lend and earn interest on your BTC.
