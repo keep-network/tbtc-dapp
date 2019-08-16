@@ -1,4 +1,4 @@
-import { call, put, takeLatest, select, spawn } from 'redux-saga/effects'
+import { call, put, takeLatest, select } from 'redux-saga/effects'
 
 import { REQUEST_A_DEPOSIT, WAIT_CONFIRMATION, SUBMIT_DEPOSIT_PROOF, CLOSE_MODAL } from '../actions'
 import { METAMASK_TX_DENIED_ERROR } from '../chain'
@@ -12,7 +12,7 @@ import {
     watchForPublicKeyPublished
 } from 'tbtc-client'
 
-import { notifyTransactionConfirmed } from '../lib/NotificationWrapper'
+import { notifyTransactionConfirmed } from '../lib/notifications/actions'
 import { navigateTo } from '../lib/router/actions'
 
 export const DEPOSIT_REQUEST_BEGIN = 'DEPOSIT_REQUEST_BEGIN'
@@ -117,7 +117,7 @@ function* waitConfirmation() {
     })
 
     // emit a notification
-    yield spawn(notifyTransactionConfirmed())
+    yield put(notifyTransactionConfirmed())
 
     // goto
     yield put(navigateTo('/prove'))

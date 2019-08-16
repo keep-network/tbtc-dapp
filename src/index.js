@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import routerMiddleware from './lib/router/middleware'
+import notificationMiddleware from './lib/notifications/middleware'
 import { Provider } from 'react-redux'
 import { Router, Route } from 'react-router-dom'
 
@@ -32,6 +33,7 @@ import history from './history'
 const sagaMiddleware = createSagaMiddleware()
 const middleware = [
   routerMiddleware,
+  notificationMiddleware,
   sagaMiddleware,
 ]
 
