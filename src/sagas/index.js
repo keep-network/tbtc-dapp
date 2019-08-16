@@ -1,7 +1,13 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects'
 import history from '../history'
 
-import { REQUEST_A_DEPOSIT, WAIT_CONFIRMATION, SUBMIT_DEPOSIT_PROOF, CLOSE_MODAL } from '../actions'
+import {
+    REQUEST_A_DEPOSIT,
+    WAIT_CONFIRMATION,
+    SUBMIT_DEPOSIT_PROOF,
+    CLOSE_MODAL
+} from '../actions'
+
 import { METAMASK_TX_DENIED_ERROR } from '../chain'
 
 import {
@@ -13,7 +19,10 @@ import {
     watchForPublicKeyPublished
 } from 'tbtc-client'
 
-import { notifyTransactionConfirmed } from '../lib/NotificationWrapper'
+import {
+    notifyBitcoinAddressReady,
+    notifyTransactionConfirmed
+} from '../lib/NotificationWrapper'
 
 export const DEPOSIT_REQUEST_BEGIN = 'DEPOSIT_REQUEST_BEGIN'
 export const DEPOSIT_REQUEST_METAMASK_SUCCESS = 'DEPOSIT_REQUEST_METAMASK_SUCCESS'
@@ -83,6 +92,9 @@ function* requestADeposit() {
             btcAddress,
         }
     })
+
+    // emit a notification
+    notifyBitcoinAddressReady()
 
     // goto
     history.push('/pay')
