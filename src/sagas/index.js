@@ -1,5 +1,4 @@
-import { call, put, takeLatest, select } from 'redux-saga/effects'
-import history from '../history'
+import { call, put, takeLatest, select, spawn } from 'redux-saga/effects'
 
 import { REQUEST_A_DEPOSIT, WAIT_CONFIRMATION, SUBMIT_DEPOSIT_PROOF, CLOSE_MODAL } from '../actions'
 import { METAMASK_TX_DENIED_ERROR } from '../chain'
@@ -118,7 +117,7 @@ function* waitConfirmation() {
     })
 
     // emit a notification
-    notifyTransactionConfirmed()
+    yield spawn(notifyTransactionConfirmed())
 
     // goto
     yield put(navigateTo('/prove'))
