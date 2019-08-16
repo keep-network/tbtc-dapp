@@ -47,6 +47,15 @@ const persistor = persistStore(store)
 
 sagaMiddleware.run(sagas)
 
+async function checkForResetStateFlag() {
+  let params = (new URL(document.location)).searchParams;
+  let resetState = !!params.get("_resetState");
+  if(resetState) {
+    console.log('_resetState is set, purging cached Redux store')
+    await persistor.purge()
+  }
+}
+
 // Compose our application tree
 function AppWrapper() {
   return (
@@ -71,6 +80,7 @@ function AppWrapper() {
 }
 
 // Render to DOM
-window.addEventListener('load', () => {
+window.addEventListener('load', async () => {
+  await checkForResetStateFlag()
   ReactDOM.render(<AppWrapper />, document.getElementById('root'))
 })
