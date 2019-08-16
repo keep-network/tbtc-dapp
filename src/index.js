@@ -4,6 +4,9 @@ import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { Provider } from 'react-redux'
 import { Router, Route } from 'react-router-dom'
+import { persistStore, persistReducer } from 'redux-persist'
+import { PersistGate } from 'redux-persist/integration/react'
+import storage from 'redux-persist/lib/storage'
 
 // Styles
 import './app.css'
@@ -30,10 +33,17 @@ import history from './history'
 // Set up our store
 const sagaMiddleware = createSagaMiddleware()
 
+const persistConfig = {
+  key: 'root',
+  storage,
+}
+const persistedReducer = persistReducer(persistConfig, reducers)
+
 const store = createStore(
-  reducers,
+  persistedReducer,
   applyMiddleware(sagaMiddleware)
 )
+const persistor = persistStore(store)
 
 sagaMiddleware.run(sagas)
 
@@ -41,19 +51,21 @@ sagaMiddleware.run(sagas)
 function AppWrapper() {
   return (
     <Provider store={store}>
-      <Router history={history}>
-        <Web3Wrapper>
-          <App>
-            <Route path="/" exact component={Home} />
-            <Route path="/start" component={Start} />
-            <Route path="/invoice" component={Invoice} />
-            <Route path="/pay" exact component={Pay} />
-            <Route path="/pay/confirming" render={(props) => <Pay {...props} confirming={true} />} />
-            <Route path="/prove" component={Prove} />
-            <Route path="/congratulations" component={Congratulations} />
-          </App>
-        </Web3Wrapper>
-      </Router>
+      <PersistGate loading={null} persistor={persistor}>
+        <Router history={history}>
+          <Web3Wrapper>
+            <App>
+              <Route path="/" exact component={Home} />
+              <Route path="/start" component={Start} />
+              <Route path="/invoice" component={Invoice} />
+              <Route path="/pay" exact component={Pay} />
+              <Route path="/pay/confirming" render={(props) => <Pay {...props} confirming={true} />} />
+              <Route path="/prove" component={Prove} />
+              <Route path="/congratulations" component={Congratulations} />
+            </App>
+          </Web3Wrapper>
+        </Router>
+      </PersistGate>
     </Provider>
   )
 }
