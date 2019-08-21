@@ -17,39 +17,36 @@ class Footer extends Component {
     this.setState({ email: evt.target.value })
   }
 
-  handleSubmit = (evt) => {
+  handleSubmit = async (evt) => {
     evt.preventDefault()
     evt.stopPropagation()
 
     const { email } = this.state
 
-    if (email.match(validEmailRegex)) {
+    if (!email.match(validEmailRegex)) {
+      this.setState({
+        error: 'Invalid email',
+        loading: false
+      })
+      return
+    }
 
+    try {
       this.setState({ loading: true })
 
-      fetch('https://backend.tbtc.network/mailing-list/signup', {
+      await fetch('https://backend.tbtc.network/mailing-list/signup', {
         method: 'POST',
         body: JSON.stringify({ email })
       }).then(res => res.json())
-        .then(data => {
-          console.log("SUCCESS: ", data)
-          this.setState({
-            success: true,
-            error: '',
-            loading: false
-          })
-        })
-        .catch(err => {
-          console.log("ERROR: ", err)
-          this.setState({
-            error: err.toString(),
-            loading: false
-          })
-        })
 
-    } else {
       this.setState({
-        error: 'Invalid email',
+        success: true,
+        error: '',
+        loading: false
+      })
+    } catch (err) {
+      this.setState({
+        error: err.toString(),
         loading: false
       })
     }
