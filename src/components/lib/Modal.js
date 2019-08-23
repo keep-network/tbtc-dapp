@@ -8,7 +8,7 @@ const Modal = props => {
   const { renderContent, isOpen, closeModal } = props
 
   return (
-    <div className={`modal ${(isOpen && renderContent) ? 'open' : 'closed'}`} onMouseEnter={() => {}} >
+    <div className={`modal ${(isOpen && renderContent) ? 'open' : 'closed'}`} onMouseEnter={closeModal} >
       <div className="modal-body">
         <div className="close">
           <div className="x" onClick={closeModal}>&#9587;</div>

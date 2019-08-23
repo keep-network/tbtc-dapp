@@ -7,14 +7,11 @@ import { Footer, Header, Modal } from './lib'
 import { openModal } from '../actions'
 
 class App extends Component {
-  componentDidMount() {
-    this.props.openModal()
-  }
   render() {
     const { children, openModal, location } = this.props
 
     return (
-      <div className="main" onMouseLeave={() => {}}>
+      <div className="main" onMouseLeave={openModal}>
         <Modal />
         <div className="app">
           <Header />
