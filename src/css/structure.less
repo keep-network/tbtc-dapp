@@ -14,46 +14,48 @@
         flex-direction: column;
         max-width: 500px;
         margin: 0 auto;
+    }
+}
 
-        .step {
-            flex: 0 1;
-            color: @blue;
-            font-size: .5em;
-            margin-bottom: 30px;
-        }
+.page-body, .modal {
+    .step {
+        flex: 0 1;
+        color: @blue;
+        font-size: .5em;
+        margin-bottom: 30px;
+    }
 
-        .title {
-            flex: 0 1;
-            font-size: 1.75em;
-            font-weight: bold;
-            margin-bottom: 40px;
-            font-family: 'apercu-bold-pro';
-        }
-        
-        hr {
-            flex: 0 1;
-            border-style: dashed;
-            border-width: 2px 0 0 0;
-            border-color: @blue;
-            width: 150px;
-            margin: 0 auto 40px auto;
-        }
-        
-        .description {
-            flex: 0 1;
-            font-size: .8em;
-            margin-bottom: 40px;
-        }
+    .title {
+        flex: 0 1;
+        font-size: 1.75em;
+        font-weight: bold;
+        margin-bottom: 40px;
+        font-family: 'apercu-bold-pro';
+    }
     
-        .cta {
-            flex: 1 1;
-            font-size: .8em;
+    hr {
+        flex: 0 1;
+        border-style: dashed;
+        border-width: 2px 0 0 0;
+        border-color: @blue;
+        width: 150px;
+        margin: 0 auto 40px auto;
+    }
+    
+    .description {
+        flex: 0 1;
+        font-size: .8em;
+        margin-bottom: 40px;
+    }
 
-            &.disabled {
-                a {
-                    color: @grey;
-                    cursor: not-allowed;
-                }
+    .cta {
+        flex: 1 1;
+        font-size: .8em;
+
+        &.disabled {
+            a {
+                color: @grey;
+                cursor: not-allowed;
             }
         }
     }

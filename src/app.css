@@ -76,32 +76,23 @@ footer {
   max-width: 500px;
   margin: 0 auto;
 }
-.start .page-body .step,
-.invoice .page-body .step,
-.pay .page-body .step,
-.prove .page-body .step,
-.congratulations .page-body .step {
+.page-body .step,
+.modal .step {
   flex: 0 1;
   color: #479CFF;
   font-size: 0.5em;
   margin-bottom: 30px;
 }
-.start .page-body .title,
-.invoice .page-body .title,
-.pay .page-body .title,
-.prove .page-body .title,
-.congratulations .page-body .title {
+.page-body .title,
+.modal .title {
   flex: 0 1;
   font-size: 1.75em;
   font-weight: bold;
   margin-bottom: 40px;
   font-family: 'apercu-bold-pro';
 }
-.start .page-body hr,
-.invoice .page-body hr,
-.pay .page-body hr,
-.prove .page-body hr,
-.congratulations .page-body hr {
+.page-body hr,
+.modal hr {
   flex: 0 1;
   border-style: dashed;
   border-width: 2px 0 0 0;
@@ -109,28 +100,19 @@ footer {
   width: 150px;
   margin: 0 auto 40px auto;
 }
-.start .page-body .description,
-.invoice .page-body .description,
-.pay .page-body .description,
-.prove .page-body .description,
-.congratulations .page-body .description {
+.page-body .description,
+.modal .description {
   flex: 0 1;
   font-size: 0.8em;
   margin-bottom: 40px;
 }
-.start .page-body .cta,
-.invoice .page-body .cta,
-.pay .page-body .cta,
-.prove .page-body .cta,
-.congratulations .page-body .cta {
+.page-body .cta,
+.modal .cta {
   flex: 1 1;
   font-size: 0.8em;
 }
-.start .page-body .cta.disabled a,
-.invoice .page-body .cta.disabled a,
-.pay .page-body .cta.disabled a,
-.prove .page-body .cta.disabled a,
-.congratulations .page-body .cta.disabled a {
+.page-body .cta.disabled a,
+.modal .cta.disabled a {
   color: #666;
   cursor: not-allowed;
 }
@@ -156,10 +138,16 @@ footer {
   display: inline-block;
   cursor: pointer;
 }
+.modal .title {
+  font-size: 2em;
+}
+.modal .description {
+  font-size: 1.25em;
+}
 .modal .modal-body {
   margin: 200px auto;
-  padding: 20px 25px 40px 80px;
-  width: 768px;
+  padding: 20px 25px;
+  width: 576px;
   background-color: #fff;
 }
 .home {
@@ -323,44 +311,27 @@ footer {
 }
 .prove-modal {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px 0 60px 0;
+  position: relative;
 }
-.prove-modal .modal-left {
+.prove-modal .modal-content {
   display: flex;
   flex-direction: column;
-  text-align: left;
+  text-align: center;
+  max-width: 200px;
 }
-.prove-modal .modal-left .description {
-  font-size: 1em;
-}
-.prove-modal .modal-left .cta,
-.prove-modal .modal-left .cti {
-  margin: 10px 0 20px 0;
-}
-.prove-modal .modal-left .cti {
-  cursor: pointer;
-  text-decoration: underline;
-}
-.prove-modal .modal-right {
-  position: relative;
-  overflow: hidden;
-  min-width: 460px;
-}
-.prove-modal .modal-right .peanuts {
+.prove-modal .modal-peanut {
   position: absolute;
-  left: 0;
-  top: 0;
+  left: -20px;
+  top: 110px;
+}
+.prove-modal .modal-peanut svg {
   transform: rotate(90deg);
-  overflow: hidden;
 }
-.prove-modal .modal-right .peanuts svg path {
-  fill: #370C5F;
-}
-.prove-modal .modal-right .peanuts svg:first-of-type {
-  transform: translate(-50px, 8px);
-}
-.prove-modal .modal-right .peanuts svg:last-of-type {
-  transform: translate(-50px, -8px);
+.prove-modal .modal-peanut svg path {
+  fill: #E7755C;
 }
 .congratulations .page-top {
   margin: 0 0 75px 0;

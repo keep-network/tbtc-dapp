@@ -10,52 +10,28 @@
 
 .prove-modal {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
+    margin: 40px 0 60px 0;
+    position: relative;
 
-    .modal-left {
+    .modal-content {
         display: flex;
         flex-direction: column;
-        text-align: left;
-
-        .description {
-            font-size: 1em;
-        }
-
-        .cta, .cti {
-            margin: 10px 0 20px 0;
-        }
-
-        .cti {
-            cursor: pointer;
-            text-decoration: underline;
-        }
+        text-align: center;
+        max-width: 200px;
     }
 
-    .modal-right {
-        position: relative;
-        overflow: hidden;
-        min-width: 460px;
+    .modal-peanut {
+        position: absolute;
+        left: -20px;
+        top: 110px;
 
-        .peanuts {
-            position: absolute;
-            left: 0;
-            top: 0;
+        svg {
             transform: rotate(90deg);
-            overflow: hidden;
 
-            svg {
-                path {
-                    fill: @purple;
-                }
-            }
-            // right-most
-            svg:first-of-type {
-                transform: translate(-50px, 8px)
-            }
-
-            // left-most
-            svg:last-of-type {
-                transform: translate(-50px, -8px)
+            path {
+                fill: @alert;
             }
         }
     }
