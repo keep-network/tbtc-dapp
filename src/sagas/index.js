@@ -1,4 +1,4 @@
-import { call, put, takeLatest, select } from 'redux-saga/effects'
+import { call, put, takeLatest, takeLeading, select } from 'redux-saga/effects'
 
 import { REQUEST_A_DEPOSIT, WAIT_CONFIRMATION, SUBMIT_DEPOSIT_PROOF, CLOSE_MODAL } from '../actions'
 import { METAMASK_TX_DENIED_ERROR } from '../chain'
@@ -191,5 +191,5 @@ function* proveDeposit() {
 export default function* () {
     yield takeLatest(REQUEST_A_DEPOSIT, requestADeposit)
     yield takeLatest(WAIT_CONFIRMATION, waitConfirmation)
-    yield takeLatest(SUBMIT_DEPOSIT_PROOF, proveDeposit)
+    yield takeLeading(SUBMIT_DEPOSIT_PROOF, proveDeposit)
 }
