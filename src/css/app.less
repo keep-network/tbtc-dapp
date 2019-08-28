@@ -8,7 +8,6 @@
 @import 'modal.less';
 @import 'home.less';
 @import 'start.less';
-@import 'invoice.less';
 @import 'pay.less';
 @import 'prove.less';
 @import 'congratulations.less';
@@ -71,6 +70,22 @@ a {
 
         .nav {
             margin: 30px 0 80px 0;
+        }
+    }
+
+    .peanut {
+        &.loading {
+            svg {
+                path {
+                    animation: pulse 3s linear infinite;
+                }
+            }
+
+            @keyframes pulse {
+                0% { fill: transparent; }
+                50% { fill: @purple; }
+                100% { fill: transparent; }
+            }
         }
     }
 }

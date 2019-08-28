@@ -134,6 +134,16 @@ footer {
   color: #666;
   cursor: not-allowed;
 }
+.start .page-body .error,
+.invoice .page-body .error,
+.pay .page-body .error,
+.prove .page-body .error,
+.congratulations .page-body .error {
+  flex: 1 1;
+  font-size: 0.7em;
+  color: #E7755C;
+  margin-top: 25px;
+}
 .modal {
   position: absolute;
   top: 0;
@@ -293,20 +303,6 @@ footer {
 .start .page-top .web3-status a {
   color: unset;
 }
-.invoice .building svg path {
-  animation: pulse 3s linear infinite;
-}
-@keyframes pulse {
-  0% {
-    fill: transparent;
-  }
-  50% {
-    fill: #370C5F;
-  }
-  100% {
-    fill: transparent;
-  }
-}
 .pay .page-top {
   margin: -25px 0 25px 0;
 }
@@ -337,20 +333,6 @@ footer {
 .pay .hidden-copy-field {
   position: absolute;
   right: 999999px;
-}
-.pay .confirming svg path {
-  animation: pulse 3s linear infinite;
-}
-@keyframes pulse {
-  0% {
-    fill: transparent;
-  }
-  50% {
-    fill: #370C5F;
-  }
-  100% {
-    fill: transparent;
-  }
 }
 .prove .page-top svg path {
   fill: #479CFF;
@@ -457,6 +439,20 @@ a {
   }
   .app .nav {
     margin: 30px 0 80px 0;
+  }
+}
+.app .peanut.loading svg path {
+  animation: pulse 3s linear infinite;
+}
+@keyframes pulse {
+  0% {
+    fill: transparent;
+  }
+  50% {
+    fill: #370C5F;
+  }
+  100% {
+    fill: transparent;
   }
 }
 footer {
