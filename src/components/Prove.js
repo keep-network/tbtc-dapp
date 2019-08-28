@@ -66,7 +66,7 @@ class Prove extends Component {
     return (
       <div className="prove">
         <div className="page-top">
-          <Peanut width="250px" loading={provingDeposit} />
+          <Peanut width="250px" loading={provingDeposit} error={!!proveDepositError}/>
         </div>
         <div className="page-body">
           <div className="step">

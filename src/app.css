@@ -455,6 +455,9 @@ a {
     fill: transparent;
   }
 }
+.app .peanut.error svg path {
+  fill: #E7755C;
+}
 footer {
   flex-shrink: 0;
   display: flex;
