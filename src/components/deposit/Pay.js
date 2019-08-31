@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { waitConfirmation } from '../actions'
+import { waitConfirmation } from '../../actions'
 import QRCode from 'qrcode.react'
-import Peanut from './svgs/Peanut'
+import Peanut from '../svgs/Peanut'
 
 class Pay extends Component {
   state = {

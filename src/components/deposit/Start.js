@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 
-import history from '../history'
-import { Web3Status } from './lib'
-import { requestPermission } from '../lib/notifications'
-import { withAccount } from '../wrappers/web3'
+import history from '../../history'
+import { Web3Status } from './../lib'
+import { requestPermission } from '../../lib/notifications'
+import { withAccount } from '../../wrappers/web3'
 
 class Start extends Component {
 
