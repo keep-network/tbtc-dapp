@@ -134,6 +134,24 @@ footer {
   color: #666;
   cursor: not-allowed;
 }
+.start .page-body .row,
+.invoice .page-body .row,
+.pay .page-body .row,
+.prove .page-body .row,
+.congratulations .page-body .row {
+  flex: 0 1;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 50px;
+}
+.start .page-body .row .row-item,
+.invoice .page-body .row .row-item,
+.pay .page-body .row .row-item,
+.prove .page-body .row .row-item,
+.congratulations .page-body .row .row-item {
+  flex: 1 0   ;
+  padding: 0 20px;
+}
 .modal {
   position: absolute;
   top: 0;
