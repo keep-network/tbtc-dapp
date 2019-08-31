@@ -89,7 +89,7 @@ function* requestADeposit() {
     })
 
     // goto
-    yield put(navigateTo('/pay'))
+    yield put(navigateTo('/deposit/pay'))
 }
 
 function* waitConfirmation() {
@@ -127,7 +127,7 @@ function* waitConfirmation() {
     yield put(notifyTransactionConfirmed())
 
     // goto
-    yield put(navigateTo('/prove'))
+    yield put(navigateTo('/deposit/prove'))
 }
 
 function* proveDeposit() {
@@ -182,7 +182,7 @@ function* proveDeposit() {
         })
 
         // goto
-        yield put(navigateTo('/congratulations'))
+        yield put(navigateTo('/deposit/congratulations'))
 
     } catch (outerErr) {
         yield put({
