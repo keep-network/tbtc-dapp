@@ -22,6 +22,18 @@ class Start extends Component {
     }
   }
 
+  handleClickInitialize = (evt) => {
+    evt.preventDefault()
+    evt.stopPropagation()
+
+    const { account } = this.props
+
+    if (account) {
+      history.push('/redemption/initialize')
+    }
+  }
+
+
   render() {
     const { account } = this.props
 
@@ -54,7 +66,7 @@ class Start extends Component {
                 <p>To redeem your BTC, you need to send 1 tBTC to the contract address you saved during the deposit.</p>
               </div>
               <div className={`cta ${!account ? 'disabled' : ''}`}>
-                <a href="/deposit/invoice" onClick={this.handleClickPay}>
+                <a href="/redemption/initialize" onClick={this.handleClickInitialize}>
                   Redeem your BTC >>>
                 </a>
               </div>
