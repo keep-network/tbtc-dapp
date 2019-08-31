@@ -1,5 +1,4 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects'
-import history from '../history'
 
 import { REQUEST_A_DEPOSIT, WAIT_CONFIRMATION, SUBMIT_DEPOSIT_PROOF, CLOSE_MODAL } from '../actions'
 import { METAMASK_TX_DENIED_ERROR } from '../chain'
@@ -13,7 +12,8 @@ import {
     watchForPublicKeyPublished
 } from 'tbtc-client'
 
-import { notifyTransactionConfirmed } from '../lib/NotificationWrapper'
+import { notifyTransactionConfirmed } from '../lib/notifications/actions'
+import { navigateTo } from '../lib/router/actions'
 
 export const DEPOSIT_REQUEST_BEGIN = 'DEPOSIT_REQUEST_BEGIN'
 export const DEPOSIT_REQUEST_METAMASK_SUCCESS = 'DEPOSIT_REQUEST_METAMASK_SUCCESS'
@@ -85,7 +85,7 @@ function* requestADeposit() {
     })
 
     // goto
-    history.push('/pay')
+    yield put(navigateTo('/pay'))
 }
 
 function* waitConfirmation() {
@@ -117,10 +117,10 @@ function* waitConfirmation() {
     })
 
     // emit a notification
-    notifyTransactionConfirmed()
+    yield put(notifyTransactionConfirmed())
 
     // goto
-    history.push('/prove')
+    yield put(navigateTo('/prove'))
 }
 
 function* proveDeposit() {
@@ -162,7 +162,7 @@ function* proveDeposit() {
     })
 
     // goto
-    history.push('/congratulations')
+    yield put(navigateTo('/congratulations'))
 }
 
 export default function* () {
