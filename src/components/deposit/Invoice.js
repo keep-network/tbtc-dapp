@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { requestADeposit } from '../actions'
-import Peanut from './svgs/Peanut'
+import { requestADeposit } from '../../actions'
+import Peanut from '../svgs/Peanut'
 
 class Invoice extends Component {
 

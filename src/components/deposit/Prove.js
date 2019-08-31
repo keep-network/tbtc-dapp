@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { submitProof, setRenderContent, closeModal } from '../actions'
-import Peanut from './svgs/Peanut'
+import { submitProof, setRenderContent, closeModal } from '../../actions'
+import Peanut from '../svgs/Peanut'
 
 class Prove extends Component {
 
