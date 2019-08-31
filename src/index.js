@@ -22,6 +22,11 @@ import {
   Prove,
   Congratulations as CongratulationsDeposit
 } from './components/deposit'
+import {
+  Initialize,
+  Working,
+  Congratulations as CongratulationsRedemption
+} from './components/redemption'
 
 
 // Wrappers
@@ -61,6 +66,9 @@ function AppWrapper() {
             <Route path="/deposit/pay/confirming" render={(props) => <Pay {...props} confirming={true} />} />
             <Route path="/deposit/prove" component={Prove} />
             <Route path="/deposit/congratulations" component={CongratulationsDeposit} />
+            <Route path="/redemption/initialize" component={Initialize} />
+            <Route path="/redemption/working" component={Working} />
+            <Route path="/redemption/congratulations" component={CongratulationsRedemption} />
           </App>
         </Web3Wrapper>
       </Router>
