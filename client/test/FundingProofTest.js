@@ -13,11 +13,14 @@ const CONFIRMATIONS = 6
 describe('FundingProof', async () => {
   it('getTransactionProof', async () => {
     const electrumClient = new ElectrumClient.Client(config.electrum.testnetPublic)
+    await electrumClient.connect()
 
     const proofFile = fs.readFileSync('./test/data/proof.json', 'utf8')
     const expectedResult = JSON.parse(proofFile)
 
     const result = await FundingProof.__get__('getTransactionProof')(electrumClient, TX_ID, CONFIRMATIONS)
+
+    electrumClient.close()
 
     assert.deepEqual(result, expectedResult)
   })

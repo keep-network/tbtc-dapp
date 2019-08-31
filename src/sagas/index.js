@@ -5,11 +5,11 @@ import { METAMASK_TX_DENIED_ERROR } from '../chain'
 
 import {
     createDeposit,
+    watchForPublicKeyPublished,
     getDepositBtcAddress,
     watchForFundingTransaction,
     waitForConfirmations,
     calculateAndSubmitFundingProof,
-    watchForPublicKeyPublished
 } from 'tbtc-client'
 
 import { notifyTransactionConfirmed } from '../lib/notifications/actions'
@@ -32,8 +32,11 @@ const ElectrumClient = require('tbtc-helpers').ElectrumClient
 
 async function getElectrumClient() {
     const config = require('../config/config.json')
+
     const electrumClient = new ElectrumClient.Client(config.electrum.testnetWS)
+
     await electrumClient.connect()
+
     return electrumClient
 }
 
@@ -111,6 +114,9 @@ function* waitConfirmation() {
 
     yield call(waitForConfirmations, electrumClient, fundingTx.transactionID)
 
+    // Close connection to electrum server.
+    electrumClient.close()
+
     // when it's finally sufficiently confirmed, dispatch the txid
     yield put({
         type: BTC_TX_CONFIRMED
@@ -147,8 +153,12 @@ function* proveDeposit() {
         )
     } catch (err) {
         if (err.message.includes(METAMASK_TX_DENIED_ERROR)) return
+
         throw err
     }
+
+    // Close connection to electrum server.
+    electrumClient.close()
 
     yield put({
         type: DEPOSIT_PROVE_BTC_TX_SUCCESS,
