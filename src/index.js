@@ -13,10 +13,10 @@ import './app.css'
 // Components
 import {
   App,
-  Home
+  Home,
+  Start
 } from './components'
 import {
-  Start as StartDeposit,
   Invoice,
   Pay,
   Prove,
@@ -55,8 +55,7 @@ function AppWrapper() {
         <Web3Wrapper>
           <App>
             <Route path="/" exact component={Home} />
-            <Route path="/deposit/" exact component={StartDeposit} />
-            <Route path="/deposit/start" component={StartDeposit} />
+            <Route path="/start" component={Start} />
             <Route path="/deposit/invoice" component={Invoice} />
             <Route path="/deposit/pay" exact component={Pay} />
             <Route path="/deposit/pay/confirming" render={(props) => <Pay {...props} confirming={true} />} />

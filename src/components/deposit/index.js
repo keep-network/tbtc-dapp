@@ -1,11 +1,9 @@
-import Start from './deposit/Start'
-import Invoice from './deposit/Invoice'
-import Pay from './deposit/Pay'
-import Prove from './deposit/Prove'
-import Congratulations from './deposit/Congratulations'
+import Invoice from './Invoice'
+import Pay from './Pay'
+import Prove from './Prove'
+import Congratulations from './Congratulations'
 
 export {
-    Start,
     Invoice,
     Pay,
     Prove,
