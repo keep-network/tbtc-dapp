@@ -1,19 +1,19 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects'
-import history from '../history'
 
 import { REQUEST_A_DEPOSIT, WAIT_CONFIRMATION, SUBMIT_DEPOSIT_PROOF, CLOSE_MODAL } from '../actions'
 import { METAMASK_TX_DENIED_ERROR } from '../chain'
 
 import {
     createDeposit,
+    watchForPublicKeyPublished,
     getDepositBtcAddress,
     watchForFundingTransaction,
     waitForConfirmations,
     calculateAndSubmitFundingProof,
-    watchForPublicKeyPublished
 } from 'tbtc-client'
 
-import { notifyTransactionConfirmed } from '../lib/NotificationWrapper'
+import { notifyTransactionConfirmed } from '../lib/notifications/actions'
+import { navigateTo } from '../lib/router/actions'
 
 export const DEPOSIT_REQUEST_BEGIN = 'DEPOSIT_REQUEST_BEGIN'
 export const DEPOSIT_REQUEST_METAMASK_SUCCESS = 'DEPOSIT_REQUEST_METAMASK_SUCCESS'
@@ -32,8 +32,11 @@ const ElectrumClient = require('tbtc-helpers').ElectrumClient
 
 async function getElectrumClient() {
     const config = require('../config/config.json')
+
     const electrumClient = new ElectrumClient.Client(config.electrum.testnetWS)
+
     await electrumClient.connect()
+
     return electrumClient
 }
 
@@ -85,7 +88,7 @@ function* requestADeposit() {
     })
 
     // goto
-    history.push('/pay')
+    yield put(navigateTo('/pay'))
 }
 
 function* waitConfirmation() {
@@ -111,16 +114,19 @@ function* waitConfirmation() {
 
     yield call(waitForConfirmations, electrumClient, fundingTx.transactionID)
 
+    // Close connection to electrum server.
+    electrumClient.close()
+
     // when it's finally sufficiently confirmed, dispatch the txid
     yield put({
         type: BTC_TX_CONFIRMED
     })
 
     // emit a notification
-    notifyTransactionConfirmed()
+    yield put(notifyTransactionConfirmed())
 
     // goto
-    history.push('/prove')
+    yield put(navigateTo('/prove'))
 }
 
 function* proveDeposit() {
@@ -147,8 +153,12 @@ function* proveDeposit() {
         )
     } catch (err) {
         if (err.message.includes(METAMASK_TX_DENIED_ERROR)) return
+
         throw err
     }
+
+    // Close connection to electrum server.
+    electrumClient.close()
 
     yield put({
         type: DEPOSIT_PROVE_BTC_TX_SUCCESS,
@@ -162,7 +172,7 @@ function* proveDeposit() {
     })
 
     // goto
-    history.push('/congratulations')
+    yield put(navigateTo('/congratulations'))
 }
 
 export default function* () {

@@ -2,6 +2,8 @@ import React from 'react';
 import { render, hydrate } from 'react-dom'
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
+import routerMiddleware from './lib/router/middleware'
+import notificationMiddleware from './lib/notifications/middleware'
 import { Provider } from 'react-redux'
 import { Router, Route } from 'react-router-dom'
 
@@ -29,10 +31,15 @@ import history from './history'
 
 // Set up our store
 const sagaMiddleware = createSagaMiddleware()
+const middleware = [
+  routerMiddleware,
+  notificationMiddleware,
+  sagaMiddleware,
+]
 
 const store = createStore(
   reducers,
-  applyMiddleware(sagaMiddleware)
+  applyMiddleware(...middleware)
 )
 
 sagaMiddleware.run(sagas)
