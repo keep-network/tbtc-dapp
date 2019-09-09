@@ -14,6 +14,7 @@
         "react-redux": "^7.1.0",
         "react-router-dom": "^5.0.1",
         "react-scripts": "3.0.1",
+        "react-snap": "^1.23.0",
         "redux": "^4.0.4",
         "redux-saga": "^1.0.5",
         "tbtc-client": "file:client",
@@ -30,7 +31,8 @@
         "start": "npm-run-all -p watch-css start-js",
         "build": "npm run build-css && react-scripts --max_old_space_size=8192 build",
         "test": "react-scripts test --env=jsdom",
-        "eject": "react-scripts eject"
+        "eject": "react-scripts eject",
+        "publish": "REACT_APP_STATIC=true npm run build && react-snap"
     },
     "eslintConfig": {
         "extends": "react-app"
