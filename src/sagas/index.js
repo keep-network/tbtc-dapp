@@ -9,7 +9,8 @@ import {
     getDepositBtcAddress,
     watchForFundingTransaction,
     waitForConfirmations,
-    calculateAndSubmitFundingProof,
+    getTransactionProof,
+    submitFundingProof
 } from 'tbtc-client'
 
 import { notifyTransactionConfirmed } from '../lib/notifications/actions'
@@ -138,17 +139,29 @@ function* proveDeposit() {
 
     const electrumClient = yield call(getElectrumClient)
 
+    // TODO: We need to calculate confirmations value in a special way:
+    // See: https://github.com/keep-network/tbtc-dapp/pull/8#discussion_r307438648
+    // TODO: Original value `6` was decreased to `1` for demo simplification. Set it
+    // back to `6`.
+    const confirmations = 1
+
     // get the transaction details from the bitcoin chain
     // run through the proof generation process
     // generate a proof
+    const transactionProof = yield call(
+        getTransactionProof,
+        electrumClient,
+        btcDepositedTxID,
+        confirmations
+    )
+
     // again, call the web3 contract, submitting the proof
     let tbtcMintedTxID
     try {
         tbtcMintedTxID = yield call(
-            calculateAndSubmitFundingProof,
-            electrumClient,
+            submitFundingProof,
             depositAddress,
-            btcDepositedTxID,
+            transactionProof,
             fundingOutputIndex
         )
     } catch (err) {
