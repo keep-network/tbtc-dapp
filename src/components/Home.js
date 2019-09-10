@@ -12,6 +12,9 @@ class Home extends Component {
   }
 
   render() {
+    const { noEntry } = this.props
+    const isMobile = window.innerWidth < 768
+
     return (
       <div className="home">
         <div className="title">
@@ -22,19 +25,31 @@ class Home extends Component {
           Ethereum
 		      <div className="subtitle">
             <div className="vertical-aligned">
-              No KYC, no middlemen, no bullshit.
+              { isMobile
+                ? <span>
+                    No KYC,
+                    <br />
+                    no middlemen,
+                    <br />
+                    no bullshit.
+                  </span>
+                : <span>No KYC, no middlemen, no bullshit.</span>
+              }
 		        </div>
           </div>
         </div>
         <div className="step-by-step">
           <ol>
             <li>
-              <a href="/start" onClick={this.handleClickPay}>
-                Deposit BTC
-              </a>
+              { noEntry
+                ? 'Deposit BTC'
+                : <a href="/start" onClick={this.handleClickPay}>
+                    Deposit BTC
+                  </a>
+              }
             </li>
             <li>
-              Mint tBTC
+              Mint TBTC
 		        </li>
             <li>
               Lend and earn interest on your BTC.
@@ -46,7 +61,7 @@ class Home extends Component {
             No middlemen. Period.
 		      </div>
           <div className="line-and-sinker">
-            Censorship resistant, seizure resistant, inflation resistant
+            Censorship resistant, seizure resistant, inflation resistant.
 		      </div>
         </div>
       </div>
