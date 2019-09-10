@@ -1,18 +1,14 @@
 import React, { Component } from 'react'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 
-import { Footer, Header, Modal } from './lib'
-import { openModal } from '../actions'
+import { Footer, Header } from './lib'
 
 class App extends Component {
   render() {
-    const { children, openModal, location } = this.props
+    const { children, location } = this.props
 
     return (
-      <div className="main" onMouseLeave={openModal}>
-        <Modal />
+      <div className="main">
         <div className="app">
           <Header />
           { children }
@@ -23,16 +19,4 @@ class App extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(
-      {
-        openModal
-      },
-      dispatch
-  )
-}
-
-export default connect(
-  () => ({}),
-  mapDispatchToProps
-)(withRouter(App))
+export default withRouter(App)
