@@ -12,6 +12,59 @@
 @import 'prove.less';
 @import 'congratulations.less';
 
+.wavy-clipped {
+    position: relative;
+    height: 300px;
+    width: 301px;
+    margin: 0 auto;
+    overflow: hidden;
+
+    .pulse {
+        position: absolute;
+        top:50%;
+        left: 50%;
+        animation: shadow-pulse 2000ms infinite;
+        animation-timing-function: ease-in-out;
+    }
+
+    svg {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+    }
+
+    .st0 {
+        fill: #fff;
+    }
+}
+
+@keyframes shadow-pulse
+{
+  0% {
+    box-shadow: 0 0 0 0px @success;
+  }
+  40% {
+    box-shadow: 0 0 255px 255px @success;
+  }
+  50% {
+    box-shadow: 0 0 255px 255px transparent;
+  }
+  51% {
+    box-shadow: 0 0 0 0px transparent;
+  }
+  52% {
+    box-shadow: 0 0 0 0px @purple;
+  }
+  90% {
+    box-shadow: 0 0 255px 255px @purple;
+  }
+  100% {
+    box-shadow: 0 0 255px 255px transparent;
+  }
+}
+
 html, body, #root {
     margin: 0;
     font-family: 'apercu-mono-regular-pro';
