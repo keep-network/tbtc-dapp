@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "classnames": "^2.2.6",
         "history": "^4.9.0",
         "less": "^3.9.0",
         "less-plugin-clean-css": "^1.5.1",
