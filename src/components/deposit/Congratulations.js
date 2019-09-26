@@ -1,12 +1,11 @@
 import React from 'react'
 
 import Wavy from '../svgs/Wavy'
-import WavyClipped from './svgs/Wavy_clipped'
 
 const Congratulations = () => (
   <div className="congratulations">
     <div className="page-top">
-      <WavyClipped />
+      <Wavy loading />
     </div>
     <div className="page-body">
       <div className="step">
