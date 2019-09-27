@@ -1,15 +1,15 @@
 .wavy {
     position: relative;
-    height: 300px;
-    width: 300px;
+    height: 260px;
+    width: 260px;
     margin: 0 auto;
     overflow: hidden;
 
     .tlogo, .btclogo {
         position: absolute;
         z-index: 1;
-        top: 97px;
-        left: 103px;
+        top: 81px;
+        left: 79px;
     }
 
     .tlogo {
@@ -25,12 +25,20 @@
         animation-timing-function: ease-in-out;
     }
 
-    .gradient {
+    .gradient, .purple, .green {
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
+    }
+
+    .purple {
+        background: @purple;
+    }
+
+    .green {
+        background: @success;
     }
 
     .wavy-svg {

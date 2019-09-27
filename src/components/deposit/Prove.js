@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import { submitProof } from '../../actions'
-import Peanut from '../svgs/Peanut'
+import Wavy from '../svgs/Wavy'
 
 class Prove extends Component {
   handleClickProve = (evt) => {
@@ -21,7 +21,7 @@ class Prove extends Component {
     return (
       <div className="prove">
         <div className="page-top">
-          <Peanut width="250px" loading={provingDeposit} error={!!proveDepositError}/>
+          <Wavy loading />
         </div>
         <div className="page-body">
           <div className="step">

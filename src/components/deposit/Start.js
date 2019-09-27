@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import history from '../../history'
 import { requestPermission } from '../../lib/notifications'
 import { withAccount } from '../../wrappers/web3'
+import Wavy from '../svgs/Wavy'
 
 class Start extends Component {
 
@@ -27,6 +28,7 @@ class Start extends Component {
     return (
       <div className="start">
         <div className="page-top">
+          <Wavy btcLogo />
         </div>
         <div className="page-body">
           <div className="step">

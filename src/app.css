@@ -59,13 +59,6 @@ footer {
   text-align: center;
   min-height: 625px;
 }
-.start .page-top,
-.invoice .page-top,
-.pay .page-top,
-.prove .page-top,
-.congratulations .page-top {
-  margin: 25px 0 100px 0;
-}
 .start .page-body,
 .invoice .page-body,
 .pay .page-body,
@@ -174,8 +167,8 @@ footer {
 }
 .wavy {
   position: relative;
-  height: 300px;
-  width: 300px;
+  height: 260px;
+  width: 260px;
   margin: 0 auto;
   overflow: hidden;
 }
@@ -183,8 +176,8 @@ footer {
 .wavy .btclogo {
   position: absolute;
   z-index: 1;
-  top: 97px;
-  left: 103px;
+  top: 81px;
+  left: 79px;
 }
 .wavy .tlogo {
   animation: spin 1750ms 1;
@@ -197,12 +190,20 @@ footer {
   animation: shadow-pulse 5000ms infinite;
   animation-timing-function: ease-in-out;
 }
-.wavy .gradient {
+.wavy .gradient,
+.wavy .purple,
+.wavy .green {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+}
+.wavy .purple {
+  background: #370C5F;
+}
+.wavy .green {
+  background: #5CE783;
 }
 .wavy .wavy-svg {
   position: absolute;
@@ -380,9 +381,6 @@ footer {
     font-size: 0.75em;
   }
 }
-.pay .page-top {
-  margin: -25px 0 25px 0;
-}
 .pay .page-body .custodial-fee {
   margin-top: 40px;
 }
@@ -410,9 +408,6 @@ footer {
 .pay .hidden-copy-field {
   position: absolute;
   right: 999999px;
-}
-.prove .page-top svg path {
-  fill: #479CFF;
 }
 .prove-modal {
   display: flex;
@@ -455,9 +450,6 @@ footer {
 .prove-modal .modal-right .peanuts svg:last-of-type {
   transform: translate(-50px, -8px);
 }
-.congratulations .page-top {
-  margin: 0 0 75px 0;
-}
 .congratulations .page-body .description .bond-duration {
   font-family: 'apercu-bold-pro';
   margin-top: 30px;
@@ -492,7 +484,7 @@ a {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  margin: 80px 0;
+  margin: 50px 0;
 }
 .app .nav .hamburger {
   flex-grow: 0;
@@ -566,6 +558,9 @@ a {
 }
 .app .peanut.error svg path {
   fill: #E7755C;
+}
+.app .page-top {
+  margin-bottom: 25px;
 }
 footer {
   flex-shrink: 0;

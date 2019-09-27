@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import { waitConfirmation } from '../../actions'
 import QRCode from 'qrcode.react'
-import Peanut from '../svgs/Peanut'
+import Wavy from '../svgs/Wavy'
 
 class Pay extends Component {
   state = {
@@ -63,7 +63,7 @@ class Pay extends Component {
       )
     } else {
       renderTop = (
-        <Peanut width="250px" loading={true} />
+        <Wavy loading />
       )
 
       renderTitle = (
