@@ -1,15 +1,16 @@
 import React from 'react'
 import TLogo from './tlogo'
+import BTCLogo from './btclogo'
 import classnames from 'classnames'
 
 const Wavy = ({ btcLogo, loading, tbtcLogo }) => {
   return (
     <div className="wavy">
-      {/*
+      {
         btcLogo && (
           <BTCLogo height={100} width={100} />
         )
-      */}
+      }
       {
         tbtcLogo && (
           <TLogo height={100} width={100} />

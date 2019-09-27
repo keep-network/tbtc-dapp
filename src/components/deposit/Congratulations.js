@@ -1,11 +1,11 @@
 import React from 'react'
 
-import Wavy from './svgs/Wavy'
+import Wavy from '../svgs/Wavy'
 
 const Congratulations = () => (
   <div className="congratulations">
     <div className="page-top">
-      <Wavy loading />
+      <Wavy tbtcLogo />
     </div>
     <div className="page-body">
       <div className="step">
