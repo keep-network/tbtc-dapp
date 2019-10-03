@@ -39,7 +39,7 @@ const Web3Status = ({ account, loading, web3 }) => {
 
   return (
     <div className="web3-status success">
-      <Check width="25px" /> Account logged in
+      <Check width="15px" /> Account logged in
       </div>
   )
 }

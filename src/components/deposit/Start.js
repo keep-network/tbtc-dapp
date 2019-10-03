@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
 import history from '../../history'
-import { Web3Status } from './../lib'
 import { requestPermission } from '../../lib/notifications'
 import { withAccount } from '../../wrappers/web3'
 
@@ -28,7 +27,6 @@ class Start extends Component {
     return (
       <div className="start">
         <div className="page-top">
-          <Web3Status />
         </div>
         <div className="page-body">
           <div className="step">
