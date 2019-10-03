@@ -41,7 +41,7 @@ a {
     .nav {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: center;
         margin: 80px 0;
 
@@ -59,6 +59,45 @@ a {
             flex-grow: 0;
             svg {
                 display: block;
+            }
+        }
+
+        .web3-status {
+            margin-left: 35px;
+            padding: 5px 10px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            background-color: @light-grey;
+            font-size: .6em;
+            font-family: 'apercu-mono-regular-pro';
+
+            &.loading {
+                border-color: @loading;
+                color: @loading;
+            }
+
+            &.alert {
+                border-color: @alert;
+                color: @alert;
+            }
+
+            &.notify {
+                border-color: @notify;
+                color: @notify;
+            }
+
+            &.success {
+                border-color: @success;
+                color: @success;
+            }
+
+            svg {
+                display: inline-block;
+                vertical-align: text-bottom;
+            }
+
+            a {
+                color: unset;
             }
         }
     }
