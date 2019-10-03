@@ -24,10 +24,50 @@
         }
     }
 
+    .mint-or-redeem {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        margin-top: 80px;
+
+        a {
+            text-decoration: none!important;
+            flex: 0;
+            position: relative;
+            margin-right: 200px;
+
+            &:first-of-type {
+                margin-right: 260px;
+            }
+        }
+
+        .button {
+            &.blue { --color: @blue; }
+            &.black { --color: @black; }
+            
+            position: absolute;
+            border: 3px solid var(--color);
+            padding: 20px 40px;
+            font-family: 'apercu-mono-regular-pro';
+            color: var(--color);
+            white-space: nowrap;
+            transform: scale(1);
+            transition: transform 150ms ease-in-out;
+
+            &:hover {
+                background-color: var(--color);
+                box-shadow: 2px 2px 7px -2px var(--color);
+                color: @white;
+                transform: scale(1.1) translateX(-10px);
+                padding: 20px;
+            }
+        }
+    }
+
     .step-by-step {
         width: 100vw;
         margin-left: calc((100vw - 100%) / -2);
-        margin-top: 80px;
+        margin-top: 110px;
         border-width: 1px 0;
         border-style: solid;
         border-color: @light-blue;
