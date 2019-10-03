@@ -20,19 +20,10 @@ const Web3Status = ({ account, loading, web3 }) => {
     )
   }
 
-  // TODO: Figure out why this is always true
-  if (!web3.eth.currentProvider.isConnected()) {
-    return (
-      <div className="web3-status notify">
-        Web3 detected, but you need to connect this dApp.
-        </div>
-    )
-  }
-
   if (!account) {
     return (
       <div className="web3-status notify">
-        Web3 connected, but you need to log into an account.
+        Web3 detected, but you need to connect & log into an account.
         </div>
     )
   }
