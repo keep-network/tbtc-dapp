@@ -207,7 +207,7 @@ footer {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  margin-top: 80px;
+  margin: 80px 0 170px 0;
 }
 .home .mint-or-redeem a {
   text-decoration: none!important;
@@ -236,10 +236,8 @@ footer {
 }
 .home .mint-or-redeem .button:hover {
   background-color: var(--color);
-  box-shadow: 2px 2px 7px -2px var(--color);
   color: #fff;
-  transform: scale(1.1) translateX(-10px);
-  padding: 20px;
+  transform: scale(1.05);
 }
 .home .step-by-step {
   width: 100vw;
