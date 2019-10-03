@@ -14,11 +14,14 @@ class Web3Wrapper extends Component {
         if (window.web3) {
             this.setState({
                 web3: new Web3(window.web3.currentProvider)
-            }, () => {
+            }, async () => {
+                // Check for MetaMask connection
+                await this.connectDapp()
+
                 // Initial fetch
-                this.getAndSetAccountInfo().then(() => {
-                    this.setState({ loading: false })
-                })
+                await this.getAndSetAccountInfo()
+
+                this.setState({ loading: false })
 
                 // Watch for changes
                 const provider = this.state.web3.eth.currentProvider
@@ -26,6 +29,16 @@ class Web3Wrapper extends Component {
                 provider.on('accountsChanged', this.getAndSetAccountInfo)
             })
         }
+    }
+
+    connectDapp = async () => {
+        const { web3 } = this.state
+
+        if (!web3.currentProvider.isConnected()) {
+            return web3.currentProvider.enable()
+        }
+
+        return true
     }
 
     getAndSetAccountInfo = async () => {
