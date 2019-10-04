@@ -8,14 +8,12 @@
 @import 'modal.less';
 @import 'home.less';
 @import 'start.less';
-@import 'invoice.less';
 @import 'pay.less';
 @import 'prove.less';
 @import 'congratulations.less';
 
 html, body, #root {
     margin: 0;
-    height: 100%;
     font-family: 'apercu-mono-regular-pro';
     overflow-x: hidden;
 }
@@ -61,6 +59,40 @@ a {
             flex-grow: 0;
             svg {
                 display: block;
+            }
+        }
+    }
+
+    @media (max-width: @content-width) {
+        padding: 40px;
+        width: 100%;
+        box-sizing: border-box;
+
+        .nav {
+            margin: 30px 0 80px 0;
+        }
+    }
+
+    .peanut {
+        &.loading {
+            svg {
+                path {
+                    animation: pulse 3s linear infinite;
+                }
+            }
+
+            @keyframes pulse {
+                0% { fill: transparent; }
+                50% { fill: @purple; }
+                100% { fill: transparent; }
+            }
+        }
+
+        &.error {
+            svg {
+                path {
+                    fill: @alert;
+                }
             }
         }
     }
@@ -138,7 +170,7 @@ footer {
 
     &.include-subscription {
         background-image: url('static/Flow.png');
-        background-color: @notify-desaturated;
+        background-color: @purple;
         background-position: center top;
         background-size: 100% auto;
         padding: 50px 0 0 0;
@@ -155,6 +187,7 @@ footer {
         .mailing-list {
             margin: 75px auto;
             width: @content-width;
+            position: relative;
 
             form {
                 display: flex;
@@ -162,14 +195,19 @@ footer {
 
                 input {
                     border: 0;
+                    margin: 0;
                     font-family: 'apercu-mono-regular-pro';
                 }
 
                 input[type="text"] {
                     flex: 1 0;
-                    padding-left: 10px;
+                    padding-left: 24px;
                     color: @dark-grey;
                     font-size: 1.3em;
+
+                    &:disabled {
+                        background-color: #888;
+                    }
                 }
     
                 input[type="submit"] {
@@ -184,6 +222,84 @@ footer {
                     &:hover {
                         background-color: @success;
                     }
+                }
+
+                input {
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    appearance: none;
+                    border-radius: 0;
+                }
+            }
+
+            .error {
+                margin-top: 20px;
+                padding: 10px;
+                background-color: @white;
+                color: @alert;
+            }
+
+            .success {
+                background-color: @success;
+                text-align: center;
+                padding: 14px 0 11px 0;
+                width: 190px;
+
+                svg {
+                    circle {
+                        fill: @white;
+                        stroke: @black;
+                    }
+
+                    path {
+                        stroke: @black;
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: @content-width) {
+        &.include-subscription {
+            .footer-content {
+                padding: 80px 50px;
+    
+                .white-paper {
+                    flex-direction: column;
+                    align-items: flex-start;
+    
+                    .white-paper-link {
+                        margin-top: 40px;
+                    }
+                }
+            }
+
+            .mailing-list {
+                width: 100%;
+                padding: 0 40px;
+                box-sizing: border-box;
+
+                form {
+                    flex-direction: column;
+
+                    input[type="text"] {
+                        padding: 16px;
+                        font-size: .9em;
+                    }
+
+                    input[type="submit"] {
+                        padding: 15px;
+                        font-size: 1em;
+
+                        &:hover {
+                            background-color: @black;
+                        }
+                    }
+                }
+
+                .success {
+                    padding: 8px 0 5px 0;
+                    width: unset;
                 }
             }
         }

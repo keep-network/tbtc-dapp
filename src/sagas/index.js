@@ -1,17 +1,17 @@
-import { call, put, takeLatest, select } from 'redux-saga/effects'
+import { call, put, takeLatest, takeLeading, select } from 'redux-saga/effects'
 
-import { REQUEST_A_DEPOSIT, WAIT_CONFIRMATION, SUBMIT_DEPOSIT_PROOF, CLOSE_MODAL } from '../actions'
+import { REQUEST_A_DEPOSIT, WAIT_CONFIRMATION, SUBMIT_DEPOSIT_PROOF } from '../actions'
 import { METAMASK_TX_DENIED_ERROR } from '../chain'
 
 import {
     createDeposit,
+    watchForPublicKeyPublished,
     getDepositBtcAddress,
     watchForFundingTransaction,
     waitForConfirmations,
-    calculateAndSubmitFundingProof,
-    watchForPublicKeyPublished
+    getTransactionProof,
+    submitFundingProof
 } from 'tbtc-client'
-
 import { notifyTransactionConfirmed } from '../lib/notifications/actions'
 import { navigateTo } from '../lib/router/actions'
 
@@ -27,13 +27,17 @@ export const BTC_TX_CONFIRMED = 'BTC_TX_CONFIRMED'
 
 export const DEPOSIT_PROVE_BTC_TX_BEGIN = 'DEPOSIT_PROVE_BTC_TX_BEGIN'
 export const DEPOSIT_PROVE_BTC_TX_SUCCESS = 'DEPOSIT_PROVE_BTC_TX_SUCCESS'
+export const DEPOSIT_PROVE_BTC_TX_ERROR = 'DEPOSIT_PROVE_BTC_TX_ERROR'
 
 const ElectrumClient = require('tbtc-helpers').ElectrumClient
 
 async function getElectrumClient() {
     const config = require('../config/config.json')
+
     const electrumClient = new ElectrumClient.Client(config.electrum.testnetWS)
+
     await electrumClient.connect()
+
     return electrumClient
 }
 
@@ -111,6 +115,9 @@ function* waitConfirmation() {
 
     yield call(waitForConfirmations, electrumClient, fundingTx.transactionID)
 
+    // Close connection to electrum server.
+    electrumClient.close()
+
     // when it's finally sufficiently confirmed, dispatch the txid
     yield put({
         type: BTC_TX_CONFIRMED
@@ -124,49 +131,69 @@ function* waitConfirmation() {
 }
 
 function* proveDeposit() {
-    yield put({ type: DEPOSIT_PROVE_BTC_TX_BEGIN })
-
-    const depositAddress = yield select(state => state.app.depositAddress)
-    const btcDepositedTxID = yield select(state => state.app.btcDepositedTxID)
-    const fundingOutputIndex = yield select(state => state.app.fundingOutputIndex)
-
-    const electrumClient = yield call(getElectrumClient)
-
-    // get the transaction details from the bitcoin chain
-    // run through the proof generation process
-    // generate a proof
-    // again, call the web3 contract, submitting the proof
-    let tbtcMintedTxID
     try {
-        tbtcMintedTxID = yield call(
-            calculateAndSubmitFundingProof,
+        yield put({ type: DEPOSIT_PROVE_BTC_TX_BEGIN })
+
+        const depositAddress = yield select(state => state.app.depositAddress)
+        const btcDepositedTxID = yield select(state => state.app.btcDepositedTxID)
+        const fundingOutputIndex = yield select(state => state.app.fundingOutputIndex)
+
+        const electrumClient = yield call(getElectrumClient)
+
+        // TODO: We need to calculate confirmations value in a special way:
+        // See: https://github.com/keep-network/tbtc-dapp/pull/8#discussion_r307438648
+        // TODO: Original value `6` was decreased to `1` for demo simplification. Set it
+        // back to `6`.
+        const confirmations = 1
+
+        // get the transaction details from the bitcoin chain
+        // run through the proof generation process
+        // generate a proof
+        const transactionProof = yield call(
+            getTransactionProof,
             electrumClient,
-            depositAddress,
             btcDepositedTxID,
-            fundingOutputIndex
+            confirmations
         )
-    } catch (err) {
-        if (err.message.includes(METAMASK_TX_DENIED_ERROR)) return
-        throw err
-    }
 
-    yield put({
-        type: DEPOSIT_PROVE_BTC_TX_SUCCESS,
-        payload: {
-            tbtcMintedTxID,
+        // again, call the web3 contract, submitting the proof
+        let tbtcMintedTxID
+        try {
+            tbtcMintedTxID = yield call(
+                submitFundingProof,
+                depositAddress,
+                transactionProof,
+                fundingOutputIndex
+            )
+        } catch (err) {
+            if (err.message.includes(METAMASK_TX_DENIED_ERROR)) return
+
+            throw err
         }
-    })
 
-    yield put({
-        type: CLOSE_MODAL
-    })
+        // Close connection to electrum server.
+        electrumClient.close()
 
-    // goto
-    yield put(navigateTo('/deposit/congratulations'))
+        yield put({
+            type: DEPOSIT_PROVE_BTC_TX_SUCCESS,
+            payload: {
+                tbtcMintedTxID,
+            }
+        })
+
+        // goto
+        yield put(navigateTo('/deposit/congratulations'))
+
+    } catch (outerErr) {
+        yield put({
+            type: DEPOSIT_PROVE_BTC_TX_ERROR,
+            payload: { error: outerErr.toString() }
+        })
+    }
 }
 
 export default function* () {
     yield takeLatest(REQUEST_A_DEPOSIT, requestADeposit)
     yield takeLatest(WAIT_CONFIRMATION, waitConfirmation)
-    yield takeLatest(SUBMIT_DEPOSIT_PROOF, proveDeposit)
+    yield takeLeading(SUBMIT_DEPOSIT_PROOF, proveDeposit)
 }

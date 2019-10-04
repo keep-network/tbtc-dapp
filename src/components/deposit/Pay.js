@@ -63,9 +63,7 @@ class Pay extends Component {
       )
     } else {
       renderTop = (
-        <div className="confirming">
-          <Peanut width="250px" />
-        </div>
+        <Peanut width="250px" loading={true} />
       )
 
       renderTitle = (

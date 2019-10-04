@@ -29,7 +29,7 @@ class Invoice extends Component {
       <div className="invoice">
         <div className="page-top">
           <div className="building">
-            <Peanut width="250px" />
+            <Peanut width="250px" loading={true} />
           </div>
         </div>
         <div className="page-body">

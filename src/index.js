@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
+import { render, hydrate } from 'react-dom'
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import routerMiddleware from './lib/router/middleware'
@@ -76,7 +76,35 @@ function AppWrapper() {
   )
 }
 
+// Compose our static Landing Page
+function StaticWrapper() {
+  return (
+    <Provider store={store}>
+      <Router history={history}>
+        <App>
+            <Home noEntry={true} />
+        </App>
+      </Router>
+    </Provider>
+  )
+}
+
+// Are we building a static bundle or running a live app?
+let Entry
+
+if (process.env.REACT_APP_STATIC) {
+  Entry = StaticWrapper
+} else {
+  Entry = AppWrapper
+}
+
 // Render to DOM
 window.addEventListener('load', () => {
-  ReactDOM.render(<AppWrapper />, document.getElementById('root'))
+  const rootElement = document.getElementById("root");
+
+  if (rootElement.hasChildNodes()) {
+    hydrate(<Entry />, rootElement)
+  } else {
+    render(<Entry />, rootElement)
+  }
 })

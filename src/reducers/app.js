@@ -3,7 +3,9 @@ import {
   DEPOSIT_BTC_ADDRESS,
   BTC_TX_MINED,
   BTC_TX_CONFIRMED_WAIT,
+  DEPOSIT_PROVE_BTC_TX_BEGIN,
   DEPOSIT_PROVE_BTC_TX_SUCCESS,
+  DEPOSIT_PROVE_BTC_TX_ERROR,
   DEPOSIT_REQUEST_BEGIN,
   DEPOSIT_PUBKEY_PUBLISHED
 } from "../sagas"
@@ -50,13 +52,26 @@ const app = (state = intialState, action) => {
     case BTC_TX_CONFIRMED_WAIT:
       return {
         ...state,
-        btcConfirming: true,
-
+        btcConfirming: true
+      }
+    case DEPOSIT_PROVE_BTC_TX_BEGIN:
+      return {
+        ...state,
+        provingDeposit: true,
+        proveDepositError: undefined
       }
     case DEPOSIT_PROVE_BTC_TX_SUCCESS:
       return {
         ...state,
-        tbtcMintedTxID: action.payload.tbtcMintedTxID
+        tbtcMintedTxID: action.payload.tbtcMintedTxID,
+        provingDeposit: false,
+        proveDepositError: undefined
+      }
+    case DEPOSIT_PROVE_BTC_TX_ERROR:
+      return {
+        ...state,
+        provingDeposit: false,
+        proveDepositError: action.payload.error
       }
     default:
       return state

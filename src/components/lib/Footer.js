@@ -1,34 +1,60 @@
 import React, { Component } from 'react'
 
 import TBTCLogo from '../svgs/TBTCLogo'
+import Check from '../svgs/Check'
 
 const validEmailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
-class Header extends Component {
+class Footer extends Component {
   state = {
-    email: ''
+    email: '',
+    success: false,
+    error: '',
+    loading: false
   }
 
   handleInput = (evt) => {
     this.setState({ email: evt.target.value })
   }
 
-  handleSubmit = (evt) => {
+  handleSubmit = async (evt) => {
     evt.preventDefault()
     evt.stopPropagation()
 
     const { email } = this.state
 
-    if (email.match(validEmailRegex)) {
-      console.log("SUCCESS: ", email)
-    } else {
-      console.log("Failure: ", email)
+    if (!email.match(validEmailRegex)) {
+      this.setState({
+        error: 'Invalid email',
+        loading: false
+      })
+      return
+    }
+
+    try {
+      this.setState({ loading: true })
+
+      await fetch('https://backend.tbtc.network/mailing-list/signup', {
+        method: 'POST',
+        body: JSON.stringify({ email })
+      }).then(res => res.json())
+
+      this.setState({
+        success: true,
+        error: '',
+        loading: false
+      })
+    } catch (err) {
+      this.setState({
+        error: err.toString(),
+        loading: false
+      })
     }
   }
 
   render() {
     const { includeSubscription } = this.props
-    const { email } = this.state
+    const { email, error, success, loading } = this.state
 
     return (
       <footer className={includeSubscription ? 'include-subscription' : ''}>
@@ -51,11 +77,23 @@ class Header extends Component {
               <form onSubmit={this.handleSubmit}>
                 <input
                   type="text"
+                  disabled={loading || success}
                   onChange={this.handleInput}
                   value={email}
-                  placeholder="enter your email to recieve updates" />
-                <input type="submit" value="Submit >>>>" />
+                  placeholder="enter your email to receive updates" />
+                { success
+                  ? <div className="success">
+                      <Check width="30px" height="30px" />
+                    </div>
+                  : <input type="submit" value={loading ? "(submitting...)" : "Submit >>>>"} />
+                }
               </form>
+              { error
+                ? <div className="error">
+                    { error }
+                  </div>
+                : ''
+              }
             </div>
           )
         }
@@ -65,7 +103,7 @@ class Header extends Component {
               <TBTCLogo width="150" />
             </div>
             <div className="footer-links">
-              <a href="http://keep.network/" target="_blank" rel="noopener noreferrer">
+              <a href="https://crosschain.group" target="_blank" rel="noopener noreferrer">
                 about
               </a>
             </div>
@@ -76,4 +114,4 @@ class Header extends Component {
   }
 }
 
-export default Header
+export default Footer
