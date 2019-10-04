@@ -8,14 +8,14 @@ class Home extends Component {
     evt.preventDefault()
     evt.stopPropagation()
 
-    history.push('/deposit/start')
+    history.push('/deposit')
   }
 
   handleClickRedeem = (evt) => {
     evt.preventDefault()
     evt.stopPropagation()
 
-    history.push('/redemption/initialize')
+    history.push('/redeem')
   }
 
   render() {
@@ -50,12 +50,12 @@ class Home extends Component {
           ? ''
           : (
             <div className="mint-or-redeem">
-              <a href="/deposit/start" onClick={this.handleClickDeposit}>
+              <a href="/deposit" onClick={this.handleClickDeposit}>
                 <div className="button blue">
                   Deposit
                 </div>
               </a>
-              <a href="/redemption/initialize" onClick={this.handleClickRedeem}>
+              <a href="/redeem" onClick={this.handleClickRedeem}>
                 <div className="button black">
                   Redeem
                 </div>

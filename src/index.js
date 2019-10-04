@@ -13,18 +13,18 @@ import './app.css'
 // Components
 import {
   App,
-  Home,
-  Start
+  Home
 } from './components'
 import {
+  Start as StartDeposit,
   Invoice,
   Pay,
   Prove,
   Congratulations as CongratulationsDeposit
 } from './components/deposit'
 import {
-  Initialize,
-  Working,
+  Start as StartRedemption,
+  Confirming,
   Congratulations as CongratulationsRedemption
 } from './components/redemption'
 
@@ -60,15 +60,15 @@ function AppWrapper() {
         <Web3Wrapper>
           <App>
             <Route path="/" exact component={Home} />
-            <Route path="/start" component={Start} />
+            <Route path="/deposit/" exact component={StartDeposit} />
             <Route path="/deposit/invoice" component={Invoice} />
             <Route path="/deposit/pay" exact component={Pay} />
             <Route path="/deposit/pay/confirming" render={(props) => <Pay {...props} confirming={true} />} />
             <Route path="/deposit/prove" component={Prove} />
             <Route path="/deposit/congratulations" component={CongratulationsDeposit} />
-            <Route path="/redemption/initialize" component={Initialize} />
-            <Route path="/redemption/working" component={Working} />
-            <Route path="/redemption/congratulations" component={CongratulationsRedemption} />
+            <Route path="/redeem/" exact component={StartRedemption} />
+            <Route path="/redeem/confirming" component={Confirming} />
+            <Route path="/redeem/congratulations" component={CongratulationsRedemption} />
           </App>
         </Web3Wrapper>
       </Router>
