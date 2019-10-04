@@ -1,9 +1,9 @@
-import Initialize from './Initialize'
-import Working from './Working'
+import Start from './Start'
+import Confirming from './Confirming'
 import Congratulations from './Congratulations'
 
 export {
-    Initialize,
-    Working,
+    Start,
+    Confirming,
     Congratulations
 }

@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 
-class Initialize extends Component {
+class Start extends Component {
   render() {
       return (
-        <div className="initialize">
+        <div className="start">
           Collect contract and BTC addresses here
         </div >
       )
   }
 }
 
-export default Initialize
+export default Start
