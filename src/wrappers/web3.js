@@ -11,9 +11,9 @@ class Web3Wrapper extends Component {
     }
 
     componentDidMount() {
-        if (window.web3) {
+        if (window.ethereum) {
             this.setState({
-                web3: new Web3(window.web3.currentProvider)
+                web3: new Web3(window.ethereum)
             }, async () => {
                 // Connect to web3 if not done yet
                 await this.state.web3.currentProvider.enable()

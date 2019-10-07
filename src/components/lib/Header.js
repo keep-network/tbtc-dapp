@@ -8,7 +8,7 @@ const Header = props => (
     <div className="logo">
       <TBTCLogo width="150" />
     </div>
-    <Web3Status />
+    { window.location.pathname !== '/' ? <Web3Status /> : null }
   </header>
 )
 
