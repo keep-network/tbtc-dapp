@@ -18,7 +18,7 @@ class Start extends Component {
     const { account } = this.props
 
     if (account) {
-      history.push('/invoice')
+      history.push('/deposit/invoice')
     }
   }
 
@@ -43,7 +43,7 @@ class Start extends Component {
             <p>This should take less than 1 minute.</p>
           </div>
           <div className={`cta ${!account ? 'disabled' : ''}`}>
-            <a href="/invoice" onClick={this.handleClickPay}>
+            <a href="/deposit/invoice" onClick={this.handleClickPay}>
               Begin now >>>
             </a>
           </div>
