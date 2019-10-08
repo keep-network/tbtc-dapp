@@ -49,7 +49,6 @@ addresses:
 
 | `Deposit`        | 0xEe10E8766500713E6Afab48D0e9E6C1EcEb5b4eA
 | `DepositFactory` | 0xeaf438317eb5DEbC3d45262B31B77d25CAc49fD6
-| `KeepBridge`     | 0xCB7bdb38cd5f34655E33F7192136785Bd89E3884 
 | `TBTCSystem`     | 0x73aA4d669030B2455442C340b3D3E10B8d79e87d
 | `TBTCToken`      | 0xd434F7131c4f560fd7384B04383392F128fB9981
 | `ECDSAKeep`      | deployed via keep factory                 
