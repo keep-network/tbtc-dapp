@@ -6,22 +6,29 @@ const Web3Context = React.createContext({})
 
 class Web3Wrapper extends Component {
     state = {
-        loading: true,
         account: null,
     }
 
-    componentDidMount() {
-        if (window.web3) {
+    connectDapp = () => {
+        let provider
+        if (typeof window.ethereum !== 'undefined'
+        || (typeof window.web3 !== 'undefined')) {
+            provider = window.ethereum || window.web3.currentProvider
+
             this.setState({
-                web3: new Web3(window.web3.currentProvider)
-            }, () => {
+                loading: true,
+                web3: new Web3(provider)
+            }, async () => {
+                // Connect to web3 if not done yet
+                await this.state.web3.currentProvider.enable()
+
                 // Initial fetch
-                this.getAndSetAccountInfo().then(() => {
-                    this.setState({ loading: false })
-                })
+                await this.getAndSetAccountInfo()
+
+                this.setState({ loading: false })
 
                 // Watch for changes
-                const provider = this.state.web3.eth.currentProvider
+                provider = this.state.web3.eth.currentProvider
                 provider.on('networkChanged', this.getAndSetAccountInfo)
                 provider.on('accountsChanged', this.getAndSetAccountInfo)
             })
@@ -68,7 +75,13 @@ class Web3Wrapper extends Component {
     render() {
         const { account, balance, loading, web3 } = this.state
 
-        const contextValue = { account, balance, loading, web3 }
+        const contextValue = {
+            account,
+            balance,
+            loading,
+            web3,
+            connectDapp: this.connectDapp
+        }
 
         return (
             <Web3Context.Provider value={contextValue}>
@@ -102,6 +115,14 @@ function withBalance(Child) {
     )
 }
 
+function withConnectDapp(Child) {
+    return (props) => (
+        <Web3Context.Consumer>
+            {({ connectDapp, loading }) => <Child {...props} connectDapp={connectDapp} loading={loading} />}
+        </Web3Context.Consumer>
+    )
+}
+
 const Web3Consumer = Web3Context.Consumer
-export { Web3Consumer, withWeb3, withAccount, withBalance }
+export { Web3Consumer, withWeb3, withAccount, withBalance, withConnectDapp }
 export default Web3Wrapper

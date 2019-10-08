@@ -1,13 +1,14 @@
 import React from 'react'
 
 import TBTCLogo from '../svgs/TBTCLogo'
+import Web3Status from './Web3Status'
 
 const Header = props => (
   <header className="nav">
     <div className="logo">
       <TBTCLogo width="150" />
     </div>
-    {/* <div className="hamburger">&#x2e2c;</div> */}
+    { window.location.pathname !== '/' ? <Web3Status /> : null }
   </header>
 )
 
