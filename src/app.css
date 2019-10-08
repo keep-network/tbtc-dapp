@@ -307,38 +307,6 @@ footer {
     font-size: 0.75em;
   }
 }
-.start .page-top .web3-status {
-  display: inline-block;
-  padding: 20px;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  background-color: #f9f9f9;
-  font-size: 0.8em;
-}
-.start .page-top .web3-status.loading {
-  border-color: lighter(#370C5F, 33%);
-  color: #370C5F;
-}
-.start .page-top .web3-status.alert {
-  border-color: #FFDDD6;
-  color: #E7755C;
-}
-.start .page-top .web3-status.notify {
-  border-color: #D4E8FF;
-  color: #479CFF;
-}
-.start .page-top .web3-status.success {
-  border-color: #CBFCC7;
-  color: #5CE783;
-}
-.start .page-top .web3-status svg {
-  display: inline-block;
-  vertical-align: text-bottom;
-  margin-bottom: -2px;
-}
-.start .page-top .web3-status a {
-  color: unset;
-}
 .pay .page-top {
   margin: -25px 0 25px 0;
 }
@@ -449,7 +417,7 @@ a {
 .app .nav {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   margin: 80px 0;
 }
@@ -466,6 +434,38 @@ a {
 }
 .app .nav .logo svg {
   display: block;
+}
+.app .nav .web3-status {
+  margin-left: 35px;
+  padding: 5px 10px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  font-size: 0.6em;
+  font-family: 'apercu-mono-regular-pro';
+}
+.app .nav .web3-status.loading {
+  border-color: #370C5F;
+  color: #370C5F;
+}
+.app .nav .web3-status.alert {
+  border-color: #E7755C;
+  color: #E7755C;
+}
+.app .nav .web3-status.notify {
+  border-color: #479CFF;
+  color: #479CFF;
+}
+.app .nav .web3-status.success {
+  border-color: #5CE783;
+  color: #5CE783;
+}
+.app .nav .web3-status svg {
+  display: inline-block;
+  vertical-align: text-bottom;
+}
+.app .nav .web3-status a {
+  color: unset;
 }
 @media (max-width: 768px) {
   .app {
