@@ -1,9 +1,10 @@
-import { 
-  DepositFactory, 
-  ECDSAKeep, 
-  TBTCSystem, 
-  TBTCToken, 
-  truffleToWeb3Contract 
+import {
+  DepositFactory,
+  TBTCSystem,
+  TBTCConstants,
+  TBTCToken,
+  ECDSAKeep,
+  truffleToWeb3Contract
 } from './eth/contracts';
 
 /**
@@ -11,9 +12,10 @@ import {
  * @return {string} Address of the Deposit contract instance
  */
 export async function createDeposit() {
-  const tbtcSystem = await TBTCSystem.deployed()
-  const tbtcToken = await TBTCToken.deployed()
   const depositFactory = await DepositFactory.deployed()
+  const tbtcSystem = await TBTCSystem.deployed()
+  const tbtcConstants = await TBTCConstants.deployed()
+  const tbtcToken = await TBTCToken.deployed()
 
   const _keepThreshold = '1'
   const _keepSize = '1'
