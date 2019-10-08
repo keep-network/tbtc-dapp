@@ -57,15 +57,14 @@ export async function watchForPublicKeyPublished(depositAddress) {
   return new Promise(async (resolve, reject) => {
     const keepAddress = await getKeepAddress(depositAddress)
     const ecdsaKeep = truffleToWeb3Contract(await ECDSAKeep.at(keepAddress))
-    
+
     // Start watching for events
     console.log(`Watching for PublicKeyPublished event `)
-    ecdsaKeep.events.PublicKeyPublished()
-      .once('data', function(event) {
-        console.log(`Received event PublicKeyPublished [publicKey=${event.returnValues.publicKey}] for Keep [${keepAddress}]`)
-        resolve(event)
-      })
-    
+    ecdsaKeep.once('PublicKeyPublished', function (event) {
+      console.log(`Received event PublicKeyPublished [publicKey=${event.returnValues.publicKey}] for Keep [${keepAddress}]`)
+      resolve(event)
+    })
+
     // Query if an event was already emitted after we start watching
     let events = await ecdsaKeep.getPastEvents('PublicKeyPublished', {
       fromBlock: 0,
