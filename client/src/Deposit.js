@@ -1,4 +1,10 @@
-import { DepositFactory, ECDSAKeep, KeepBridge, TBTCSystem, TBTCToken, truffleToWeb3Contract } from './eth/contracts';
+import { 
+  DepositFactory, 
+  ECDSAKeep, 
+  TBTCSystem, 
+  TBTCToken, 
+  truffleToWeb3Contract 
+} from './eth/contracts';
 
 /**
  * Creates a new deposit and returns its address
@@ -7,7 +13,6 @@ import { DepositFactory, ECDSAKeep, KeepBridge, TBTCSystem, TBTCToken, truffleTo
 export async function createDeposit() {
   const tbtcSystem = await TBTCSystem.deployed()
   const tbtcToken = await TBTCToken.deployed()
-  const keepBridge = await KeepBridge.deployed()
   const depositFactory = await DepositFactory.deployed()
 
   const _keepThreshold = '1'
@@ -16,7 +21,6 @@ export async function createDeposit() {
   const result = await depositFactory.createDeposit(
     tbtcSystem.address,
     tbtcToken.address,
-    keepBridge.address,
     _keepThreshold,
     _keepSize
   )
