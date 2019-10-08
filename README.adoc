@@ -47,10 +47,11 @@ addresses:
 |===
 | Name           | Address                                    
 
-| `Deposit`        | 0xEe10E8766500713E6Afab48D0e9E6C1EcEb5b4eA
-| `DepositFactory` | 0xeaf438317eb5DEbC3d45262B31B77d25CAc49fD6
-| `TBTCSystem`     | 0x73aA4d669030B2455442C340b3D3E10B8d79e87d
-| `TBTCToken`      | 0xd434F7131c4f560fd7384B04383392F128fB9981
+| `Deposit`        | 0xe94728C7572900d914178ab17D7bbc9af8C543A0
+| `DepositFactory` | 0xE54dDac3bDBe943b4b76343c72C02aF5369b9Aaf
+| `TBTCSystem`     | 0x20c0D2C470D9Afcb3846E694a0D9d6dB5ED11a6A
+| `TBTCConstants`  | 0xC9435e9722509aD5AA7B01eBB2F33bdA453A6E58
+| `TBTCToken`      | 0x5373196E86906312c87cB7A30b9461a946DD5C82
 | `ECDSAKeep`      | deployed via keep factory                 
 |===
 
