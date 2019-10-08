@@ -20,11 +20,18 @@ export async function createDeposit() {
   const _keepThreshold = '1'
   const _keepSize = '1'
 
+  // Get required funder bond value.
+  const funderBond = await tbtcConstants.getFunderBondAmount()
+
+  // Create new deposit.
   const result = await depositFactory.createDeposit(
     tbtcSystem.address,
     tbtcToken.address,
     _keepThreshold,
-    _keepSize
+    _keepSize,
+    {
+      value: funderBond
+    }
   )
 
   // Find event in logs
