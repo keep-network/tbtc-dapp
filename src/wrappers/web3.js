@@ -10,10 +10,14 @@ class Web3Wrapper extends Component {
     }
 
     connectDapp = () => {
-        if (window.ethereum) {
+        let provider
+        if (typeof window.ethereum !== 'undefined'
+        || (typeof window.web3 !== 'undefined')) {
+            provider = window.ethereum || window.web3.currentProvider
+
             this.setState({
                 loading: true,
-                web3: new Web3(window.ethereum)
+                web3: new Web3(provider)
             }, async () => {
                 // Connect to web3 if not done yet
                 await this.state.web3.currentProvider.enable()
@@ -24,7 +28,7 @@ class Web3Wrapper extends Component {
                 this.setState({ loading: false })
 
                 // Watch for changes
-                const provider = this.state.web3.eth.currentProvider
+                provider = this.state.web3.eth.currentProvider
                 provider.on('networkChanged', this.getAndSetAccountInfo)
                 provider.on('accountsChanged', this.getAndSetAccountInfo)
             })
