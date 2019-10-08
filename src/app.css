@@ -212,22 +212,22 @@ footer {
 }
 .home .mint-or-redeem .button {
   position: absolute;
-  border: 3px solid var(--color);
+  border: 3px solid var(--button-color);
   padding: 20px 40px;
   font-family: 'apercu-mono-regular-pro';
-  color: var(--color);
+  color: var(--button-color);
   white-space: nowrap;
   transform: scale(1);
   transition: transform 150ms ease-in-out;
 }
 .home .mint-or-redeem .button.blue {
-  --color: #479CFF;
+  --button-color: #479CFF;
 }
 .home .mint-or-redeem .button.black {
-  --color: #000;
+  --button-color: #000;
 }
 .home .mint-or-redeem .button:hover {
-  background-color: var(--color);
+  background-color: var(--button-color);
   color: #fff;
   transform: scale(1.05);
 }
