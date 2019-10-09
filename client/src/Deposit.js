@@ -65,17 +65,30 @@ export async function watchForPublicKeyPublished(depositAddress) {
         console.log(`Received event PublicKeyPublished [publicKey=${event.returnValues.publicKey}] for Keep [${keepAddress}]`)
         resolve(event)
       })
-    
-    // Query if an event was already emitted after we start watching
-    let events = await ecdsaKeep.getPastEvents('PublicKeyPublished', {
-      fromBlock: 0,
-      toBlock: 'latest'
-    })
 
-    if(events.length != 0) {
-      const event = events[0]
-      console.log(`Found event PublicKeyPublished [publicKey=${event.returnValues.publicKey}] for Keep [${keepAddress}]`)
-      return resolve(event)
-    }
+    // As a workaround for a problem with MetaMask version 7.1.1 where subscription
+    // for events doesn't work correctly we pull past events in a loop until
+    // we find our event. This is a temporary solution which should be removed
+    // after problem with MetaMask is solved.
+    // See: https://github.com/MetaMask/metamask-extension/issues/7270
+    const handle = setInterval(
+      async function() {
+        // Query if an event was already emitted after we start watching
+        const events = await ecdsaKeep.getPastEvents('PublicKeyPublished', {
+          fromBlock: 0,
+          toBlock: 'latest',
+        })
+
+        if (events.length > 0) {
+          const event = events[0]
+          console.log(`Found event PublicKeyPublished [publicKey=${event.returnValues.publicKey}] for Keep [${keepAddress}]`)
+
+          clearInterval(handle)
+
+          return resolve(event)
+        }
+      },
+      3000 // every 3 seconds
+    )
   })
 }
