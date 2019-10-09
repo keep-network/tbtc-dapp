@@ -24,10 +24,48 @@
         }
     }
 
+    .mint-or-redeem {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        margin: 80px 0 170px 0;
+
+        a {
+            text-decoration: none!important;
+            flex: 0;
+            position: relative;
+            margin-right: 200px;
+
+            &:first-of-type {
+                margin-right: 260px;
+            }
+        }
+
+        .button {
+            &.blue { --button-color: @blue; }
+            &.black { --button-color: @black; }
+            
+            position: absolute;
+            border: 3px solid var(--button-color);
+            padding: 20px 40px;
+            font-family: 'apercu-mono-regular-pro';
+            color: var(--button-color);
+            white-space: nowrap;
+            transform: scale(1);
+            transition: transform 150ms ease-in-out;
+
+            &:hover {
+                background-color: var(--button-color);
+                color: @white;
+                transform: scale(1.05);
+            }
+        }
+    }
+
     .step-by-step {
         width: 100vw;
         margin-left: calc((100vw - 100%) / -2);
-        margin-top: 80px;
+        margin-top: 110px;
         border-width: 1px 0;
         border-style: solid;
         border-color: @light-blue;

@@ -13,13 +13,21 @@ import './app.css'
 // Components
 import {
   App,
-  Home,
-  Start,
+  Home
+} from './components'
+import {
+  Start as StartDeposit,
   Invoice,
   Pay,
   Prove,
-  Congratulations
-} from './components'
+  Congratulations as CongratulationsDeposit
+} from './components/deposit'
+import {
+  Start as StartRedemption,
+  Confirming,
+  Congratulations as CongratulationsRedemption
+} from './components/redemption'
+
 
 // Wrappers
 import Web3Wrapper from './wrappers/web3'
@@ -52,12 +60,15 @@ function AppWrapper() {
         <Web3Wrapper>
           <App>
             <Route path="/" exact component={Home} />
-            <Route path="/start" component={Start} />
-            <Route path="/invoice" component={Invoice} />
-            <Route path="/pay" exact component={Pay} />
-            <Route path="/pay/confirming" render={(props) => <Pay {...props} confirming={true} />} />
-            <Route path="/prove" component={Prove} />
-            <Route path="/congratulations" component={Congratulations} />
+            <Route path="/deposit" exact component={StartDeposit} />
+            <Route path="/deposit/invoice" component={Invoice} />
+            <Route path="/deposit/pay" exact component={Pay} />
+            <Route path="/deposit/pay/confirming" render={(props) => <Pay {...props} confirming={true} />} />
+            <Route path="/deposit/prove" component={Prove} />
+            <Route path="/deposit/congratulations" component={CongratulationsDeposit} />
+            <Route path="/redeem" exact component={StartRedemption} />
+            <Route path="/redeem/confirming" component={Confirming} />
+            <Route path="/redeem/congratulations" component={CongratulationsRedemption} />
           </App>
         </Web3Wrapper>
       </Router>

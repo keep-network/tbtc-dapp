@@ -4,11 +4,18 @@ import history from '../history'
 
 class Home extends Component {
 
-  handleClickPay = (evt) => {
+  handleClickDeposit = (evt) => {
     evt.preventDefault()
     evt.stopPropagation()
 
-    history.push('/start')
+    history.push('/deposit')
+  }
+
+  handleClickRedeem = (evt) => {
+    evt.preventDefault()
+    evt.stopPropagation()
+
+    history.push('/redeem')
   }
 
   render() {
@@ -38,15 +45,28 @@ class Home extends Component {
 		        </div>
           </div>
         </div>
+        {
+          noEntry
+          ? ''
+          : (
+            <div className="mint-or-redeem">
+              <a href="/deposit" onClick={this.handleClickDeposit}>
+                <div className="button blue">
+                  Deposit
+                </div>
+              </a>
+              <a href="/redeem" onClick={this.handleClickRedeem}>
+                <div className="button black">
+                  Redeem
+                </div>
+              </a>
+            </div>
+          )
+        }
         <div className="step-by-step">
           <ol>
             <li>
-              { noEntry
-                ? 'Deposit BTC'
-                : <a href="/start" onClick={this.handleClickPay}>
-                    Deposit BTC
-                  </a>
-              }
+              Deposit BTC
             </li>
             <li>
               Mint TBTC

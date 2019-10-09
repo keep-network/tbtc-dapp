@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Wavy from './svgs/Wavy'
+import Wavy from '../svgs/Wavy'
 
 const Congratulations = () => (
   <div className="congratulations">

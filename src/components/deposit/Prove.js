@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { submitProof } from '../actions'
-import Peanut from './svgs/Peanut'
+import { submitProof } from '../../actions'
+import Peanut from '../svgs/Peanut'
 
 class Prove extends Component {
   handleClickProve = (evt) => {
@@ -45,7 +45,7 @@ class Prove extends Component {
             }
           </div>
           <div className={`cta ${provingDeposit ? 'disabled' : ''}`}>
-            <a href="/pay" onClick={this.handleClickProve}>
+            <a href="/deposit/pay" onClick={this.handleClickProve}>
               Submit Proof >>>
             </a>
           </div>

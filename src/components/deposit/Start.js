@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
-import history from '../history'
-import { requestPermission } from '../lib/notifications'
-import { withAccount } from '../wrappers/web3'
+import history from '../../history'
+import { requestPermission } from '../../lib/notifications'
+import { withAccount } from '../../wrappers/web3'
 
 class Start extends Component {
 
@@ -17,7 +17,7 @@ class Start extends Component {
     const { account } = this.props
 
     if (account) {
-      history.push('/invoice')
+      history.push('/deposit/invoice')
     }
   }
 
@@ -41,7 +41,7 @@ class Start extends Component {
             <p>This should take less than 1 minute.</p>
           </div>
           <div className={`cta ${!account ? 'disabled' : ''}`}>
-            <a href="/invoice" onClick={this.handleClickPay}>
+            <a href="/deposit/invoice" onClick={this.handleClickPay}>
               Begin now >>>
             </a>
           </div>

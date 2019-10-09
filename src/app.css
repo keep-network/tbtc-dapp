@@ -195,10 +195,46 @@ footer {
   top: 50%;
   transform: translateY(-50%);
 }
+.home .mint-or-redeem {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin: 80px 0 170px 0;
+}
+.home .mint-or-redeem a {
+  text-decoration: none!important;
+  flex: 0;
+  position: relative;
+  margin-right: 200px;
+}
+.home .mint-or-redeem a:first-of-type {
+  margin-right: 260px;
+}
+.home .mint-or-redeem .button {
+  position: absolute;
+  border: 3px solid var(--button-color);
+  padding: 20px 40px;
+  font-family: 'apercu-mono-regular-pro';
+  color: var(--button-color);
+  white-space: nowrap;
+  transform: scale(1);
+  transition: transform 150ms ease-in-out;
+}
+.home .mint-or-redeem .button.blue {
+  --button-color: #479CFF;
+}
+.home .mint-or-redeem .button.black {
+  --button-color: #000;
+}
+.home .mint-or-redeem .button:hover {
+  background-color: var(--button-color);
+  color: #fff;
+  transform: scale(1.05);
+}
 .home .step-by-step {
   width: 100vw;
   margin-left: calc((100vw - 100%) / -2);
-  margin-top: 80px;
+  margin-top: 110px;
   border-width: 1px 0;
   border-style: solid;
   border-color: #9bcfff;
