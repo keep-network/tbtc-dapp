@@ -82,10 +82,10 @@ workflows:
     jobs:
       - build_and_test_dapp:
           context: keep-dev
-      - publish_dapp:
-          filters:
-            branches:
-              only: master
-          context: keep-dev
-          requires:
-            - build_and_test_dapp
+      #- publish_dapp:
+      #    filters:
+      #      branches:
+      #        only: master
+      #    context: keep-dev
+      #    requires:
+      #      - build_and_test_dapp
