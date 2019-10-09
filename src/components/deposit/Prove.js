@@ -45,7 +45,7 @@ class Prove extends Component {
             }
           </div>
           <div className={`cta ${provingDeposit ? 'disabled' : ''}`}>
-            <a href="/deposit/pay" onClick={this.handleClickProve}>
+            <a href="/deposit/congratulations" onClick={this.handleClickProve}>
               Submit Proof >>>
             </a>
           </div>
