@@ -63,7 +63,7 @@ export async function watchForPublicKeyPublished(depositAddress) {
     ecdsaKeep.events.PublicKeyPublished()
       .once('data', function(event) {
         console.log(`Received event PublicKeyPublished [publicKey=${event.returnValues.publicKey}] for Keep [${keepAddress}]`)
-        resolve(event)
+        return resolve(event)
       })
 
     // As a workaround for a problem with MetaMask version 7.1.1 where subscription
