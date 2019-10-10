@@ -74,7 +74,8 @@ footer {
 .invoice,
 .pay,
 .prove,
-.congratulations {
+.congratulations,
+.addresses {
   display: flex;
   flex-direction: column;
   font-family: 'apercu-mono-regular-pro';
@@ -85,17 +86,18 @@ footer {
 .invoice .page-body,
 .pay .page-body,
 .prove .page-body,
-.congratulations .page-body {
+.congratulations .page-body,
+.addresses .page-body {
   display: flex;
   flex-direction: column;
-  max-width: 500px;
   margin: 0 auto;
 }
 .start .page-body .step,
 .invoice .page-body .step,
 .pay .page-body .step,
 .prove .page-body .step,
-.congratulations .page-body .step {
+.congratulations .page-body .step,
+.addresses .page-body .step {
   flex: 0 1;
   color: #479CFF;
   font-size: 0.5em;
@@ -105,7 +107,8 @@ footer {
 .invoice .page-body .title,
 .pay .page-body .title,
 .prove .page-body .title,
-.congratulations .page-body .title {
+.congratulations .page-body .title,
+.addresses .page-body .title {
   flex: 0 1;
   font-size: 1.75em;
   font-weight: bold;
@@ -116,7 +119,8 @@ footer {
 .invoice .page-body hr,
 .pay .page-body hr,
 .prove .page-body hr,
-.congratulations .page-body hr {
+.congratulations .page-body hr,
+.addresses .page-body hr {
   flex: 0 1;
   border-style: dashed;
   border-width: 2px 0 0 0;
@@ -128,7 +132,8 @@ footer {
 .invoice .page-body .description,
 .pay .page-body .description,
 .prove .page-body .description,
-.congratulations .page-body .description {
+.congratulations .page-body .description,
+.addresses .page-body .description {
   flex: 0 1;
   font-size: 0.8em;
   margin-bottom: 40px;
@@ -137,7 +142,8 @@ footer {
 .invoice .page-body .cta,
 .pay .page-body .cta,
 .prove .page-body .cta,
-.congratulations .page-body .cta {
+.congratulations .page-body .cta,
+.addresses .page-body .cta {
   flex: 1 1;
   min-height: 100px;
   position: relative;
@@ -146,7 +152,8 @@ footer {
 .invoice .page-body .error,
 .pay .page-body .error,
 .prove .page-body .error,
-.congratulations .page-body .error {
+.congratulations .page-body .error,
+.addresses .page-body .error {
   flex: 1 1;
   font-size: 0.7em;
   color: #E7755C;
@@ -447,6 +454,45 @@ footer {
 .congratulations .page-body .description .bond-duration {
   font-family: 'apercu-bold-pro';
   margin-top: 30px;
+}
+.addresses .paste-field {
+  position: relative;
+  margin-bottom: 20px;
+}
+.addresses .paste-field label {
+  color: #666;
+}
+.addresses .paste-field input {
+  width: 100%;
+  margin: 15px 0;
+  height: 2em;
+  font-size: 1.2em;
+  font-family: 'apercu-mono-regular-pro';
+  padding: 2px 50px 0px 10px;
+  box-sizing: border-box;
+  background-color: #fff;
+  border: 1px solid #333;
+  border-radius: 5px;
+  box-shadow: none;
+  text-align: center;
+}
+.addresses .paste-field input:focus {
+  outline: none;
+  background-color: #f9f9f9;
+}
+.addresses .paste-field.success > input {
+  color: #5CE783;
+  border-color: #5CE783;
+}
+.addresses .paste-field.alert > input {
+  color: #E7755C;
+  border-color: #E7755C;
+}
+.addresses .paste-field .check-icon,
+.addresses .paste-field .x-icon {
+  position: absolute;
+  right: 12px;
+  top: 42px;
 }
 html,
 body,

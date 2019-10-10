@@ -48,10 +48,10 @@ class Start extends Component {
           <div className='cta'>
             <button
               onClick={this.handleClickPay}
-              disabled={!!account}
+              disabled={typeof account === 'undefined'}
               className="black"
               >
-              Begin now >>>
+              Begin now
             </button>
           </div>
         </div>
