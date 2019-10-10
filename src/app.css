@@ -75,7 +75,8 @@ footer {
 .pay,
 .prove,
 .congratulations,
-.addresses {
+.addresses,
+.confirming {
   display: flex;
   flex-direction: column;
   font-family: 'apercu-mono-regular-pro';
@@ -87,7 +88,8 @@ footer {
 .pay .page-body,
 .prove .page-body,
 .congratulations .page-body,
-.addresses .page-body {
+.addresses .page-body,
+.confirming .page-body {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -97,7 +99,8 @@ footer {
 .pay .page-body .step,
 .prove .page-body .step,
 .congratulations .page-body .step,
-.addresses .page-body .step {
+.addresses .page-body .step,
+.confirming .page-body .step {
   flex: 0 1;
   color: #479CFF;
   font-size: 0.5em;
@@ -108,7 +111,8 @@ footer {
 .pay .page-body .title,
 .prove .page-body .title,
 .congratulations .page-body .title,
-.addresses .page-body .title {
+.addresses .page-body .title,
+.confirming .page-body .title {
   flex: 0 1;
   font-size: 1.75em;
   font-weight: bold;
@@ -120,7 +124,8 @@ footer {
 .pay .page-body hr,
 .prove .page-body hr,
 .congratulations .page-body hr,
-.addresses .page-body hr {
+.addresses .page-body hr,
+.confirming .page-body hr {
   flex: 0 1;
   border-style: dashed;
   border-width: 2px 0 0 0;
@@ -133,7 +138,8 @@ footer {
 .pay .page-body .description,
 .prove .page-body .description,
 .congratulations .page-body .description,
-.addresses .page-body .description {
+.addresses .page-body .description,
+.confirming .page-body .description {
   flex: 0 1;
   font-size: 0.8em;
   margin-bottom: 40px;
@@ -143,7 +149,8 @@ footer {
 .pay .page-body .cta,
 .prove .page-body .cta,
 .congratulations .page-body .cta,
-.addresses .page-body .cta {
+.addresses .page-body .cta,
+.confirming .page-body .cta {
   flex: 1 1;
   min-height: 100px;
   position: relative;
@@ -153,7 +160,8 @@ footer {
 .pay .page-body .error,
 .prove .page-body .error,
 .congratulations .page-body .error,
-.addresses .page-body .error {
+.addresses .page-body .error,
+.confirming .page-body .error {
   flex: 1 1;
   font-size: 0.7em;
   color: #E7755C;

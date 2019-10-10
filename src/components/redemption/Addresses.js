@@ -2,12 +2,11 @@ import React, { Component } from 'react'
 import classnames from 'classnames'
 
 import history from '../../history'
-import { withAccount } from '../../wrappers/web3'
 import Wavy from '../svgs/Wavy'
 import Check from '../svgs/Check'
 import X from '../svgs/X'
 
-class Start extends Component {
+class Addresses extends Component {
 
   state = {
     contractAddress: '',
@@ -114,4 +113,4 @@ class Start extends Component {
   }
 }
 
-export default withAccount(Start)
+export default Addresses
