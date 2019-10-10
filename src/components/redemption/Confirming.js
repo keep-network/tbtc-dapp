@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 
-import history from '../../history'
 import Wavy from '../svgs/Wavy'
 
 class Confirming extends Component {
