@@ -1,17 +1,39 @@
-button {
-  background-color: #479CFF;
-  color: #fff;
-  border-radius: 4px;
-  border: 0px solid transparent;
-  padding: 40px;
+button,
+.button {
+  border: 3px solid var(--button-color);
+  padding: 20px 40px;
+  font-family: 'apercu-mono-regular-pro';
   font-size: 1.25em;
+  color: var(--button-color);
+  white-space: nowrap;
+  transform: scale(1);
+  transition: transform 150ms ease-in-out;
   cursor: pointer;
 }
-button:hover {
-  background-color: #479cff;
+button.blue,
+.button.blue {
+  --button-color: #479CFF;
 }
-button:focus {
+button.black,
+.button.black {
+  --button-color: #000;
+}
+button:hover:enabled,
+.button:hover:enabled {
+  background-color: var(--button-color);
+  color: #fff;
+  transform: scale(1.05);
+}
+button:focus,
+.button:focus {
   background-color: #1481ff;
+}
+button:disabled,
+.button:disabled {
+  border-color: #666;
+  background-color: #666;
+  color: #fff;
+  cursor: unset;
 }
 .peanuts {
   z-index: 1;
@@ -117,15 +139,8 @@ footer {
 .prove .page-body .cta,
 .congratulations .page-body .cta {
   flex: 1 1;
-  font-size: 0.8em;
-}
-.start .page-body .cta.disabled a,
-.invoice .page-body .cta.disabled a,
-.pay .page-body .cta.disabled a,
-.prove .page-body .cta.disabled a,
-.congratulations .page-body .cta.disabled a {
-  color: #666;
-  cursor: not-allowed;
+  min-height: 100px;
+  position: relative;
 }
 .start .page-body .error,
 .invoice .page-body .error,
@@ -280,31 +295,9 @@ footer {
   text-decoration: none!important;
   flex: 0;
   position: relative;
-  margin-right: 200px;
 }
 .home .mint-or-redeem a:first-of-type {
-  margin-right: 260px;
-}
-.home .mint-or-redeem .button {
-  position: absolute;
-  border: 3px solid var(--button-color);
-  padding: 20px 40px;
-  font-family: 'apercu-mono-regular-pro';
-  color: var(--button-color);
-  white-space: nowrap;
-  transform: scale(1);
-  transition: transform 150ms ease-in-out;
-}
-.home .mint-or-redeem .button.blue {
-  --button-color: #479CFF;
-}
-.home .mint-or-redeem .button.black {
-  --button-color: #000;
-}
-.home .mint-or-redeem .button:hover {
-  background-color: var(--button-color);
-  color: #fff;
-  transform: scale(1.05);
+  margin-right: 60px;
 }
 .home .step-by-step {
   width: 100vw;
