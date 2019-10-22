@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import { waitConfirmation } from '../../actions'
 import QRCode from 'qrcode.react'
-import Wavy from '../svgs/Wavy'
+import StatusIndicator from '../svgs/StatusIndicator'
 
 class Pay extends Component {
   state = {
@@ -63,7 +63,7 @@ class Pay extends Component {
       )
     } else {
       renderTop = (
-        <Wavy loading />
+        <StatusIndicator pulse />
       )
 
       renderTitle = (

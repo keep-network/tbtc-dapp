@@ -1,4 +1,4 @@
-.wavy {
+.status-indicator {
     position: relative;
     height: 260px;
     width: 260px;
@@ -17,28 +17,30 @@
         animation-timing-function: ease-in-out;
     }
 
-    .pulse {
-        position: absolute;
-        top:50%;
-        left: 50%;
-        animation: shadow-pulse 5000ms infinite;
-        animation-timing-function: ease-in-out;
+    &.pulse::before {
+      content: '';
+      position: absolute;
+      top:50%;
+      left: 50%;
+      animation: shadow-pulse 5000ms infinite;
+      animation-timing-function: ease-in-out;
     }
 
-    .gradient, .purple, .green {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+    &.purple::before, &.green::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
     }
 
-    .purple {
-        background: @purple;
+    &.purple::before {
+      background: @purple;
     }
 
-    .green {
-        background: @success;
+    &.green::before {
+      background: @success;
     }
 
     .wavy-svg {

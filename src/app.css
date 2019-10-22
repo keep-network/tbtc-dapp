@@ -165,54 +165,55 @@ footer {
   width: 768px;
   background-color: #fff;
 }
-.wavy {
+.status-indicator {
   position: relative;
   height: 260px;
   width: 260px;
   margin: 0 auto;
   overflow: hidden;
 }
-.wavy .tlogo,
-.wavy .btclogo {
+.status-indicator .tlogo,
+.status-indicator .btclogo {
   position: absolute;
   z-index: 1;
   top: 81px;
   left: 79px;
 }
-.wavy .tlogo {
+.status-indicator .tlogo {
   animation: spin 1750ms 1;
   animation-timing-function: ease-in-out;
 }
-.wavy .pulse {
+.status-indicator.pulse::before {
+  content: '';
   position: absolute;
   top: 50%;
   left: 50%;
   animation: shadow-pulse 5000ms infinite;
   animation-timing-function: ease-in-out;
 }
-.wavy .gradient,
-.wavy .purple,
-.wavy .green {
+.status-indicator.purple::before,
+.status-indicator.green::before {
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
 }
-.wavy .purple {
+.status-indicator.purple::before {
   background: #370C5F;
 }
-.wavy .green {
+.status-indicator.green::before {
   background: #5CE783;
 }
-.wavy .wavy-svg {
+.status-indicator .wavy-svg {
   position: absolute;
   top: 0;
   right: 0;
   left: 0;
   bottom: 0;
 }
-.wavy .st0 {
+.status-indicator .st0 {
   fill: #fff;
 }
 @keyframes shadow-pulse {

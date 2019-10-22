@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import { submitProof } from '../../actions'
-import Wavy from '../svgs/Wavy'
+import StatusIndicator from '../svgs/StatusIndicator'
 
 class Prove extends Component {
   handleClickProve = (evt) => {
@@ -21,7 +21,7 @@ class Prove extends Component {
     return (
       <div className="prove">
         <div className="page-top">
-          <Wavy loading />
+          <StatusIndicator pulse />
         </div>
         <div className="page-body">
           <div className="step">

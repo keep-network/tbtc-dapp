@@ -1,11 +1,14 @@
 import React from 'react'
 
-import Wavy from '../svgs/Wavy'
+import StatusIndicator from '../svgs/StatusIndicator'
+import TLogo from '../svgs/tlogo'
 
 const Congratulations = () => (
   <div className="congratulations">
     <div className="page-top">
-      <Wavy tbtcLogo />
+      <StatusIndicator purple>
+        <TLogo height={100} width={100} />
+      </StatusIndicator>
     </div>
     <div className="page-body">
       <div className="step">

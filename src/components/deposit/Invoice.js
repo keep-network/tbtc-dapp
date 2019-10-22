@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import { requestADeposit } from '../../actions'
-import Wavy from '../svgs/Wavy'
+import StatusIndicator from '../svgs/StatusIndicator'
 
 class Invoice extends Component {
 
@@ -28,7 +28,7 @@ class Invoice extends Component {
     return (
       <div className="invoice">
         <div className="page-top">
-          <Wavy loading />
+          <StatusIndicator pulse />
         </div>
         <div className="page-body">
           <div className="step">

@@ -1,22 +1,10 @@
 import React from 'react'
-import TLogo from './tlogo'
-import BTCLogo from './btclogo'
 import classnames from 'classnames'
 
-const Wavy = ({ btcLogo, loading, tbtcLogo }) => {
+const StatusIndicator = ({ purple = false, green = false, pulse = false, children }) => {
   return (
-    <div className="wavy">
-      {
-        btcLogo && (
-          <BTCLogo height={100} width={100} />
-        )
-      }
-      {
-        tbtcLogo && (
-          <TLogo height={100} width={100} />
-        )
-      }
-      <div className={classnames({'purple': btcLogo, 'pulse': loading, 'green': tbtcLogo})} />
+    <div className={classnames('status-indicator', { purple, green, pulse })}>
+      { children }
       <svg className="wavy-svg" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 626 629" style={{enableBackground: "new 0 0"}}>
         <g>
           <defs>
@@ -6112,4 +6100,4 @@ const Wavy = ({ btcLogo, loading, tbtcLogo }) => {
   )
 }
 
-export default Wavy
+export default StatusIndicator
