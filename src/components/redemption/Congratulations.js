@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
-import Wavy from '../svgs/Wavy'
+import StatusIndicator from '../svgs/StatusIndicator'
+import BTCLogo from '../svgs/btclogo'
 
 class Congratulations extends Component {
 
@@ -16,7 +17,9 @@ class Congratulations extends Component {
     return (
       <div className="congratulations">
         <div className="page-top">
-          <Wavy btcLogo />
+          <StatusIndicator green>
+            <BTCLogo height={100} width={100} />
+          </StatusIndicator>
         </div>
         <div className="page-body">
           <div className="step">

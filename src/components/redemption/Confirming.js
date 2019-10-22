@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import Wavy from '../svgs/Wavy'
+import StatusIndicator from '../svgs/StatusIndicator'
 
 class Confirming extends Component {
   render() {
@@ -9,7 +9,7 @@ class Confirming extends Component {
     return (
       <div className="confirming">
         <div className="page-top">
-          <Wavy loading />
+          <StatusIndicator pulse />
         </div>
         <div className="page-body">
           <div className="step">
