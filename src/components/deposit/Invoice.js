@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import { requestADeposit } from '../../actions'
-import Peanut from '../svgs/Peanut'
+import StatusIndicator from '../svgs/StatusIndicator'
 
 class Invoice extends Component {
 
@@ -28,9 +28,7 @@ class Invoice extends Component {
     return (
       <div className="invoice">
         <div className="page-top">
-          <div className="building">
-            <Peanut width="250px" loading={true} />
-          </div>
+          <StatusIndicator pulse />
         </div>
         <div className="page-body">
           <div className="step">
