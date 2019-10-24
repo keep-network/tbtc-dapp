@@ -30,9 +30,9 @@ button:focus,
 }
 button:disabled,
 .button:disabled {
-  border-color: #666;
-  background-color: #666;
-  color: #fff;
+  border-color: #bababa;
+  background-color: #fff;
+  color: #bababa;
   cursor: unset;
 }
 .peanuts {
