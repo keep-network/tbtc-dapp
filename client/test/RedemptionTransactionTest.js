@@ -32,10 +32,14 @@ describe('RedemptionTransaction', async () => {
         outputPKH,
       )
 
-      const transactionHash = transaction.hash('hex')
+      assert.deepEqual(transaction, expectedRawTransaction)
+
+      // Deserialize transaction to bcoin TX type.
+      const bcoinTransaction = bcoin.TX.fromRaw(transaction, 'hex')
+
+      const transactionHash = bcoinTransaction.hash('hex')
 
       assert.deepEqual(transactionHash, expectedHash)
-      assert.deepEqual(transaction.toRaw().toString('hex'), expectedRawTransaction)
 
       // Validate digest for signing calculation.
       // Expect the same result as [`oneInputOneOutputSighash`](https://github.com/summa-tx/bitcoin-spv/blob/555ed9a9a726644f4ff9efc5c6787c3f587f4d8e/solidity/contracts/CheckBitcoinSigs.sol#L130)
@@ -46,7 +50,7 @@ describe('RedemptionTransaction', async () => {
       const previousOutputScript = bcoin.Script.fromRaw('76a914ee9b3c2d94144ea81c4604d695836f9b1bc3bb0b88ac', 'hex')
       const previousOutputValue = new BN('1000')
 
-      const signatureHash = transaction.signatureHash(
+      const signatureHash = bcoinTransaction.signatureHash(
         inputIndex,
         previousOutputScript,
         previousOutputValue.toNumber(),
