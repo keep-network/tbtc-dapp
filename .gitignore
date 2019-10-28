@@ -3,3 +3,4 @@ src/app.less/
 *.code-workspace
 build/
 .DS_Store
+src/app.css
