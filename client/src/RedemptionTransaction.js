@@ -1,5 +1,5 @@
 const bcoin = require('bcoin')
-const BN = require('bcrypto/lib/BN')
+const BN = require('bcrypto/lib/bn')
 const Signature = require('bcrypto/lib/internal/signature')
 const secp256k1 = require('bcrypto/lib/js/secp256k1')
 
