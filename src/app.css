@@ -57,14 +57,7 @@ footer {
   flex-direction: column;
   font-family: 'apercu-mono-regular-pro';
   text-align: center;
-  min-height: 625px;
-}
-.start .page-top,
-.invoice .page-top,
-.pay .page-top,
-.prove .page-top,
-.congratulations .page-top {
-  margin: 25px 0 100px 0;
+  min-height: 675px;
 }
 .start .page-body,
 .invoice .page-body,
@@ -171,6 +164,88 @@ footer {
   padding: 20px 25px 40px 80px;
   width: 768px;
   background-color: #fff;
+}
+.status-indicator {
+  position: relative;
+  height: 260px;
+  width: 260px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.status-indicator .tlogo,
+.status-indicator .btclogo {
+  position: absolute;
+  z-index: 1;
+  top: 81px;
+  left: 79px;
+}
+.status-indicator .tlogo {
+  animation: spin 1750ms 1;
+  animation-timing-function: ease-in-out;
+}
+.status-indicator.pulse::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  animation: shadow-pulse 5000ms infinite;
+  animation-timing-function: ease-in-out;
+}
+.status-indicator.purple::before,
+.status-indicator.green::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.status-indicator.purple::before {
+  background: #370C5F;
+}
+.status-indicator.green::before {
+  background: #5CE783;
+}
+.status-indicator .wavy-svg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+.status-indicator .st0 {
+  fill: #fff;
+}
+@keyframes shadow-pulse {
+  0% {
+    box-shadow: 0 0 0 0px #5CE783;
+  }
+  30% {
+    box-shadow: 0 0 255px 255px #5CE783;
+  }
+  50% {
+    box-shadow: 0 0 255px 255px transparent;
+  }
+  51% {
+    box-shadow: 0 0 0 0px transparent;
+  }
+  52% {
+    box-shadow: 0 0 0 0px #370C5F;
+  }
+  80% {
+    box-shadow: 0 0 255px 255px #370C5F;
+  }
+  100% {
+    box-shadow: 0 0 255px 255px transparent;
+  }
+}
+@keyframes spin {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
 }
 .home {
   font-family: 'apercu-mono-regular-pro';
@@ -307,9 +382,6 @@ footer {
     font-size: 0.75em;
   }
 }
-.pay .page-top {
-  margin: -25px 0 25px 0;
-}
 .pay .page-body .custodial-fee {
   margin-top: 40px;
 }
@@ -337,9 +409,6 @@ footer {
 .pay .hidden-copy-field {
   position: absolute;
   right: 999999px;
-}
-.prove .page-top svg path {
-  fill: #479CFF;
 }
 .prove-modal {
   display: flex;
@@ -382,9 +451,6 @@ footer {
 .prove-modal .modal-right .peanuts svg:last-of-type {
   transform: translate(-50px, -8px);
 }
-.congratulations .page-top {
-  margin: 0 0 75px 0;
-}
 .congratulations .page-body .description .bond-duration {
   font-family: 'apercu-bold-pro';
   margin-top: 30px;
@@ -419,7 +485,7 @@ a {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  margin: 80px 0;
+  margin: 50px 0;
 }
 .app .nav .hamburger {
   flex-grow: 0;
@@ -493,6 +559,9 @@ a {
 }
 .app .peanut.error svg path {
   fill: #E7755C;
+}
+.app .page-top {
+  margin-bottom: 25px;
 }
 footer {
   flex-shrink: 0;
