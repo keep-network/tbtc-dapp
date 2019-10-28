@@ -48,7 +48,7 @@ export function oneInputOneOutputWitnessTX(
     outputs: [output],
   })
 
-  return transaction
+  return transaction.toRaw().toString('hex')
 }
 
 /**
