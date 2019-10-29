@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import history from '../../history'
 import { requestPermission } from '../../lib/notifications'
 import { withAccount } from '../../wrappers/web3'
+import StatusIndicator from '../svgs/StatusIndicator'
+import BTCLogo from '../svgs/btclogo'
 
 class Start extends Component {
 
@@ -27,6 +29,9 @@ class Start extends Component {
     return (
       <div className="start">
         <div className="page-top">
+          <StatusIndicator green>
+            <BTCLogo height={100} width={100} />
+          </StatusIndicator>
         </div>
         <div className="page-body">
           <div className="step">

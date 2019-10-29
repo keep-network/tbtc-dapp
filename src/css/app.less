@@ -6,11 +6,13 @@
 @import './fonts/apercu.less';
 @import 'structure.less';
 @import 'modal.less';
+@import 'status-indicator.less';
 @import 'home.less';
 @import 'start.less';
 @import 'pay.less';
 @import 'prove.less';
 @import 'congratulations.less';
+
 
 html, body, #root {
     margin: 0;
@@ -43,7 +45,7 @@ a {
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
-        margin: 80px 0;
+        margin: 50px 0;
 
         .hamburger {
             flex-grow: 0;
@@ -134,6 +136,10 @@ a {
                 }
             }
         }
+    }
+
+    .page-top {
+        margin-bottom: 25px;
     }
 }
 

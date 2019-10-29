@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import { submitProof } from '../../actions'
-import Peanut from '../svgs/Peanut'
+import StatusIndicator from '../svgs/StatusIndicator'
 
 class Prove extends Component {
   handleClickProve = (evt) => {
@@ -21,7 +21,7 @@ class Prove extends Component {
     return (
       <div className="prove">
         <div className="page-top">
-          <Peanut width="250px" loading={provingDeposit} error={!!proveDepositError}/>
+          <StatusIndicator pulse />
         </div>
         <div className="page-body">
           <div className="step">
@@ -45,7 +45,7 @@ class Prove extends Component {
             }
           </div>
           <div className={`cta ${provingDeposit ? 'disabled' : ''}`}>
-            <a href="/deposit/pay" onClick={this.handleClickProve}>
+            <a href="/deposit/congratulations" onClick={this.handleClickProve}>
               Submit Proof >>>
             </a>
           </div>
