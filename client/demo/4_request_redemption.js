@@ -67,7 +67,7 @@ module.exports = async function() {
       _requestedFee,
     } = eventList[0].returnValues
 
-    console.debug(`Redemption requested for deposit: ${_depositContractAddress}`)
+    console.log(`Redemption requested for deposit: ${_depositContractAddress}`)
     console.debug(`Request details:`)
     console.debug(`\trequestor: ${_requester}`)
     console.debug(`\trequestor PKH: ${_requesterPKH}`)
@@ -78,11 +78,13 @@ module.exports = async function() {
 
   const startBlockNumber = await web3.eth.getBlock('latest').number
 
-  await deposit.requestRedemption(outputValueBytes, requesterPKH, { from: requesterAddress })
+  const result = await deposit.requestRedemption(outputValueBytes, requesterPKH, { from: requesterAddress })
     .catch((err) => {
       console.error(`requesting redemption failed: ${err}`)
       process.exit(1)
     })
+
+  console.log('requestRedemption transaction: ', result.tx)
 
   await logEvents(startBlockNumber)
     .catch((err) => {
