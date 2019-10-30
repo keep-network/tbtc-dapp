@@ -76,7 +76,7 @@ describe('RedemptionTransaction', async () => {
 
       const result = await bitcoinSignatureDER(r, s)
 
-      assert.deepEqual(expectedResult, result)
+      assert.deepEqual(result, expectedResult)
     })
 
     it('converts a signature with high s value', async () => {
@@ -87,7 +87,7 @@ describe('RedemptionTransaction', async () => {
 
       const result = await bitcoinSignatureDER(r, s)
 
-      assert.deepEqual(expectedResult, result)
+      assert.deepEqual(result, expectedResult)
     })
   })
 
