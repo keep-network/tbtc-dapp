@@ -9,9 +9,8 @@
 // REQUESTER_PKH - public key hash of the user requesting redemption
 // truffle exec demo/4_request_redemption.js 0x281447b37FFddEDE449B94edB212C49c9358D0AA 1000 0x3333333333333333333333333333333333333333
 
-const Deposit = artifacts.require('./Deposit.sol')
-const TBTCSystem = artifacts.require('./TBTCSystem.sol')
-const TBTCToken = artifacts.require('./TBTCToken.sol')
+const contracts = require('../../src/eth/contracts')
+
 const BN = web3.utils.BN
 
 // We approve the Deposit contract to transfer the maximum number of tokens
@@ -32,6 +31,12 @@ module.exports = async function () {
   let tbtcToken
 
   try {
+    await contracts.setDefaults(web3)
+
+    const Deposit = contracts.Deposit
+    const TBTCSystem = contracts.TBTCSystem
+    const TBTCToken = contracts.TBTCToken
+
     deposit = await Deposit.at(depositAddress)
     depositLog = await TBTCSystem.deployed()
     tbtcToken = await TBTCToken.deployed()
