@@ -13,7 +13,7 @@
 //   0xc0c4d52d814b12fe517f3d17a42963f77a26a73e \
 //   0x6299496199d99941193Fdd2d717ef585F431eA05
 
-const contracts = require('../../src/eth/contracts')
+const contracts = require('../src/eth/contracts')
 
 const BN = web3.utils.BN
 
