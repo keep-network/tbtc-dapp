@@ -5,7 +5,7 @@ const {
 } = require('../src/RedemptionTransaction')
 
 const bcoin = require('bcoin')
-const BN = require('bn.js')
+const BN = require('bcrypto/lib/bn')
 const chai = require('chai')
 const assert = chai.assert
 
@@ -67,6 +67,46 @@ describe('RedemptionTransaction', async () => {
   })
 
   describe('bitcoinSignatureDER', async () => {
+    const ZERO = Buffer.from('00', 'hex')
+    const CURVE_ORDER = Buffer.from('fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141', 'hex')
+
+    it('rejects r equal to 0', async () => {
+      const r = ZERO
+      const s = Buffer.from('11111111111111', 'hex')
+
+      assert.throws(() => {
+        bitcoinSignatureDER(r, s)
+      }, 'Invalid R value.')
+    })
+
+    it('rejects s equal to 0', async () => {
+      const r = Buffer.from('11111111111111', 'hex')
+      const s = ZERO
+
+      assert.throws(() => {
+        bitcoinSignatureDER(r, s)
+      }, 'Invalid S value.')
+    })
+
+    it('rejects r equal to curve\'s order', async () => {
+      const r = CURVE_ORDER
+      const s = Buffer.from('11111111111111', 'hex')
+
+      assert.throws(() => {
+        bitcoinSignatureDER(r, s)
+      }, 'Invalid R value.')
+    })
+
+    it('rejects s equal to curve\'s order', async () => {
+      const r = Buffer.from('11111111111111', 'hex')
+      const s = CURVE_ORDER
+
+      assert.throws(() => {
+        bitcoinSignatureDER(r, s)
+      }, 'Invalid S value.')
+    })
+
+    // Test conversion of S value as per [BIP-0062](https://github.com/bitcoin/bips/blob/master/bip-0062.mediawiki#low-s-values-in-signatures).
     it('converts a signature with the lowest s value', async () => {
       const r = Buffer.from('11111111111111', 'hex')
       const s = Buffer.from('01', 'hex')
@@ -77,6 +117,7 @@ describe('RedemptionTransaction', async () => {
 
       assert.deepEqual(result, expectedResult)
     })
+
     it('converts a signature with low s value', async () => {
       const r = Buffer.from('11111111111111', 'hex')
       const s = Buffer.from('7fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f46681b20a0', 'hex')
