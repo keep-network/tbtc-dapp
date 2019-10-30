@@ -65,19 +65,15 @@ export function bitcoinSignatureDER(r, s) {
   const size = secp256k1.size
   const signature = new Signature(size, r, s)
 
-  // Check if `s` is a high value. As per BIP-0062 signature's `s` value should
-  // be in a low half of curve's order. If it's a high value we convert it to `-s`.
+  // Verifies if either of `r` or `s` values equals zero or is greater or equal
+  // curve's order. If so throws an error.
+  // Checks if `s` is a high value. As per BIP-0062 signature's `s` value should
+  // be in a low half of curve's order. If it's a high value it's converted to
+  // `-s`.
   // Reference: https://en.bitcoin.it/wiki/BIP_0062#Low_S_values_in_signatures
-  if (!secp256k1.isLowS(signature.encode(size))) {
-    const newS = BN.fromBuffer(signature.s, 'be')
+  const bitcoinSignature = secp256k1.signatureNormalize(signature.encode(size))
 
-    newS.ineg().imod(secp256k1.curve.n)
-
-    signature.s = secp256k1.curve.encodeScalar(newS)
-    signature.param ^= 1
-  }
-
-  return signature.toDER(size)
+  return Signature.toDER(bitcoinSignature, size)
 }
 
 /**
