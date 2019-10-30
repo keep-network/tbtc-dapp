@@ -1,7 +1,7 @@
 // The script redeems TBTC for BTC.
 //
 // Format:
-// truffle exec 4_redemption.js <DEPOSIT_ADDRESS> <OUTPUT_VALUE> <REQUESTER_PKH>
+// truffle exec 4_redemption.js <DEPOSIT_ADDRESS> <OUTPUT_VALUE> <REQUESTER_PKH> <REQUESTER_ADDRESS>
 //
 // Arguments:
 // DEPOSIT_ADDRESS - Address of Deposit contract instance
@@ -19,12 +19,13 @@ const BN = web3.utils.BN
 // TODO: remove after https://github.com/keep-network/tbtc/issues/273 is merged.
 const MAX_TOKEN_ALLOWANCE = (new BN(2)).pow(new BN(256)).sub(new BN(1))
 
-module.exports = async function () {
+module.exports = async function() {
   // Parse arguments
   const depositAddress = process.argv[4]
   const outputValue = process.argv[5]
   const outputValueBytes = new BN(outputValue).toBuffer('le', 8)
   const requesterPKH = process.argv[6]
+  const requesterAddress = process.argv[7]
 
   let deposit
   let depositLog
@@ -45,7 +46,7 @@ module.exports = async function () {
     process.exit(1)
   }
 
-  await tbtcToken.approve(deposit.address, MAX_TOKEN_ALLOWANCE)
+  await tbtcToken.approve(deposit.address, MAX_TOKEN_ALLOWANCE, { from: requesterAddress })
     .catch((err) => {
       console.error(`TBTC approval failed: ${err}`)
       process.exit(1)
@@ -77,7 +78,7 @@ module.exports = async function () {
 
   const startBlockNumber = await web3.eth.getBlock('latest').number
 
-  await deposit.requestRedemption(outputValueBytes, requesterPKH)
+  await deposit.requestRedemption(outputValueBytes, requesterPKH, { from: requesterAddress })
     .catch((err) => {
       console.error(`requesting redemption failed: ${err}`)
       process.exit(1)
