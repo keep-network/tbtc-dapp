@@ -67,7 +67,16 @@ describe('RedemptionTransaction', async () => {
   })
 
   describe('bitcoinSignatureDER', async () => {
-    // Test data from [BIP-0062](https://github.com/bitcoin/bips/blob/master/bip-0062.mediawiki#low-s-values-in-signatures).
+    it('converts a signature with the lowest s value', async () => {
+      const r = Buffer.from('11111111111111', 'hex')
+      const s = Buffer.from('01', 'hex')
+
+      const expectedResult = Buffer.from('300c020711111111111111020101', 'hex')
+
+      const result = bitcoinSignatureDER(r, s)
+
+      assert.deepEqual(result, expectedResult)
+    })
     it('converts a signature with low s value', async () => {
       const r = Buffer.from('11111111111111', 'hex')
       const s = Buffer.from('7fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f46681b20a0', 'hex')
@@ -84,6 +93,17 @@ describe('RedemptionTransaction', async () => {
       const s = Buffer.from('7fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f46681b20a1', 'hex')
 
       const expectedResult = Buffer.from('302b02071111111111111102207fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f46681b20a0', 'hex')
+
+      const result = await bitcoinSignatureDER(r, s)
+
+      assert.deepEqual(result, expectedResult)
+    })
+
+    it('converts a signature with the highest s value', async () => {
+      const r = Buffer.from('11111111111111', 'hex')
+      const s = Buffer.from('fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364140', 'hex')
+
+      const expectedResult = Buffer.from('300c020711111111111111020101', 'hex')
 
       const result = await bitcoinSignatureDER(r, s)
 
