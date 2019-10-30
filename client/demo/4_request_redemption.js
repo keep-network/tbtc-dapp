@@ -7,7 +7,11 @@
 // DEPOSIT_ADDRESS - Address of Deposit contract instance
 // OUTPUT_VALUE - value to be redeemed into BTC, in satoshis
 // REQUESTER_PKH - public key hash of the user requesting redemption
-// truffle exec demo/4_request_redemption.js 0x281447b37FFddEDE449B94edB212C49c9358D0AA 1000 0x3333333333333333333333333333333333333333
+// truffle exec demo/4_request_redemption.js \
+//   0x281447b37FFddEDE449B94edB212C49c9358D0AA \
+//   800 \
+//   0xc0c4d52d814b12fe517f3d17a42963f77a26a73e \
+//   0x6299496199d99941193Fdd2d717ef585F431eA05
 
 const contracts = require('../../src/eth/contracts')
 
