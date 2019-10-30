@@ -1,4 +1,8 @@
-const RedemptionTransaction = require('../src/RedemptionTransaction')
+const {
+  oneInputOneOutputWitnessTX,
+  bitcoinSignatureDER,
+  addWitnessSignature,
+} = require('../src/RedemptionTransaction')
 
 const bcoin = require('bcoin')
 const BN = require('bn.js')
@@ -25,7 +29,7 @@ describe('RedemptionTransaction', async () => {
       const expectedHash = tx.hash
       const expectedRawTransaction = tx.unsignedRaw
 
-      const transaction = await RedemptionTransaction.oneInputOneOutputWitnessTX(
+      const transaction = await oneInputOneOutputWitnessTX(
         previousOutpoint,
         inputSequence,
         outputValue,
@@ -70,7 +74,7 @@ describe('RedemptionTransaction', async () => {
 
       const expectedResult = Buffer.from('302b02071111111111111102207fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f46681b20a0', 'hex')
 
-      const result = await RedemptionTransaction.bitcoinSignatureDER(r, s)
+      const result = await bitcoinSignatureDER(r, s)
 
       assert.deepEqual(expectedResult, result)
     })
@@ -81,7 +85,7 @@ describe('RedemptionTransaction', async () => {
 
       const expectedResult = Buffer.from('302b02071111111111111102207fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f46681b20a0', 'hex')
 
-      const result = await RedemptionTransaction.bitcoinSignatureDER(r, s)
+      const result = await bitcoinSignatureDER(r, s)
 
       assert.deepEqual(expectedResult, result)
     })
@@ -97,7 +101,7 @@ describe('RedemptionTransaction', async () => {
 
       const expectedRawTransaction = tx.signedRaw
 
-      const transaction = await RedemptionTransaction.addWitnessSignature(
+      const transaction = await addWitnessSignature(
         unsignedTransaction,
         inputIndex,
         r,
