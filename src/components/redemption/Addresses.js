@@ -29,19 +29,25 @@ class Addresses extends Component {
 
   handleContractAddressChange = (evt) => {
     // TODO: Validate contract address
-    const isValid = true
+    const isValid = evt.target.value.length > 0 && true
+    const hasError = evt.target.value.length > 0 && false
+
     this.setState({
       contractAddress: evt.target.value,
-      contractAddressIsValid: isValid
+      contractAddressIsValid: isValid,
+      contractAddressHasError: hasError
     })
   }
 
   handleBtcAddressChange = (evt) => {
     // TODO: Validate btc address
-    const isValid = true
+    const isValid = evt.target.value.length > 0 && true
+    const hasError = evt.target.value.length > 0 && false
+
     this.setState({
       btcAddress: evt.target.value,
-      btcAddressIsValid: isValid
+      btcAddressIsValid: isValid,
+      btcAddressHasError: hasError
     })
   }
 
@@ -49,14 +55,11 @@ class Addresses extends Component {
     const {
       contractAddress,
       contractAddressIsValid,
+      contractAddressHasError,
       btcAddress,
-      btcAddressIsValid
+      btcAddressIsValid,
+      btcAddressHasError
     } = this.state
-
-    const contractAddressSuccess = contractAddress.length > 0 && contractAddressIsValid
-    const contractAddressAlert = contractAddress.length > 0 && !contractAddressIsValid
-    const btcAddressSuccess = btcAddress.length > 0 && btcAddressIsValid
-    const btcAddressAlert = btcAddress.length > 0 && !btcAddressIsValid
 
     return (
       <div className="addresses">
@@ -74,7 +77,7 @@ class Addresses extends Component {
           </div>
           <hr />
           <div className="description">
-          <div className={classnames("paste-field", { success: contractAddressSuccess, alert: contractAddressAlert })}>
+          <div className={classnames("paste-field", { success: contractAddressIsValid, alert: contractAddressHasError })}>
               <label htmlFor="contract-address">
                 Paste a contract address to redeem:
               </label>
@@ -84,10 +87,10 @@ class Addresses extends Component {
                 onChange={this.handleContractAddressChange}
                 value={contractAddress}
               />
-              { contractAddressSuccess && <Check height="28px" width="28px" /> }
-              { contractAddressAlert && <X height="28px" width="28px" /> }
+              { contractAddressIsValid && <Check height="28px" width="28px" /> }
+              { contractAddressHasError && <X height="28px" width="28px" /> }
             </div>
-            <div className={classnames("paste-field", { success: btcAddressSuccess, alert: btcAddressAlert })}>
+            <div className={classnames("paste-field", { success: btcAddressIsValid, alert: btcAddressHasError })}>
               <label htmlFor="btc-address">
                 Paste a Bitcoin address to redeem:
               </label>
@@ -97,14 +100,14 @@ class Addresses extends Component {
                 onChange={this.handleBtcAddressChange}
                 value={btcAddress}
               />
-              { btcAddressSuccess && <Check height="28px" width="28px" /> }
-              { btcAddressAlert && <X height="28px" width="28px" /> }
+              { btcAddressIsValid && <Check height="28px" width="28px" /> }
+              { btcAddressHasError && <X height="28px" width="28px" /> }
             </div>
           </div>
           <div className='cta'>
             <button
               onClick={this.handleClickConfirm}
-              disabled={!contractAddressSuccess || !btcAddressSuccess}
+              disabled={!contractAddressIsValid || !btcAddressIsValid}
               className="black"
               >
               Confirm redemption
