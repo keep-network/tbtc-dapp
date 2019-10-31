@@ -73,7 +73,7 @@ class InputAddresses extends Component {
             Step 2/4
           </div>
           <div className="title">
-            Redeem a deposit
+            Redeem bond
           </div>
           <hr />
           <div className="description">
