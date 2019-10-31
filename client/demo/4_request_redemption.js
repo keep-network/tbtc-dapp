@@ -4,9 +4,11 @@
 // truffle exec 4_redemption.js <DEPOSIT_ADDRESS> <OUTPUT_VALUE> <REQUESTER_PKH> <REQUESTER_ADDRESS>
 //
 // Arguments:
-// DEPOSIT_ADDRESS - Address of Deposit contract instance
+// DEPOSIT_ADDRESS - address of Deposit contract instance
 // OUTPUT_VALUE - value to be redeemed into BTC, in satoshis
 // REQUESTER_PKH - public key hash of the user requesting redemption
+// REQUESTER_ADDRESS - address from which contracts' calls should be requested
+//
 // truffle exec demo/4_request_redemption.js \
 //   0x281447b37FFddEDE449B94edB212C49c9358D0AA \
 //   800 \
