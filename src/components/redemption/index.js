@@ -1,11 +1,11 @@
 import Start from './Start'
-import Addresses from './Addresses'
+import InputAddresses from './InputAddresses'
 import Confirming from './Confirming'
 import Congratulations from './Congratulations'
 
 export {
     Start,
-    Addresses,
+    InputAddresses,
     Confirming,
     Congratulations
 }

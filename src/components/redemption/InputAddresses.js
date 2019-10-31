@@ -7,7 +7,7 @@ import TLogo from '../svgs/tlogo'
 import Check from '../svgs/Check'
 import X from '../svgs/X'
 
-class Addresses extends Component {
+class InputAddresses extends Component {
 
   state = {
     contractAddress: '',
@@ -62,7 +62,7 @@ class Addresses extends Component {
     } = this.state
 
     return (
-      <div className="addresses">
+      <div className="input-addresses">
         <div className="page-top">
           <StatusIndicator purple>
             <TLogo height={100} width={100} />
@@ -119,4 +119,4 @@ class Addresses extends Component {
   }
 }
 
-export default Addresses
+export default InputAddresses

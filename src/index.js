@@ -24,7 +24,7 @@ import {
 } from './components/deposit'
 import {
   Start as StartRedemption,
-  Addresses,
+  InputAddresses,
   Confirming,
   Congratulations as CongratulationsRedemption
 } from './components/redemption'
@@ -68,7 +68,7 @@ function AppWrapper() {
             <Route path="/deposit/prove" component={Prove} />
             <Route path="/deposit/congratulations" component={CongratulationsDeposit} />
             <Route path="/redeem" exact component={StartRedemption} />
-            <Route path="/redeem/addresses" component={Addresses} />
+            <Route path="/redeem/addresses" component={InputAddresses} />
             <Route path="/redeem/confirming" component={Confirming} />
             <Route path="/redeem/congratulations" component={CongratulationsRedemption} />
           </App>
