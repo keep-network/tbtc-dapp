@@ -5,6 +5,7 @@ button,
   font-family: 'apercu-mono-regular-pro';
   font-size: 1.25em;
   color: var(--button-color);
+  background-color: #fff;
   white-space: nowrap;
   transform: scale(1);
   transition: transform 150ms ease-in-out;
@@ -31,7 +32,6 @@ button:focus,
 button:disabled,
 .button:disabled {
   border-color: #bababa;
-  background-color: #fff;
   color: #bababa;
   cursor: unset;
 }
