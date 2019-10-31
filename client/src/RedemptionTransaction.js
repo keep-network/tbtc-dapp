@@ -10,7 +10,9 @@ const secp256k1 = require('bcrypto/lib/js/secp256k1')
  * @param {Buffer} previousOutpoint Previous transaction's output to be used as
  * an input. Provided in raw format, consists of 32-byte transaction ID and
  * 4-byte output index number.
- * @param {uint32} inputSequence Input's sequence number.
+ * @param {uint32} inputSequence Input's sequence number. As per BIP-125 the value
+ * is used to indicate that transaction should be able to be replaced in the future.
+ * If input sequence is set to `0xffffffff` the transaction won't be replaceable.
  * @param {BN} outputValue Value for the output.
  * @param {string} outputPKH Public Key Hash for the output.
  * @return {string} Raw bitcoin transaction in a hexadecimal format.
@@ -70,7 +72,8 @@ export function bitcoinSignatureDER(r, s) {
   // Checks if `s` is a high value. As per BIP-0062 signature's `s` value should
   // be in a low half of curve's order. If it's a high value it's converted to
   // `-s`.
-  // Reference: https://en.bitcoin.it/wiki/BIP_0062#Low_S_values_in_signatures
+  // Checks `s` per BIP-62: signature's `s` value should be in a low half of
+  // curve's order. If it's not, it's converted to `-s`.
   const bitcoinSignature = secp256k1.signatureNormalize(signature.encode(size))
 
   return Signature.toDER(bitcoinSignature, size)
