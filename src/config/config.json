@@ -14,6 +14,11 @@
             "server": "electrumx-server.tbtc.svc.cluster.local",
             "port": 50003,
             "protocol": "ws"
+        },
+        "regtestWS": {
+            "server": "127.0.0.1",
+            "port": 50003,
+            "protocol": "ws"
         }
     }
 }

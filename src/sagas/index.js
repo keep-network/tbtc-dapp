@@ -34,7 +34,7 @@ const ElectrumClient = require('tbtc-helpers').ElectrumClient
 async function getElectrumClient() {
     const config = require('../config/config.json')
 
-    const electrumClient = new ElectrumClient.Client(config.electrum.testnetWS)
+    const electrumClient = new ElectrumClient.Client(config.electrum.regtestWS)
 
     await electrumClient.connect()
 

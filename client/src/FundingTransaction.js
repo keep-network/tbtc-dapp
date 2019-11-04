@@ -46,8 +46,17 @@ export async function getDepositBtcAddress(depositAddress) {
 
   const btcAddress = publicKeyToP2WPKHaddress(
     `${publicKeyX}${publicKeyY}`,
-    Network.testnet
+    Network.regtest
   )
+
+  console.log(publicKeyToP2WPKHaddress(
+    `${publicKeyX}${publicKeyY}`,
+    Network.testnet
+  ))
+  console.log(publicKeyToP2WPKHaddress(
+    `${publicKeyX}${publicKeyY}`,
+    Network.regtest
+  ))
 
   console.log(`Calculated Bitcoin address: [${btcAddress}]`)
 
