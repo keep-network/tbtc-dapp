@@ -152,6 +152,7 @@ module.exports = async function() {
 
       console.debug('signature r:', signatureR.toString('hex'))
       console.debug('signature s:', signatureS.toString('hex'))
+      console.debug('signature recoveryID:', recoveryID.toString('hex'))
     } catch (err) {
       console.error(`failed to get signature: ${err}`)
       process.exit(1)
@@ -194,7 +195,7 @@ module.exports = async function() {
         toBlock: 'latest',
         filter: { _depositContractAddress: depositAddress },
       })
-
+      
       if(eventList.length == 0) {
         throw new Error("no GotRedemptionSignature events found")
       }
