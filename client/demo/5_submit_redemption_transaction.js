@@ -188,7 +188,7 @@ module.exports = async function() {
 
     const startBlockNumber = await web3.eth.getBlock('latest').number
 
-    async function logEvents(startBlockNumber) {
+    async function logGotRedemptionSignatureEvent(startBlockNumber) {
       const eventList = await depositLog.getPastEvents('GotRedemptionSignature', {
         fromBlock: startBlockNumber,
         toBlock: 'latest',
@@ -231,7 +231,7 @@ module.exports = async function() {
       process.exit(1)
     }
 
-    await logEvents(startBlockNumber)
+    await logGotRedemptionSignatureEvent(startBlockNumber)
       .catch((err) => {
         console.error('getting events log failed\n', err)
         process.exit(1)
