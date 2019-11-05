@@ -195,9 +195,8 @@ module.exports = async function() {
         filter: { _depositContractAddress: depositAddress },
       })
 
-      let ev = eventList[0]
-      if (eventList.length > 1) {
-        ev = eventList[eventList.length - 1]
+      if(eventList.length == 0) {
+        throw new Error("no GotRedemptionSignature events found")
       }
 
       const {
