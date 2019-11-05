@@ -198,13 +198,14 @@ module.exports = async function() {
       if(eventList.length == 0) {
         throw new Error("no GotRedemptionSignature events found")
       }
+      let latestEvent = eventList[eventList.length - 1]
 
       const {
         _timestamp,
         _r,
         _s,
         _digest,
-      } = ev.returnValues
+      } = latestEvent.returnValues
 
       console.debug(`Deposit got redemption signature for digest: ${_digest}`)
       console.debug(`r: ${_r}`)
