@@ -144,11 +144,11 @@ module.exports = async function() {
       }
 
       // A fee bump may have been requested, hence we get the latest signature there is.
-      const signatureEvent = signatureEvents[signatureEvents.length - 1]
+      const latestSignatureEvent = signatureEvents[signatureEvents.length - 1]
 
-      signatureR = Buffer.from(web3.utils.hexToBytes(signatureEvent.returnValues.r))
-      signatureS = Buffer.from(web3.utils.hexToBytes(signatureEvent.returnValues.s))
-      recoveryID = web3.utils.toBN(signatureEvent.returnValues.recoveryID)
+      signatureR = Buffer.from(web3.utils.hexToBytes(latestSignatureEvent.returnValues.r))
+      signatureS = Buffer.from(web3.utils.hexToBytes(latestSignatureEvent.returnValues.s))
+      recoveryID = web3.utils.toBN(latestSignatureEvent.returnValues.recoveryID)
 
       console.debug('signature r:', signatureR.toString('hex'))
       console.debug('signature s:', signatureS.toString('hex'))
