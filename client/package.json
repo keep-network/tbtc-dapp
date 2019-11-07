@@ -12,6 +12,8 @@
     "author": "Jakub Nowakowski <jakub.nowakowski@keep.network>",
     "license": "ISC",
     "dependencies": {
+        "bcoin": "^1.0.2",
+        "bcrypto": "^4.1.0",
         "tbtc-helpers": "file:../lib/tbtc-helpers",
         "web3": "^1.2.0"
     },
