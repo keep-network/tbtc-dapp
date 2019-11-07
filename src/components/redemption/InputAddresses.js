@@ -20,11 +20,7 @@ class InputAddresses extends Component {
     evt.preventDefault()
     evt.stopPropagation()
 
-    const { account } = this.props
-
-    if (account) {
-      history.push('/redeem/confirming')
-    }
+    history.push('/redeem/confirming')
   }
 
   handleContractAddressChange = (evt) => {
