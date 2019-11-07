@@ -61,8 +61,8 @@ class Prove extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-      provingDeposit: state.app.provingDeposit,
-      proveDepositError: state.app.proveDepositError
+      provingDeposit: state.deposit.provingDeposit,
+      proveDepositError: state.deposit.proveDepositError
   }
 }
 

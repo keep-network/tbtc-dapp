@@ -49,7 +49,7 @@ class Invoice extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    status: state.app.invoiceStatus
+    status: state.deposit.invoiceStatus
   }
 }
 
