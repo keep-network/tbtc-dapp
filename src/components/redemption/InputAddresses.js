@@ -79,26 +79,28 @@ class InputAddresses extends Component {
           <div className="description">
           <div className={classnames("paste-field", { success: contractAddressIsValid, alert: contractAddressHasError })}>
               <label htmlFor="contract-address">
-                Paste a contract address to redeem:
+              Where should we send your Bitcoin?
               </label>
               <input
                 type="text"
                 id="contract-address"
                 onChange={this.handleContractAddressChange}
                 value={contractAddress}
+                placeholder="Enter BTC Address"
               />
               { contractAddressIsValid && <Check height="28px" width="28px" /> }
               { contractAddressHasError && <X height="28px" width="28px" /> }
             </div>
             <div className={classnames("paste-field", { success: btcAddressIsValid, alert: btcAddressHasError })}>
               <label htmlFor="btc-address">
-                Paste a Bitcoin address to redeem:
+                What was your deposit address?
               </label>
               <input
                 type="text"
                 id="btc-address"
                 onChange={this.handleBtcAddressChange}
                 value={btcAddress}
+                placeholder="Enter ETH Deposit Address"
               />
               { btcAddressIsValid && <Check height="28px" width="28px" /> }
               { btcAddressHasError && <X height="28px" width="28px" /> }
