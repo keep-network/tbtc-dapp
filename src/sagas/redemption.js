@@ -4,14 +4,14 @@ import { delay } from 'redux'
 
 import { navigateTo } from '../lib/router/actions'
 
-export const SAVE_ADDRESSES = 'SAVE_ADDRESSES'
-export const SAVE_TX_HASH = 'SAVE_TX_HASH'
+export const UPDATE_ADDRESSES = 'UPDATE_ADDRESSES'
+export const UPDATE_TX_HASH = 'UPDATE_TX_HASH'
 export const UPDATE_CONFIRMATIONS = 'UPDATE_CONFIRMATIONS'
 export const POLL_FOR_CONFIRMATIONS_ERROR = 'POLL_FOR_CONFIRMATIONS_ERROR'
 
 export function* saveAddresses({ btcAddress, ethAddress }) {
     yield put({
-        type: SAVE_ADDRESSES,
+        type: UPDATE_ADDRESSES,
         payload: {
             btcAddress,
             ethAddress
@@ -30,7 +30,7 @@ export function* broadcastTransaction() {
     const txHash = 'TODO'
 
     yield put({
-        type: SAVE_TX_HASH,
+        type: UPDATE_TX_HASH,
         payload: { txHash }
     })
 
