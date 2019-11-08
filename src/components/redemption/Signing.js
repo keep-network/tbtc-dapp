@@ -3,13 +3,13 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import StatusIndicator from '../svgs/StatusIndicator'
-import { broadcastTransaction } from '../../actions'
+import { buildTransactionAndSubmitSignature } from '../../actions'
 
 class Signing extends Component {
   componentDidMount() {
-    const { broadcastTransaction } = this.props
+    const { buildTransactionAndSubmitSignature } = this.props
 
-    broadcastTransaction()
+    buildTransactionAndSubmitSignature()
   }
 
   render() {
@@ -27,7 +27,7 @@ class Signing extends Component {
           </div>
           <hr />
           <div className="description">
-            <p>We’re waiting for the deposit signing group to sign and broadcast your Bitcoin transaction.</p>
+            <p>We’re waiting for the deposit signing group to sign and build your Bitcoin transaction.</p>
           </div>
         </div>
       </div>
@@ -38,7 +38,7 @@ class Signing extends Component {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      broadcastTransaction
+      buildTransactionAndSubmitSignature
     },
     dispatch
   )

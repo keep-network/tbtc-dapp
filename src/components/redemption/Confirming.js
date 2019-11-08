@@ -3,13 +3,13 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import StatusIndicator from '../svgs/StatusIndicator'
-import { pollForConfirmations } from '../../actions'
+import { broadcastTransaction } from '../../actions'
 
 class Confirming extends Component {
   componentDidMount() {
-    const { pollForConfirmations } = this.props
+    const { broadcastTransaction } = this.props
 
-    pollForConfirmations()
+    broadcastTransaction()
   }
 
   handleClickButton = () => {
@@ -22,7 +22,12 @@ class Confirming extends Component {
   }
 
   render() {
-    const { confirmations = 0, requiredConfirmations = 6, pollForConfirmationsError } = this.props
+    const {
+      confirmations = 0,
+      requiredConfirmations = 6,
+      pollForConfirmationsError,
+      txHash
+    } = this.props
 
     return (
       <div className="confirming">
@@ -34,17 +39,29 @@ class Confirming extends Component {
             Step 3/4
           </div>
           <div className="title">
-            {confirmations}/{requiredConfirmations} blocks confirmed...
+            {
+              confirmations
+              ? `${confirmations}/${requiredConfirmations} blocks confirmed...`
+              : 'Broadcasting Transaction'
+            }
           </div>
           <hr />
           <div className="description">
-            <p>We're waiting to confirm your transaction.</p>
-            <button
-              onClick={this.handleClickButton}
-              className="black"
-              >
-              Follow along in block explorer
-            </button>
+            {
+              confirmations
+              ? <p>We're waiting to confirm your transaction.</p>
+              : <p>Broadcasting your transaction...</p>
+            }
+            {
+              txHash
+              ? <button
+                  onClick={this.handleClickButton}
+                  className="black"
+                  >
+                  Follow along in block explorer
+                </button>
+              : ''
+            }
             {
               pollForConfirmationsError
               ? <div className="error">
@@ -71,7 +88,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      pollForConfirmations
+      broadcastTransaction
     },
     dispatch
   )

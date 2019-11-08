@@ -4,6 +4,7 @@ import { call, put, select, delay } from 'redux-saga/effects'
 import { navigateTo } from '../lib/router/actions'
 
 export const UPDATE_ADDRESSES = 'UPDATE_ADDRESSES'
+export const UPDATE_TRANSACTION_AND_SIGNATURE = 'UPDATE_TRANSACTION_AND_SIGNATURE'
 export const UPDATE_TX_HASH = 'UPDATE_TX_HASH'
 export const UPDATE_CONFIRMATIONS = 'UPDATE_CONFIRMATIONS'
 export const POLL_FOR_CONFIRMATIONS_ERROR = 'POLL_FOR_CONFIRMATIONS_ERROR'
@@ -17,10 +18,29 @@ export function* saveAddresses({ payload }) {
     yield put(navigateTo('/redeem/signing'))
 }
 
-export function* broadcastTransaction() {
+export function* buildTransactionAndSubmitSignature() {
     const btcAddress = yield select(state => state.redemption.btcAddress)
+    // TODO: Build Transaction
+    const transaction = 'TODO'
 
-    // TODO: Build + Broadcast Transaction
+    // TODO: Wait for + Save Signature
+    const signature = 'TODO'
+
+    yield put({
+        type: UPDATE_TRANSACTION_AND_SIGNATURE,
+        payload: { transaction, signature }
+    })
+
+    const contractAddress = yield select(state => state.redemption.contractAddress)
+    // TODO: Submit Signature
+
+    yield put(navigateTo('/redeem/broadcast'))
+}
+
+export function* broadcastTransaction() {
+    const transaction = yield select(state => state.redemption.transaction)
+    const signature = yield select(state => state.redemption.signature)
+    // TODO: Broadcast Signed Transaction
 
     // TODO: Save txHash to state
     const txHash = 'TODO'
@@ -30,7 +50,7 @@ export function* broadcastTransaction() {
         payload: { txHash }
     })
 
-    yield put(navigateTo('/redeem/confirming'))
+    yield call(pollForConfirmations)
 }
 
 export function* pollForConfirmations() {

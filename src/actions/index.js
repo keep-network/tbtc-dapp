@@ -23,6 +23,7 @@ export function submitProof() {
 
 // Redemption
 export const SAVE_ADDRESSES = 'SAVE_ADDRESSES'
+export const BUILD_TRANSACTION_AND_SUBMIT_SIGNATURE = 'BUILD_TRANSACTION_AND_SUBMIT_SIGNATURE'
 export const BROADCAST_TRANSACTION = 'BROADCAST_TRANSACTION'
 export const POLL_FOR_CONFIRMATION = 'POLL_FOR_CONFIRMATION'
 
@@ -33,6 +34,12 @@ export function saveAddresses({ btcAddress, contractAddress }) {
             btcAddress,
             contractAddress
         }
+    }
+}
+
+export function buildTransactionAndSubmitSignature() {
+    return {
+        type: BUILD_TRANSACTION_AND_SUBMIT_SIGNATURE
     }
 }
 

@@ -1,5 +1,6 @@
 import {
     UPDATE_ADDRESSES,
+    UPDATE_TRANSACTION_AND_SIGNATURE,
     UPDATE_TX_HASH,
     UPDATE_CONFIRMATIONS,
     POLL_FOR_CONFIRMATIONS_ERROR
@@ -8,8 +9,10 @@ import {
 const initialState = {
     btcAddress: null,
     contractAddress: null,
+    transaction: null,
+    txHash: null,
     requiredConfirmations: 6,
-    confirmations: 0,
+    confirmations: null,
     pollForConfirmationsError: null
 }
 
@@ -20,6 +23,12 @@ const redemption = (state = initialState, action) => {
                 ...state,
                 btcAddress: action.payload.btcAddress,
                 contractAddress: action.payload.contractAddress
+            }
+        case UPDATE_TRANSACTION_AND_SIGNATURE:
+            return {
+                ...state,
+                transaction: action.payload.transaction,
+                signature: action.payload.signature
             }
         case UPDATE_TX_HASH:
             return {
