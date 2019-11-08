@@ -23,7 +23,7 @@ class Confirming extends Component {
 
   render() {
     const { confirmations = 0, requiredConfirmations = 6, pollForConfirmationsError } = this.props
-console.log("WTF - PROPS: ", this.props)
+
     return (
       <div className="confirming">
         <div className="page-top">
@@ -60,7 +60,6 @@ console.log("WTF - PROPS: ", this.props)
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log("MAPPING: ", state)
   return {
     txHash: state.redemption.txHash,
     confirmations: state.redemption.confirmations,
