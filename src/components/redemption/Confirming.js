@@ -23,8 +23,8 @@ class Confirming extends Component {
 
   render() {
     const {
-      confirmations = 0,
-      requiredConfirmations = 6,
+      confirmations,
+      requiredConfirmations,
       pollForConfirmationsError,
       txHash
     } = this.props
