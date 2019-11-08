@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
-import history from '../../history'
 import StatusIndicator from '../svgs/StatusIndicator'
 import TLogo from '../svgs/tlogo'
 import Check from '../svgs/Check'
 import X from '../svgs/X'
+import { saveAddresses } from '../../actions'
 
 class InputAddresses extends Component {
 
@@ -20,7 +22,13 @@ class InputAddresses extends Component {
     evt.preventDefault()
     evt.stopPropagation()
 
-    history.push('/redeem/confirming')
+    const { saveAddresses } = this.props
+    const { btcAddress, contractAddress } = this.state
+
+    saveAddresses({
+      btcAddress,
+      contractAddress
+    })
   }
 
   handleContractAddressChange = (evt) => {
@@ -117,4 +125,16 @@ class InputAddresses extends Component {
   }
 }
 
-export default InputAddresses
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      saveAddresses
+    },
+    dispatch
+  )
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(InputAddresses)

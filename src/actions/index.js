@@ -26,12 +26,12 @@ export const SAVE_ADDRESSES = 'SAVE_ADDRESSES'
 export const BROADCAST_TRANSACTION = 'BROADCAST_TRANSACTION'
 export const POLL_FOR_CONFIRMATION = 'POLL_FOR_CONFIRMATION'
 
-export function saveAddresses({ btcAddress, ethAddress }) {
+export function saveAddresses({ btcAddress, contractAddress }) {
     return {
         type: SAVE_ADDRESSES,
         payload: {
             btcAddress,
-            ethAddress
+            contractAddress
         }
     }
 }

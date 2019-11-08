@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 import StatusIndicator from '../svgs/StatusIndicator'
+import { broadcastTransaction } from '../../actions'
 
 class Signing extends Component {
   componentDidMount() {
-    // TODO: Kick off call to Signing Saga, which will transfer you to the Confirming page
+    const { broadcastTransaction } = this.props
+
+    broadcastTransaction()
   }
 
   render() {
@@ -30,4 +35,17 @@ class Signing extends Component {
   }
 }
 
-export default Signing
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      broadcastTransaction
+    },
+    dispatch
+  )
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Signing)
+

@@ -1,6 +1,5 @@
 
-import { call, put, select } from 'redux-saga/effects'
-import { delay } from 'redux'
+import { call, put, select, delay } from 'redux-saga/effects'
 
 import { navigateTo } from '../lib/router/actions'
 
@@ -9,13 +8,10 @@ export const UPDATE_TX_HASH = 'UPDATE_TX_HASH'
 export const UPDATE_CONFIRMATIONS = 'UPDATE_CONFIRMATIONS'
 export const POLL_FOR_CONFIRMATIONS_ERROR = 'POLL_FOR_CONFIRMATIONS_ERROR'
 
-export function* saveAddresses({ btcAddress, ethAddress }) {
+export function* saveAddresses({ payload }) {
     yield put({
         type: UPDATE_ADDRESSES,
-        payload: {
-            btcAddress,
-            ethAddress
-        }
+        payload
     })
 
     yield put(navigateTo('/redeem/signing'))
@@ -39,22 +35,23 @@ export function* broadcastTransaction() {
 
 export function* pollForConfirmations() {
     let confirmations = 0
-    const requiredConfirmations = select(state => state.redemption.requiredConfirmations)
+    const requiredConfirmations = yield select(state => state.redemption.requiredConfirmations)
 
     while(confirmations < requiredConfirmations) {
         try {
             // TODO: yield call to electrum, request confirmations
-            // TODO: Update newConfirmations
-            const newConfirmations = "TODO"
+
+            // TODO: Update newConfirmations with real data
+            const newConfirmations = confirmations + 1
 
             yield put({
                 type: UPDATE_CONFIRMATIONS,
                 payload: { confirmations: newConfirmations }
             })
 
-            yield call(delay, 10000)
+            yield delay(1000)
 
-            confirmations = select( state => state.redemption.confirmations)
+            confirmations = yield select( state => state.redemption.confirmations)
         } catch(err) {
             yield put({
                 type: POLL_FOR_CONFIRMATIONS_ERROR,
@@ -65,7 +62,7 @@ export function* pollForConfirmations() {
         }
     }
 
-    const pollForConfirmationsError = select(state => state.redemption.pollForConfirmationsError)
+    const pollForConfirmationsError = yield select(state => state.redemption.pollForConfirmationsError)
     if (!pollForConfirmationsError) {
         yield put(navigateTo('/redeem/congratulations'))
     }

@@ -1,13 +1,13 @@
 import {
-    SAVE_ADDRESSES,
-    SAVE_TX_HASH,
+    UPDATE_ADDRESSES,
+    UPDATE_TX_HASH,
     UPDATE_CONFIRMATIONS,
     POLL_FOR_CONFIRMATIONS_ERROR
 } from '../sagas/redemption'
 
 const initialState = {
     btcAddress: null,
-    ethAddress: null,
+    contractAddress: null,
     requiredConfirmations: 6,
     confirmations: 0,
     pollForConfirmationsError: null
@@ -15,13 +15,13 @@ const initialState = {
 
 const redemption = (state = initialState, action) => {
     switch (action.type) {
-        case SAVE_ADDRESSES:
+        case UPDATE_ADDRESSES:
             return {
                 ...state,
                 btcAddress: action.payload.btcAddress,
-                ethAddress: action.payload.ethAddress
+                contractAddress: action.payload.contractAddress
             }
-        case SAVE_TX_HASH:
+        case UPDATE_TX_HASH:
             return {
                 ...state,
                 txHash: action.payload.txHash

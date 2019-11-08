@@ -502,6 +502,10 @@ footer {
   right: 12px;
   top: 42px;
 }
+.confirming .page-body .description .error {
+  margin-top: 20px;
+  color: #E7755C;
+}
 html,
 body,
 #root {
