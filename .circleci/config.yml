@@ -36,7 +36,7 @@ jobs:
           command: |
             docker build -t build --target build .
             docker build -t $GCR_REGISTRY_URL/$GOOGLE_PROJECT_ID/tbtc-dapp .
-      # Test are not available yet. 
+      # Test are not available yet.
       # - run:
       #     name: Run NPM tests
       #     command: |
@@ -82,10 +82,10 @@ workflows:
     jobs:
       - build_and_test_dapp:
           context: keep-dev
-      #- publish_dapp:
-      #    filters:
-      #      branches:
-      #        only: master
-      #    context: keep-dev
-      #    requires:
-      #      - build_and_test_dapp
+      - publish_dapp:
+          filters:
+            branches:
+              only: master
+          context: keep-dev
+          requires:
+            - build_and_test_dapp
