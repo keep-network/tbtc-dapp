@@ -8,6 +8,9 @@ export const UPDATE_TRANSACTION_AND_SIGNATURE = 'UPDATE_TRANSACTION_AND_SIGNATUR
 export const UPDATE_TX_HASH = 'UPDATE_TX_HASH'
 export const UPDATE_CONFIRMATIONS = 'UPDATE_CONFIRMATIONS'
 export const POLL_FOR_CONFIRMATIONS_ERROR = 'POLL_FOR_CONFIRMATIONS_ERROR'
+export const REDEMPTION_PROVE_BTC_TX_BEGIN = 'REDEMPTION_PROVE_BTC_TX_BEGIN'
+export const REDEMPTION_PROVE_BTC_TX_SUCCESS = 'REDEMPTION_PROVE_BTC_TX_SUCCESS'
+export const REDEMPTION_PROVE_BTC_TX_ERROR = 'REDEMPTION_PROVE_BTC_TX_ERROR'
 
 export function* saveAddresses({ payload }) {
     yield put({
@@ -34,7 +37,7 @@ export function* buildTransactionAndSubmitSignature() {
     const contractAddress = yield select(state => state.redemption.contractAddress)
     // TODO: Submit Signature
 
-    yield put(navigateTo('/redeem/broadcast'))
+    yield put(navigateTo('/redeem/confirming'))
 }
 
 export function* broadcastTransaction() {
@@ -69,13 +72,13 @@ export function* pollForConfirmations() {
                 payload: { confirmations: newConfirmations }
             })
 
-            yield delay(1000)
+            yield delay(10000)
 
             confirmations = yield select( state => state.redemption.confirmations)
         } catch(err) {
             yield put({
                 type: POLL_FOR_CONFIRMATIONS_ERROR,
-                payload: { pollForConfirmationsError: err }
+                payload: { pollForConfirmationsError: err.toString() }
             })
 
             break
@@ -84,6 +87,26 @@ export function* pollForConfirmations() {
 
     const pollForConfirmationsError = yield select(state => state.redemption.pollForConfirmationsError)
     if (!pollForConfirmationsError) {
+        yield put(navigateTo('/redeem/prove'))
+    }
+}
+
+export function* submitRedemptionProof() {
+    yield put({ type: REDEMPTION_PROVE_BTC_TX_BEGIN })
+
+    // TODO: Do proof stuff
+
+    try {
+        yield put({
+            type: REDEMPTION_PROVE_BTC_TX_SUCCESS,
+            payload: {}
+        })
+
         yield put(navigateTo('/redeem/congratulations'))
+    } catch (err) {
+        yield put({
+            type: REDEMPTION_PROVE_BTC_TX_ERROR,
+            payload: { error: err.toString() }
+        })
     }
 }

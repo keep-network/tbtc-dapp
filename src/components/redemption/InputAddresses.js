@@ -74,7 +74,7 @@ class InputAddresses extends Component {
         </div>
         <div className="page-body">
           <div className="step">
-            Step 2/4
+            Step 2/5
           </div>
           <div className="title">
             Redeem bond

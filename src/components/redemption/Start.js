@@ -35,7 +35,7 @@ class Start extends Component {
         </div>
         <div className="page-body">
           <div className="step">
-            Step 1/4
+            Step 1/5
           </div>
           <div className="title">
             Redeem bond

@@ -36,7 +36,7 @@ class Confirming extends Component {
         </div>
         <div className="page-body">
           <div className="step">
-            Step 3/4
+            Step 3/5
           </div>
           <div className="title">
             {

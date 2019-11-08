@@ -8,7 +8,8 @@ import {
     saveAddresses,
     buildTransactionAndSubmitSignature,
     broadcastTransaction,
-    pollForConfirmations } from './redemption'
+    pollForConfirmations,
+    submitRedemptionProof } from './redemption'
 import {
     REQUEST_A_DEPOSIT,
     WAIT_CONFIRMATION,
@@ -16,7 +17,8 @@ import {
     SAVE_ADDRESSES,
     BUILD_TRANSACTION_AND_SUBMIT_SIGNATURE,
     BROADCAST_TRANSACTION,
-    POLL_FOR_CONFIRMATION } from '../actions'
+    POLL_FOR_CONFIRMATION,
+    SUBMIT_REDEMPTION_PROOF } from '../actions'
 
 export default function* () {
     yield takeLatest(REQUEST_A_DEPOSIT, requestADeposit)
@@ -26,4 +28,5 @@ export default function* () {
     yield takeLatest(BUILD_TRANSACTION_AND_SUBMIT_SIGNATURE, buildTransactionAndSubmitSignature)
     yield takeLatest(BROADCAST_TRANSACTION, broadcastTransaction)
     yield takeLatest(POLL_FOR_CONFIRMATION, pollForConfirmations)
+    yield takeLatest(SUBMIT_REDEMPTION_PROOF, submitRedemptionProof)
 }

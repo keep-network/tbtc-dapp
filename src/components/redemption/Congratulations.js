@@ -23,7 +23,7 @@ class Congratulations extends Component {
         </div>
         <div className="page-body">
           <div className="step">
-            Step 4/4
+            Step 5/5
           </div>
           <div className="title">
             Redemption Complete

@@ -15,7 +15,7 @@ export function waitConfirmation() {
     }
 }
 
-export function submitProof() {
+export function submitDepositProof() {
     return {
         type: SUBMIT_DEPOSIT_PROOF
     }
@@ -26,6 +26,7 @@ export const SAVE_ADDRESSES = 'SAVE_ADDRESSES'
 export const BUILD_TRANSACTION_AND_SUBMIT_SIGNATURE = 'BUILD_TRANSACTION_AND_SUBMIT_SIGNATURE'
 export const BROADCAST_TRANSACTION = 'BROADCAST_TRANSACTION'
 export const POLL_FOR_CONFIRMATION = 'POLL_FOR_CONFIRMATION'
+export const SUBMIT_REDEMPTION_PROOF = 'SUBMIT_REDEMPTION_PROOF'
 
 export function saveAddresses({ btcAddress, contractAddress }) {
     return {
@@ -52,6 +53,12 @@ export function broadcastTransaction() {
 export function pollForConfirmations() {
     return {
         type: POLL_FOR_CONFIRMATION
+    }
+}
+
+export function submitRedemptionProof() {
+    return {
+        type: SUBMIT_REDEMPTION_PROOF
     }
 }
 
