@@ -12093,16 +12093,16 @@
     "1101": {
       "events": {},
       "links": {
-        "DepositLiquidation": "0x6B8AF8f1887892F130e2b455c38459D833dF8E33",
-        "DepositRedemption": "0x118338140ad7b5F8fe674D37950fD4edDAf098E9",
-        "DepositFunding": "0xf9882e418ec8782A8052068c3cDa0D57015B7aA0"
+        "DepositLiquidation": "0x41bc199F9C8f53BA2c0c1b11f73d8B442fED17B4",
+        "DepositRedemption": "0x26fc1c081a63fAa47f30c4fae6a993e54C67D595",
+        "DepositFunding": "0x3C684C3948a63B3570c9FfA64Bbd856Dd729b70E"
       },
-      "address": "0x2399Ed7d4174BDbbF62A502e8EE7373B134c9d5B",
-      "transactionHash": "0x112ad2e2ec30e102e9f8084ab4212b56ca7f19d4a918dc7c86b1f86d7d9af98d"
+      "address": "0x3a8C32d76D527DBADBbb0F5011bdD2b2d126eD30",
+      "transactionHash": "0x460cc34ee00785ebb85984519100396a3c10f7613dbf6688b5a8da97693ad677"
     }
   },
   "schemaVersion": "3.0.2",
-  "updatedAt": "2019-11-08T17:01:35.146Z",
+  "updatedAt": "2019-11-11T14:10:27.800Z",
   "devdoc": {
     "methods": {
       "createNewDeposit(address,address,uint256,uint256)": {

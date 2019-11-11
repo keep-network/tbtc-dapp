@@ -2346,12 +2346,12 @@
     "1101": {
       "events": {},
       "links": {},
-      "address": "0xeFF318608aD49ACB17Cf23910414E1781A88b3D8",
-      "transactionHash": "0xf414d12ecd0840892e29fc5ac7fea94038cf3a81145eca13a48b8a52683cfa23"
+      "address": "0xAc201fAaaf1C99872f4566e90eA2ACc438CA4520",
+      "transactionHash": "0xa4a192b44318f34700428ed539039df57d74e789dde08cb63817481f9686138d"
     }
   },
   "schemaVersion": "3.0.2",
-  "updatedAt": "2019-11-08T17:01:35.165Z",
+  "updatedAt": "2019-11-11T14:10:27.814Z",
   "devdoc": {
     "details": "We avoid redeployment of deposit contract by using the clone factory. Proxy delegates calls to Deposit and therefore does not affect deposit state. This means that we only need to deploy the deposit contracts once. The factory provides clean state for every new deposit clone.",
     "methods": {
