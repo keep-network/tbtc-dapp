@@ -4,8 +4,8 @@ import {
   TBTCConstants,
   TBTCToken,
   ECDSAKeep,
-  truffleToWeb3Contract
-} from './eth/contracts';
+  truffleToWeb3Contract,
+} from './eth/contracts'
 
 /**
  * Creates a new deposit and returns its address
@@ -30,7 +30,7 @@ export async function createDeposit() {
     _keepThreshold,
     _keepSize,
     {
-      value: funderBond
+      value: funderBond,
     }
   )
 
@@ -43,12 +43,18 @@ export async function createDeposit() {
   return depositAddress
 }
 
-async function getKeepAddress(depositAddress) {
+/**
+ * Gets address of a keep created for the deposit. Finds the deposit creation
+ * event and returns keep value emitted in the event.
+ * @param {string} depositAddress Address of the deposit.
+ * @return {string} Address of the keep.
+ */
+export async function getKeepAddress(depositAddress) {
   const tbtcSystem = await TBTCSystem.deployed()
-  let events = await tbtcSystem.getPastEvents('Created', { 
-    fromBlock: 0, 
-    toBlock: 'latest', 
-    filter: { _depositContractAddress: depositAddress }
+  const events = await tbtcSystem.getPastEvents('Created', {
+    fromBlock: 0,
+    toBlock: 'latest',
+    filter: { _depositContractAddress: depositAddress },
   })
   return events[0].returnValues._keepAddress
 }
@@ -57,7 +63,7 @@ export async function watchForPublicKeyPublished(depositAddress) {
   return new Promise(async (resolve, reject) => {
     const keepAddress = await getKeepAddress(depositAddress)
     const ecdsaKeep = truffleToWeb3Contract(await ECDSAKeep.at(keepAddress))
-    
+
     // Start watching for events
     console.log(`Watching for PublicKeyPublished event `)
     ecdsaKeep.events.PublicKeyPublished()
