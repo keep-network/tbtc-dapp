@@ -16,7 +16,7 @@ class Confirming extends Component {
     const { txHash } = this.props
 
     window.open(
-      `https://etherscan.io/tx/${txHash}`,
+      `https://blockstream.info/tx/${txHash}`,
       '_blank'
     );
   }

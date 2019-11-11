@@ -31,8 +31,8 @@ class InputAddresses extends Component {
     })
   }
 
-  handledepositAddressChange = (evt) => {
-    // TODO: Validate contract address
+  handleDepositAddressChange = (evt) => {
+    // TODO: Validate deposit address
     const isValid = evt.target.value.length > 0 && true
     const hasError = evt.target.value.length > 0 && false
 
@@ -82,13 +82,13 @@ class InputAddresses extends Component {
           <hr />
           <div className="description">
           <div className={classnames("paste-field", { success: depositAddressIsValid, alert: depositAddressHasError })}>
-              <label htmlFor="contract-address">
+              <label htmlFor="deposit-address">
                 What was your deposit address?
               </label>
               <input
                 type="text"
-                id="contract-address"
-                onChange={this.handledepositAddressChange}
+                id="deposit-address"
+                onChange={this.handleDepositAddressChange}
                 value={depositAddress}
                 placeholder="Enter ETH Deposit Address"
               />
