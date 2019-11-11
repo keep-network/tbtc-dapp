@@ -1771,12 +1771,12 @@
     "1101": {
       "events": {},
       "links": {},
-      "address": "0xD5551F2af625614000BB0Adf7f036f3bD0Ea13eA",
-      "transactionHash": "0x3c63190f0ddf4f1ba4d19d3f8ca19c33054ab13bcee7f4df14c3a2cfc6f6fca7"
+      "address": "0xA122bcf892993Bc7debAAC1f3409E11DE7c2C21f",
+      "transactionHash": "0xb5f797a39dce5056c3697327a1127d56657bceeeec1d80086a209ed3928b940e"
     }
   },
   "schemaVersion": "3.0.2",
-  "updatedAt": "2019-11-08T17:01:56.530Z",
+  "updatedAt": "2019-11-11T14:10:58.809Z",
   "devdoc": {
     "methods": {
       "allowance(address,address)": {

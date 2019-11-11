@@ -7406,12 +7406,12 @@
     "1101": {
       "events": {},
       "links": {},
-      "address": "0x1614318ccB3a381f0FB0e8C388C44d6d0F989FF9",
-      "transactionHash": "0xbd8e59bb7e0311b71d17d55c61896227f22df52f71deebae32c81eb33395c05d"
+      "address": "0x67Be2a0eE6C0484F9Fb7E41261e2a634fDaDC584",
+      "transactionHash": "0xd1c05836a8d0d549b0647b3702fea8f0db520ad1107a811f4f3b721262649793"
     }
   },
   "schemaVersion": "3.0.2",
-  "updatedAt": "2019-11-08T17:01:35.153Z",
+  "updatedAt": "2019-11-11T14:10:27.807Z",
   "devdoc": {
     "methods": {}
   },
