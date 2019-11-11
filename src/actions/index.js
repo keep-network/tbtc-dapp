@@ -28,12 +28,12 @@ export const BROADCAST_TRANSACTION = 'BROADCAST_TRANSACTION'
 export const POLL_FOR_CONFIRMATION = 'POLL_FOR_CONFIRMATION'
 export const SUBMIT_REDEMPTION_PROOF = 'SUBMIT_REDEMPTION_PROOF'
 
-export function saveAddresses({ btcAddress, contractAddress }) {
+export function saveAddresses({ btcAddress, depositAddress }) {
     return {
         type: SAVE_ADDRESSES,
         payload: {
             btcAddress,
-            contractAddress
+            depositAddress
         }
     }
 }

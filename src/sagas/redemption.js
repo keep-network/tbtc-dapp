@@ -34,7 +34,7 @@ export function* buildTransactionAndSubmitSignature() {
         payload: { transaction, signature }
     })
 
-    const contractAddress = yield select(state => state.redemption.contractAddress)
+    const depositAddress = yield select(state => state.redemption.depositAddress)
     // TODO: Submit Signature
 
     yield put(navigateTo('/redeem/confirming'))

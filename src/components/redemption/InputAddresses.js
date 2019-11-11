@@ -12,8 +12,8 @@ import { saveAddresses } from '../../actions'
 class InputAddresses extends Component {
 
   state = {
-    contractAddress: '',
-    contractAddressIsValid: false,
+    depositAddress: '',
+    depositAddressIsValid: false,
     btcAddress: '',
     btcAddressIsValid: false
   }
@@ -23,23 +23,23 @@ class InputAddresses extends Component {
     evt.stopPropagation()
 
     const { saveAddresses } = this.props
-    const { btcAddress, contractAddress } = this.state
+    const { btcAddress, depositAddress } = this.state
 
     saveAddresses({
       btcAddress,
-      contractAddress
+      depositAddress
     })
   }
 
-  handleContractAddressChange = (evt) => {
+  handledepositAddressChange = (evt) => {
     // TODO: Validate contract address
     const isValid = evt.target.value.length > 0 && true
     const hasError = evt.target.value.length > 0 && false
 
     this.setState({
-      contractAddress: evt.target.value,
-      contractAddressIsValid: isValid,
-      contractAddressHasError: hasError
+      depositAddress: evt.target.value,
+      depositAddressIsValid: isValid,
+      depositAddressHasError: hasError
     })
   }
 
@@ -57,9 +57,9 @@ class InputAddresses extends Component {
 
   render() {
     const {
-      contractAddress,
-      contractAddressIsValid,
-      contractAddressHasError,
+      depositAddress,
+      depositAddressIsValid,
+      depositAddressHasError,
       btcAddress,
       btcAddressIsValid,
       btcAddressHasError
@@ -81,19 +81,19 @@ class InputAddresses extends Component {
           </div>
           <hr />
           <div className="description">
-          <div className={classnames("paste-field", { success: contractAddressIsValid, alert: contractAddressHasError })}>
+          <div className={classnames("paste-field", { success: depositAddressIsValid, alert: depositAddressHasError })}>
               <label htmlFor="contract-address">
                 What was your deposit address?
               </label>
               <input
                 type="text"
                 id="contract-address"
-                onChange={this.handleContractAddressChange}
-                value={contractAddress}
+                onChange={this.handledepositAddressChange}
+                value={depositAddress}
                 placeholder="Enter ETH Deposit Address"
               />
-              { contractAddressIsValid && <Check height="28px" width="28px" /> }
-              { contractAddressHasError && <X height="28px" width="28px" /> }
+              { depositAddressIsValid && <Check height="28px" width="28px" /> }
+              { depositAddressHasError && <X height="28px" width="28px" /> }
             </div>
             <div className={classnames("paste-field", { success: btcAddressIsValid, alert: btcAddressHasError })}>
               <label htmlFor="btc-address">
@@ -113,7 +113,7 @@ class InputAddresses extends Component {
           <div className='cta'>
             <button
               onClick={this.handleClickConfirm}
-              disabled={!contractAddressIsValid || !btcAddressIsValid}
+              disabled={!depositAddressIsValid || !btcAddressIsValid}
               className="black"
               >
               Confirm redemption

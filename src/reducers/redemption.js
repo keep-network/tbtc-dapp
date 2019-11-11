@@ -11,7 +11,7 @@ import {
 
 const initialState = {
     btcAddress: null,
-    contractAddress: null,
+    depositAddress: null,
     transaction: null,
     txHash: null,
     requiredConfirmations: 6,
@@ -25,7 +25,7 @@ const redemption = (state = initialState, action) => {
             return {
                 ...state,
                 btcAddress: action.payload.btcAddress,
-                contractAddress: action.payload.contractAddress
+                depositAddress: action.payload.depositAddress
             }
         case UPDATE_TRANSACTION_AND_SIGNATURE:
             return {
