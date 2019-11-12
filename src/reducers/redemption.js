@@ -14,7 +14,7 @@ const initialState = {
     depositAddress: null,
     unsignedTransaction: null,
     txHash: null,
-    requiredConfirmations: 6,
+    requiredConfirmations: 1,
     confirmations: null,
     pollForConfirmationsError: null
 }
