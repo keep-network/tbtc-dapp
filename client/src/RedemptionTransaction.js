@@ -91,16 +91,32 @@ export function bitcoinSignatureDER(r, s) {
  */
 export function addWitnessSignature(unsignedTransaction, inputIndex, r, s, publicKey) {
   // Signature
-  const signatureDER = bitcoinSignatureDER(r, s)
+  let signatureDER
+  try {
+    signatureDER = bitcoinSignatureDER(r, s)
+  } catch (err) {
+    throw new Error(`failed to convert signature to DER format: [${err}]`)
+  }
 
   const hashType = Buffer.from([bcoin.Script.hashType.ALL])
   const sig = Buffer.concat([signatureDER, hashType])
 
   // Public Key
-  const compressedPublicKey = secp256k1.publicKeyImport(publicKey, true)
+  let compressedPublicKey
+  try {
+    compressedPublicKey = secp256k1.publicKeyImport(publicKey, true)
+  } catch (err) {
+    throw new Error(`failed to import public key: [${err}]`)
+  }
 
   // Combine witness
-  const signedTransaction = bcoin.TX.fromRaw(unsignedTransaction, 'hex').clone()
+  let signedTransaction
+  try {
+    signedTransaction = bcoin.TX.fromRaw(unsignedTransaction, 'hex').clone()
+  } catch (err) {
+    throw new Error(`failed to import transaction: [${err}]`)
+  }
+
   signedTransaction.inputs[inputIndex].witness.fromItems([sig, compressedPublicKey])
 
   return signedTransaction.toRaw().toString('hex')
