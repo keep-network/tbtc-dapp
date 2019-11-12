@@ -113,7 +113,8 @@ export function* waitConfirmation() {
         type: BTC_TX_CONFIRMED_WAIT
     })
 
-    yield call(waitForConfirmations, electrumClient, fundingTx.transactionID)
+    const requiredConfirmations = 1 // TODO: We can get the value from contract with `getTxProofDifficultyFactor`
+    yield call(waitForConfirmations, electrumClient, fundingTx.transactionID, requiredConfirmations)
 
     // Close connection to electrum server.
     electrumClient.close()
