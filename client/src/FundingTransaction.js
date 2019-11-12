@@ -75,7 +75,7 @@ export async function watchForFundingTransaction(electrumClient, bitcoinAddress,
 
   // This function is used as a callback to electrum client. It is invoked when
   // am existing or a new transaction is found.
-  const findFundingTransaction = async function (status) {
+  const findFundingTransaction = async function(status) {
     // Check if status is null which means there are not transactions for the
     // script.
     if (status == null) {
@@ -112,14 +112,13 @@ export async function watchForFundingTransaction(electrumClient, bitcoinAddress,
  * Waits until funding transaction gets required number of confirmations.
  * @param {ElectrumClient} electrumClient Electrum Client instance.
  * @param {string} transactionID Transaction ID.
+ * @param {int} requiredConfirmations Required number of confirmations (default `1`).
  * @return {string} Number of confirmations for the transaction.
  * TODO: When we increase required confirmations number above 1 we should probably
  * emit an event for each new confirmation to update state in the web app.
  */
-export async function waitForConfirmations(electrumClient, transactionID) {
-  const requiredConfirmations = 1 // TODO: This is simplification for demo
-
-  const checkConfirmations = async function () {
+export async function waitForConfirmations(electrumClient, transactionID, requiredConfirmations = 1) {
+  const checkConfirmations = async function() {
     // Get current state of the transaction.
     const tx = await electrumClient.getTransaction(transactionID)
 
