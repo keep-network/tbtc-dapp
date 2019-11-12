@@ -1,4 +1,5 @@
-const bcoin = require('bcoin')
+const bcoin = require('bcoin/lib/bcoin-browser')
+
 const BN = require('bcrypto/lib/bn')
 const Signature = require('bcrypto/lib/internal/signature')
 const secp256k1 = require('bcrypto/lib/js/secp256k1')
