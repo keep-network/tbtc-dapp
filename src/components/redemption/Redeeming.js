@@ -3,13 +3,13 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import StatusIndicator from '../svgs/StatusIndicator'
-import { requestRedemption } from '../../actions'
+import { requestARedemption } from '../../actions'
 
 class Redeeming extends Component {
   componentDidMount() {
-    const { requestRedemption } = this.props
+    const { requestARedemption } = this.props
 
-    requestRedemption()
+    requestARedemption()
   }
 
   render() {
@@ -38,7 +38,7 @@ class Redeeming extends Component {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-        requestRedemption
+        requestARedemption
     },
     dispatch
   )
