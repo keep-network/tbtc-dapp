@@ -47,8 +47,6 @@ export function* requestARedemption() {
     console.log(`start redemption of deposit [${depositAddress}] to bitcoin address [${btcAddress}]`)
     yield call(requestRedemption, depositAddress, btcAddress)
 
-    // TODO: Burn TBTC?
-
     yield put(navigateTo('/redeem/signing'))
 }
 
