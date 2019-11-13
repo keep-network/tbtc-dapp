@@ -43,7 +43,7 @@ const Congratulations = ({ depositAddress }) => (
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    status: state.deposit.depositAddress
+    depositAddress: state.deposit.depositAddress
   }
 }
 
