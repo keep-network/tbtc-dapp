@@ -27,7 +27,7 @@ class Signing extends Component {
           </div>
           <hr />
           <div className="description">
-            <p>We’re waiting for the deposit signing group to sign and build your Bitcoin transaction.</p>
+            <p>We’re waiting for the deposit signing group to build and sign your Bitcoin transaction.</p>
           </div>
         </div>
       </div>
