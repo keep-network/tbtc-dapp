@@ -9,7 +9,7 @@ import Check from '../svgs/Check'
 import X from '../svgs/X'
 import { saveAddresses } from '../../actions'
 
-class InputAddresses extends Component {
+class Start extends Component {
 
   state = {
     depositAddress: '',
@@ -137,4 +137,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   null,
   mapDispatchToProps
-)(InputAddresses)
+)(Start)
