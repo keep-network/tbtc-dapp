@@ -18,6 +18,14 @@ export function* saveAddresses({ payload }) {
         payload
     })
 
+    yield put(navigateTo('/redeem/redeeming'))
+}
+
+export function* requestRedemption({ payload }) {
+    // TODO: Request Redemption
+
+    // TODO: Burn TBTC
+
     yield put(navigateTo('/redeem/signing'))
 }
 
