@@ -28,26 +28,20 @@ class Prove extends Component {
             Step 5/6
           </div>
           <div className="title">
-            {
-              provingRedemption
-              ? 'Submitting Proof...'
-              : proveRedemptionError
-                ? 'Error submitting proof'
-                : 'Received!'
-            }
+            Confirmed
           </div>
           <hr />
           <div className="description">
-            {
-              provingRedemption
-              ? 'Generating SVP and submitting to the sidechain...'
-              : 'Finally, let’s submit proof to the sidechain and get you your tBTC.'
-            }
+            Finally, let’s submit proof to the sidechain and get you your BTC.
           </div>
-          <div className={`cta ${provingRedemption ? 'disabled' : ''}`}>
-            <a href="/redemption/congratulations" onClick={this.handleClickProve}>
-              Submit Proof >>>
-            </a>
+          <div className="cta">
+            <button
+              onClick={this.handleClickProve}
+              disabled={provingRedemption}
+              className="black"
+              >
+              Redeem BTC
+            </button>
           </div>
           <div className="error">
             { proveRedemptionError }
