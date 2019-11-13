@@ -1,4 +1,4 @@
-.start, .invoice, .pay, .prove, .congratulations {
+.start, .invoice, .pay, .prove, .congratulations, .input-addresses, .confirming {
     display: flex;
     flex-direction: column;
     font-family: 'apercu-mono-regular-pro';
@@ -8,7 +8,6 @@
     .page-body {
         display: flex;
         flex-direction: column;
-        max-width: 500px;
         margin: 0 auto;
 
         .step {
@@ -43,14 +42,8 @@
     
         .cta {
             flex: 1 1;
-            font-size: .8em;
-
-            &.disabled {
-                a {
-                    color: @grey;
-                    cursor: not-allowed;
-                }
-            }
+            min-height: 100px;
+            position: relative;
         }
 
         .error {

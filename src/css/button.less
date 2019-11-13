@@ -1,17 +1,31 @@
-button {
-    background-color: @blue;
-    color: @white;
-    border-radius: 4px;
-    border: 0px solid transparent;
-    padding: 40px;
+button, .button {
+    &.blue { --button-color: @blue; }
+    &.black { --button-color: @black; }
+
+    border: 3px solid var(--button-color);
+    padding: 20px 40px;
+    font-family: 'apercu-mono-regular-pro';
     font-size: 1.25em;
+    color: var(--button-color);
+    background-color: @white;
+    white-space: nowrap;
+    transform: scale(1);
+    transition: transform 150ms ease-in-out;
     cursor: pointer;
 
-    &:hover {
-        background-color: saturate(@blue, 25%);
+    &:hover:enabled {
+        background-color: var(--button-color);
+        color: @white;
+        transform: scale(1.05);
     }
 
     &:focus {
         background-color: darken(@blue, 10%);
+    }
+
+    &:disabled {
+        border-color: @light-grey;
+        color: @light-grey;
+        cursor: unset;
     }
 }

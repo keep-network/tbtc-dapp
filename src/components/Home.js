@@ -51,14 +51,14 @@ class Home extends Component {
           : (
             <div className="mint-or-redeem">
               <a href="/deposit" onClick={this.handleClickDeposit}>
-                <div className="button blue">
+                <button className="blue">
                   Deposit
-                </div>
+                </button>
               </a>
               <a href="/redeem" onClick={this.handleClickRedeem}>
-                <div className="button black">
+                <button className="black">
                   Redeem
-                </div>
+                </button>
               </a>
             </div>
           )
