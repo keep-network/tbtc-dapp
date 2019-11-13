@@ -4,7 +4,7 @@ import { call, put, select, delay } from 'redux-saga/effects'
 import { navigateTo } from '../lib/router/actions'
 
 import {
-    requestRedemption as _requestRedemption,
+    requestRedemption as clientRequestRedemption,
     createUnsignedTransaction,
     watchForSignatureSubmitted,
     provideRedemptionSignature,
@@ -39,7 +39,7 @@ export function* requestRedemption() {
     const btcAddress = yield select(state => state.redemption.btcAddress)
 
     console.log(`start redemption of deposit [${depositAddress}] to bitcoin address [${btcAddress}]`)
-    yield call(_requestRedemption, depositAddress, btcAddress)
+    yield call(clientRequestRedemption, depositAddress, btcAddress)
 
     yield put(navigateTo('/redeem/signing'))
 }
