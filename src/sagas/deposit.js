@@ -30,7 +30,8 @@ export const DEPOSIT_PROVE_BTC_TX_ERROR = 'DEPOSIT_PROVE_BTC_TX_ERROR'
 
 const ElectrumClient = require('tbtc-helpers').ElectrumClient
 
-async function getElectrumClient() {
+// TODO: Extract to a common file as this function is reused across scripts.
+export async function getElectrumClient() {
     const config = require('../config/config.json')
 
     const electrumClient = new ElectrumClient.Client(config.electrum.testnetWS)
@@ -112,7 +113,8 @@ export function* waitConfirmation() {
         type: BTC_TX_CONFIRMED_WAIT
     })
 
-    yield call(waitForConfirmations, electrumClient, fundingTx.transactionID)
+    const requiredConfirmations = 1 // TODO: We can get the value from contract with `getTxProofDifficultyFactor`
+    yield call(waitForConfirmations, electrumClient, fundingTx.transactionID, requiredConfirmations)
 
     // Close connection to electrum server.
     electrumClient.close()

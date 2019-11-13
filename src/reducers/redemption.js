@@ -12,9 +12,9 @@ import {
 const initialState = {
     btcAddress: null,
     depositAddress: null,
-    transaction: null,
+    unsignedTransaction: null,
     txHash: null,
-    requiredConfirmations: 6,
+    requiredConfirmations: 1,
     confirmations: null,
     pollForConfirmationsError: null
 }
@@ -30,7 +30,7 @@ const redemption = (state = initialState, action) => {
         case UPDATE_TRANSACTION_AND_SIGNATURE:
             return {
                 ...state,
-                transaction: action.payload.transaction,
+                unsignedTransaction: action.payload.unsignedTransaction,
                 signature: action.payload.signature
             }
         case UPDATE_TX_HASH:
@@ -50,21 +50,21 @@ const redemption = (state = initialState, action) => {
             }
         case REDEMPTION_PROVE_BTC_TX_BEGIN:
             return {
-            ...state,
-            provingRedemption: true,
-            proveRedemptionError: undefined
+                ...state,
+                provingRedemption: true,
+                proveRedemptionError: undefined
             }
         case REDEMPTION_PROVE_BTC_TX_SUCCESS:
             return {
-            ...state,
-            provingRedemption: false,
-            proveRedemptionError: undefined
+                ...state,
+                provingRedemption: false,
+                proveRedemptionError: undefined
             }
         case REDEMPTION_PROVE_BTC_TX_ERROR:
             return {
-            ...state,
-            provingRedemption: false,
-            proveRedemptionError: action.payload.error
+                ...state,
+                provingRedemption: false,
+                proveRedemptionError: action.payload.error
             }
         default:
             return state
