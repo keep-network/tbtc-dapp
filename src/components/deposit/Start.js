@@ -45,10 +45,14 @@ class Start extends Component {
             <p>To mint tBTC, we first need to initiate a deposit. This is where we will send BTC.</p>
             <p>This should take less than 1 minute.</p>
           </div>
-          <div className={`cta ${!account ? 'disabled' : ''}`}>
-            <a href="/deposit/invoice" onClick={this.handleClickPay}>
-              Begin now >>>
-            </a>
+          <div className='cta'>
+            <button
+              onClick={this.handleClickPay}
+              disabled={typeof account === 'undefined'}
+              className="black"
+              >
+              Begin now
+            </button>
           </div>
         </div>
       </div>

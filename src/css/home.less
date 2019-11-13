@@ -34,30 +34,9 @@
             text-decoration: none!important;
             flex: 0;
             position: relative;
-            margin-right: 200px;
 
             &:first-of-type {
-                margin-right: 260px;
-            }
-        }
-
-        .button {
-            &.blue { --button-color: @blue; }
-            &.black { --button-color: @black; }
-            
-            position: absolute;
-            border: 3px solid var(--button-color);
-            padding: 20px 40px;
-            font-family: 'apercu-mono-regular-pro';
-            color: var(--button-color);
-            white-space: nowrap;
-            transform: scale(1);
-            transition: transform 150ms ease-in-out;
-
-            &:hover {
-                background-color: var(--button-color);
-                color: @white;
-                transform: scale(1.05);
+                margin-right: 60px;
             }
         }
     }
@@ -69,7 +48,7 @@
         border-width: 1px 0;
         border-style: solid;
         border-color: @light-blue;
-        background-color: @light-grey;
+        background-color: @lighter-grey;
         font-size: .75em;
 
         ol {

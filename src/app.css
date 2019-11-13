@@ -1,17 +1,39 @@
-button {
-  background-color: #479CFF;
-  color: #fff;
-  border-radius: 4px;
-  border: 0px solid transparent;
-  padding: 40px;
+button,
+.button {
+  border: 3px solid var(--button-color);
+  padding: 20px 40px;
+  font-family: 'apercu-mono-regular-pro';
   font-size: 1.25em;
+  color: var(--button-color);
+  background-color: #fff;
+  white-space: nowrap;
+  transform: scale(1);
+  transition: transform 150ms ease-in-out;
   cursor: pointer;
 }
-button:hover {
-  background-color: #479cff;
+button.blue,
+.button.blue {
+  --button-color: #479CFF;
 }
-button:focus {
+button.black,
+.button.black {
+  --button-color: #000;
+}
+button:hover:enabled,
+.button:hover:enabled {
+  background-color: var(--button-color);
+  color: #fff;
+  transform: scale(1.05);
+}
+button:focus,
+.button:focus {
   background-color: #1481ff;
+}
+button:disabled,
+.button:disabled {
+  border-color: #bababa;
+  color: #bababa;
+  cursor: unset;
 }
 .peanuts {
   z-index: 1;
@@ -52,7 +74,9 @@ footer {
 .invoice,
 .pay,
 .prove,
-.congratulations {
+.congratulations,
+.input-addresses,
+.confirming {
   display: flex;
   flex-direction: column;
   font-family: 'apercu-mono-regular-pro';
@@ -63,17 +87,20 @@ footer {
 .invoice .page-body,
 .pay .page-body,
 .prove .page-body,
-.congratulations .page-body {
+.congratulations .page-body,
+.input-addresses .page-body,
+.confirming .page-body {
   display: flex;
   flex-direction: column;
-  max-width: 500px;
   margin: 0 auto;
 }
 .start .page-body .step,
 .invoice .page-body .step,
 .pay .page-body .step,
 .prove .page-body .step,
-.congratulations .page-body .step {
+.congratulations .page-body .step,
+.input-addresses .page-body .step,
+.confirming .page-body .step {
   flex: 0 1;
   color: #479CFF;
   font-size: 0.5em;
@@ -83,7 +110,9 @@ footer {
 .invoice .page-body .title,
 .pay .page-body .title,
 .prove .page-body .title,
-.congratulations .page-body .title {
+.congratulations .page-body .title,
+.input-addresses .page-body .title,
+.confirming .page-body .title {
   flex: 0 1;
   font-size: 1.75em;
   font-weight: bold;
@@ -94,7 +123,9 @@ footer {
 .invoice .page-body hr,
 .pay .page-body hr,
 .prove .page-body hr,
-.congratulations .page-body hr {
+.congratulations .page-body hr,
+.input-addresses .page-body hr,
+.confirming .page-body hr {
   flex: 0 1;
   border-style: dashed;
   border-width: 2px 0 0 0;
@@ -106,7 +137,9 @@ footer {
 .invoice .page-body .description,
 .pay .page-body .description,
 .prove .page-body .description,
-.congratulations .page-body .description {
+.congratulations .page-body .description,
+.input-addresses .page-body .description,
+.confirming .page-body .description {
   flex: 0 1;
   font-size: 0.8em;
   margin-bottom: 40px;
@@ -115,23 +148,20 @@ footer {
 .invoice .page-body .cta,
 .pay .page-body .cta,
 .prove .page-body .cta,
-.congratulations .page-body .cta {
+.congratulations .page-body .cta,
+.input-addresses .page-body .cta,
+.confirming .page-body .cta {
   flex: 1 1;
-  font-size: 0.8em;
-}
-.start .page-body .cta.disabled a,
-.invoice .page-body .cta.disabled a,
-.pay .page-body .cta.disabled a,
-.prove .page-body .cta.disabled a,
-.congratulations .page-body .cta.disabled a {
-  color: #666;
-  cursor: not-allowed;
+  min-height: 100px;
+  position: relative;
 }
 .start .page-body .error,
 .invoice .page-body .error,
 .pay .page-body .error,
 .prove .page-body .error,
-.congratulations .page-body .error {
+.congratulations .page-body .error,
+.input-addresses .page-body .error,
+.confirming .page-body .error {
   flex: 1 1;
   font-size: 0.7em;
   color: #E7755C;
@@ -280,31 +310,9 @@ footer {
   text-decoration: none!important;
   flex: 0;
   position: relative;
-  margin-right: 200px;
 }
 .home .mint-or-redeem a:first-of-type {
-  margin-right: 260px;
-}
-.home .mint-or-redeem .button {
-  position: absolute;
-  border: 3px solid var(--button-color);
-  padding: 20px 40px;
-  font-family: 'apercu-mono-regular-pro';
-  color: var(--button-color);
-  white-space: nowrap;
-  transform: scale(1);
-  transition: transform 150ms ease-in-out;
-}
-.home .mint-or-redeem .button.blue {
-  --button-color: #479CFF;
-}
-.home .mint-or-redeem .button.black {
-  --button-color: #000;
-}
-.home .mint-or-redeem .button:hover {
-  background-color: var(--button-color);
-  color: #fff;
-  transform: scale(1.05);
+  margin-right: 60px;
 }
 .home .step-by-step {
   width: 100vw;
@@ -454,6 +462,45 @@ footer {
 .congratulations .page-body .description .bond-duration {
   font-family: 'apercu-bold-pro';
   margin-top: 30px;
+}
+.input-addresses .paste-field {
+  position: relative;
+  margin-bottom: 20px;
+}
+.input-addresses .paste-field label {
+  color: #666;
+}
+.input-addresses .paste-field input {
+  width: 100%;
+  margin: 15px 0;
+  height: 2em;
+  font-size: 1.2em;
+  font-family: 'apercu-mono-regular-pro';
+  padding: 2px 50px 0px 10px;
+  box-sizing: border-box;
+  background-color: #fff;
+  border: 1px solid #333;
+  border-radius: 5px;
+  box-shadow: none;
+  text-align: center;
+}
+.input-addresses .paste-field input:focus {
+  outline: none;
+  background-color: #f9f9f9;
+}
+.input-addresses .paste-field.success > input {
+  color: #5CE783;
+  border-color: #5CE783;
+}
+.input-addresses .paste-field.alert > input {
+  color: #E7755C;
+  border-color: #E7755C;
+}
+.input-addresses .paste-field .check-icon,
+.input-addresses .paste-field .x-icon {
+  position: absolute;
+  right: 12px;
+  top: 42px;
 }
 html,
 body,
