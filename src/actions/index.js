@@ -23,7 +23,7 @@ export function submitDepositProof() {
 
 // Redemption
 export const SAVE_ADDRESSES = 'SAVE_ADDRESSES'
-export const REQUEST_A_REDEMPTION = 'REQUEST_A_REDEMPTION'
+export const REQUEST_REDEMPTION = 'REQUEST_REDEMPTION'
 export const BUILD_TRANSACTION_AND_SUBMIT_SIGNATURE = 'BUILD_TRANSACTION_AND_SUBMIT_SIGNATURE'
 export const BROADCAST_TRANSACTION = 'BROADCAST_TRANSACTION'
 export const POLL_FOR_CONFIRMATION = 'POLL_FOR_CONFIRMATION'
@@ -39,9 +39,9 @@ export function saveAddresses({ btcAddress, depositAddress }) {
     }
 }
 
-export function requestARedemption() {
+export function requestRedemption() {
     return {
-        type: REQUEST_A_REDEMPTION
+        type: REQUEST_REDEMPTION
     }
 }
 
