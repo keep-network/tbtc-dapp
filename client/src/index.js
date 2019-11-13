@@ -1,4 +1,6 @@
 export * from './Deposit'
 export * from './FundingTransaction'
 export * from './FundingProof'
+export * from './Redemption'
+export * from './RedemptionTransaction'
 export * from './eth/contracts'
