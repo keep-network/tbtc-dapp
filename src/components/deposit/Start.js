@@ -27,7 +27,7 @@ class Start extends Component {
     const { account } = this.props
 
     return (
-      <div className="start">
+      <div className="deposit-start">
         <div className="page-top">
           <StatusIndicator green>
             <BTCLogo height={100} width={100} />

@@ -24,7 +24,6 @@ import {
 } from './components/deposit'
 import {
   Start as StartRedemption,
-  InputAddresses,
   Signing,
   Confirming,
   Prove as ProveRedemption,
@@ -70,8 +69,7 @@ function AppWrapper() {
             <Route path="/deposit/prove" component={ProveDeposit} />
             <Route path="/deposit/congratulations" component={CongratulationsDeposit} />
             <Route path="/redeem" exact component={StartRedemption} />
-            <Route path="/redeem/addresses" component={InputAddresses} />
-            <Route path="/redeem/Signing" component={Signing} />
+            <Route path="/redeem/signing" component={Signing} />
             <Route path="/redeem/confirming" component={Confirming} />
             <Route path="/redeem/prove" component={ProveRedemption} />
             <Route path="/redeem/congratulations" component={CongratulationsRedemption} />
