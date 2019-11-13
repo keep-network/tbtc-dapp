@@ -8,7 +8,7 @@ import {
   DEPOSIT_PROVE_BTC_TX_ERROR,
   DEPOSIT_REQUEST_BEGIN,
   DEPOSIT_PUBKEY_PUBLISHED
-} from "../sagas"
+} from "../sagas/deposit"
 
 const intialState = {
   btcAddress: null,
@@ -20,7 +20,7 @@ const intialState = {
   invoiceStatus: 0
 }
 
-const app = (state = intialState, action) => {
+const deposit = (state = intialState, action) => {
   switch (action.type) {
     case DEPOSIT_REQUEST_BEGIN:
       return {
@@ -78,4 +78,4 @@ const app = (state = intialState, action) => {
   }
 }
 
-export default app
+export default deposit

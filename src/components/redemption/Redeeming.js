@@ -3,13 +3,13 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import StatusIndicator from '../svgs/StatusIndicator'
-import { buildTransactionAndSubmitSignature } from '../../actions'
+import { requestRedemption } from '../../actions'
 
-class Signing extends Component {
+class Redeeming extends Component {
   componentDidMount() {
-    const { buildTransactionAndSubmitSignature } = this.props
+    const { requestRedemption } = this.props
 
-    buildTransactionAndSubmitSignature()
+    requestRedemption()
   }
 
   render() {
@@ -20,14 +20,14 @@ class Signing extends Component {
         </div>
         <div className="page-body">
           <div className="step">
-            Step 3/6
+            Step 2/6
           </div>
           <div className="title">
-            Waiting on signing group
+            Redeeming...
           </div>
           <hr />
           <div className="description">
-            <p>We’re waiting for the deposit signing group to build and sign your Bitcoin transaction.</p>
+            <p>We’re waiting for you to confirm invoice details in your Wallet.</p>
           </div>
         </div>
       </div>
@@ -38,7 +38,7 @@ class Signing extends Component {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      buildTransactionAndSubmitSignature
+        requestRedemption
     },
     dispatch
   )
@@ -47,5 +47,5 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   null,
   mapDispatchToProps
-)(Signing)
+)(Redeeming)
 

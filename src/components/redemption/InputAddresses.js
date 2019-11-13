@@ -1,17 +1,19 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
-import history from '../../history'
 import StatusIndicator from '../svgs/StatusIndicator'
 import TLogo from '../svgs/tlogo'
 import Check from '../svgs/Check'
 import X from '../svgs/X'
+import { saveAddresses } from '../../actions'
 
 class InputAddresses extends Component {
 
   state = {
-    contractAddress: '',
-    contractAddressIsValid: false,
+    depositAddress: '',
+    depositAddressIsValid: false,
     btcAddress: '',
     btcAddressIsValid: false
   }
@@ -20,18 +22,24 @@ class InputAddresses extends Component {
     evt.preventDefault()
     evt.stopPropagation()
 
-    history.push('/redeem/confirming')
+    const { saveAddresses } = this.props
+    const { btcAddress, depositAddress } = this.state
+
+    saveAddresses({
+      btcAddress,
+      depositAddress
+    })
   }
 
-  handleContractAddressChange = (evt) => {
-    // TODO: Validate contract address
+  handleDepositAddressChange = (evt) => {
+    // TODO: Validate deposit address
     const isValid = evt.target.value.length > 0 && true
     const hasError = evt.target.value.length > 0 && false
 
     this.setState({
-      contractAddress: evt.target.value,
-      contractAddressIsValid: isValid,
-      contractAddressHasError: hasError
+      depositAddress: evt.target.value,
+      depositAddressIsValid: isValid,
+      depositAddressHasError: hasError
     })
   }
 
@@ -49,9 +57,9 @@ class InputAddresses extends Component {
 
   render() {
     const {
-      contractAddress,
-      contractAddressIsValid,
-      contractAddressHasError,
+      depositAddress,
+      depositAddressIsValid,
+      depositAddressHasError,
       btcAddress,
       btcAddressIsValid,
       btcAddressHasError
@@ -66,26 +74,26 @@ class InputAddresses extends Component {
         </div>
         <div className="page-body">
           <div className="step">
-            Step 2/4
+            Step 2/5
           </div>
           <div className="title">
             Redeem bond
           </div>
           <hr />
           <div className="description">
-          <div className={classnames("paste-field", { success: contractAddressIsValid, alert: contractAddressHasError })}>
-              <label htmlFor="contract-address">
+          <div className={classnames("paste-field", { success: depositAddressIsValid, alert: depositAddressHasError })}>
+              <label htmlFor="deposit-address">
                 What was your deposit address?
               </label>
               <input
                 type="text"
-                id="contract-address"
-                onChange={this.handleContractAddressChange}
-                value={contractAddress}
+                id="deposit-address"
+                onChange={this.handleDepositAddressChange}
+                value={depositAddress}
                 placeholder="Enter ETH Deposit Address"
               />
-              { contractAddressIsValid && <Check height="28px" width="28px" /> }
-              { contractAddressHasError && <X height="28px" width="28px" /> }
+              { depositAddressIsValid && <Check height="28px" width="28px" /> }
+              { depositAddressHasError && <X height="28px" width="28px" /> }
             </div>
             <div className={classnames("paste-field", { success: btcAddressIsValid, alert: btcAddressHasError })}>
               <label htmlFor="btc-address">
@@ -105,7 +113,7 @@ class InputAddresses extends Component {
           <div className='cta'>
             <button
               onClick={this.handleClickConfirm}
-              disabled={!contractAddressIsValid || !btcAddressIsValid}
+              disabled={!depositAddressIsValid || !btcAddressIsValid}
               className="black"
               >
               Confirm redemption
@@ -117,4 +125,16 @@ class InputAddresses extends Component {
   }
 }
 
-export default InputAddresses
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      saveAddresses
+    },
+    dispatch
+  )
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(InputAddresses)

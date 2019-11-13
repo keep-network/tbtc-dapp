@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { submitDepositProof } from '../../actions'
+import { submitRedemptionProof } from '../../actions'
 import StatusIndicator from '../svgs/StatusIndicator'
 
 class Prove extends Component {
@@ -10,13 +10,13 @@ class Prove extends Component {
     evt.preventDefault()
     evt.stopPropagation()
 
-    const { submitDepositProof } = this.props
+    const { submitRedemptionProof } = this.props
 
-    submitDepositProof()
+    submitRedemptionProof()
   }
 
   render() {
-    const { provingDeposit, proveDepositError } = this.props
+    const { provingRedemption, proveRedemptionError } = this.props
 
     return (
       <div className="prove">
@@ -28,29 +28,23 @@ class Prove extends Component {
             Step 5/6
           </div>
           <div className="title">
-            {
-              provingDeposit
-              ? 'Submitting Proof...'
-              : proveDepositError
-                ? 'Error submitting proof'
-                : 'Received!'
-            }
+            Confirmed
           </div>
           <hr />
           <div className="description">
-            {
-              provingDeposit
-              ? 'Generating SVP and submitting to the sidechain...'
-              : 'Finally, let’s submit proof to the sidechain and get you your tBTC.'
-            }
+            Finally, let’s submit proof to the sidechain and get you your BTC.
           </div>
-          <div className={`cta ${provingDeposit ? 'disabled' : ''}`}>
-            <a href="/deposit/congratulations" onClick={this.handleClickProve}>
-              Submit Proof >>>
-            </a>
+          <div className="cta">
+            <button
+              onClick={this.handleClickProve}
+              disabled={provingRedemption}
+              className="black"
+              >
+              Redeem BTC
+            </button>
           </div>
           <div className="error">
-            { proveDepositError }
+            { proveRedemptionError }
           </div>
         </div>
       </div>
@@ -61,15 +55,15 @@ class Prove extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-      provingDeposit: state.deposit.provingDeposit,
-      proveDepositError: state.deposit.proveDepositError
+      provingRedemption: state.redemption.provingRedemption,
+      proveRedemptionError: state.redemption.proveRedemptionError
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
       {
-        submitDepositProof
+        submitRedemptionProof
       },
       dispatch
   )
