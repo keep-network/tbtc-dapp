@@ -25,13 +25,7 @@ export const REDEMPTION_PROVE_BTC_TX_BEGIN = 'REDEMPTION_PROVE_BTC_TX_BEGIN'
 export const REDEMPTION_PROVE_BTC_TX_SUCCESS = 'REDEMPTION_PROVE_BTC_TX_SUCCESS'
 export const REDEMPTION_PROVE_BTC_TX_ERROR = 'REDEMPTION_PROVE_BTC_TX_ERROR'
 
-// TODO: rename to `requestRedemption`?
 export function* saveAddresses({ payload }) {
-    const { depositAddress, btcAddress } = payload
-
-    console.log(`start redemption of deposit [${depositAddress}] to bitcoin address [${btcAddress}]`)
-    yield call(requestRedemption, depositAddress, btcAddress)
-
     yield put({
         type: UPDATE_ADDRESSES,
         payload
