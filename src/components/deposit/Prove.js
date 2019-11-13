@@ -25,7 +25,7 @@ class Prove extends Component {
         </div>
         <div className="page-body">
           <div className="step">
-            Step 4/5
+            Step 5/6
           </div>
           <div className="title">
             {

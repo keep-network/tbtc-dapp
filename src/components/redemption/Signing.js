@@ -20,7 +20,7 @@ class Signing extends Component {
         </div>
         <div className="page-body">
           <div className="step">
-            Step 3/5
+            Step 3/6
           </div>
           <div className="title">
             Waiting on signing group
