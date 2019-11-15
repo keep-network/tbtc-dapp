@@ -5667,12 +5667,12 @@
     "1101": {
       "events": {},
       "links": {},
-      "address": "0x37e0E942813D04109A5D13E2b57418d56f8aEBEd",
-      "transactionHash": "0xa54c487b13d4d3a03cf4a08818b9253ba6d28546a1e1c842b8fd6685d75546f1"
+      "address": "0x86f73845507CD931F2Ee8f71aaE6a7Dd26aBA939",
+      "transactionHash": "0x54d9fece9525c8ea3b172cca44f00ea96e6c05ab56167200048ff2601a5d7ed5"
     }
   },
   "schemaVersion": "3.0.2",
-  "updatedAt": "2019-11-11T14:10:58.812Z",
+  "updatedAt": "2019-11-15T16:27:57.036Z",
   "devdoc": {
     "methods": {
       "approve(address,uint256)": {
