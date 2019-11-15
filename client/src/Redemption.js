@@ -283,18 +283,6 @@ export async function combineSignedTransaction(
 }
 
 /**
- * Broadcasts a Bitcoin transaction.
- * @param {ElectrumClient} electrumClient Initialized Electrum Client instance.
- * @param {string} transaction Transaction in raw hexadecimal format.
- */
-export async function broadcastBTCTransaction(electrumClient, transaction) {
-  const txHash = await electrumClient.broadcastTransaction(transaction)
-
-  console.debug('broadcasted bitcoin transaction:', txHash)
-  return txHash
-}
-
-/**
  * Submits a bitcoin transaction proof to the deposit as a redemption proof.
  * @param {string} depositAddress Address of the deposit.
  * @param {string} txID ID of a bitcoin transaction.
