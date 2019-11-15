@@ -105,7 +105,7 @@ export function* waitConfirmation() {
         type: BTC_TX_MINED,
         payload: {
             btcDepositedTxID: fundingTx.transactionID,
-            fundingOutputIndex: fundingTx.fundingOutputPosition
+            fundingOutputIndex: fundingTx.outputPosition
         }
     })
 
