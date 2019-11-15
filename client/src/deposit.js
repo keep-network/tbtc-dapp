@@ -11,10 +11,11 @@ import {
 import { getKeepAddress } from './eventslog'
 
 import {
-  publicKeyToP2WPKHaddress,
   BitcoinTxParser,
-  Network,
+  Address,
 } from 'tbtc-helpers'
+
+const { Network, publicKeyToP2WPKHaddress } = Address
 
 /**
  * Creates a new deposit and returns its address
