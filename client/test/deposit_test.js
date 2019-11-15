@@ -13,8 +13,8 @@ let web3
 // We skip this test until we configure ethereum chain and deployment for the
 // CI. Currently this test can be executed only manually on prepared ethereum
 // environment with deployed contracts.
-describe.skip('Ethereum helpers', function() {
-  this.timeout(70*1000)
+describe.skip('deposit', function() {
+  this.timeout(70 * 1000)
 
   before(async () => {
     // TruffleContract was built to use web3 0.3.0, which uses an API method of `sendAsync`
