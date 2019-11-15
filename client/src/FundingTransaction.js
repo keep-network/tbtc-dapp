@@ -1,58 +1,5 @@
 import { Address } from 'tbtc-helpers'
-import { Deposit, TBTCSystem } from './eth/contracts'
-const { Network, publicKeyToP2WPKHaddress, addressToScript } = Address
-
-/**
- * Requests a Bitcoin public key for a Deposit and returns it as a Bitcoin address
- * @param {string} depositAddress the address of a Deposit contract
- * @return {string} a bech32-encoded Bitcoin address, generated from a SegWit P2WPKH script
- */
-export async function getDepositBtcAddress(depositAddress) {
-  const tbtcSystem = await TBTCSystem.deployed()
-  const deposit = await Deposit.at(depositAddress)
-
-  // 1. Request public key from the deposit
-  console.log(`Requesting Public Key for deposit [${deposit.address}]`)
-  await deposit.retrieveSignerPubkey()
-    .catch((err) => {
-      // This can happen when the public key was already retrieved before
-      // and we may succeed to get it with tbtcSystem.getPastEvents in the following lines
-      // TODO: there may be other errors that this allows to pass, refactor in future
-      console.error(`retrieveSignerPubkey failed: ${err}`)
-    })
-
-  // 2. Parse the logs to get the public key.
-  // Since the public key event is emitted in another contract, we can't get this from result.logs
-  // TODO: refactor, below we are retrieving the public key again
-  const eventList = await tbtcSystem.getPastEvents(
-    'RegisteredPubkey',
-    {
-      fromBlock: '0',
-      toBlock: 'latest',
-      filter: { _depositContractAddress: depositAddress },
-    }
-  )
-
-  if (eventList.length == 0) {
-    throw new Error(`couldn't find RegisteredPubkey event for deposit address: [${depositAddress}]`)
-  }
-
-  let publicKeyX = eventList[0].args._signingGroupPubkeyX
-  let publicKeyY = eventList[0].args._signingGroupPubkeyY
-  publicKeyX = publicKeyX.replace('0x', '')
-  publicKeyY = publicKeyY.replace('0x', '')
-
-  console.log(`Registered Public Key coordinates: X=[${publicKeyX}] Y=[${publicKeyY}]`)
-
-  const btcAddress = publicKeyToP2WPKHaddress(
-    `${publicKeyX}${publicKeyY}`,
-    Network.testnet
-  )
-
-  console.log(`Calculated Bitcoin address: [${btcAddress}]`)
-
-  return btcAddress
-}
+const { addressToScript } = Address
 
 /**
  * Funding transaction details.
