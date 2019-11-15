@@ -1,6 +1,3 @@
-import { Deposit } from './eth/contracts'
-import { BitcoinTxParser } from 'tbtc-helpers'
-
 const bitcoinspv = require('tbtc-helpers').BitcoinSPV
 
 /**
@@ -32,43 +29,4 @@ export async function getTransactionProof(electrumClient, txID, confirmations) {
     txInBlockIndex: spvProof.txInBlockIndex,
     chainHeaders: spvProof.chainHeaders,
   }
-}
-
-/**
- * Calculates deposit funding proof and submits it to tBTC.
- * @param {string} depositAddress Deposit contract address.
- * @param {Proof} spvProof Transaction's SPV proof.
- * @param {number} fundingOutputIndex Position of a funding output in the transaction.
- * @return {string} ID of transaction submitting the proof to the deposit contract.
- */
-export async function submitFundingProof(
-  depositAddress,
-  spvProof,
-  fundingOutputIndex
-) {
-  // Parse transaction to get required details.
-  let txDetails
-  try {
-    txDetails = await BitcoinTxParser.parse(spvProof.tx)
-  } catch (err) {
-    throw new Error(`failed to parse spv proof: [${err}]`)
-  }
-
-  // Submit funding proof to the deposit contract.
-  const deposit = await Deposit.at(depositAddress)
-
-  const result = await deposit.provideBTCFundingProof(
-    Buffer.from(txDetails.version, 'hex'),
-    Buffer.from(txDetails.txInVector, 'hex'),
-    Buffer.from(txDetails.txOutVector, 'hex'),
-    Buffer.from(txDetails.locktime, 'hex'),
-    fundingOutputIndex,
-    Buffer.from(spvProof.merkleProof, 'hex'),
-    spvProof.txInBlockIndex,
-    Buffer.from(spvProof.chainHeaders, 'hex')
-  ).catch((err) => {
-    throw new Error(`failed to submit funding transaction proof: [${err}]`)
-  })
-
-  return result.tx
 }
