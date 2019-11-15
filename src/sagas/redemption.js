@@ -9,10 +9,11 @@ import {
     watchForSignatureSubmitted,
     provideRedemptionSignature,
     combineSignedTransaction,
-    broadcastBTCTransaction,
+    broadcastTransaction as clientBroadcastTransaction,
     provideRedemptionProof,
     waitForConfirmations
 } from 'tbtc-client'
+
 
 import { getElectrumClient } from './deposit'
 
@@ -74,7 +75,7 @@ export function* broadcastTransaction() {
 
     console.log(`broadcast redemption transaction`)
     const electrumClient = yield call(getElectrumClient)
-    const txHash = yield call(broadcastBTCTransaction, electrumClient, signedTransaction)
+    const txHash = yield call(clientBroadcastTransaction, electrumClient, signedTransaction)
 
     electrumClient.close()
 

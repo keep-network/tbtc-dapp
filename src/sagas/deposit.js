@@ -6,11 +6,12 @@ import {
     createDeposit,
     watchForPublicKeyPublished,
     getDepositBtcAddress,
-    watchForFundingTransaction,
+    watchForTransaction,
     waitForConfirmations,
     getTransactionProof,
     submitFundingProof
 } from 'tbtc-client'
+
 import { notifyTransactionConfirmed } from '../lib/notifications/actions'
 import { navigateTo } from '../lib/router/actions'
 
@@ -98,7 +99,7 @@ export function* waitConfirmation() {
 
     // wait for the transaction to be received and mined
     const btcAddress = yield select(state => state.deposit.btcAddress)
-    const fundingTx = yield call(watchForFundingTransaction, electrumClient, btcAddress, TESTNET_FUNDING_AMOUNT_SATOSHIS)
+    const fundingTx = yield call(watchForTransaction, electrumClient, btcAddress, TESTNET_FUNDING_AMOUNT_SATOSHIS)
 
     yield put({
         type: BTC_TX_MINED,
