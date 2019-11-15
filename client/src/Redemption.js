@@ -11,11 +11,11 @@ import { BitcoinTxParser } from 'tbtc-helpers'
 import {
   oneInputOneOutputWitnessTX,
   addWitnessSignature,
-} from './RedemptionTransaction'
+} from './btc/transaction'
 
-import { getTransactionProof } from './FundingProof'
+import { getTransactionProof } from './btc/proof'
 
-import { getKeepAddress, getKeepPublicKey } from './Deposit'
+import { getKeepAddress, getKeepPublicKey } from './eventslog'
 
 const bcoin = require('bcoin/lib/bcoin-browser')
 
@@ -89,9 +89,11 @@ export async function createUnsignedTransaction(depositAddress) {
   console.debug('redemption details:', redemptionDetails)
 
   let outputValue
+  let utxoSize
+  let requestedFee
   try {
-    const utxoSize = new BN(redemptionDetails.utxoSize)
-    const requestedFee = new BN(redemptionDetails.requestedFee)
+    utxoSize = new BN(redemptionDetails.utxoSize)
+    requestedFee = new BN(redemptionDetails.requestedFee)
 
     outputValue = utxoSize.sub(requestedFee)
   } catch (err) {
