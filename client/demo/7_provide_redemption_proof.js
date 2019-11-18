@@ -51,6 +51,28 @@ async function submitRedemptionProof(
     return result.tx
 }
 
+async function logRedemption(startBlockNumber) {
+    const eventList = await depositLog.getPastEvents('Redeemed', {
+        fromBlock: startBlockNumber,
+        toBlock: 'latest',
+        filter: { _depositContractAddress: depositAddress },
+    })
+
+    if (eventList.length == 0) {
+        throw new Error("no Redeemed events found")
+    }
+    let latestEvent = eventList[eventList.length - 1]
+
+    const {
+        _txid,
+        _timestamp,
+    } = latestEvent.returnValues
+
+    console.debug(`Deposit redeemed!`)
+    console.debug(`txid: ${_txid}`)
+    console.debug(`timestamp: ${_timestamp}`)
+}
+
 async function run() {
   await contracts.setDefaults(web3)
 
@@ -63,15 +85,13 @@ async function run() {
   await waitForConfirmations(electrumClient, txID)
   const spvProof = await getTransactionProof(electrumClient, txID, confirmations)
 
-  let tx = await submitRedemptionProof(
+    const startBlockNumber = await web3.eth.getBlock('latest').number
+    await submitRedemptionProof(
     depositAddress,
     spvProof,
     redemptionOutputIndex
   )
-
-  console.log(
-    JSON.stringify(tx,null,1)
-  )
+    await logRedemption(startBlockNumber)
 }
 
 module.exports = async function() {
