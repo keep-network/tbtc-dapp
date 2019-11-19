@@ -2,67 +2,50 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { requestADeposit } from '../../actions'
 import StatusIndicator from '../svgs/StatusIndicator'
+import { requestRedemption } from '../../actions'
 
-class Invoice extends Component {
-
+class Redeeming extends Component {
   componentDidMount() {
-    const { requestADeposit } = this.props
+    const { requestRedemption } = this.props
 
-    requestADeposit()
+    requestRedemption()
   }
 
   render() {
-    const { status } = this.props
-    let statusText
-
-    if(status === 1) {
-      statusText = 'Initiating...'
-    } else if(status === 2) {
-      statusText = 'Generating BTC address...'
-    } else if(status === 3) {
-      statusText = 'Fetching BTC address...'
-    }
-
     return (
-      <div className="invoice">
+      <div className="confirming">
         <div className="page-top">
           <StatusIndicator pulse />
         </div>
         <div className="page-body">
           <div className="step">
-            Step 2/5
+            Step 2/6
           </div>
           <div className="title">
-            Initiating deposit
+            Redeeming...
           </div>
           <hr />
           <div className="description">
-            {statusText}
+            <p>We’re waiting for you to confirm invoice details in your Wallet.</p>
           </div>
         </div>
-      </div >
+      </div>
     )
-  }
-}
-
-const mapStateToProps = (state, ownProps) => {
-  return {
-    status: state.deposit.invoiceStatus
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      requestADeposit
+        requestRedemption
     },
     dispatch
   )
 }
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
-)(Invoice)
+)(Redeeming)
+

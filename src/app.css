@@ -1,17 +1,39 @@
-button {
-  background-color: #479CFF;
-  color: #fff;
-  border-radius: 4px;
-  border: 0px solid transparent;
-  padding: 40px;
+button,
+.button {
+  border: 3px solid var(--button-color);
+  padding: 20px 40px;
+  font-family: 'apercu-mono-regular-pro';
   font-size: 1.25em;
+  color: var(--button-color);
+  background-color: #fff;
+  white-space: nowrap;
+  transform: scale(1);
+  transition: transform 150ms ease-in-out;
   cursor: pointer;
 }
-button:hover {
-  background-color: #479cff;
+button.blue,
+.button.blue {
+  --button-color: #479CFF;
 }
-button:focus {
+button.black,
+.button.black {
+  --button-color: #000;
+}
+button:hover:enabled,
+.button:hover:enabled {
+  background-color: var(--button-color);
+  color: #fff;
+  transform: scale(1.05);
+}
+button:focus,
+.button:focus {
   background-color: #1481ff;
+}
+button:disabled,
+.button:disabled {
+  border-color: #bababa;
+  color: #bababa;
+  cursor: unset;
 }
 .peanuts {
   z-index: 1;
@@ -48,53 +70,62 @@ footer {
   font-weight: normal;
   font-style: normal;
 }
-.start,
+.deposit-start,
 .invoice,
 .pay,
 .prove,
-.congratulations {
+.congratulations,
+.redemption-start,
+.confirming {
   display: flex;
   flex-direction: column;
   font-family: 'apercu-mono-regular-pro';
   text-align: center;
   min-height: 675px;
 }
-.start .page-body,
+.deposit-start .page-body,
 .invoice .page-body,
 .pay .page-body,
 .prove .page-body,
-.congratulations .page-body {
+.congratulations .page-body,
+.redemption-start .page-body,
+.confirming .page-body {
   display: flex;
   flex-direction: column;
-  max-width: 500px;
   margin: 0 auto;
 }
-.start .page-body .step,
+.deposit-start .page-body .step,
 .invoice .page-body .step,
 .pay .page-body .step,
 .prove .page-body .step,
-.congratulations .page-body .step {
+.congratulations .page-body .step,
+.redemption-start .page-body .step,
+.confirming .page-body .step {
   flex: 0 1;
   color: #479CFF;
   font-size: 0.5em;
   margin-bottom: 30px;
 }
-.start .page-body .title,
+.deposit-start .page-body .title,
 .invoice .page-body .title,
 .pay .page-body .title,
 .prove .page-body .title,
-.congratulations .page-body .title {
+.congratulations .page-body .title,
+.redemption-start .page-body .title,
+.confirming .page-body .title {
   flex: 0 1;
   font-size: 1.75em;
   font-weight: bold;
   margin-bottom: 40px;
   font-family: 'apercu-bold-pro';
 }
-.start .page-body hr,
+.deposit-start .page-body hr,
 .invoice .page-body hr,
 .pay .page-body hr,
 .prove .page-body hr,
-.congratulations .page-body hr {
+.congratulations .page-body hr,
+.redemption-start .page-body hr,
+.confirming .page-body hr {
   flex: 0 1;
   border-style: dashed;
   border-width: 2px 0 0 0;
@@ -102,36 +133,35 @@ footer {
   width: 150px;
   margin: 0 auto 40px auto;
 }
-.start .page-body .description,
+.deposit-start .page-body .description,
 .invoice .page-body .description,
 .pay .page-body .description,
 .prove .page-body .description,
-.congratulations .page-body .description {
+.congratulations .page-body .description,
+.redemption-start .page-body .description,
+.confirming .page-body .description {
   flex: 0 1;
   font-size: 0.8em;
   margin-bottom: 40px;
 }
-.start .page-body .cta,
+.deposit-start .page-body .cta,
 .invoice .page-body .cta,
 .pay .page-body .cta,
 .prove .page-body .cta,
-.congratulations .page-body .cta {
+.congratulations .page-body .cta,
+.redemption-start .page-body .cta,
+.confirming .page-body .cta {
   flex: 1 1;
-  font-size: 0.8em;
+  min-height: 100px;
+  position: relative;
 }
-.start .page-body .cta.disabled a,
-.invoice .page-body .cta.disabled a,
-.pay .page-body .cta.disabled a,
-.prove .page-body .cta.disabled a,
-.congratulations .page-body .cta.disabled a {
-  color: #666;
-  cursor: not-allowed;
-}
-.start .page-body .error,
+.deposit-start .page-body .error,
 .invoice .page-body .error,
 .pay .page-body .error,
 .prove .page-body .error,
-.congratulations .page-body .error {
+.congratulations .page-body .error,
+.redemption-start .page-body .error,
+.confirming .page-body .error {
   flex: 1 1;
   font-size: 0.7em;
   color: #E7755C;
@@ -280,31 +310,9 @@ footer {
   text-decoration: none!important;
   flex: 0;
   position: relative;
-  margin-right: 200px;
 }
 .home .mint-or-redeem a:first-of-type {
-  margin-right: 260px;
-}
-.home .mint-or-redeem .button {
-  position: absolute;
-  border: 3px solid var(--button-color);
-  padding: 20px 40px;
-  font-family: 'apercu-mono-regular-pro';
-  color: var(--button-color);
-  white-space: nowrap;
-  transform: scale(1);
-  transition: transform 150ms ease-in-out;
-}
-.home .mint-or-redeem .button.blue {
-  --button-color: #479CFF;
-}
-.home .mint-or-redeem .button.black {
-  --button-color: #000;
-}
-.home .mint-or-redeem .button:hover {
-  background-color: var(--button-color);
-  color: #fff;
-  transform: scale(1.05);
+  margin-right: 60px;
 }
 .home .step-by-step {
   width: 100vw;
@@ -382,6 +390,45 @@ footer {
     font-size: 0.75em;
   }
 }
+.redemption-start .paste-field {
+  position: relative;
+  margin-bottom: 20px;
+}
+.redemption-start .paste-field label {
+  color: #666;
+}
+.redemption-start .paste-field input {
+  width: 100%;
+  margin: 15px 0;
+  height: 2em;
+  font-size: 1.2em;
+  font-family: 'apercu-mono-regular-pro';
+  padding: 2px 50px 0px 10px;
+  box-sizing: border-box;
+  background-color: #fff;
+  border: 1px solid #333;
+  border-radius: 5px;
+  box-shadow: none;
+  text-align: center;
+}
+.redemption-start .paste-field input:focus {
+  outline: none;
+  background-color: #f9f9f9;
+}
+.redemption-start .paste-field.success > input {
+  color: #5CE783;
+  border-color: #5CE783;
+}
+.redemption-start .paste-field.alert > input {
+  color: #E7755C;
+  border-color: #E7755C;
+}
+.redemption-start .paste-field .check-icon,
+.redemption-start .paste-field .x-icon {
+  position: absolute;
+  right: 12px;
+  top: 42px;
+}
 .pay .page-body .custodial-fee {
   margin-top: 40px;
 }
@@ -454,6 +501,10 @@ footer {
 .congratulations .page-body .description .bond-duration {
   font-family: 'apercu-bold-pro';
   margin-top: 30px;
+}
+.confirming .page-body .description .error {
+  margin-top: 20px;
+  color: #E7755C;
 }
 html,
 body,

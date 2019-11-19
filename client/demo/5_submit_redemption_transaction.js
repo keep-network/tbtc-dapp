@@ -18,18 +18,22 @@ module.exports = async function() {
     // Parse arguments
     const depositAddress = process.argv[4]
 
+    let Deposit
     let ECDSAKeep
     let TBTCSystem
 
+    let deposit
     let depositLog
     let ecdsaKeep
 
     try {
       ECDSAKeep = contracts.ECDSAKeep
       TBTCSystem = contracts.TBTCSystem
+      Deposit = contracts.Deposit
 
       await contracts.setDefaults(web3)
 
+      deposit = await Deposit.at(depositAddress)
       depositLog = await TBTCSystem.deployed()
     } catch (err) {
       console.error(`initialization failed: ${err}`)
@@ -122,6 +126,7 @@ module.exports = async function() {
     // Get signature calculated by keep
     let signatureR
     let signatureS
+    let recoveryID
     try {
       const digest = Buffer.from(web3.utils.hexToBytes(latestRedemptionEvent.returnValues._digest))
 
@@ -138,11 +143,16 @@ module.exports = async function() {
         throw new Error('signatures list is empty')
       }
 
-      signatureR = Buffer.from(web3.utils.hexToBytes(signatureEvents[0].returnValues.r))
-      signatureS = Buffer.from(web3.utils.hexToBytes(signatureEvents[0].returnValues.s))
+      // A fee bump may have been requested, hence we get the latest signature there is.
+      const latestSignatureEvent = signatureEvents[signatureEvents.length - 1]
+
+      signatureR = Buffer.from(web3.utils.hexToBytes(latestSignatureEvent.returnValues.r))
+      signatureS = Buffer.from(web3.utils.hexToBytes(latestSignatureEvent.returnValues.s))
+      recoveryID = web3.utils.toBN(latestSignatureEvent.returnValues.recoveryID)
 
       console.debug('signature r:', signatureR.toString('hex'))
       console.debug('signature s:', signatureS.toString('hex'))
+      console.debug('signature recoveryID:', recoveryID.toString('hex'))
     } catch (err) {
       console.error(`failed to get signature: ${err}`)
       process.exit(1)
@@ -176,6 +186,57 @@ module.exports = async function() {
       console.error(`failed to broadcast transaction: ${err}`)
       process.exit(1)
     }
+
+    const startBlockNumber = await web3.eth.getBlock('latest').number
+
+    async function logGotRedemptionSignatureEvent(startBlockNumber) {
+      const eventList = await depositLog.getPastEvents('GotRedemptionSignature', {
+        fromBlock: startBlockNumber,
+        toBlock: 'latest',
+        filter: { _depositContractAddress: depositAddress },
+      })
+      
+      if(eventList.length == 0) {
+        throw new Error("no GotRedemptionSignature events found")
+      }
+      let latestEvent = eventList[eventList.length - 1]
+
+      const {
+        _timestamp,
+        _r,
+        _s,
+        _digest,
+      } = latestEvent.returnValues
+
+      console.debug(`Deposit got redemption signature for digest: ${_digest}`)
+      console.debug(`r: ${_r}`)
+      console.debug(`s: ${_s}`)
+      console.debug(`timestamp: ${_timestamp}`)
+    }
+
+    try {
+      // A constant in the Ethereum ECDSA signature scheme, used for public key recovery [1]
+      // Value is inherited from Bitcoin's Electrum wallet [2]
+      // [1] https://bitcoin.stackexchange.com/questions/38351/ecdsa-v-r-s-what-is-v/38909#38909
+      // [2] https://github.com/ethereum/EIPs/issues/155#issuecomment-253810938
+      const ETHEREUM_ECDSA_RECOVERY_V = new BN(27)
+      const signatureV = recoveryID.add(ETHEREUM_ECDSA_RECOVERY_V)
+
+      await deposit.provideRedemptionSignature(
+        signatureV,
+        signatureR,
+        signatureS
+      )
+    } catch (err) {
+      console.error(`failed to provide redemption signature: ${err}`)
+      process.exit(1)
+    }
+
+    await logGotRedemptionSignatureEvent(startBlockNumber)
+      .catch((err) => {
+        console.error('getting events log failed\n', err)
+        process.exit(1)
+      })
   } catch (err) {
     console.error(err)
     process.exit(1)

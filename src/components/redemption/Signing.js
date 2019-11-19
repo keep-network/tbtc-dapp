@@ -2,67 +2,50 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { requestADeposit } from '../../actions'
 import StatusIndicator from '../svgs/StatusIndicator'
+import { buildTransactionAndSubmitSignature } from '../../actions'
 
-class Invoice extends Component {
-
+class Signing extends Component {
   componentDidMount() {
-    const { requestADeposit } = this.props
+    const { buildTransactionAndSubmitSignature } = this.props
 
-    requestADeposit()
+    buildTransactionAndSubmitSignature()
   }
 
   render() {
-    const { status } = this.props
-    let statusText
-
-    if(status === 1) {
-      statusText = 'Initiating...'
-    } else if(status === 2) {
-      statusText = 'Generating BTC address...'
-    } else if(status === 3) {
-      statusText = 'Fetching BTC address...'
-    }
-
     return (
-      <div className="invoice">
+      <div className="confirming">
         <div className="page-top">
           <StatusIndicator pulse />
         </div>
         <div className="page-body">
           <div className="step">
-            Step 2/5
+            Step 3/6
           </div>
           <div className="title">
-            Initiating deposit
+            Waiting on signing group
           </div>
           <hr />
           <div className="description">
-            {statusText}
+            <p>We’re waiting for the deposit signing group to build and sign your Bitcoin transaction.</p>
           </div>
         </div>
-      </div >
+      </div>
     )
-  }
-}
-
-const mapStateToProps = (state, ownProps) => {
-  return {
-    status: state.deposit.invoiceStatus
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      requestADeposit
+      buildTransactionAndSubmitSignature
     },
     dispatch
   )
 }
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
-)(Invoice)
+)(Signing)
+

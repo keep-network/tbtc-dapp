@@ -9,7 +9,7 @@ import Check from '../svgs/Check'
 import X from '../svgs/X'
 import { saveAddresses } from '../../actions'
 
-class Start extends Component {
+class InputAddresses extends Component {
 
   state = {
     depositAddress: '',
@@ -66,7 +66,7 @@ class Start extends Component {
     } = this.state
 
     return (
-      <div className="redemption-start">
+      <div className="input-addresses">
         <div className="page-top">
           <StatusIndicator purple>
             <TLogo height={100} width={100} />
@@ -74,7 +74,7 @@ class Start extends Component {
         </div>
         <div className="page-body">
           <div className="step">
-            Step 1/6
+            Step 2/5
           </div>
           <div className="title">
             Redeem bond
@@ -116,7 +116,7 @@ class Start extends Component {
               disabled={!depositAddressIsValid || !btcAddressIsValid}
               className="black"
               >
-              Redeem
+              Confirm redemption
             </button>
           </div>
         </div>
@@ -137,4 +137,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   null,
   mapDispatchToProps
-)(Start)
+)(InputAddresses)

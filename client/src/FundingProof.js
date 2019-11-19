@@ -36,7 +36,6 @@ export async function getTransactionProof(electrumClient, txID, confirmations) {
 
 /**
  * Calculates deposit funding proof and submits it to tBTC.
- * @param {ElectrumClient} electrumClient Electrum client instance.
  * @param {string} depositAddress Deposit contract address.
  * @param {Proof} spvProof Transaction's SPV proof.
  * @param {number} fundingOutputIndex Position of a funding output in the transaction.
