@@ -6,6 +6,15 @@ toc::[]
 
 == Development
 
+=== Setup
+
+The dApp requires artifacts of the contracts deployed to the development environment.
+To fetch the latest artifacts run `npm run setup`. The command will download files
+stored in the Google Cloud. For initial configuration of the `gcloud` please refer 
+to the [instruction](https://github.com/keep-network/keep-core/blob/master/infrastructure/kube/keep-dev/kube-setup.org#first-time-with-this-environment).
+
+=== Run
+
 `npm start` runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
