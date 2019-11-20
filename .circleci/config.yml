@@ -4,6 +4,9 @@ executors:
   docker-node:
     docker:
       - image: circleci/node:11
+  docker-thesis-buildpack:
+    docker:
+      - image: thesisco/docker-buildpack:bionic
 
 orbs:
   gcp-gcr: circleci/gcp-gcr@0.0.4
@@ -26,11 +29,16 @@ jobs:
           working_directory: ~/project/lib/tbtc-helpers
           command: npm install && npm run test
   build_and_test_dapp:
-    executor: docker-node
+    executor: docker-thesis-buildpack
     steps:
       - setup_remote_docker:
           docker_layer_caching: true
       - checkout
+      - run:
+          name: Set Gcloud Auth
+          command: |
+            echo $GCLOUD_SERVICE_KEY_JUMPHOST_SSH > ~/gcloud-service-key.json
+            gcloud auth activate-service-account --key-file ~/gcloud-service-key.json
       - run:
           name: Fetch contract artifacts
           command: |
