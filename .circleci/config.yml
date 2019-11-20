@@ -12,25 +12,29 @@ jobs:
   test_client:
     executor: docker-node
     steps:
-        - checkout
-        - run:
-            name: Run NPM tests
-            working_directory: ~/project/client
-            command: npm install && npm run test
+      - checkout
+      - run:
+          name: Run NPM tests
+          working_directory: ~/project/client
+          command: npm install && npm run test
   test_tbtc_helpers:
     executor: docker-node
     steps:
-        - checkout
-        - run:
-            name: Run NPM tests
-            working_directory: ~/project/lib/tbtc-helpers
-            command: npm install && npm run test
+      - checkout
+      - run:
+          name: Run NPM tests
+          working_directory: ~/project/lib/tbtc-helpers
+          command: npm install && npm run test
   build_and_test_dapp:
     executor: docker-node
     steps:
       - setup_remote_docker:
           docker_layer_caching: true
       - checkout
+      - run:
+          name: Fetch contract artifacts
+          command: |
+            ./scripts/fetch-contracts.sh
       - run:
           name: Run Docker build
           command: |
