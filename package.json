@@ -29,6 +29,7 @@
         "build-css": "lessc --clean-css src/css/app.less src/app.css",
         "watch-css": "npm run build-css && less-watch-compiler src/css src app.less",
         "start-js": "sleep 2 && react-scripts start",
+        "setup": "CONTRACT_DATA_BUCKET=keep-dev-contract-data ./scripts/fetch-contracts.sh",
         "start": "npm-run-all -p watch-css start-js",
         "build": "npm run build-css && react-scripts --max_old_space_size=8192 build",
         "test": "react-scripts test --env=jsdom",
