@@ -5,6 +5,7 @@
 # 
 # Sample execution command:
 # CONTRACT_DATA_BUCKET=keep-dev-contract-data ./fetch-contracts.sh
+set -ex
 
 CONTRACTS_PATHS=(
   "tbtc/Deposit.json" 
