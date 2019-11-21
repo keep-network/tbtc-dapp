@@ -19,7 +19,7 @@ jobs:
       - run:
           name: Run NPM tests
           working_directory: ~/project/client
-          command: npm install && npm run test
+          command: npm install && npm run test:setup && npm run test
   test_tbtc_helpers:
     executor: docker-node
     steps:
