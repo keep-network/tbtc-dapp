@@ -103,21 +103,21 @@ workflows:
           filters:
             tags:
               only: /^v.*/
-            branches:
-              ignore: /.*/
+#            branches:
+#             ignore: /.*/
       - build_dapp:
           filters:
             tags:
               only: /^v.*/
-            branches:
-              ignore: /.*/
+#            branches:
+#             ignore: /.*/
           context: keep-test
       - publish_dapp:
           filters:
             tags:
               only: /^v.*/
-            branches:
-              ignore: /.*/
+#            branches:
+#             ignore: /.*/
           context: keep-test
           requires:
             - build_dapp
