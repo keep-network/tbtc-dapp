@@ -3,6 +3,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: tbtc-dapp
+  namespace: tbtc
   labels:
     keel.sh/policy: all
     app: tbtc
