@@ -112,6 +112,8 @@ workflows:
 #            branches:
 #             ignore: /.*/
           context: keep-test
+          requires:
+            - keep_test_approval
       - publish_dapp:
           filters:
             tags:
