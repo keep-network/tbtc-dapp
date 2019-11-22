@@ -1,0 +1,27 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: tbtc-dapp
+  namespace: tbtc
+  labels:
+    keel.sh/policy: all
+    app: tbtc
+    type: dapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tbtc
+      type: dapp
+  template:
+    metadata:
+      labels:
+        app: tbtc
+        type: dapp
+    spec:
+      containers:
+      - name: tbtc-dapp
+        image: gcr.io/keep-test-f3e0/tbtc-dapp
+        ports:
+          - containerPort: 80
