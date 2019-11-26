@@ -22,6 +22,6 @@ spec:
     spec:
       containers:
       - name: tbtc-dapp
-        image: gcr.io/keep-dev-fe24/tbtc-dapp
+        image: gcr.io/keep-test-f3e0/tbtc-dapp
         ports:
           - containerPort: 80

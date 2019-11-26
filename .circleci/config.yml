@@ -82,10 +82,10 @@ workflows:
   client:
     jobs:
       - test_client
-  tbtc-helpers:
+  tbtc_helpers:
     jobs:
       - test_tbtc_helpers
-  dapp:
+  dapp_keep_dev:
     jobs:
       - build_dapp:
           context: keep-dev
@@ -94,5 +94,32 @@ workflows:
             branches:
               only: master
           context: keep-dev
+          requires:
+            - build_dapp
+  dapp_keep_test:
+    jobs:
+      - keep_test_approval:
+          type: approval
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+             ignore: /.*/
+      - build_dapp:
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+             ignore: /.*/
+          context: keep-test
+          requires:
+            - keep_test_approval
+      - publish_dapp:
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+             ignore: /.*/
+          context: keep-test
           requires:
             - build_dapp
