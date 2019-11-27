@@ -1,0 +1,3 @@
+This directory should contain artifacts of contracts deployed to the chain.
+To fetch the artifacts deployed on development environment execute `npm run setup`
+in the root directory of the `tbtc-dapp` project.

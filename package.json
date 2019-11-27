@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "classnames": "^2.2.6",
         "history": "^4.9.0",
         "less": "^3.9.0",
         "less-plugin-clean-css": "^1.5.1",
@@ -14,6 +15,7 @@
         "react-redux": "^7.1.0",
         "react-router-dom": "^5.0.1",
         "react-scripts": "3.0.1",
+        "react-snap": "^1.23.0",
         "redux": "^4.0.4",
         "redux-saga": "^1.0.5",
         "tbtc-client": "file:client",
@@ -27,10 +29,12 @@
         "build-css": "lessc --clean-css src/css/app.less src/app.css",
         "watch-css": "npm run build-css && less-watch-compiler src/css src app.less",
         "start-js": "sleep 2 && react-scripts start",
+        "setup": "CONTRACT_DATA_BUCKET=keep-dev-contract-data ./scripts/fetch-contracts.sh",
         "start": "npm-run-all -p watch-css start-js",
         "build": "npm run build-css && react-scripts --max_old_space_size=8192 build",
         "test": "react-scripts test --env=jsdom",
-        "eject": "react-scripts eject"
+        "eject": "react-scripts eject",
+        "publish": "REACT_APP_STATIC=true npm run build && react-snap"
     },
     "eslintConfig": {
         "extends": "react-app"

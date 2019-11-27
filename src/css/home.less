@@ -24,14 +24,31 @@
         }
     }
 
+    .mint-or-redeem {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        margin: 80px 0 170px 0;
+
+        a {
+            text-decoration: none!important;
+            flex: 0;
+            position: relative;
+
+            &:first-of-type {
+                margin-right: 60px;
+            }
+        }
+    }
+
     .step-by-step {
         width: 100vw;
         margin-left: calc((100vw - 100%) / -2);
-        margin-top: 80px;
+        margin-top: 110px;
         border-width: 1px 0;
         border-style: solid;
         border-color: @light-blue;
-        background-color: @light-grey;
+        background-color: @lighter-grey;
         font-size: .75em;
 
         ol {
@@ -72,6 +89,50 @@
         .line-and-sinker {
             font-size: .8em;
             line-height: 2em;
+        }
+    }
+
+    @media (max-width: @content-width) {
+        .title {
+            font-size: 2.75em;
+
+            .subtitle {
+                margin: 5px 50px 0 0;
+                font-size: .2em;
+
+                .vertical-aligned {
+                    float: right;
+                    text-align: left;
+                }
+            }
+        }
+
+        .step-by-step {
+            padding: 10px 20px;
+
+            ol {
+                flex-direction: column;
+                width: 100%;
+                box-sizing: border-box;
+                padding: 30px;
+
+                li {
+                    margin: 30px 0;
+                }
+            }
+        }
+
+        .mission-statement {
+            .hook {
+                line-height: 1em;
+                font-size: 1.5em;
+                margin: 30px 0;
+            }
+
+            .line-and-sinker {
+                line-height: 1em;
+                font-size: .75em;
+            }
         }
     }
 }

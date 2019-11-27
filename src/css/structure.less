@@ -1,18 +1,13 @@
-.start, .invoice, .pay, .prove, .congratulations {
+.deposit-start, .invoice, .pay, .prove, .congratulations, .redemption-start, .confirming {
     display: flex;
     flex-direction: column;
     font-family: 'apercu-mono-regular-pro';
     text-align: center;
-    min-height: 625px;
-
-    .page-top {
-        margin: 25px 0 100px 0;
-    }
+    min-height: 675px;
 
     .page-body {
         display: flex;
         flex-direction: column;
-        max-width: 500px;
         margin: 0 auto;
 
         .step {
@@ -47,14 +42,15 @@
     
         .cta {
             flex: 1 1;
-            font-size: .8em;
+            min-height: 100px;
+            position: relative;
+        }
 
-            &.disabled {
-                a {
-                    color: @grey;
-                    cursor: not-allowed;
-                }
-            }
+        .error {
+            flex: 1 1;
+            font-size: .7em;
+            color: @alert;
+            margin-top: 25px;
         }
     }
 }

@@ -13,19 +13,19 @@ const artifacts = {
   }
 }
 
+export const DepositFactory = artifacts.require('DepositFactory.sol')
 export const Deposit = artifacts.require('Deposit.sol')
 export const TBTCSystem = artifacts.require('TBTCSystem.sol')
+export const TBTCConstants = artifacts.require('TBTCConstants.sol')
 export const TBTCToken = artifacts.require('TBTCToken.sol')
-export const KeepBridge = artifacts.require('KeepBridge.sol')
-export const DepositFactory = artifacts.require('DepositFactory.sol')
 export const ECDSAKeep = artifacts.require('ECDSAKeep.sol')
 
 const contracts = [
+  DepositFactory,
   Deposit,
   TBTCSystem,
+  TBTCConstants,
   TBTCToken,
-  KeepBridge,
-  DepositFactory,
   ECDSAKeep
 ]
 

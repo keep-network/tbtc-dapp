@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import contract from 'truffle-contract'
 
 const ContractContext = React.createContext({})
 
