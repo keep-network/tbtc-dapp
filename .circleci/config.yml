@@ -34,8 +34,8 @@ jobs:
 
       # Run tests.
       - run:
-        name: Run NPM tests
-        command: npm run test:setup && npm run test
+          name: Run NPM tests
+          command: npm run test:setup && npm run test
 
   test_tbtc_helpers:
     executor: docker-node
