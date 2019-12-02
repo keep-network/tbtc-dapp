@@ -14,20 +14,54 @@ orbs:
 jobs:
   test_client:
     executor: docker-node
+    working_directory: ~/project/client
     steps:
-      - checkout
+      - checkout:
+          path: ~/project
+
+      # Download and cache dependencies.
+      - restore_cache:
+          keys:
+            # When lock file changes, use increasingly general patterns to restore cache.
+            - v1-client-npm-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - v1-client-npm-deps-{{ .Branch }}-
+            - v1-client-npm-deps-
+      - run: npm install
+      - save_cache:
+          key: v1-client-npm-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+
+      # Run tests.
       - run:
           name: Run NPM tests
-          working_directory: ~/project/client
-          command: npm install && npm run test:setup && npm run test
+          command: npm run test:setup && npm run test
+
   test_tbtc_helpers:
     executor: docker-node
+    working_directory: ~/project/lib/tbtc-helpers
     steps:
-      - checkout
+      - checkout:
+          path: ~/project
+
+      # Download and cache dependencies.
+      - restore_cache:
+          keys:
+            # When lock file changes, use increasingly general patterns to restore cache.
+            - v1-helpers-npm-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - v1-helpers-npm-deps-{{ .Branch }}-
+            - v1-helpers-npm-deps-
+      - run: npm install
+      - save_cache:
+          key: v1-helpers-npm-deps-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+
+      # Run tests.
       - run:
           name: Run NPM tests
-          working_directory: ~/project/lib/tbtc-helpers
-          command: npm install && npm run test
+          command: npm test
+
   build_dapp:
     executor: docker-thesis-buildpack
     steps:
@@ -57,6 +91,7 @@ jobs:
           root: /tmp/tbtc-dapp
           paths:
             - docker-images
+
   publish_dapp:
     executor: gcp-gcr/default
     steps:
@@ -104,13 +139,13 @@ workflows:
             tags:
               only: /^v.*/
             branches:
-             ignore: /.*/
+              ignore: /.*/
       - build_dapp:
           filters:
             tags:
               only: /^v.*/
             branches:
-             ignore: /.*/
+              ignore: /.*/
           context: keep-test
           requires:
             - keep_test_approval
@@ -119,7 +154,7 @@ workflows:
             tags:
               only: /^v.*/
             branches:
-             ignore: /.*/
+              ignore: /.*/
           context: keep-test
           requires:
             - build_dapp
