@@ -34,13 +34,11 @@ class Home extends Component {
             <div className="vertical-aligned">
               { isMobile
                 ? <span>
-                    No KYC,
+                    No games,
                     <br />
-                    no middlemen,
-                    <br />
-                    no bullshit.
+                    just math.
                   </span>
-                : <span>No KYC, no middlemen, no bullshit.</span>
+                : <span>No games, just math.</span>
               }
 		        </div>
           </div>
