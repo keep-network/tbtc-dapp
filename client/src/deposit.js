@@ -4,6 +4,7 @@ import {
   TBTCSystem,
   TBTCConstants,
   TBTCToken,
+  DepositOwnerToken,
   ECDSAKeep,
   truffleToWeb3Contract,
 } from './eth/contracts'
@@ -26,6 +27,7 @@ export async function createDeposit() {
   const tbtcSystem = await TBTCSystem.deployed()
   const tbtcConstants = await TBTCConstants.deployed()
   const tbtcToken = await TBTCToken.deployed()
+  const depositOwnerToken = await DepositOwnerToken.deployed()
 
   const _keepThreshold = '1'
   const _keepSize = '1'
@@ -37,6 +39,7 @@ export async function createDeposit() {
   const result = await depositFactory.createDeposit(
     tbtcSystem.address,
     tbtcToken.address,
+    depositOwnerToken.address,
     _keepThreshold,
     _keepSize,
     {
