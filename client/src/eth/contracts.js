@@ -18,6 +18,7 @@ export const Deposit = artifacts.require('Deposit.sol')
 export const TBTCSystem = artifacts.require('TBTCSystem.sol')
 export const TBTCConstants = artifacts.require('TBTCConstants.sol')
 export const TBTCToken = artifacts.require('TBTCToken.sol')
+export const DepositOwnerToken = artifacts.require('DepositOwnerToken.sol')
 export const ECDSAKeep = artifacts.require('ECDSAKeep.sol')
 
 const contracts = [
@@ -26,6 +27,7 @@ const contracts = [
   TBTCSystem,
   TBTCConstants,
   TBTCToken,
+  DepositOwnerToken,
   ECDSAKeep
 ]
 

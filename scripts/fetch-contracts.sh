@@ -13,6 +13,7 @@ CONTRACTS_PATHS=(
   "tbtc/TBTCConstants.json"
   "tbtc/TBTCSystem.json"
   "tbtc/TBTCToken.json"
+  "tbtc/DepositOwnerToken.json"
   "keep-tecdsa/ECDSAKeep.json"
   )
 
