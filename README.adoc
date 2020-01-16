@@ -11,12 +11,14 @@ toc::[]
 The dApp requires artifacts of the contracts deployed to the development environment.
 To fetch the latest artifacts run `npm run setup`. The command will download files
 stored in the Google Cloud. For initial configuration of the `gcloud` please refer 
-to the [instruction](https://github.com/keep-network/keep-core/blob/master/infrastructure/kube/keep-dev/kube-setup.org#first-time-with-this-environment).
+to the https://github.com/keep-network/keep-core/blob/master/infrastructure/kube/keep-dev/kube-setup.org#first-time-with-this-environment[instruction].
 
 === Run
 
-`npm start` runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Install dependencies using `npm install`. Alternative package managers (yarn, etc.) are not supported for now.
+`npm start` runs the app in the development mode.
+
+Open http://localhost:3000[http://localhost:3000] to view it in the browser.
 
 The page will reload if you make edits. You will also see any lint errors in the console.
 
@@ -45,7 +47,7 @@ To run the Docker image execute:
 docker run -p 8080:80 tbtc-dapp
 ```
 
-This will expose the app under [http://localhost:8080](http://localhost:8080).
+This will expose the app under http://localhost:8080[http://localhost:8080].
 
 == Internal TestNet
 
