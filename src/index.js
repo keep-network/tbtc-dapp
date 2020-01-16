@@ -18,6 +18,8 @@ import {
 import {
   Start as StartDeposit,
   Invoice,
+  RequestDeposit,
+  GetAddress,
   Pay,
   Prove as ProveDeposit,
   Congratulations as CongratulationsDeposit
@@ -68,7 +70,8 @@ function AppWrapper() {
           <App>
             <Route path="/" exact component={Home} />
             <Route path="/deposit" exact component={StartDeposit} />
-            <Route path="/deposit/invoice" component={Invoice} />
+            <Route path="/deposit/request" component={RequestDeposit} /> 
+            <Route path="/deposit/:address/get-address" component={GetAddress} /> 
             <Route path="/deposit/:address/pay" exact>
               <Loadable>
                 <Pay />
@@ -90,16 +93,16 @@ function AppWrapper() {
   )
 }
 
-function LoadableBase(props) {
+function LoadableBase({ children, account, restoreDepositState }) {
   const { address } = useParams()
   if (address) {
-    if (props.account) {
-      props.restoreDepositState(address)
+    if (account) {
+      restoreDepositState(address)
     }
 
     return <div>Loading...</div>
   } else {
-    return props.children
+    return children
   }
 }
 
