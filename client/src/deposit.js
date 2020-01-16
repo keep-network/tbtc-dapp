@@ -180,10 +180,12 @@ export async function submitFundingProof(
     throw new Error(`failed to parse spv proof: [${err}]`)
   }
 
-  // Submit funding proof to the deposit contract.
-  const deposit = await Deposit.at(depositAddress)
+  // Call the vending machine shortcut to submit the funding proof
+  // and mint TBTC.
+  const vendingMachine = await VendingMachine.deployed()
 
-  const result = await deposit.provideBTCFundingProof(
+  const result = await vendingMachine.unqualifiedDepositToTbtc(
+    depositAddress,
     Buffer.from(txDetails.version, 'hex'),
     Buffer.from(txDetails.txInVector, 'hex'),
     Buffer.from(txDetails.txOutVector, 'hex'),
