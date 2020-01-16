@@ -5,6 +5,8 @@ import {
   TBTCConstants,
   TBTCToken,
   DepositOwnerToken,
+  FeeRebateToken,
+  VendingMachine,
   ECDSAKeep,
   truffleToWeb3Contract,
 } from './eth/contracts'
@@ -28,6 +30,8 @@ export async function createDeposit() {
   const tbtcConstants = await TBTCConstants.deployed()
   const tbtcToken = await TBTCToken.deployed()
   const depositOwnerToken = await DepositOwnerToken.deployed()
+  const feeRebateToken = await FeeRebateToken.deployed()
+  const vendingMachine = await VendingMachine.deployed()
 
   const _keepThreshold = '1'
   const _keepSize = '1'
@@ -40,6 +44,8 @@ export async function createDeposit() {
     tbtcSystem.address,
     tbtcToken.address,
     depositOwnerToken.address,
+    feeRebateToken.address,
+    vendingMachine.address,
     _keepThreshold,
     _keepSize,
     {
