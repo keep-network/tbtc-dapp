@@ -110,10 +110,6 @@ export function* requestADeposit() {
             depositAddress,
         }
     })
-}
-
-export function* waitAndGetDepositBtcAddress() {
-    const depositAddress = yield select(state => state.deposit.depositAddress)
     
     // wait for deposit's public key to be published by the Keep
     yield call(watchForPublicKeyPublished, depositAddress)
@@ -142,8 +138,6 @@ export function* waitAndGetDepositBtcAddress() {
     // goto
     yield put(navigateTo('/deposit/' + depositAddress + '/pay'))
 }
-
-
 
 export function* waitConfirmation() {
     const electrumClient = yield call(getElectrumClient)
