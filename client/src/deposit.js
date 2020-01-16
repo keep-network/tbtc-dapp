@@ -17,6 +17,43 @@ import {
 
 const { Network, publicKeyToP2WPKHaddress } = Address
 
+export const DepositStates = {
+  // DOES NOT EXIST YET
+  START: 0,
+
+  // FUNDING FLOW
+  AWAITING_SIGNER_SETUP: 1,
+  AWAITING_BTC_FUNDING_PROOF: 2,
+
+  // FAILED SETUP
+  FRAUD_AWAITING_BTC_FUNDING_PROOF: 3,
+  FAILED_SETUP: 4,
+
+  // ACTIVE
+  ACTIVE: 5,  // includes courtesy call
+
+  // REDEMPTION FLOW
+  AWAITING_WITHDRAWAL_SIGNATURE: 6,
+  AWAITING_WITHDRAWAL_PROOF: 7,
+  REDEEMED: 8,
+
+  // SIGNER LIQUIDATION FLOW
+  COURTESY_CALL: 9,
+  FRAUD_LIQUIDATION_IN_PROGRESS: 10,
+  LIQUIDATION_IN_PROGRESS: 11,
+  LIQUIDATED: 12
+}
+
+/**
+ * Gets the current state of the deposit.
+ * @return {number} The deposit state, one of `DepositStates`
+ */
+export async function getDepositCurrentState(depositAddress) {
+  const deposit = await Deposit.at(depositAddress)
+  const state = await deposit.getCurrentState()
+  return state
+}
+
 /**
  * Creates a new deposit and returns its address
  * @return {string} Address of the Deposit contract instance
