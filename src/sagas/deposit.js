@@ -42,6 +42,17 @@ export async function getElectrumClient() {
     return electrumClient
 }
 
+export function* restoreDepositState() {
+    const depositAddress = yield select(state => state.deposit.depositAddress)
+
+    // Here, we need to look at the logs. getDepositBtcAddress submits a
+    // signed tx to Metamask, so that's not what we need.
+    //
+    // Then, we need to dispatch an update to the state.
+
+    //yield put({ type:  })
+}
+
 export function* requestADeposit() {
     // call Keep to request a deposit
     yield put({ type: DEPOSIT_REQUEST_BEGIN })
@@ -90,7 +101,7 @@ export function* requestADeposit() {
     })
 
     // goto
-    yield put(navigateTo('/deposit/pay'))
+    yield put(navigateTo('/deposit/' + depositAddress + '/pay'))
 }
 
 export function* waitConfirmation() {
@@ -98,6 +109,7 @@ export function* waitConfirmation() {
     const TESTNET_FUNDING_AMOUNT_SATOSHIS = 1000
 
     // wait for the transaction to be received and mined
+    const depositAddress = yield select(state => state.deposit.depositAddress)
     const btcAddress = yield select(state => state.deposit.btcAddress)
     const fundingTx = yield call(watchForTransaction, electrumClient, btcAddress, TESTNET_FUNDING_AMOUNT_SATOSHIS)
 
@@ -129,7 +141,7 @@ export function* waitConfirmation() {
     yield put(notifyTransactionConfirmed())
 
     // goto
-    yield put(navigateTo('/deposit/prove'))
+    yield put(navigateTo('/deposit/' + depositAddress + 'prove'))
 }
 
 export function* proveDeposit() {
@@ -184,7 +196,7 @@ export function* proveDeposit() {
         })
 
         // goto
-        yield put(navigateTo('/deposit/congratulations'))
+        yield put(navigateTo('/deposit/' + depositAddress + '/congratulations'))
 
     } catch (outerErr) {
         yield put({

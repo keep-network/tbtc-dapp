@@ -9,6 +9,22 @@ const artifacts = {
     const json = require(`./artifacts/${contractName}.json`)
     const contract = TruffleContract(json)
 
+    // if (process.env.NODE_ENV == "development") {
+    //   var oldDeployed = contract.deployed
+    //   contract.deployed = async function() {
+    //     try {
+    //       return await oldDeployed()
+    //     } catch (error) {
+    //       console.warn(`Error fetching deployed contract ${name}, falling back to stubs.`)
+    //       return new Proxy(new this("0x0"), {
+    //         get: (target, prop, receiver) => {
+    //           console.log("berzemer", target, target[prop])
+    //         }
+    //       })
+    //     }
+    //   }
+    // }
+
     return contract
   }
 }
@@ -19,6 +35,7 @@ export const TBTCSystem = artifacts.require('TBTCSystem.sol')
 export const TBTCConstants = artifacts.require('TBTCConstants.sol')
 export const TBTCToken = artifacts.require('TBTCToken.sol')
 export const ECDSAKeep = artifacts.require('ECDSAKeep.sol')
+export const DepositOwnerToken = artifacts.require('DepositOwnerToken.sol')
 
 const contracts = [
   DepositFactory,
@@ -26,7 +43,8 @@ const contracts = [
   TBTCSystem,
   TBTCConstants,
   TBTCToken,
-  ECDSAKeep
+  ECDSAKeep,
+  DepositOwnerToken
 ]
 
 /**

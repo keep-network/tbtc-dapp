@@ -32,7 +32,7 @@ export function* saveAddresses({ payload }) {
         payload
     })
 
-    yield put(navigateTo('/redeem/redeeming'))
+    yield put(navigateTo('/redeem/' + payload.depositAddress + '/redeeming'))
 }
 
 export function* requestRedemption() {
@@ -42,7 +42,7 @@ export function* requestRedemption() {
     console.log(`start redemption of deposit [${depositAddress}] to bitcoin address [${btcAddress}]`)
     yield call(clientRequestRedemption, depositAddress, btcAddress)
 
-    yield put(navigateTo('/redeem/signing'))
+    yield put(navigateTo('/redeem/' + depositAddress + '/signing'))
 }
 
 export function* buildTransactionAndSubmitSignature() {
@@ -62,7 +62,7 @@ export function* buildTransactionAndSubmitSignature() {
         payload: { unsignedTransaction, signature }
     })
 
-    yield put(navigateTo('/redeem/confirming'))
+    yield put(navigateTo('/redeem/' + depositAddress + '/confirming'))
 }
 
 export function* broadcastTransaction() {
@@ -116,9 +116,10 @@ export function* pollForConfirmations() {
 
     electrumClient.close()
 
+    const depositAddress = yield select(state => state.redemption.depositAddress)
     const pollForConfirmationsError = yield select(state => state.redemption.pollForConfirmationsError)
     if (!pollForConfirmationsError) {
-        yield put(navigateTo('/redeem/prove'))
+        yield put(navigateTo('/redeem/' + depositAddress + '/prove'))
     }
 }
 
@@ -138,7 +139,7 @@ export function* submitRedemptionProof() {
             type: REDEMPTION_PROVE_BTC_TX_SUCCESS,
         })
 
-        yield put(navigateTo('/redeem/congratulations'))
+        yield put(navigateTo('/redeem/' + depositAddress + '/congratulations'))
     } catch (err) {
         yield put({
             type: REDEMPTION_PROVE_BTC_TX_ERROR,

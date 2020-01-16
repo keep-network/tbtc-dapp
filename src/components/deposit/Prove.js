@@ -1,11 +1,17 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { useParams, withRouter } from 'react-router-dom'
 
 import { submitDepositProof } from '../../actions'
 import StatusIndicator from '../svgs/StatusIndicator'
 
-class Prove extends Component {
+function Prove(props) {
+  const params = useParams()
+  return <ProveComponent {...props} address={props.address || params.address} />
+}
+
+class ProveComponent extends Component {
   handleClickProve = (evt) => {
     evt.preventDefault()
     evt.stopPropagation()
@@ -75,7 +81,7 @@ const mapDispatchToProps = (dispatch) => {
   )
 }
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Prove)
+)(Prove))
