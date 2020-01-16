@@ -9,7 +9,9 @@ import {
     watchForTransaction,
     waitForConfirmations,
     getTransactionProof,
-    submitFundingProof
+    submitFundingProof,
+    getDepositCurrentState,
+    DepositStates
 } from 'tbtc-client'
 
 import { notifyTransactionConfirmed } from '../lib/notifications/actions'
@@ -48,6 +50,38 @@ export function* restoreDepositState() {
 
     const depositAddress = yield select(state => state.deposit.depositAddress)
 
+    let depositState = yield call(getDepositCurrentState, depositAddress)
+
+    switch(depositState) {
+        // case START:
+
+        // Funding flow.
+        case DepositStates.AWAITING_SIGNER_SETUP:
+            yield put(navigateTo('/deposit/' + depositAddress + '/generate-address'))
+            break
+        
+        case DepositStates.AWAITING_BTC_FUNDING_PROOF:
+            yield put(navigateTo('/deposit/' + depositAddress + '/pay'))
+            break
+        
+        // Funding failure states
+        case DepositStates.FRAUD_AWAITING_BTC_FUNDING_PROOF:
+        case DepositStates.FAILED_SETUP:
+            // TODO
+            break
+
+        case DepositStates.ACTIVE: 
+            // TODO
+            // yield put(navigateTo('/deposit/' + depositAddress + '/view'))
+            break
+        
+        // Redemption flow
+        // TODO
+        // case AWAITING_WITHDRAWAL_SIGNATURE:
+        // case AWAITING_WITHDRAWAL_PROOF:
+        // case REDEEMED:    
+    }
+    
     // Here, we need to look at the logs. getDepositBtcAddress submits a
     // signed tx to Metamask, so that's not what we need.
     //
@@ -55,6 +89,7 @@ export function* restoreDepositState() {
 
     //yield put({ type:  })
 }
+
 
 export function* requestADeposit() {
     // call Keep to request a deposit
@@ -78,7 +113,7 @@ export function* requestADeposit() {
             depositAddress,
         }
     })
-
+    
     // wait for deposit's public key to be published by the Keep
     yield call(watchForPublicKeyPublished, depositAddress)
     yield put({
