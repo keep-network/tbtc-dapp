@@ -31,6 +31,17 @@ jobs:
           key: v1-client-npm-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
           paths:
             - node_modules
+      
+      # Fetch contract artifacts.
+      - run:
+          name: Set Gcloud Auth
+          command: |
+            echo $GCLOUD_SERVICE_KEY_GET_BUCKET_OBJECT > ~/gcloud-service-key.json
+            gcloud auth activate-service-account --key-file ~/gcloud-service-key.json
+      - run:
+          name: Fetch contract artifacts
+          command: |
+            ./scripts/fetch-contracts.sh
 
       # Fetch contract artifacts.
       - run:
