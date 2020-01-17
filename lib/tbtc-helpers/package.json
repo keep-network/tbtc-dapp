@@ -13,6 +13,7 @@
   "dependencies": {
     "bcoin": "git+https://github.com/bcoin-org/bcoin.git#v1.0.2",
     "bcrypto": "^4.1.0",
+    "bitcoinjs-lib": "^5.1.7",
     "bufio": "^1.0.6",
     "electrum-client-js": "git+https://github.com/nkuba/electrum-client-js.git#05cb093521b321cd1c590101831c664360fc3eca"
   },
