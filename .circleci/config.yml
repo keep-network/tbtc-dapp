@@ -20,6 +20,11 @@ jobs:
       - checkout
 
       # Fetch contract artifacts.
+      - gcp-gcr/gcr-auth:
+          google-project-id: GOOGLE_PROJECT_ID
+          google-compute-zone: GOOGLE_COMPUTE_ZONE_A
+          # This param doesn't actually set anything, leaving here as a reminder to check when they fix it.
+          gcloud-service-key: GCLOUD_SERVICE_KEY
       - run:
           name: Set Gcloud Auth
           command: |
