@@ -12,6 +12,22 @@ orbs:
   gcp-gcr: circleci/gcp-gcr@0.0.4
 
 jobs:
+  fetch_contract_artifacts:
+    executor: docker-thesis-buildpack
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching: false
+      - checkout
+      - run:
+          name: Set Gcloud Auth
+          command: |
+            echo $GCLOUD_SERVICE_KEY_GET_BUCKET_OBJECT > ~/gcloud-service-key.json
+            gcloud auth activate-service-account --key-file ~/gcloud-service-key.json
+      - run:
+          name: Fetch contract artifacts
+          command: |
+            ./scripts/fetch-contracts.sh
+  
   test_client:
     executor: docker-node
     working_directory: ~/project/client
@@ -116,7 +132,10 @@ workflows:
   version: 2
   client:
     jobs:
-      - test_client
+      - fetch_contract_artifacts
+      - test_client:
+          requires:
+            - fetch_contract_artifacts
   tbtc_helpers:
     jobs:
       - test_tbtc_helpers
