@@ -2,17 +2,17 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { submitProof } from '../../actions'
-import Peanut from '../svgs/Peanut'
+import { submitDepositProof } from '../../actions'
+import StatusIndicator from '../svgs/StatusIndicator'
 
 class Prove extends Component {
   handleClickProve = (evt) => {
     evt.preventDefault()
     evt.stopPropagation()
 
-    const { submitProof } = this.props
+    const { submitDepositProof } = this.props
 
-    submitProof()
+    submitDepositProof()
   }
 
   render() {
@@ -21,11 +21,11 @@ class Prove extends Component {
     return (
       <div className="prove">
         <div className="page-top">
-          <Peanut width="250px" loading={provingDeposit} error={!!proveDepositError}/>
+          <StatusIndicator pulse />
         </div>
         <div className="page-body">
           <div className="step">
-            Step 4/5
+            Step 5/6
           </div>
           <div className="title">
             {
@@ -45,7 +45,7 @@ class Prove extends Component {
             }
           </div>
           <div className={`cta ${provingDeposit ? 'disabled' : ''}`}>
-            <a href="/deposit/pay" onClick={this.handleClickProve}>
+            <a href="/deposit/congratulations" onClick={this.handleClickProve}>
               Submit Proof >>>
             </a>
           </div>
@@ -61,15 +61,15 @@ class Prove extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-      provingDeposit: state.app.provingDeposit,
-      proveDepositError: state.app.proveDepositError
+      provingDeposit: state.deposit.provingDeposit,
+      proveDepositError: state.deposit.proveDepositError
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
       {
-        submitProof
+        submitDepositProof
       },
       dispatch
   )

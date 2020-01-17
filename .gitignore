@@ -3,3 +3,5 @@ src/app.less/
 *.code-workspace
 build/
 .DS_Store
+
+client/src/eth/artifacts/*.JSON

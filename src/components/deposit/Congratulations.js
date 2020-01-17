@@ -1,11 +1,15 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
-import Wavy from '../svgs/Wavy'
+import StatusIndicator from '../svgs/StatusIndicator'
+import TLogo from '../svgs/tlogo'
 
-const Congratulations = () => (
+const Congratulations = ({ depositAddress }) => (
   <div className="congratulations">
     <div className="page-top">
-      <Wavy width="250" height="250" />
+      <StatusIndicator purple>
+        <TLogo height={100} width={100} />
+      </StatusIndicator>
     </div>
     <div className="page-body">
       <div className="step">
@@ -22,9 +26,27 @@ const Congratulations = () => (
         <div className="bond-duration">
           Bond duration: 6 months
         </div>
+        {/* TODO: Update to use CopyInputField */}
+        {
+          depositAddress && depositAddress.length > 0
+          ? <p>
+              <br />
+              <h3>Deposit Address:</h3>
+              { depositAddress }
+            </p>
+          : ''
+        }
       </div>
     </div>
   </div>
 )
 
-export default Congratulations
+const mapStateToProps = (state, ownProps) => {
+  return {
+    depositAddress: state.deposit.depositAddress
+  }
+}
+
+export default connect(
+  mapStateToProps
+)(Congratulations)

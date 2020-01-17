@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import history from '../../history'
 import { requestPermission } from '../../lib/notifications'
 import { withAccount } from '../../wrappers/web3'
+import StatusIndicator from '../svgs/StatusIndicator'
+import BTCLogo from '../svgs/btclogo'
 
 class Start extends Component {
 
@@ -25,8 +27,11 @@ class Start extends Component {
     const { account } = this.props
 
     return (
-      <div className="start">
+      <div className="deposit-start">
         <div className="page-top">
+          <StatusIndicator green>
+            <BTCLogo height={100} width={100} />
+          </StatusIndicator>
         </div>
         <div className="page-body">
           <div className="step">
@@ -40,10 +45,14 @@ class Start extends Component {
             <p>To mint tBTC, we first need to initiate a deposit. This is where we will send BTC.</p>
             <p>This should take less than 1 minute.</p>
           </div>
-          <div className={`cta ${!account ? 'disabled' : ''}`}>
-            <a href="/deposit/invoice" onClick={this.handleClickPay}>
-              Begin now >>>
-            </a>
+          <div className='cta'>
+            <button
+              onClick={this.handleClickPay}
+              disabled={typeof account === 'undefined'}
+              className="black"
+              >
+              Begin now
+            </button>
           </div>
         </div>
       </div>

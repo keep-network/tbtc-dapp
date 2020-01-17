@@ -4,6 +4,9 @@ executors:
   docker-node:
     docker:
       - image: circleci/node:11
+  docker-thesis-buildpack:
+    docker:
+      - image: thesisco/docker-buildpack:bionic
 
 orbs:
   gcp-gcr: circleci/gcp-gcr@0.0.4
@@ -11,36 +14,74 @@ orbs:
 jobs:
   test_client:
     executor: docker-node
+    working_directory: ~/project/client
     steps:
-        - checkout
-        - run:
-            name: Run NPM tests
-            working_directory: ~/project/client
-            command: npm install && npm run test
+      - checkout:
+          path: ~/project
+
+      # Download and cache dependencies.
+      - restore_cache:
+          keys:
+            # When lock file changes, use increasingly general patterns to restore cache.
+            - v1-client-npm-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - v1-client-npm-deps-{{ .Branch }}-
+            - v1-client-npm-deps-
+      - run: npm install
+      - save_cache:
+          key: v1-client-npm-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+
+      # Run tests.
+      - run:
+          name: Run NPM tests
+          command: npm run test:setup && npm run test
+
   test_tbtc_helpers:
     executor: docker-node
+    working_directory: ~/project/lib/tbtc-helpers
     steps:
-        - checkout
-        - run:
-            name: Run NPM tests
-            working_directory: ~/project/lib/tbtc-helpers
-            command: npm install && npm run test
-  build_and_test_dapp:
-    executor: docker-node
+      - checkout:
+          path: ~/project
+
+      # Download and cache dependencies.
+      - restore_cache:
+          keys:
+            # When lock file changes, use increasingly general patterns to restore cache.
+            - v1-helpers-npm-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - v1-helpers-npm-deps-{{ .Branch }}-
+            - v1-helpers-npm-deps-
+      - run: npm install
+      - save_cache:
+          key: v1-helpers-npm-deps-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+
+      # Run tests.
+      - run:
+          name: Run NPM tests
+          command: npm test
+
+  build_dapp:
+    executor: docker-thesis-buildpack
     steps:
       - setup_remote_docker:
-          docker_layer_caching: true
+          docker_layer_caching: false
       - checkout
+      - run:
+          name: Set Gcloud Auth
+          command: |
+            echo $GCLOUD_SERVICE_KEY_GET_BUCKET_OBJECT > ~/gcloud-service-key.json
+            gcloud auth activate-service-account --key-file ~/gcloud-service-key.json
+      - run:
+          name: Fetch contract artifacts
+          command: |
+            ./scripts/fetch-contracts.sh
       - run:
           name: Run Docker build
           command: |
             docker build -t build --target build .
             docker build -t $GCR_REGISTRY_URL/$GOOGLE_PROJECT_ID/tbtc-dapp .
-      # Test are not available yet. 
-      # - run:
-      #     name: Run NPM tests
-      #     command: |
-      #       docker run -w /app build npm run test
       - run:
           name: Save tbtc-dapp image
           command: |
@@ -50,6 +91,7 @@ jobs:
           root: /tmp/tbtc-dapp
           paths:
             - docker-images
+
   publish_dapp:
     executor: gcp-gcr/default
     steps:
@@ -75,17 +117,44 @@ workflows:
   client:
     jobs:
       - test_client
-  tbtc-helpers:
+  tbtc_helpers:
     jobs:
       - test_tbtc_helpers
-  dapp:
+  dapp_keep_dev:
     jobs:
-      - build_and_test_dapp:
+      - build_dapp:
           context: keep-dev
-      #- publish_dapp:
-      #    filters:
-      #      branches:
-      #        only: master
-      #    context: keep-dev
-      #    requires:
-      #      - build_and_test_dapp
+      - publish_dapp:
+          filters:
+            branches:
+              only: master
+          context: keep-dev
+          requires:
+            - build_dapp
+  dapp_keep_test:
+    jobs:
+      - keep_test_approval:
+          type: approval
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - build_dapp:
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+          context: keep-test
+          requires:
+            - keep_test_approval
+      - publish_dapp:
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+          context: keep-test
+          requires:
+            - build_dapp
