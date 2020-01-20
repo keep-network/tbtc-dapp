@@ -198,7 +198,7 @@ export function* waitConfirmation() {
     yield put(notifyTransactionConfirmed())
 
     // goto
-    yield put(navigateTo('/deposit/' + depositAddress + 'prove'))
+    yield put(navigateTo('/deposit/' + depositAddress + '/prove'))
 }
 
 export function* proveDeposit() {
