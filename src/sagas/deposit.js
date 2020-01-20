@@ -11,7 +11,8 @@ import {
     getTransactionProof,
     submitFundingProof,
     getDepositCurrentState,
-    DepositStates
+    DepositStates,
+    getKeepPublicKey
 } from 'tbtc-client'
 
 import { notifyTransactionConfirmed } from '../lib/notifications/actions'
@@ -63,23 +64,36 @@ export function* restoreDepositState() {
             break
         
         case DepositStates.AWAITING_BTC_FUNDING_PROOF:
+        case DepositStates.ACTIVE:
+            let btcAddress = yield call(getDepositBtcAddress, depositAddress)
+            yield put({
+                type: DEPOSIT_BTC_ADDRESS,
+                payload: {
+                    btcAddress,
+                }
+            })
+
+            // FIXME Check to see if Electrum has already seen a tx for payment
+            // FIXME and fast-forward to /pay/confirming if so.
+
             yield put({
                 type: DEPOSIT_STATE_RESTORED,
             })
-            yield put(navigateTo('/deposit/' + depositAddress + '/pay'))
+
+            const nextStep = {}
+            nextStep[DepositStates.AWAITING_BTC_FUNDING_PROOF] = "/pay"
+            nextStep[DepositStates.ACTIVE] = "/congratulations"
+
+            // TODO Fork on active vs await
+            yield put(navigateTo('/deposit/' + depositAddress + nextStep[depositState.toNumber()]))
             break
         
         // Funding failure states
         case DepositStates.FRAUD_AWAITING_BTC_FUNDING_PROOF:
         case DepositStates.FAILED_SETUP:
-            // TODO
+            // TODO Update deposit state to reflect situation.
             break
 
-        case DepositStates.ACTIVE: 
-            // TODO
-            // yield put(navigateTo('/deposit/' + depositAddress + '/view'))
-            break
-        
         // Redemption flow
         // TODO
         // case AWAITING_WITHDRAWAL_SIGNATURE:
