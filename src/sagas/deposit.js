@@ -64,8 +64,8 @@ export function* restoreDepositState() {
             break
         
         case DepositStates.AWAITING_BTC_FUNDING_PROOF:
-        case DepositStates.ACTIVE:
-            let btcAddress = yield call(getDepositBtcAddress, depositAddress)
+        case DepositStates.ACTIVE: 
+            const btcAddress = yield call(getDepositBtcAddress, depositAddress)
             yield put({
                 type: DEPOSIT_BTC_ADDRESS,
                 payload: {
