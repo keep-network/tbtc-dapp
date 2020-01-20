@@ -75,6 +75,9 @@ export function* restoreDepositState() {
 
             // FIXME Check to see if Electrum has already seen a tx for payment
             // FIXME and fast-forward to /pay/confirming if so.
+            //
+            // FIXME Check to see if we have a transaction in the mempool for
+            // FIXME submitting funding proof, and update state accordingly.
 
             yield put({
                 type: DEPOSIT_STATE_RESTORED,
