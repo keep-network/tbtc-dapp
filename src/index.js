@@ -4,7 +4,7 @@ import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import routerMiddleware from './lib/router/middleware'
 import notificationMiddleware from './lib/notifications/middleware'
-import { Provider } from 'react-redux'
+import { Provider, useSelector } from 'react-redux'
 import { Router, Route, useParams } from 'react-router-dom'
 
 // Styles
@@ -45,6 +45,7 @@ import history from './history'
 import { bindActionCreators } from 'redux';
 import { restoreDepositState } from './actions';
 import { connect } from 'react-redux'
+import deposit from './reducers/deposit';
 
 // Set up our store
 const sagaMiddleware = createSagaMiddleware()
@@ -70,7 +71,7 @@ function AppWrapper() {
           <App>
             <Route path="/" exact component={Home} />
             <Route path="/deposit" exact component={StartDeposit} />
-            <Route path="/deposit/request" component={RequestDeposit} /> 
+            <Route path="/deposit/request" component={Invoice} />
             <Route path="/deposit/:address/get-address" component={GetAddress} /> 
             <Route path="/deposit/:address/pay" exact>
               <Loadable>
@@ -95,7 +96,8 @@ function AppWrapper() {
 
 function LoadableBase({ children, account, restoreDepositState }) {
   const { address } = useParams()
-  if (address) {
+  const depositStateRestored = useSelector((state) => state.deposit.stateRestored)
+  if (address && ! depositStateRestored) {
     if (account) {
       restoreDepositState(address)
     }

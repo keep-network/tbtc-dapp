@@ -23,6 +23,7 @@ export const DEPOSIT_REQUEST_METAMASK_SUCCESS = 'DEPOSIT_REQUEST_METAMASK_SUCCES
 export const DEPOSIT_REQUEST_SUCCESS = 'DEPOSIT_REQUEST_SUCCESS'
 export const DEPOSIT_PUBKEY_PUBLISHED = 'DEPOSIT_PUBKEY_PUBLISHED'
 export const DEPOSIT_BTC_ADDRESS = 'DEPOSIT_BTC_ADDRESS'
+export const DEPOSIT_STATE_RESTORED = 'DEPOSIT_STATE_RESTORED'
 
 export const BTC_TX_MINED = 'BTC_TX_MINED'
 export const BTC_TX_CONFIRMED_WAIT = 'BTC_TX_CONFIRMED_WAIT'
@@ -52,8 +53,9 @@ export function* restoreDepositState() {
 
     let depositState = yield call(getDepositCurrentState, depositAddress)
 
-    switch(depositState) {
-        // case START:
+    switch(depositState.toNumber()) {
+        case DepositStates.START:
+            throw "Unexpected state."
 
         // Funding flow.
         case DepositStates.AWAITING_SIGNER_SETUP:
@@ -61,6 +63,9 @@ export function* restoreDepositState() {
             break
         
         case DepositStates.AWAITING_BTC_FUNDING_PROOF:
+            yield put({
+                type: DEPOSIT_STATE_RESTORED,
+            })
             yield put(navigateTo('/deposit/' + depositAddress + '/pay'))
             break
         

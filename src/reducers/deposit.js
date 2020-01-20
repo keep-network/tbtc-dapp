@@ -8,6 +8,7 @@ import {
   DEPOSIT_PROVE_BTC_TX_ERROR,
   DEPOSIT_REQUEST_BEGIN,
   DEPOSIT_PUBKEY_PUBLISHED,
+  DEPOSIT_STATE_RESTORED,
 } from "../sagas/deposit"
 import { RESTORE_DEPOSIT_STATE } from "../actions"
 
@@ -18,7 +19,8 @@ const initialState = {
   tbtcMintedTxID: null,
   fundingOutputIndex: null,
   btcConfirming: false,
-  invoiceStatus: 0
+  invoiceStatus: 0,
+  stateRestored: false,
 }
 
 const deposit = (state = initialState, action) => {
@@ -27,6 +29,11 @@ const deposit = (state = initialState, action) => {
       return {
         ...state,
         depositAddress: action.payload.depositAddress,
+      }
+    case DEPOSIT_STATE_RESTORED:
+      return {
+        ...state,
+        stateRestored: true,
       }
     case DEPOSIT_REQUEST_BEGIN:
       return {
