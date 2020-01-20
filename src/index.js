@@ -78,8 +78,12 @@ function AppWrapper() {
                 <Pay />
               </Loadable>
             </Route>
-            <Route path="/deposit/:address/pay/confirming" render={(props) => <Pay {...props} confirming={true} />} />
-            <Route path="/deposit/:address/prove" component={ProveDeposit} />
+            <Route path="/deposit/:address/pay/confirming" render={(props) => <Loadable><Pay {...props} confirming={true} /></Loadable>} />
+            <Route path="/deposit/:address/prove">
+              <Loadable>
+                <ProveDeposit />
+              </Loadable>
+            </Route>
             <Route path="/deposit/:address/congratulations" component={CongratulationsDeposit} />
             <Route path="/redeem" exact component={StartRedemption} />
             <Route path="/redeem/redeeming" component={Redeeming} />
