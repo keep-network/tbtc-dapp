@@ -1,13 +1,13 @@
 button, .button {
-    &.blue { --button-color: @blue; }
-    &.black { --button-color: @black; }
+    &.blue { --button-color: $blue; }
+    &.black { --button-color: $black; }
 
     border: 3px solid var(--button-color);
     padding: 20px 40px;
     font-family: 'apercu-mono-regular-pro';
     font-size: 1.25em;
     color: var(--button-color);
-    background-color: @white;
+    background-color: $white;
     white-space: nowrap;
     transform: scale(1);
     transition: transform 150ms ease-in-out;
@@ -15,17 +15,17 @@ button, .button {
 
     &:hover:enabled {
         background-color: var(--button-color);
-        color: @white;
+        color: $white;
         transform: scale(1.05);
     }
 
     &:focus {
-        background-color: darken(@blue, 10%);
+        background-color: darken($blue, 10%);
     }
 
     &:disabled {
-        border-color: @light-grey;
-        color: @light-grey;
+        border-color: $light-grey;
+        color: $light-grey;
         cursor: unset;
     }
 }

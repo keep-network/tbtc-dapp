@@ -8,7 +8,7 @@ import { Provider } from 'react-redux'
 import { Router, Route } from 'react-router-dom'
 
 // Styles
-import './app.css'
+import './css/app.scss'
 
 // Components
 import {

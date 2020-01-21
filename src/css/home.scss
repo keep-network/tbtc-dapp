@@ -47,15 +47,15 @@
         margin-top: 110px;
         border-width: 1px 0;
         border-style: solid;
-        border-color: @light-blue;
-        background-color: @lighter-grey;
+        border-color: $light-blue;
+        background-color: $lighter-grey;
         font-size: .75em;
 
         ol {
             counter-reset: step-by-step;
             list-style: none;
     
-            width: @content-width;
+            width: $content-width;
             margin: 0 auto;
             padding: 75px 0;
             display: flex;
@@ -64,12 +64,12 @@
                 counter-increment: step-by-step;
 
                 flex: 1;
-                color: @dark-grey;
+                color: $dark-grey;
     
                 &::before {
                     content: "0" counter(step-by-step);
                     display: block;
-                    color: @blue;
+                    color: $blue;
                     font-weight: bold;
                     line-height: 2em;
                 }
@@ -92,7 +92,7 @@
         }
     }
 
-    @media (max-width: @content-width) {
+    @media (max-width: $content-width) {
         .title {
             font-size: 2.75em;
 
