@@ -183,6 +183,15 @@ export async function submitFundingProof(
   // Call the vending machine shortcut to submit the funding proof
   // and mint TBTC.
   const vendingMachine = await VendingMachine.deployed()
+  const depositOwnerToken = await DepositOwnerToken.deployed()
+  const dotId = depositAddress
+
+  await depositOwnerToken.approve(
+    vendingMachine.address,
+    dotId
+  ).catch((err) => {
+    throw new Error(`failed to approve DOT for transfer: [${err}]`)
+  })
 
   const result = await vendingMachine.unqualifiedDepositToTbtc(
     depositAddress,
