@@ -15,6 +15,8 @@ CONTRACTS_PATHS=(
   "tbtc/TBTCToken.json"
   "tbtc/DepositOwnerToken.json"
   "keep-tecdsa/ECDSAKeep.json"
+  "tbtc/FeeRebateToken.json"
+  "tbtc/VendingMachine.json"
   )
 
 DESTINATION_DIR=$(realpath $(dirname $0)/../client/src/eth/artifacts)

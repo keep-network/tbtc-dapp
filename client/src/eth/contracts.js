@@ -29,8 +29,8 @@ const contracts = [
   TBTCSystem,
   TBTCConstants,
   TBTCToken,
-  DepositOwnerToken,
   ECDSAKeep,
+  DepositOwnerToken,
   VendingMachine,
   FeeRebateToken
 ]
