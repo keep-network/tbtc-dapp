@@ -4,6 +4,19 @@ import { setDefaults } from 'tbtc-client'
 
 const Web3Context = React.createContext({})
 
+let web3loaded = false
+export let Web3Loaded = new Promise((resolve, _) => {
+    function checkAndResolve() {
+        if (web3loaded) {
+            resolve(true)
+        } else {
+            setTimeout(checkAndResolve, 100)
+        }
+    }
+
+    checkAndResolve()
+})
+
 class Web3Wrapper extends Component {
     state = {
         account: null,
@@ -26,6 +39,7 @@ class Web3Wrapper extends Component {
                 await this.getAndSetAccountInfo()
 
                 this.setState({ loading: false })
+                web3loaded = true
 
                 // Watch for changes
                 provider = this.state.web3.eth.currentProvider
