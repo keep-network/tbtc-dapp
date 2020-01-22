@@ -4,7 +4,7 @@ import {
   TBTCSystem,
   TBTCConstants,
   TBTCToken,
-  DepositOwnerToken,
+  TBTCDepositToken,
   ECDSAKeep,
   FeeRebateToken,
   VendingMachine,
@@ -29,7 +29,7 @@ export async function createDeposit() {
   const tbtcSystem = await TBTCSystem.deployed()
   const tbtcConstants = await TBTCConstants.deployed()
   const tbtcToken = await TBTCToken.deployed()
-  const depositOwnerToken = await DepositOwnerToken.deployed()
+  const tbtcDepositToken = await TBTCDepositToken.deployed()
   const feeRebateToken = await FeeRebateToken.deployed()
   const vendingMachine = await VendingMachine.deployed()
 
@@ -43,7 +43,7 @@ export async function createDeposit() {
   const result = await depositFactory.createDeposit(
     tbtcSystem.address,
     tbtcToken.address,
-    depositOwnerToken.address,
+    tbtcDepositToken.address,
     feeRebateToken.address,
     vendingMachine.address,
     _keepThreshold,
@@ -183,14 +183,14 @@ export async function submitFundingProof(
   // Call the vending machine shortcut to submit the funding proof
   // and mint TBTC.
   const vendingMachine = await VendingMachine.deployed()
-  const depositOwnerToken = await DepositOwnerToken.deployed()
-  const dotId = depositAddress
+  const tbtcDepositToken = await TBTCDepositToken.deployed()
+  const tdtId = depositAddress
 
-  await depositOwnerToken.approve(
+  await tbtcDepositToken.approve(
     vendingMachine.address,
-    dotId
+    tdtId
   ).catch((err) => {
-    throw new Error(`failed to approve DOT for transfer: [${err}]`)
+    throw new Error(`failed to approve TDT for transfer: [${err}]`)
   })
 
   const result = await vendingMachine.unqualifiedDepositToTbtc(
