@@ -4,7 +4,10 @@ import {
   TBTCSystem,
   TBTCConstants,
   TBTCToken,
+  DepositOwnerToken,
   ECDSAKeep,
+  FeeRebateToken,
+  VendingMachine,
   truffleToWeb3Contract,
 } from './eth/contracts'
 
@@ -26,6 +29,9 @@ export async function createDeposit() {
   const tbtcSystem = await TBTCSystem.deployed()
   const tbtcConstants = await TBTCConstants.deployed()
   const tbtcToken = await TBTCToken.deployed()
+  const depositOwnerToken = await DepositOwnerToken.deployed()
+  const feeRebateToken = await FeeRebateToken.deployed()
+  const vendingMachine = await VendingMachine.deployed()
 
   const _keepThreshold = '1'
   const _keepSize = '1'
@@ -37,6 +43,9 @@ export async function createDeposit() {
   const result = await depositFactory.createDeposit(
     tbtcSystem.address,
     tbtcToken.address,
+    depositOwnerToken.address,
+    feeRebateToken.address,
+    vendingMachine.address,
     _keepThreshold,
     _keepSize,
     {
@@ -171,10 +180,21 @@ export async function submitFundingProof(
     throw new Error(`failed to parse spv proof: [${err}]`)
   }
 
-  // Submit funding proof to the deposit contract.
-  const deposit = await Deposit.at(depositAddress)
+  // Call the vending machine shortcut to submit the funding proof
+  // and mint TBTC.
+  const vendingMachine = await VendingMachine.deployed()
+  const depositOwnerToken = await DepositOwnerToken.deployed()
+  const dotId = depositAddress
 
-  const result = await deposit.provideBTCFundingProof(
+  await depositOwnerToken.approve(
+    vendingMachine.address,
+    dotId
+  ).catch((err) => {
+    throw new Error(`failed to approve DOT for transfer: [${err}]`)
+  })
+
+  const result = await vendingMachine.unqualifiedDepositToTbtc(
+    depositAddress,
     Buffer.from(txDetails.version, 'hex'),
     Buffer.from(txDetails.txInVector, 'hex'),
     Buffer.from(txDetails.txOutVector, 'hex'),

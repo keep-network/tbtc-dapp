@@ -35,12 +35,12 @@
       bottom: 0;
     }
 
-    &.purple::before {
-      background: $purple;
+    &.purple .wavy-svg {
+      background: #{$purple};
     }
 
-    &.green::before {
-      background: $success;
+    &.green .wavy-svg {
+      background: #{$success};
     }
 
     .wavy-svg {
@@ -49,6 +49,7 @@
         right: 0;
         left: 0;
         bottom: 0;
+        width: 100%;
     }
 
     .st0 {
