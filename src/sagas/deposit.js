@@ -14,6 +14,7 @@ import {
 
 import { notifyTransactionConfirmed } from '../lib/notifications/actions'
 import { navigateTo } from '../lib/router/actions'
+import { Web3Loaded } from '../wrappers/web3'
 
 export const DEPOSIT_REQUEST_BEGIN = 'DEPOSIT_REQUEST_BEGIN'
 export const DEPOSIT_REQUEST_METAMASK_SUCCESS = 'DEPOSIT_REQUEST_METAMASK_SUCCESS'
@@ -40,6 +41,19 @@ export async function getElectrumClient() {
     await electrumClient.connect()
 
     return electrumClient
+}
+
+export function* restoreDepositState() {
+    const web3Loaded = yield Web3Loaded
+
+    const depositAddress = yield select(state => state.deposit.depositAddress)
+
+    // Here, we need to look at the logs. getDepositBtcAddress submits a
+    // signed tx to Metamask, so that's not what we need.
+    //
+    // Then, we need to dispatch an update to the state.
+
+    //yield put({ type:  })
 }
 
 export function* requestADeposit() {

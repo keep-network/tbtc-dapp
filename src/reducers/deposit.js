@@ -7,10 +7,11 @@ import {
   DEPOSIT_PROVE_BTC_TX_SUCCESS,
   DEPOSIT_PROVE_BTC_TX_ERROR,
   DEPOSIT_REQUEST_BEGIN,
-  DEPOSIT_PUBKEY_PUBLISHED
+  DEPOSIT_PUBKEY_PUBLISHED,
 } from "../sagas/deposit"
+import { RESTORE_DEPOSIT_STATE } from "../actions"
 
-const intialState = {
+const initialState = {
   btcAddress: null,
   depositAddress: null,
   btcDepositedTxID: null,
@@ -20,8 +21,13 @@ const intialState = {
   invoiceStatus: 0
 }
 
-const deposit = (state = intialState, action) => {
+const deposit = (state = initialState, action) => {
   switch (action.type) {
+    case RESTORE_DEPOSIT_STATE:
+      return {
+        ...state,
+        depositAddress: action.payload.depositAddress,
+      }
     case DEPOSIT_REQUEST_BEGIN:
       return {
         ...state,
