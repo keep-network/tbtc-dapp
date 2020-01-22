@@ -3,6 +3,7 @@ import {
   TBTCSystem,
   TBTCToken,
   ECDSAKeep,
+  VendingMachine,
   truffleToWeb3Contract,
 } from './eth/contracts'
 
@@ -30,6 +31,7 @@ const BN = web3.utils.BN
 export async function requestRedemption(depositAddress, toBTCAddress) {
   const deposit = await Deposit.at(depositAddress)
   const tbtcToken = await TBTCToken.deployed()
+  const vendingMachine = await VendingMachine.deployed()
 
   // TODO: We set a fixed a value temporarily as the values are constants currently.
   // Find a way to get utxosize from the deposit.
@@ -61,12 +63,13 @@ export async function requestRedemption(depositAddress, toBTCAddress) {
   // Temporary solution until TBTC includes approveAndCall support.
   // TODO: Replace after https://github.com/keep-network/tbtc/issues/273 is completed.
   const MAX_TOKEN_ALLOWANCE = (new BN(2)).pow(new BN(256)).sub(new BN(1))
-  await tbtcToken.approve(deposit.address, MAX_TOKEN_ALLOWANCE)
+  await tbtcToken.approve(vendingMachine.address, MAX_TOKEN_ALLOWANCE)
     .catch((err) => {
       throw new Error(`TBTC approval failed: [${err}]`)
     })
 
-  const result = await deposit.requestRedemption(
+  const result = await vendingMachine.tbtcToBtc(
+    depositAddress,
     outputValueBytes,
     requesterPKH
   ).catch((err) => {
