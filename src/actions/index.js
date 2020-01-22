@@ -1,23 +1,35 @@
+// State restoration.
+export const RESTORE_DEPOSIT_STATE = 'RESTORE_DEPOSIT_STATE'
+
 // Deposit
 export const REQUEST_A_DEPOSIT = 'REQUEST_A_DEPOSIT'
 export const WAIT_CONFIRMATION = 'WAIT_CONFIRMATION'
 export const SUBMIT_DEPOSIT_PROOF = 'SUBMIT_DEPOSIT_PROOF'
 
+export function restoreDepositState(depositAddress) {
+    return {
+        type: RESTORE_DEPOSIT_STATE,
+        payload: {
+            depositAddress: depositAddress,
+        },
+    }
+}
+
 export function requestADeposit() {
     return {
-        type: REQUEST_A_DEPOSIT
+        type: REQUEST_A_DEPOSIT,
     }
 }
 
 export function waitConfirmation() {
     return {
-        type: WAIT_CONFIRMATION
+        type: WAIT_CONFIRMATION,
     }
 }
 
 export function submitDepositProof() {
     return {
-        type: SUBMIT_DEPOSIT_PROOF
+        type: SUBMIT_DEPOSIT_PROOF,
     }
 }
 
