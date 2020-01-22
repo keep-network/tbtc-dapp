@@ -8,7 +8,10 @@ import StatusIndicator from '../svgs/StatusIndicator'
 
 class Pay extends Component {
   state = {
-    copied: false
+    copied: false,
+    deposit: {
+      depositAddress: this.props.address
+    }
   }
 
   componentDidMount() {
@@ -25,7 +28,8 @@ class Pay extends Component {
   }
 
   render() {
-    const { address, btcConfirming } = this.props
+    const { btcAddress, btcConfirming } = this.props
+
     const { copied } = this.state
     let renderTop, renderTitle, renderCopyAddress, descriptionText, step;
 
@@ -33,7 +37,7 @@ class Pay extends Component {
       renderTop = (
         <div className="qr-code">
           <QRCode
-            value={address}
+            value={btcAddress}
             renderAs="svg"
             size={225} />
         </div>
@@ -52,7 +56,7 @@ class Pay extends Component {
       renderCopyAddress = (
         <div className="copy-address">
           <div className="address" onClick={this.copyAddress}>
-            {address}
+            {btcAddress}
           </div>
           {
             copied
@@ -109,7 +113,7 @@ class Pay extends Component {
         <textarea
           className="hidden-copy-field"
           ref={textarea => this.hiddenCopyField = textarea}
-          defaultValue={address || ''} />
+          defaultValue={btcAddress || ''} />
       </div>
     )
   }
@@ -118,7 +122,8 @@ class Pay extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    address: state.deposit.btcAddress,
+    btcAddress: state.deposit.btcAddress,
+    depositAddress: state.deposit.depositAddress,
     btcConfirming: state.deposit.btcConfirming
   }
 }
