@@ -5,8 +5,14 @@ import { connect } from 'react-redux'
 import { waitConfirmation } from '../../actions'
 import QRCode from 'qrcode.react'
 import StatusIndicator from '../svgs/StatusIndicator'
+import { useParams } from "react-router-dom"
 
-class Pay extends Component {
+function Pay(props) {
+  const params = useParams()
+  return <PayComponent {...props} address={props.address || params.address} />
+}
+
+class PayComponent extends Component {
   state = {
     copied: false,
     deposit: {
