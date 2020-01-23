@@ -31,12 +31,14 @@ class Pay extends Component {
 
     const btcAmount = lotInBtc.toString()
     const signerFee = signerFeeInBtc.toString()
+    const btcURL =
+      `bitcoin:${address}?amount=${btcAmount}&label=Single-Use+tBTC+Deposit+Wallet`
 
     if (!btcConfirming) {
       renderTop = (
         <div className="qr-code">
           <QRCode
-            value={address}
+            value={btcURL}
             renderAs="svg"
             size={225} />
         </div>
