@@ -6,7 +6,7 @@
 # TODO: just for development, until we get artifacts uploaded somewhere properly.
 set -ex
 
-for CONTRACT in Deposit TBTCSystem TBTCConstants TBTCToken DepositOwnerToken DepositFactory FeeRebateToken VendingMachine; do
+for CONTRACT in Deposit TBTCSystem TBTCConstants TBTCToken TBTCDepositToken DepositFactory FeeRebateToken VendingMachine; do
     cp ../../../../tbtc/implementation/build/contracts/$CONTRACT.json artifacts/
 done
 
