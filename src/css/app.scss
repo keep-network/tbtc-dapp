@@ -1,18 +1,18 @@
-@content-width: 768px;
+$content-width: 768px;
 
-@import 'colors.less';
-@import 'button.less';
-@import 'z-index.less';
-@import './fonts/apercu.less';
-@import 'structure.less';
-@import 'modal.less';
-@import 'status-indicator.less';
-@import 'home.less';
-@import 'start.less';
-@import 'pay.less';
-@import 'prove.less';
-@import 'congratulations.less';
-@import 'confirming.less';
+@import 'colors.scss';
+@import 'button.scss';
+@import 'z-index.scss';
+@import './fonts/apercu.scss';
+@import 'structure.scss';
+@import 'modal.scss';
+@import 'status-indicator.scss';
+@import 'home.scss';
+@import 'start.scss';
+@import 'pay.scss';
+@import 'prove.scss';
+@import 'congratulations.scss';
+@import 'confirming.scss';
 
 
 html, body, #root {
@@ -22,7 +22,7 @@ html, body, #root {
 }
 
 a {
-    color: @blue;
+    color: #{$blue};
     text-decoration: underline;
     cursor: pointer;
 }
@@ -35,10 +35,10 @@ a {
 
 .app {
     flex: 1;
-    color: @black;
+    color: #{$black};
     font-family: sans-serif;
     font-size: 1.5em;
-    width: @content-width;
+    width: #{$content-width};
     margin: 0 auto;
 
     .nav {
@@ -70,28 +70,28 @@ a {
             padding: 5px 10px;
             border: 1px solid transparent;
             border-radius: 4px;
-            background-color: @lighter-grey;
+            background-color: #{$lighter-grey};
             font-size: .6em;
             font-family: 'apercu-mono-regular-pro';
 
             &.loading {
-                border-color: @loading;
-                color: @loading;
+                border-color: #{$loading};
+                color: #{$loading};
             }
 
             &.alert {
-                border-color: @alert;
-                color: @alert;
+                border-color: #{$alert};
+                color: #{$alert};
             }
 
             &.notify {
-                border-color: @notify;
-                color: @notify;
+                border-color: #{$notify};
+                color: #{$notify};
             }
 
             &.success {
-                border-color: @success;
-                color: @success;
+                border-color: #{$success};
+                color: #{$success};
             }
 
             svg {
@@ -105,7 +105,7 @@ a {
         }
     }
 
-    @media (max-width: @content-width) {
+    @media (max-width: #{$content-width}) {
         padding: 40px;
         width: 100%;
         box-sizing: border-box;
@@ -125,7 +125,7 @@ a {
 
             @keyframes pulse {
                 0% { fill: transparent; }
-                50% { fill: @purple; }
+                50% { fill: #{$purple}; }
                 100% { fill: transparent; }
             }
         }
@@ -133,7 +133,7 @@ a {
         &.error {
             svg {
                 path {
-                    fill: @alert;
+                    fill: #{$alert};
                 }
             }
         }
@@ -150,7 +150,7 @@ footer {
     flex-direction: column;
     align-items: stretch;
     width: 100%;
-    background-color: @black;
+    background-color: #{$black};
     padding: 80px 0;
     overflow: hidden;
 
@@ -160,53 +160,53 @@ footer {
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
-            width: @content-width;
+            width: #{$content-width};
             margin: 0 auto;
-    
+
             .white-paper-label {
                 font-size: 2.25em;
-                color: @white;
+                color: #{$white};
                 max-width: 200px;
                 flex: 1;
                 font-family: 'apercu-bold-pro';
             }
-    
+
             hr {
                 border-style: dashed;
                 border-width: 1px 0 0 0;
-                border-color: @white;
+                border-color: #{$white};
                 margin: 0 50px;
                 flex: 1;
             }
-    
+
             .white-paper-link {
                 font-size: 1.2em;
                 flex: 0;
-    
+
                 a {
                     white-space: nowrap;
-                    color: @blue;
+                    color: #{$blue};
                     text-decoration: underline;
                 }
             }
         }
-    
+
         .footer-bottom {
-            width: @content-width;
+            width: #{$content-width};
             margin: 0 auto;
 
             .footer-logo {
                 margin: 80px 0 20px 0;
-        
+
                 path {
-                    fill: @white;
+                    fill: #{$white};
                 }
             }
-        
+
             .footer-links {
                 a {
                     display: block;
-                    color: @white;
+                    color: #{$white};
                     font-size: 1.2em;
                     margin: 5px 0;
                 }
@@ -215,14 +215,14 @@ footer {
     }
 
     &.include-subscription {
-        background-image: url('static/Flow.png');
-        background-color: @purple;
+        background-image: url('../static/Flow.png');
+        background-color: #{$purple};
         background-position: center top;
         background-size: 100% auto;
         padding: 50px 0 0 0;
 
         .footer-content {
-            background-color: @black;
+            background-color: #{$black};
             padding: 80px;
 
             .footer-logo {
@@ -232,7 +232,7 @@ footer {
 
         .mailing-list {
             margin: 75px auto;
-            width: @content-width;
+            width: #{$content-width};
             position: relative;
 
             form {
@@ -248,25 +248,25 @@ footer {
                 input[type="text"] {
                     flex: 1 0;
                     padding-left: 24px;
-                    color: @dark-grey;
+                    color: #{$dark-grey};
                     font-size: 1.3em;
 
                     &:disabled {
                         background-color: #888;
                     }
                 }
-    
+
                 input[type="submit"] {
                     flex: 0 1;
                     padding: 20px 30px;
-                    background-color: @black;
-                    color: @white;
+                    background-color: #{$black};
+                    color: #{$white};
                     font-size: 1.2em;
                     text-decoration: underline;
                     cursor: pointer;
 
                     &:hover {
-                        background-color: @success;
+                        background-color: #{$success};
                     }
                 }
 
@@ -281,39 +281,39 @@ footer {
             .error {
                 margin-top: 20px;
                 padding: 10px;
-                background-color: @white;
-                color: @alert;
+                background-color: #{$white};
+                color: #{$alert};
             }
 
             .success {
-                background-color: @success;
+                background-color: #{$success};
                 text-align: center;
                 padding: 14px 0 11px 0;
                 width: 190px;
 
                 svg {
                     circle {
-                        fill: @white;
-                        stroke: @black;
+                        fill: #{$white};
+                        stroke: #{$black};
                     }
 
                     path {
-                        stroke: @black;
+                        stroke: #{$black};
                     }
                 }
             }
         }
     }
 
-    @media (max-width: @content-width) {
+    @media (max-width: #{$content-width}) {
         &.include-subscription {
             .footer-content {
                 padding: 80px 50px;
-    
+
                 .white-paper {
                     flex-direction: column;
                     align-items: flex-start;
-    
+
                     .white-paper-link {
                         margin-top: 40px;
                     }
@@ -338,7 +338,7 @@ footer {
                         font-size: 1em;
 
                         &:hover {
-                            background-color: @black;
+                            background-color: #{$black};
                         }
                     }
                 }

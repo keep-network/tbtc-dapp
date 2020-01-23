@@ -4,7 +4,7 @@
         margin-bottom: 20px;
 
         label {
-            color: @grey;
+            color: $grey;
         }
 
         input {
@@ -15,26 +15,26 @@
             font-family: 'apercu-mono-regular-pro';
             padding: 2px 50px 0px 10px;
             box-sizing: border-box;
-            background-color: @white;
-            border: 1px solid @dark-grey;
+            background-color: $white;
+            border: 1px solid $dark-grey;
             border-radius: 5px;
             box-shadow: none;
             text-align: center;
 
             &:focus {
                 outline: none;
-                background-color: @lighter-grey;
+                background-color: $lighter-grey;
             }
         }
 
         &.success > input {
-            color: @success;
-            border-color: @success;
+            color: $success;
+            border-color: $success;
         }
 
         &.alert > input {
-            color: @alert;
-            border-color: @alert;
+            color: $alert;
+            border-color: $alert;
         }
 
         .check-icon, .x-icon {

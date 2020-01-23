@@ -10,7 +10,7 @@
 
         .copy-address {
             .address {
-                color: @blue;
+                color: $blue;
                 text-decoration: underline;
                 cursor: pointer;
                 white-space: nowrap;
@@ -49,7 +49,7 @@
         //     stroke-linecap: round;
 
         //     path {
-        //         stroke: @purple;
+        //         stroke: $purple;
         //         transform: translate(175px, 175px)
         //     }
         // }

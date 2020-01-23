@@ -4,7 +4,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: fade(@black, 60%);
+    background-color: #{fade($black, 60%)};
 
     &.closed {
         display: none;
@@ -27,7 +27,7 @@
     .modal-body {
         margin: 200px auto;
         padding: 20px 25px 40px 80px;
-        width: @content-width;
-        background-color: @white;
+        width: #{$content-width};
+        background-color: #{$white};
     }
 }
