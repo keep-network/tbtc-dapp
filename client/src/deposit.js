@@ -20,6 +20,7 @@ import {
   BitcoinTxParser,
   Address,
 } from 'tbtc-helpers'
+import { btcInSatoshis } from './btc'
 
 const { Network, publicKeyToP2WPKHaddress } = Address
 
@@ -179,7 +180,7 @@ export async function getDepositBtcAmounts(depositAddress) {
   // supports integers.
   // getLotSizeBtc returns an amount in satoshis.
   const lotInSatoshis = await tbtcConstants.getLotSizeBtc()
-  const lotInBtc = new BigNumber(lotInSatoshis.toString()).div(new BigNumber(10).pow(8))
+  const lotInBtc = new BigNumber(lotInSatoshis.toString()).times(btcInSatoshis)
 
   const signerDivisor = await tbtcSystem.getSignerFeeDivisor()
   const signerFeeInBtc = lotInBtc.div(new BigNumber(signerDivisor.toString()))

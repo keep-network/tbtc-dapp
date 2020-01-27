@@ -11,6 +11,7 @@ import {
     getTransactionProof,
     submitFundingProof,
     getDepositBtcAmounts,
+    satoshisInBtc,
 } from 'tbtc-client'
 
 import { BigNumber } from "bignumber.js"
@@ -118,7 +119,7 @@ export function* waitConfirmation() {
     const electrumClient = yield call(getElectrumClient)
 
     const fundingAmountBtc = yield select(state => state.deposit.lotInBtc)
-    const fundingAmountSatoshis = fundingAmountBtc.times(new BigNumber(10).pow(8)).toNumber()
+    const fundingAmountSatoshis = fundingAmountBtc.times(satoshisInBtc).toNumber()
 
     // wait for the transaction to be received and mined
     const btcAddress = yield select(state => state.deposit.btcAddress)
