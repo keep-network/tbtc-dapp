@@ -13,10 +13,14 @@ import {
 
 import { getKeepAddress } from './eventslog'
 
+import { BigNumber } from 'bignumber.js'
+BigNumber.config({ DECIMAL_PLACES: 8 })
+
 import {
   BitcoinTxParser,
   Address,
 } from 'tbtc-helpers'
+import { btcInSatoshis } from './btc'
 
 const { Network, publicKeyToP2WPKHaddress } = Address
 
@@ -158,6 +162,33 @@ export async function getDepositBtcAddress(depositAddress) {
   console.log(`Calculated Bitcoin address: [${btcAddress}]`)
 
   return btcAddress
+}
+
+/**
+ * Requests the amount of BTC needed to fund the deposit with the given address,
+ * denominated in BTC, and the signer fee, also denominated in BTC.
+ * 
+ * @param {string} depositAddress the address of a Deposit contract
+ * @return {object} An object with two properties, `lotInBtc` and
+ *                  `signerFeeInBtc`, both BigNumber objects denominated in BTC.
+ */
+export async function getDepositBtcAmounts(depositAddress) {
+  const tbtcConstants = await TBTCConstants.deployed()
+  const tbtcSystem = await TBTCSystem.deployed()
+
+  // We do math using BigNumber.js as we need to return decimals, and bn.js only
+  // supports integers.
+  // getLotSizeBtc returns an amount in satoshis.
+  const lotInSatoshis = await tbtcConstants.getLotSizeBtc()
+  const lotInBtc = new BigNumber(lotInSatoshis.toString()).times(btcInSatoshis)
+
+  const signerDivisor = await tbtcSystem.getSignerFeeDivisor()
+  const signerFeeInBtc = lotInBtc.div(new BigNumber(signerDivisor.toString()))
+
+  return {
+    lotInBtc,
+    signerFeeInBtc,
+  }
 }
 
 /**
