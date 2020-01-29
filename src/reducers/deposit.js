@@ -1,6 +1,7 @@
 import {
   DEPOSIT_REQUEST_SUCCESS,
   DEPOSIT_BTC_ADDRESS,
+  DEPOSIT_BTC_AMOUNTS,
   BTC_TX_MINED,
   BTC_TX_CONFIRMED_WAIT,
   DEPOSIT_PROVE_BTC_TX_BEGIN,
@@ -55,6 +56,12 @@ const deposit = (state = initialState, action) => {
       return {
         ...state,
         btcAddress: action.payload.btcAddress
+      }
+    case DEPOSIT_BTC_AMOUNTS:
+      return {
+        ...state,
+        lotInBtc: action.payload.lotInBtc,
+        signerFeeInBtc: action.payload.signerFeeInBtc,
       }
     case BTC_TX_MINED:
       return {

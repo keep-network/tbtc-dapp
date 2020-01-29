@@ -8,7 +8,7 @@ import { Provider, useSelector } from 'react-redux'
 import { Router, Route, useParams } from 'react-router-dom'
 
 // Styles
-import './app.css'
+import './css/app.scss'
 
 // Components
 import {

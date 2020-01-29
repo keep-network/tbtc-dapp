@@ -12,8 +12,11 @@ import {
     submitFundingProof,
     getDepositCurrentState,
     DepositStates,
-    getKeepPublicKey
+    getDepositBtcAmounts,
+    satoshisInBtc,
 } from 'tbtc-client'
+
+import { BigNumber } from "bignumber.js"
 
 import { notifyTransactionConfirmed } from '../lib/notifications/actions'
 import { navigateTo } from '../lib/router/actions'
@@ -25,6 +28,7 @@ export const DEPOSIT_REQUEST_SUCCESS = 'DEPOSIT_REQUEST_SUCCESS'
 export const DEPOSIT_PUBKEY_PUBLISHED = 'DEPOSIT_PUBKEY_PUBLISHED'
 export const DEPOSIT_BTC_ADDRESS = 'DEPOSIT_BTC_ADDRESS'
 export const DEPOSIT_STATE_RESTORED = 'DEPOSIT_STATE_RESTORED'
+export const DEPOSIT_BTC_AMOUNTS = 'DEPOSIT_BTC_AMOUNTS'
 
 export const BTC_TX_MINED = 'BTC_TX_MINED'
 export const BTC_TX_CONFIRMED_WAIT = 'BTC_TX_CONFIRMED_WAIT'
@@ -160,18 +164,37 @@ export function* requestADeposit() {
         }
     })
 
+    let lotInBtc, signerFeeInBtc
+    try {
+        let { lotInBtc, signerFeeInBtc } = yield call(getDepositBtcAmounts, depositAddress)
+        yield put({ type: DEPOSIT_REQUEST_METAMASK_SUCCESS })
+
+        yield put({
+            type: DEPOSIT_BTC_AMOUNTS,
+            payload: {
+                lotInBtc,
+                signerFeeInBtc,
+            }
+        })
+    } catch (err) {
+        if (err.message.includes(METAMASK_TX_DENIED_ERROR)) return
+        throw err
+    }
+
     // goto
     yield put(navigateTo('/deposit/' + depositAddress + '/pay'))
 }
 
 export function* waitConfirmation() {
     const electrumClient = yield call(getElectrumClient)
-    const TESTNET_FUNDING_AMOUNT_SATOSHIS = 1000
+
+    const fundingAmountBtc = yield select(state => state.deposit.lotInBtc)
+    const fundingAmountSatoshis = fundingAmountBtc.times(satoshisInBtc).toNumber()
 
     // wait for the transaction to be received and mined
     const depositAddress = yield select(state => state.deposit.depositAddress)
     const btcAddress = yield select(state => state.deposit.btcAddress)
-    const fundingTx = yield call(watchForTransaction, electrumClient, btcAddress, TESTNET_FUNDING_AMOUNT_SATOSHIS)
+    const fundingTx = yield call(watchForTransaction, electrumClient, btcAddress, fundingAmountSatoshis)
 
     yield put({
         type: BTC_TX_MINED,

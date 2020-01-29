@@ -34,16 +34,21 @@ class PayComponent extends Component {
   }
 
   render() {
-    const { btcAddress, btcConfirming } = this.props
+    const { btcAddress, btcConfirming, lotInBtc, signerFeeInBtc } = this.props
 
     const { copied } = this.state
     let renderTop, renderTitle, renderCopyAddress, descriptionText, step;
+
+    const btcAmount = lotInBtc.toString()
+    const signerFee = signerFeeInBtc.toString()
+    const btcURL =
+      `bitcoin:${btcAddress}?amount=${btcAmount}&label=Single-Use+tBTC+Deposit+Wallet`
 
     if (!btcConfirming) {
       renderTop = (
         <div className="qr-code">
           <QRCode
-            value={btcAddress}
+            value={btcURL}
             renderAs="svg"
             size={225} />
         </div>
@@ -51,7 +56,7 @@ class PayComponent extends Component {
 
       renderTitle = (
         <div className="title">
-          Pay: 1 BTC
+          Pay: {btcAmount} BTC
         </div>
       )
 
@@ -110,8 +115,8 @@ class PayComponent extends Component {
               {descriptionText}
             </div>
             <div className="custodial-fee">
-              <span className="custodial-fee-label">Custodial Fee: </span>
-              .005 BTC*
+              <span className="custodial-fee-label">Signer Fee: </span>
+              {signerFee} BTC*
             </div>
           </div>
           { renderCopyAddress }
@@ -130,7 +135,9 @@ const mapStateToProps = (state, ownProps) => {
   return {
     btcAddress: state.deposit.btcAddress,
     depositAddress: state.deposit.depositAddress,
-    btcConfirming: state.deposit.btcConfirming
+    btcConfirming: state.deposit.btcConfirming,
+    lotInBtc: state.deposit.lotInBtc,
+    signerFeeInBtc: state.deposit.signerFeeInBtc,
   }
 }
 

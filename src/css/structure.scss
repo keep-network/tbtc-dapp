@@ -12,7 +12,7 @@
 
         .step {
             flex: 0 1;
-            color: @blue;
+            color: $blue;
             font-size: .5em;
             margin-bottom: 30px;
         }
@@ -29,7 +29,7 @@
             flex: 0 1;
             border-style: dashed;
             border-width: 2px 0 0 0;
-            border-color: @blue;
+            border-color: $blue;
             width: 150px;
             margin: 0 auto 40px auto;
         }
@@ -49,7 +49,7 @@
         .error {
             flex: 1 1;
             font-size: .7em;
-            color: @alert;
+            color: $alert;
             margin-top: 25px;
         }
     }

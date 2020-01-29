@@ -36,11 +36,11 @@
     }
 
     &.purple .wavy-svg {
-      background: @purple;
+      background: #{$purple};
     }
-    
+
     &.green .wavy-svg {
-      background: @success;
+      background: #{$success};
     }
 
     .wavy-svg {
@@ -60,10 +60,10 @@
 @keyframes shadow-pulse
 {
   0% {
-    box-shadow: 0 0 0 0px @success;
+    box-shadow: 0 0 0 0px $success;
   }
   30% {
-    box-shadow: 0 0 255px 255px @success;
+    box-shadow: 0 0 255px 255px $success;
   }
   50% {
     box-shadow: 0 0 255px 255px transparent;
@@ -72,10 +72,10 @@
     box-shadow: 0 0 0 0px transparent;
   }
   52% {
-    box-shadow: 0 0 0 0px @purple;
+    box-shadow: 0 0 0 0px $purple;
   }
   80% {
-    box-shadow: 0 0 255px 255px @purple;
+    box-shadow: 0 0 255px 255px $purple;
   }
   100% {
     box-shadow: 0 0 255px 255px transparent;
