@@ -1,22 +1,20 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { withRouter } from 'react-router'
 
 import { Footer, Header } from './lib'
 
-class App extends Component {
-  render() {
-    const { children, location } = this.props
+function App(props) {
+  const { children, location } = props
 
-    return (
-      <div className="main">
-        <div className="app">
-          <Header />
-          { children }
-        </div>
-        <Footer includeSubscription={location.pathname === '/'} />
+  return (
+    <div className="main">
+      <div className="app">
+        <Header />
+        { children }
       </div>
-    )
-  }
+      <Footer includeSubscription={location.pathname === '/'} />
+    </div>
+  )
 }
 
 export default withRouter(App)

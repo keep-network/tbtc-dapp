@@ -4,8 +4,8 @@ import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import routerMiddleware from './lib/router/middleware'
 import notificationMiddleware from './lib/notifications/middleware'
-import { Provider } from 'react-redux'
-import { Router, Route } from 'react-router-dom'
+import { Provider, useSelector } from 'react-redux'
+import { Router, Route, useParams } from 'react-router-dom'
 
 // Styles
 import './css/app.scss'
@@ -18,6 +18,8 @@ import {
 import {
   Start as StartDeposit,
   Invoice,
+  RequestDeposit,
+  GetAddress,
   Pay,
   Prove as ProveDeposit,
   Congratulations as CongratulationsDeposit
@@ -34,11 +36,16 @@ import {
 
 // Wrappers
 import Web3Wrapper from './wrappers/web3'
+import { withAccount } from './wrappers/web3'
 
 // Redux
 import sagas from './sagas'
 import reducers from './reducers'
 import history from './history'
+import { bindActionCreators } from 'redux';
+import { restoreDepositState } from './actions';
+import { connect } from 'react-redux'
+import deposit from './reducers/deposit';
 
 // Set up our store
 const sagaMiddleware = createSagaMiddleware()
@@ -50,7 +57,7 @@ const middleware = [
 
 const store = createStore(
   reducers,
-  applyMiddleware(...middleware)
+  applyMiddleware(...middleware),
 )
 
 sagaMiddleware.run(sagas)
@@ -64,11 +71,24 @@ function AppWrapper() {
           <App>
             <Route path="/" exact component={Home} />
             <Route path="/deposit" exact component={StartDeposit} />
-            <Route path="/deposit/invoice" component={Invoice} />
-            <Route path="/deposit/pay" exact component={Pay} />
-            <Route path="/deposit/pay/confirming" render={(props) => <Pay {...props} confirming={true} />} />
-            <Route path="/deposit/prove" component={ProveDeposit} />
-            <Route path="/deposit/congratulations" component={CongratulationsDeposit} />
+            <Route path="/deposit/new" component={Invoice} />
+            <Route path="/deposit/:address/get-address" component={GetAddress} /> 
+            <Route path="/deposit/:address/pay" exact>
+              <Loadable>
+                <Pay />
+              </Loadable>
+            </Route>
+            <Route path="/deposit/:address/pay/confirming" render={(props) => <Loadable><Pay {...props} confirming={true} /></Loadable>} />
+            <Route path="/deposit/:address/prove">
+              <Loadable>
+                <ProveDeposit />
+              </Loadable>
+            </Route>
+            <Route path="/deposit/:address/congratulations">
+              <Loadable>
+                <CongratulationsDeposit />
+              </Loadable>
+            </Route>
             <Route path="/redeem" exact component={StartRedemption} />
             <Route path="/redeem/redeeming" component={Redeeming} />
             <Route path="/redeem/signing" component={Signing} />
@@ -81,6 +101,22 @@ function AppWrapper() {
     </Provider>
   )
 }
+
+function LoadableBase({ children, account, restoreDepositState }) {
+  const { address } = useParams()
+  const depositStateRestored = useSelector((state) => state.deposit.stateRestored)
+  if (address && ! depositStateRestored) {
+    if (account) {
+      restoreDepositState(address)
+    }
+
+    return <div>Loading...</div>
+  } else {
+    return children
+  }
+}
+
+const Loadable = connect((_)=>{ return {} }, (dispatch) => bindActionCreators({ restoreDepositState }, dispatch))(withAccount(LoadableBase))
 
 // Compose our static Landing Page
 function StaticWrapper() {

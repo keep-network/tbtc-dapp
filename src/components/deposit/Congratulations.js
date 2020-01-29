@@ -1,11 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
 import StatusIndicator from '../svgs/StatusIndicator'
 import TLogo from '../svgs/tlogo'
 
-const Congratulations = ({ depositAddress }) => (
-  <div className="congratulations">
+const Congratulations = ({ depositAddress }) => {
+  return <div className="congratulations">
     <div className="page-top">
       <StatusIndicator purple>
         <TLogo height={100} width={100} />
@@ -39,7 +40,7 @@ const Congratulations = ({ depositAddress }) => (
       </div>
     </div>
   </div>
-)
+}
 
 const mapStateToProps = (state, ownProps) => {
   return {

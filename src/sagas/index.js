@@ -1,6 +1,7 @@
 import { takeLatest, takeLeading} from 'redux-saga/effects'
 
 import {
+    restoreDepositState,
     requestADeposit,
     waitConfirmation,
     proveDeposit } from './deposit'
@@ -12,6 +13,7 @@ import {
     pollForConfirmations,
     submitRedemptionProof } from './redemption'
 import {
+    RESTORE_DEPOSIT_STATE,
     REQUEST_A_DEPOSIT,
     WAIT_CONFIRMATION,
     SUBMIT_DEPOSIT_PROOF,
@@ -23,6 +25,7 @@ import {
     SUBMIT_REDEMPTION_PROOF } from '../actions'
 
 export default function* () {
+    yield takeLatest(RESTORE_DEPOSIT_STATE, restoreDepositState)
     yield takeLatest(REQUEST_A_DEPOSIT, requestADeposit)
     yield takeLatest(WAIT_CONFIRMATION, waitConfirmation)
     yield takeLeading(SUBMIT_DEPOSIT_PROOF, proveDeposit)

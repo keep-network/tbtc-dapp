@@ -24,6 +24,43 @@ import { btcInSatoshis } from './btc'
 
 const { Network, publicKeyToP2WPKHaddress } = Address
 
+export const DepositStates = {
+  // DOES NOT EXIST YET
+  START: 0,
+
+  // FUNDING FLOW
+  AWAITING_SIGNER_SETUP: 1,
+  AWAITING_BTC_FUNDING_PROOF: 2,
+
+  // FAILED SETUP
+  FRAUD_AWAITING_BTC_FUNDING_PROOF: 3,
+  FAILED_SETUP: 4,
+
+  // ACTIVE
+  ACTIVE: 5,  // includes courtesy call
+
+  // REDEMPTION FLOW
+  AWAITING_WITHDRAWAL_SIGNATURE: 6,
+  AWAITING_WITHDRAWAL_PROOF: 7,
+  REDEEMED: 8,
+
+  // SIGNER LIQUIDATION FLOW
+  COURTESY_CALL: 9,
+  FRAUD_LIQUIDATION_IN_PROGRESS: 10,
+  LIQUIDATION_IN_PROGRESS: 11,
+  LIQUIDATED: 12
+}
+
+/**
+ * Gets the current state of the deposit.
+ * @return {number} The deposit state, one of `DepositStates`
+ */
+export async function getDepositCurrentState(depositAddress) {
+  const deposit = await Deposit.at(depositAddress)
+  const state = await deposit.getCurrentState()
+  return state
+}
+
 /**
  * Creates a new deposit and returns its address
  * @return {string} Address of the Deposit contract instance
@@ -114,26 +151,47 @@ export async function watchForPublicKeyPublished(depositAddress) {
 
 /**
  * Requests a Bitcoin public key for a Deposit and returns it as a Bitcoin address
+ *
  * @param {string} depositAddress the address of a Deposit contract
  * @return {string} a bech32-encoded Bitcoin address, generated from a SegWit P2WPKH script
+ * @throws {Error} An error if the deposit address could not be retrieved.
  */
 export async function getDepositBtcAddress(depositAddress) {
-  const tbtcSystem = await TBTCSystem.deployed()
   const deposit = await Deposit.at(depositAddress)
 
-  // 1. Request public key from the deposit
-  console.log(`Requesting Public Key for deposit [${deposit.address}]`)
-  await deposit.retrieveSignerPubkey()
-    .catch((err) => {
-      // This can happen when the public key was already retrieved before
-      // and we may succeed to get it with tbtcSystem.getPastEvents in the following lines
-      // TODO: there may be other errors that this allows to pass, refactor in future
-      console.error(`retrieveSignerPubkey failed: ${err}`)
-    })
+  // Check logs for an existing address; if we can't find one, submit the
+  // transaction that will retrieve it, then try reading the newly-created
+  // address from the logs again.
+  const existingBtcAddress = await readDepositBtcAddressFromLogs(depositAddress)
+  if (existingBtcAddress === null) {
+    console.log(`Requesting Public Key for deposit [${deposit.address}]`)
+    await deposit.retrieveSignerPubkey()
+      .catch((err) => {
+        // This can happen when the public key was already retrieved before
+        // and we may succeed to get it with tbtcSystem.getPastEvents in the following lines
+        // TODO: there may be other errors that this allows to pass, refactor in future
+        console.error(`retrieveSignerPubkey failed: ${err}`)
+      })
 
-  // 2. Parse the logs to get the public key.
-  // Since the public key event is emitted in another contract, we can't get this from result.logs
-  // TODO: refactor, below we are retrieving the public key again
+    const newBtcAddress = await readDepositBtcAddressFromLogs(depositAddress)
+    if (newBtcAddress === null) {
+      // Since the public key event is emitted in another contract, we can't get
+      // this from result.logs
+      // TODO: refactor, below we are retrieving the public key again
+      throw new Error(`couldn't find RegisteredPubkey event for deposit address: [${depositAddress}]`)
+    } else {
+      return newBtcAddress
+    }
+  } else {
+    return existingBtcAddress
+  }
+}
+
+// Private helper to read the BTC address for the deposit at `depositAddress`
+// from past on-chain events.
+async function readDepositBtcAddressFromLogs(depositAddress) {
+  const tbtcSystem = await TBTCSystem.deployed()
+
   const eventList = await tbtcSystem.getPastEvents(
     'RegisteredPubkey',
     {
@@ -144,7 +202,7 @@ export async function getDepositBtcAddress(depositAddress) {
   )
 
   if (eventList.length == 0) {
-    throw new Error(`couldn't find RegisteredPubkey event for deposit address: [${depositAddress}]`)
+    return null;
   }
 
   let publicKeyX = eventList[0].args._signingGroupPubkeyX

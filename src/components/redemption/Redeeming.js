@@ -1,11 +1,17 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
 import StatusIndicator from '../svgs/StatusIndicator'
 import { requestRedemption } from '../../actions'
 
-class Redeeming extends Component {
+function Redeeming(props) {
+  const params = useParams()
+  return <RedeemingComponent {...props} address={props.address || params.address} />
+}
+
+class RedeemingComponent extends Component {
   componentDidMount() {
     const { requestRedemption } = this.props
 

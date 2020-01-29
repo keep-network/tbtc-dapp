@@ -19,7 +19,7 @@ class Start extends Component {
     const { account } = this.props
 
     if (account) {
-      history.push('/deposit/invoice')
+      history.push('/deposit/new')
     }
   }
 

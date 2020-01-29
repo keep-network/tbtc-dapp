@@ -10,6 +10,8 @@ import {
     waitForConfirmations,
     getTransactionProof,
     submitFundingProof,
+    getDepositCurrentState,
+    DepositStates,
     getDepositBtcAmounts,
     satoshisInBtc,
 } from 'tbtc-client'
@@ -18,12 +20,14 @@ import { BigNumber } from "bignumber.js"
 
 import { notifyTransactionConfirmed } from '../lib/notifications/actions'
 import { navigateTo } from '../lib/router/actions'
+import { Web3Loaded } from '../wrappers/web3'
 
 export const DEPOSIT_REQUEST_BEGIN = 'DEPOSIT_REQUEST_BEGIN'
 export const DEPOSIT_REQUEST_METAMASK_SUCCESS = 'DEPOSIT_REQUEST_METAMASK_SUCCESS'
 export const DEPOSIT_REQUEST_SUCCESS = 'DEPOSIT_REQUEST_SUCCESS'
 export const DEPOSIT_PUBKEY_PUBLISHED = 'DEPOSIT_PUBKEY_PUBLISHED'
 export const DEPOSIT_BTC_ADDRESS = 'DEPOSIT_BTC_ADDRESS'
+export const DEPOSIT_STATE_RESTORED = 'DEPOSIT_STATE_RESTORED'
 export const DEPOSIT_BTC_AMOUNTS = 'DEPOSIT_BTC_AMOUNTS'
 
 export const BTC_TX_MINED = 'BTC_TX_MINED'
@@ -47,6 +51,72 @@ export async function getElectrumClient() {
     return electrumClient
 }
 
+export function* restoreDepositState() {
+    const web3Loaded = yield Web3Loaded
+
+    const depositAddress = yield select(state => state.deposit.depositAddress)
+
+    let depositState = yield call(getDepositCurrentState, depositAddress)
+
+    switch(depositState.toNumber()) {
+        case DepositStates.START:
+            throw "Unexpected state."
+
+        // Funding flow.
+        case DepositStates.AWAITING_SIGNER_SETUP:
+            yield put(navigateTo('/deposit/' + depositAddress + '/generate-address'))
+            break
+        
+        case DepositStates.AWAITING_BTC_FUNDING_PROOF:
+        case DepositStates.ACTIVE: 
+            const btcAddress = yield call(getDepositBtcAddress, depositAddress)
+            yield put({
+                type: DEPOSIT_BTC_ADDRESS,
+                payload: {
+                    btcAddress,
+                }
+            })
+
+            // FIXME Check to see if Electrum has already seen a tx for payment
+            // FIXME and fast-forward to /pay/confirming if so.
+            //
+            // FIXME Check to see if we have a transaction in the mempool for
+            // FIXME submitting funding proof, and update state accordingly.
+
+            yield put({
+                type: DEPOSIT_STATE_RESTORED,
+            })
+
+            const nextStep = {}
+            nextStep[DepositStates.AWAITING_BTC_FUNDING_PROOF] = "/pay"
+            nextStep[DepositStates.ACTIVE] = "/congratulations"
+
+            // TODO Fork on active vs await
+            yield put(navigateTo('/deposit/' + depositAddress + nextStep[depositState.toNumber()]))
+            break
+        
+        // Funding failure states
+        case DepositStates.FRAUD_AWAITING_BTC_FUNDING_PROOF:
+        case DepositStates.FAILED_SETUP:
+            // TODO Update deposit state to reflect situation.
+            break
+
+        // Redemption flow
+        // TODO
+        // case AWAITING_WITHDRAWAL_SIGNATURE:
+        // case AWAITING_WITHDRAWAL_PROOF:
+        // case REDEEMED:    
+    }
+    
+    // Here, we need to look at the logs. getDepositBtcAddress submits a
+    // signed tx to Metamask, so that's not what we need.
+    //
+    // Then, we need to dispatch an update to the state.
+
+    //yield put({ type:  })
+}
+
+
 export function* requestADeposit() {
     // call Keep to request a deposit
     yield put({ type: DEPOSIT_REQUEST_BEGIN })
@@ -69,7 +139,7 @@ export function* requestADeposit() {
             depositAddress,
         }
     })
-
+    
     // wait for deposit's public key to be published by the Keep
     yield call(watchForPublicKeyPublished, depositAddress)
     yield put({
@@ -112,7 +182,7 @@ export function* requestADeposit() {
     }
 
     // goto
-    yield put(navigateTo('/deposit/pay'))
+    yield put(navigateTo('/deposit/' + depositAddress + '/pay'))
 }
 
 export function* waitConfirmation() {
@@ -122,6 +192,7 @@ export function* waitConfirmation() {
     const fundingAmountSatoshis = fundingAmountBtc.times(satoshisInBtc).toNumber()
 
     // wait for the transaction to be received and mined
+    const depositAddress = yield select(state => state.deposit.depositAddress)
     const btcAddress = yield select(state => state.deposit.btcAddress)
     const fundingTx = yield call(watchForTransaction, electrumClient, btcAddress, fundingAmountSatoshis)
 
@@ -153,7 +224,7 @@ export function* waitConfirmation() {
     yield put(notifyTransactionConfirmed())
 
     // goto
-    yield put(navigateTo('/deposit/prove'))
+    yield put(navigateTo('/deposit/' + depositAddress + '/prove'))
 }
 
 export function* proveDeposit() {
@@ -208,7 +279,7 @@ export function* proveDeposit() {
         })
 
         // goto
-        yield put(navigateTo('/deposit/congratulations'))
+        yield put(navigateTo('/deposit/' + depositAddress + '/congratulations'))
 
     } catch (outerErr) {
         yield put({
