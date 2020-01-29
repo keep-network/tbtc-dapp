@@ -6,11 +6,6 @@ import StatusIndicator from '../svgs/StatusIndicator'
 import TLogo from '../svgs/tlogo'
 
 const Congratulations = ({ depositAddress }) => {
-  const params = useParams()
-  if (params.address) {
-    depositAddress = params.address
-  }
-
   return <div className="congratulations">
     <div className="page-top">
       <StatusIndicator purple>

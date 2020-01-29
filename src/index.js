@@ -84,7 +84,11 @@ function AppWrapper() {
                 <ProveDeposit />
               </Loadable>
             </Route>
-            <Route path="/deposit/:address/congratulations" component={CongratulationsDeposit} />
+            <Route path="/deposit/:address/congratulations">
+              <Loadable>
+                <CongratulationsDeposit />
+              </Loadable>
+            </Route>
             <Route path="/redeem" exact component={StartRedemption} />
             <Route path="/redeem/redeeming" component={Redeeming} />
             <Route path="/redeem/signing" component={Signing} />
