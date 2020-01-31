@@ -30,11 +30,11 @@ const Congratulations = ({ depositAddress }) => {
         {/* TODO: Update to use CopyInputField */}
         {
           depositAddress && depositAddress.length > 0
-          ? <p>
+          ? <div>
               <br />
               <h3>Deposit Address:</h3>
               { depositAddress }
-            </p>
+            </div>
           : ''
         }
       </div>

@@ -188,9 +188,8 @@ export function* requestADeposit() {
         }
     })
 
-    let lotInBtc, signerFeeInBtc
     try {
-        let { lotInBtc, signerFeeInBtc } = yield call(getDepositBtcAmounts, depositAddress)
+        const { lotInBtc, signerFeeInBtc } = yield call(getDepositBtcAmounts, depositAddress)
         yield put({ type: DEPOSIT_REQUEST_METAMASK_SUCCESS })
 
         yield put({
