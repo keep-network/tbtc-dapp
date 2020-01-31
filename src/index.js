@@ -43,7 +43,7 @@ import sagas from './sagas'
 import reducers from './reducers'
 import history from './history'
 import { bindActionCreators } from 'redux';
-import { restoreDepositState } from './actions';
+import { setEthereumAccount, restoreDepositState } from './actions';
 import { connect } from 'react-redux'
 import deposit from './reducers/deposit';
 
@@ -102,11 +102,17 @@ function AppWrapper() {
   )
 }
 
-function LoadableBase({ children, account, restoreDepositState }) {
+function LoadableBase({ children, account, setEthereumAccount, restoreDepositState }) {
   const { address } = useParams()
   const depositStateRestored = useSelector((state) => state.deposit.stateRestored)
+  const stateAccount = useSelector((state) => state.account)
+
+  if (account && account != stateAccount) {
+    setEthereumAccount(account)
+  }
+
   if (address && ! depositStateRestored) {
-    if (account) {
+    if (stateAccount) {
       restoreDepositState(address)
     }
 
@@ -116,7 +122,7 @@ function LoadableBase({ children, account, restoreDepositState }) {
   }
 }
 
-const Loadable = connect((_)=>{ return {} }, (dispatch) => bindActionCreators({ restoreDepositState }, dispatch))(withAccount(LoadableBase))
+const Loadable = connect((_)=>{ return {} }, (dispatch) => bindActionCreators({ setEthereumAccount, restoreDepositState }, dispatch))(withAccount(LoadableBase))
 
 // Compose our static Landing Page
 function StaticWrapper() {

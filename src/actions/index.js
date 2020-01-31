@@ -1,3 +1,18 @@
+const web3 = require('web3')
+const BN = web3.utils.BN
+
+// Account setup.
+export const SET_ETHEREUM_ACCOUNT = 'SET_ETHEREUM_ACCOUNT'
+
+export function setEthereumAccount(account) {
+    return {
+        type: SET_ETHEREUM_ACCOUNT,
+        payload: {
+            account,
+        }
+    }
+}
+
 // State restoration.
 export const RESTORE_DEPOSIT_STATE = 'RESTORE_DEPOSIT_STATE'
 
