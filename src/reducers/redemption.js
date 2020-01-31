@@ -9,6 +9,9 @@ import {
     REDEMPTION_PROVE_BTC_TX_ERROR
 } from '../sagas/redemption'
 
+import { RESTORE_REDEMPTION_STATE } from "../actions"
+import { DEPOSIT_STATE_RESTORED } from '../sagas/deposit'
+
 const initialState = {
     btcAddress: null,
     depositAddress: null,
@@ -21,6 +24,16 @@ const initialState = {
 
 const redemption = (state = initialState, action) => {
     switch (action.type) {
+        case RESTORE_REDEMPTION_STATE:
+            return {
+                ...state,
+                depositAddress: action.payload.depositAddress,
+            }
+        case DEPOSIT_STATE_RESTORED:
+            return {
+                ...state,
+                stateRestored: true,
+            }
         case UPDATE_ADDRESSES:
             return {
                 ...state,

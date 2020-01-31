@@ -15,11 +15,7 @@ export function setEthereumAccount(account) {
 
 // State restoration.
 export const RESTORE_DEPOSIT_STATE = 'RESTORE_DEPOSIT_STATE'
-
-// Deposit
-export const REQUEST_A_DEPOSIT = 'REQUEST_A_DEPOSIT'
-export const WAIT_CONFIRMATION = 'WAIT_CONFIRMATION'
-export const SUBMIT_DEPOSIT_PROOF = 'SUBMIT_DEPOSIT_PROOF'
+export const RESTORE_REDEMPTION_STATE = 'RESTORE_REDEMPTION_STATE'
 
 export function restoreDepositState(depositAddress) {
     return {
@@ -29,6 +25,20 @@ export function restoreDepositState(depositAddress) {
         },
     }
 }
+
+export function restoreRedemptionState(depositAddress) {
+    return {
+        type: RESTORE_REDEMPTION_STATE,
+        payload: {
+            depositAddress: depositAddress,
+        },
+    }
+}
+
+// Deposit
+export const REQUEST_A_DEPOSIT = 'REQUEST_A_DEPOSIT'
+export const WAIT_CONFIRMATION = 'WAIT_CONFIRMATION'
+export const SUBMIT_DEPOSIT_PROOF = 'SUBMIT_DEPOSIT_PROOF'
 
 export function requestADeposit() {
     return {
@@ -68,7 +78,7 @@ export function saveAddresses({ btcAddress, depositAddress }) {
 
 export function requestRedemption() {
     return {
-        type: REQUEST_REDEMPTION
+        type: REQUEST_REDEMPTION,
     }
 }
 
