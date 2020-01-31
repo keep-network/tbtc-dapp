@@ -35,8 +35,7 @@ export async function requestRedemption(depositAddress, toBTCAddress) {
 
   // TODO: We set a fixed a value temporarily as the values are constants currently.
   // Find a way to get utxosize from the deposit.
-  // `await deposit.utxoSize.call()` seems not to work correctly.
-  const utxoValue = 1000
+  const utxoValue = await deposit.utxoSize()
 
   // TODO: Estimate fee with electrum
   const txFee = 150 // MINIMUM_REDEMPTION_FEE from TBTCConstants

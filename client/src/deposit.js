@@ -20,9 +20,12 @@ import {
   BitcoinTxParser,
   Address,
 } from 'tbtc-helpers'
-import { btcInSatoshis } from './btc'
+import { btcInSatoshis, satoshisInBtc } from './btc'
 
 const { Network, publicKeyToP2WPKHaddress } = Address
+
+const tbtcInSatoshis = new BigNumber(10).pow(10)
+const tbtcInBtc = tbtcInSatoshis.times(satoshisInBtc)
 
 export const DepositStates = {
   // DOES NOT EXIST YET
@@ -76,6 +79,7 @@ export async function createDeposit() {
 
   const _keepThreshold = '1'
   const _keepSize = '1'
+  const _lotSize = satoshisInBtc.times(0.001) // Hard-code 0.001 BTC lot size for now.
 
   // Get required funder bond value.
   const funderBond = await tbtcConstants.getFunderBondAmount()
@@ -89,6 +93,7 @@ export async function createDeposit() {
     vendingMachine.address,
     _keepThreshold,
     _keepSize,
+    _lotSize,
     {
       value: funderBond,
     }
@@ -231,17 +236,16 @@ async function readDepositBtcAddressFromLogs(depositAddress) {
  *                  `signerFeeInBtc`, both BigNumber objects denominated in BTC.
  */
 export async function getDepositBtcAmounts(depositAddress) {
-  const tbtcConstants = await TBTCConstants.deployed()
-  const tbtcSystem = await TBTCSystem.deployed()
+  const deposit = await Deposit.at(depositAddress)
 
   // We do math using BigNumber.js as we need to return decimals, and bn.js only
   // supports integers.
   // getLotSizeBtc returns an amount in satoshis.
-  const lotInSatoshis = await tbtcConstants.getLotSizeBtc()
+  const lotInSatoshis = await deposit.lotSizeSatoshis()
   const lotInBtc = new BigNumber(lotInSatoshis.toString()).times(btcInSatoshis)
 
-  const signerDivisor = await tbtcSystem.getSignerFeeDivisor()
-  const signerFeeInBtc = lotInBtc.div(new BigNumber(signerDivisor.toString()))
+  const signerFeeInTbtc = await deposit.signerFee()
+  const signerFeeInBtc = new BigNumber(signerFeeInTbtc).div(tbtcInBtc) //.div(new BigNumber(signerDivisor.toString()))
 
   return {
     lotInBtc,
