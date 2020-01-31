@@ -54,6 +54,9 @@ export async function requestRedemption(depositAddress, toBTCAddress) {
   try {
     const script = bcoin.Script.fromAddress(toBTCAddress)
     requesterPKH = script.getWitnessPubkeyhash()
+    if (requesterPKH == null) {
+      throw "Not a p2wpkh address. Try again with a p2wpkh-supporting wallet."
+    }
   } catch (err) {
     throw new Error(`failed to calculate requested public key hash: [${err}]`)
   }
