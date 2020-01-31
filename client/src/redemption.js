@@ -5,6 +5,7 @@ import {
   ECDSAKeep,
   VendingMachine,
   truffleToWeb3Contract,
+  TBTCConstants,
 } from './eth/contracts'
 
 import { BitcoinTxParser } from 'tbtc-helpers'
@@ -32,13 +33,14 @@ export async function requestRedemption(depositAddress, toBTCAddress) {
   const deposit = await Deposit.at(depositAddress)
   const tbtcToken = await TBTCToken.deployed()
   const vendingMachine = await VendingMachine.deployed()
+  const tbtcConstants = await TBTCConstants.deployed()
 
   // TODO: We set a fixed a value temporarily as the values are constants currently.
   // Find a way to get utxosize from the deposit.
   const utxoValue = await deposit.utxoSize()
 
   // TODO: Estimate fee with electrum
-  const txFee = 150 // MINIMUM_REDEMPTION_FEE from TBTCConstants
+  const txFee = await tbtcConstants.getMinimumRedemptionFee() // MINIMUM_REDEMPTION_FEE from TBTCConstants
 
   let outputValueBytes
   try {
