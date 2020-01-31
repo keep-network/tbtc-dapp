@@ -27,9 +27,10 @@ const BN = web3.utils.BN
 /**
  * Requests a redemption of the deposit.
  * @param {string} depositAddress Address of the deposit to redeem.
+ * @param {string} redeemerAddress Address of the redeeming Ethereum account.
  * @param {string} toBTCAddress Bitcoin address to send redeemed funds to.
  */
-export async function requestRedemption(depositAddress, toBTCAddress) {
+export async function requestRedemption(depositAddress, redeemerAddress, toBTCAddress) {
   const deposit = await Deposit.at(depositAddress)
   const tbtcToken = await TBTCToken.deployed()
   const vendingMachine = await VendingMachine.deployed()
@@ -75,7 +76,8 @@ export async function requestRedemption(depositAddress, toBTCAddress) {
   const result = await vendingMachine.tbtcToBtc(
     depositAddress,
     outputValueBytes,
-    requesterPKH
+    requesterPKH,
+    redeemerAddress,
   ).catch((err) => {
     throw new Error(`failed to request redemption: [${err.message}]`)
   })

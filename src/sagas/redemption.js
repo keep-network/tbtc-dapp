@@ -36,11 +36,12 @@ export function* saveAddresses({ payload }) {
 }
 
 export function* requestRedemption() {
+    const redeemerAddress = yield select(state => state.account)
     const depositAddress = yield select(state => state.redemption.depositAddress)
     const btcAddress = yield select(state => state.redemption.btcAddress)
 
-    console.log(`start redemption of deposit [${depositAddress}] to bitcoin address [${btcAddress}]`)
-    yield call(clientRequestRedemption, depositAddress, btcAddress)
+    console.log(`start redemption by [${redeemerAddress}] of deposit [${depositAddress}] to bitcoin address [${btcAddress}]`)
+    yield call(clientRequestRedemption, depositAddress, redeemerAddress, btcAddress)
 
     yield put(navigateTo('/redeem/signing'))
 }
