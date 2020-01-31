@@ -43,7 +43,7 @@ import sagas from './sagas'
 import reducers from './reducers'
 import history from './history'
 import { bindActionCreators } from 'redux';
-import { setEthereumAccount, restoreDepositState } from './actions';
+import { setEthereumAccount, restoreDepositState, restoreRedemptionState } from './actions';
 import { connect } from 'react-redux'
 import deposit from './reducers/deposit';
 
@@ -74,27 +74,37 @@ function AppWrapper() {
             <Route path="/deposit/new" component={Invoice} />
             <Route path="/deposit/:address/get-address" component={GetAddress} /> 
             <Route path="/deposit/:address/pay" exact>
-              <Loadable>
+              <Loadable restorer="deposit">
                 <Pay />
               </Loadable>
             </Route>
-            <Route path="/deposit/:address/pay/confirming" render={(props) => <Loadable><Pay {...props} confirming={true} /></Loadable>} />
+            <Route path="/deposit/:address/pay/confirming" render={(props) => <Loadable restorer="deposit"><Pay {...props} confirming={true} /></Loadable>} />
             <Route path="/deposit/:address/prove">
-              <Loadable>
+              <Loadable restorer="deposit">
                 <ProveDeposit />
               </Loadable>
             </Route>
             <Route path="/deposit/:address/congratulations">
-              <Loadable>
+              <Loadable restorer="deposit">
                 <CongratulationsDeposit />
               </Loadable>
             </Route>
             <Route path="/redeem" exact component={StartRedemption} />
-            <Route path="/redeem/redeeming" component={Redeeming} />
-            <Route path="/redeem/signing" component={Signing} />
-            <Route path="/redeem/confirming" component={Confirming} />
-            <Route path="/redeem/prove" component={ProveRedemption} />
-            <Route path="/redeem/congratulations" component={CongratulationsRedemption} />
+            <Route path="/deposit/:address/redemption">
+              <Loadable restorer="redemption"><Redeeming /></Loadable>
+            </Route>
+            <Route path="/deposit/:address/redemption/signing">
+              <Loadable restorer="redemption"><Signing /></Loadable>
+            </Route>
+            <Route path="/deposit/:address/redemption/confirming">
+              <Loadable restorer="redemption"><Confirming /></Loadable>
+            </Route>
+            <Route path="/deposit/:address/redemption/prove">
+              <Loadable restorer="redemption"><ProveRedemption /></Loadable>
+            </Route>
+            <Route path="/deposit/:address/redemption/congratulations">
+              <Loadable restorer="redemption"><CongratulationsRedemption /></Loadable>
+            </Route>
           </App>
         </Web3Wrapper>
       </Router>
@@ -102,9 +112,9 @@ function AppWrapper() {
   )
 }
 
-function LoadableBase({ children, account, setEthereumAccount, restoreDepositState }) {
+function LoadableBase({ children, account, setEthereumAccount, restoreDepositState, restoreRedemptionState, restorer }) {
   const { address } = useParams()
-  const depositStateRestored = useSelector((state) => state.deposit.stateRestored)
+  const depositStateRestored = useSelector((state) => state[restorer].stateRestored)
   const stateAccount = useSelector((state) => state.account)
 
   if (account && account != stateAccount) {
@@ -113,7 +123,13 @@ function LoadableBase({ children, account, setEthereumAccount, restoreDepositSta
 
   if (address && ! depositStateRestored) {
     if (stateAccount) {
-      restoreDepositState(address)
+      if (restorer == "deposit") {
+        restoreDepositState(address)
+      } else if (restorer == "redemption") {
+        restoreRedemptionState(address)
+      } else {
+        throw "Unknown restorer."
+      }
     }
 
     return <div>Loading...</div>
@@ -122,7 +138,7 @@ function LoadableBase({ children, account, setEthereumAccount, restoreDepositSta
   }
 }
 
-const Loadable = connect((_)=>{ return {} }, (dispatch) => bindActionCreators({ setEthereumAccount, restoreDepositState }, dispatch))(withAccount(LoadableBase))
+const Loadable = connect((_)=>{ return {} }, (dispatch) => bindActionCreators({ setEthereumAccount, restoreDepositState, restoreRedemptionState }, dispatch))(withAccount(LoadableBase))
 
 // Compose our static Landing Page
 function StaticWrapper() {
