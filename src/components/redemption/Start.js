@@ -9,6 +9,9 @@ import Check from '../svgs/Check'
 import X from '../svgs/X'
 import { saveAddresses } from '../../actions'
 
+import web3 from 'web3'
+import bcoin from 'bcoin/lib/bcoin-browser'
+
 class Start extends Component {
 
   state = {
@@ -32,24 +35,38 @@ class Start extends Component {
   }
 
   handleDepositAddressChange = (evt) => {
-    // TODO: Validate deposit address
-    const isValid = evt.target.value.length > 0 && true
-    const hasError = evt.target.value.length > 0 && false
+    const address = evt.target.value
+
+    const isValid = web3.utils.isAddress(address)
+    const hasError = ! isValid
 
     this.setState({
-      depositAddress: evt.target.value,
+      depositAddress: address,
       depositAddressIsValid: isValid,
       depositAddressHasError: hasError
     })
   }
 
+  verifyBtcAddress = (btcAddress) => {
+    try {
+      const bcoinScript = bcoin.Script.fromAddress(btcAddress)
+
+      return bcoinScript.getWitnessPubkeyhash() != null
+    } catch (err) {
+      console.log("Error parsing BTC address: ", btcAddress, err)
+      return false
+    }
+  }
+
   handleBtcAddressChange = (evt) => {
     // TODO: Validate btc address
-    const isValid = evt.target.value.length > 0 && true
-    const hasError = evt.target.value.length > 0 && false
+    const address = evt.target.value
+
+    const isValid = this.verifyBtcAddress(address)
+    const hasError = ! isValid
 
     this.setState({
-      btcAddress: evt.target.value,
+      btcAddress: address,
       btcAddressIsValid: isValid,
       btcAddressHasError: hasError
     })
