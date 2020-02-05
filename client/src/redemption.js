@@ -36,8 +36,6 @@ export async function requestRedemption(depositAddress, redeemerAddress, toBTCAd
   const vendingMachine = await VendingMachine.deployed()
   const tbtcConstants = await TBTCConstants.deployed()
 
-  // TODO: We set a fixed a value temporarily as the values are constants currently.
-  // Find a way to get utxosize from the deposit.
   const utxoValue = await deposit.utxoSize()
 
   // TODO: Estimate fee with electrum
