@@ -79,7 +79,7 @@ export async function createDeposit() {
 
   const _keepThreshold = '1'
   const _keepSize = '1'
-  const _lotSize = satoshisInBtc.times(0.001) // Hard-code 0.001 BTC lot size for now.
+  const _lotSize = satoshisInBtc.times(0.001).toString() // Hard-code 0.001 BTC lot size for now.
 
   // Get required funder bond value.
   const funderBond = await tbtcConstants.getFunderBondAmount()
