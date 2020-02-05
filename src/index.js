@@ -134,6 +134,8 @@ function LoadableBase({ children, account, setEthereumAccount, restoreDepositSta
 
     return <div>Loading...</div>
   } else {
+    // FIXME How do we not render these if we're getting ready to transition to
+    // FIXME a new page?
     return children
   }
 }
