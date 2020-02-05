@@ -136,7 +136,7 @@ export async function createUnsignedTransaction(depositAddress) {
  * @param {string} depositAddress Address of the deposit.
  * @return {Object} Redemption details.
  */
-async function getLatestRedemptionDetails(depositAddress) {
+export async function getLatestRedemptionDetails(depositAddress) {
   const depositLog = await TBTCSystem.deployed()
 
   const redemptionEvents = await depositLog.getPastEvents(
