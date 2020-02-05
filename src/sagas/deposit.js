@@ -85,12 +85,12 @@ function* restoreState(nextStepMap, stateKey) {
             yield put(navigateTo('/deposit/' + depositAddress + '/generate-address'))
             break
 
-        case DepositStates.AWAITING_BTC_FUNDING_PROOF:
         case DepositStates.AWAITING_WITHDRAWAL_SIGNATURE:
         case DepositStates.AWAITING_WITHDRAWAL_PROOF:
             finalCalls = findOrSubmitTransaction
             nextStep = "/redemption/prove"
 
+        case DepositStates.AWAITING_BTC_FUNDING_PROOF:
         case DepositStates.REDEEMED:
         case DepositStates.ACTIVE: 
             const btcAddress = yield call(getDepositBtcAddress, depositAddress)
