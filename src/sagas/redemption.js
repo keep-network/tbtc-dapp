@@ -3,17 +3,20 @@ import { call, put, select, delay } from 'redux-saga/effects'
 
 import { navigateTo } from '../lib/router/actions'
 
+import { Script } from 'bcoin/lib/script'
+
 import {
     requestRedemption as clientRequestRedemption,
+    getLatestRedemptionDetails,
     createUnsignedTransaction,
     watchForSignatureSubmitted,
     provideRedemptionSignature,
     combineSignedTransaction,
     broadcastTransaction as clientBroadcastTransaction,
     provideRedemptionProof,
-    waitForConfirmations
+    waitForConfirmations,
+    findTransaction
 } from 'tbtc-client'
-
 
 import { getElectrumClient } from './deposit'
 
@@ -86,6 +89,35 @@ export function* broadcastTransaction() {
     })
 
     yield call(pollForConfirmations)
+}
+
+export function* findOrSubmitTransaction() {
+    const depositAddress = yield select(state => state.redemption.depositAddress)
+
+    console.log(`Look up latest redemption details.`)
+    // Look for redemption event.
+    const { utxoSize, requestedFee,  requesterPKH } = yield call(getLatestRedemptionDetails, depositAddress)
+    const expectedValue = utxoSize.sub(requestedFee).toNumber()
+    const requesterAddress = Script.fromProgram(0, requesterPKH).getAddress().toBech32('testnet')
+
+    console.log(`Search for existing redemption Bitcoin transaction.`)
+    const electrumClient = yield call(getElectrumClient)
+    const transaction = yield call(findTransaction, electrumClient, requesterAddress, expectedValue)
+
+    console.log("Looked fer it and here we go", transaction, requesterAddress)
+    if (transaction) {
+        console.log(`Found existing redemption transaction ${transaction.transactionID}.`)
+
+        yield put({
+            type: UPDATE_TX_HASH,
+            payload: { txHash: transaction.transactionID }
+        })
+
+        yield call(pollForConfirmations) // right thing to do?
+    } else {
+        console.log(`Existing transaction not found, building and submitting.`)
+        yield* buildTransactionAndSubmitSignature()
+    }
 }
 
 export function* pollForConfirmations() {
