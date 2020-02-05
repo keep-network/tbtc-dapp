@@ -21,6 +21,7 @@ import { BigNumber } from "bignumber.js"
 import { notifyTransactionConfirmed } from '../lib/notifications/actions'
 import { navigateTo } from '../lib/router/actions'
 import { Web3Loaded } from '../wrappers/web3'
+import { findOrSubmitTransaction } from './redemption'
 
 export const DEPOSIT_REQUEST_BEGIN = 'DEPOSIT_REQUEST_BEGIN'
 export const DEPOSIT_REQUEST_METAMASK_SUCCESS = 'DEPOSIT_REQUEST_METAMASK_SUCCESS'
@@ -61,16 +62,19 @@ const REDEMPTION_STEP_MAP = {};
 REDEMPTION_STEP_MAP[DepositStates.AWAITING_BTC_FUNDING_PROOF] = "/pay"
 REDEMPTION_STEP_MAP[DepositStates.ACTIVE] = "/redemption"
 REDEMPTION_STEP_MAP[DepositStates.AWAITING_WITHDRAWAL_SIGNATURE] = "/redemption/signing"
-REDEMPTION_STEP_MAP[DepositStates.AWAITING_WITHDRAWAL_PROOF] = "/redemption/prove"
+REDEMPTION_STEP_MAP[DepositStates.AWAITING_WITHDRAWAL_PROOF] = "/redemption/confirming"
 REDEMPTION_STEP_MAP[DepositStates.REDEEMED] = "/redemption/congratulations"
 
 
 function* restoreState(nextStepMap, stateKey) {
-    const web3Loaded = yield Web3Loaded
+    yield Web3Loaded
 
     const depositAddress = yield select(state => state[stateKey].depositAddress)
 
     let depositState = yield call(getDepositCurrentState, depositAddress)
+
+    let finalCalls = null
+    let nextStep = nextStepMap[depositState.toNumber()]
 
     switch(depositState.toNumber()) {
         case DepositStates.START:
@@ -80,10 +84,13 @@ function* restoreState(nextStepMap, stateKey) {
         case DepositStates.AWAITING_SIGNER_SETUP:
             yield put(navigateTo('/deposit/' + depositAddress + '/generate-address'))
             break
-        
+
         case DepositStates.AWAITING_BTC_FUNDING_PROOF:
         case DepositStates.AWAITING_WITHDRAWAL_SIGNATURE:
         case DepositStates.AWAITING_WITHDRAWAL_PROOF:
+            finalCalls = findOrSubmitTransaction
+            nextStep = "/redemption/prove"
+
         case DepositStates.REDEEMED:
         case DepositStates.ACTIVE: 
             const btcAddress = yield call(getDepositBtcAddress, depositAddress)
@@ -102,6 +109,10 @@ function* restoreState(nextStepMap, stateKey) {
                     signerFeeInBtc,
                 }
             })
+
+            if (finalCalls) {
+                yield* finalCalls()
+            }
 
             // FIXME Check to see if Electrum has already seen a tx for payment
             // FIXME and fast-forward to /pay/confirming if so.
