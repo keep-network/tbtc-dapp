@@ -7,9 +7,11 @@ import { broadcastTransaction } from '../../actions'
 
 class Confirming extends Component {
   componentDidMount() {
-    const { broadcastTransaction } = this.props
+    const { broadcastTransaction, txHash } = this.props
 
-    broadcastTransaction()
+    if (! txHash) {
+      broadcastTransaction()
+    }
   }
 
   handleClickButton = () => {
