@@ -66,7 +66,7 @@ export function* buildTransactionAndSubmitSignature() {
         payload: { unsignedTransaction, signature }
     })
 
-    yield put(navigateTo('/deposit/' + depositAddress + '/redemption/signing'))
+    yield put(navigateTo('/deposit/' + depositAddress + '/redemption/confirming'))
 }
 
 export function* broadcastTransaction() {
