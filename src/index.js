@@ -142,7 +142,18 @@ function LoadableBase({ children, account, setEthereumAccount, restoreDepositSta
   }
 }
 
-const Loadable = connect((_)=>{ return {} }, (dispatch) => bindActionCreators({ setEthereumAccount, restoreDepositState, restoreRedemptionState }, dispatch))(withAccount(LoadableBase))
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      setEthereumAccount,
+      restoreDepositState,
+      restoreRedemptionState
+    },
+    dispatch
+  );
+}
+
+const Loadable = connect(null, mapDispatchToProps)(withAccount(LoadableBase))
 
 // Compose our static Landing Page
 function StaticWrapper() {
