@@ -20,15 +20,17 @@ import { getKeepAddress, getKeepPublicKey } from './eventslog'
 
 const bcoin = require('bcoin/lib/bcoin-browser')
 
-const web3 = require('web3')
+const Web3 = require('web3')
+const web3 = new Web3()
 const BN = web3.utils.BN
 
 /**
  * Requests a redemption of the deposit.
  * @param {string} depositAddress Address of the deposit to redeem.
  * @param {string} toBTCAddress Bitcoin address to send redeemed funds to.
+ * @param {string} finalRecipient The address to receive the TDT and later be recorded as deposit redeemer.
  */
-export async function requestRedemption(depositAddress, toBTCAddress) {
+export async function requestRedemption(depositAddress, toBTCAddress, finalRecipient) {
   const deposit = await Deposit.at(depositAddress)
   const tbtcToken = await TBTCToken.deployed()
   const vendingMachine = await VendingMachine.deployed()
@@ -58,23 +60,28 @@ export async function requestRedemption(depositAddress, toBTCAddress) {
   }
   console.debug(`calculated requester public key hash: [${requesterPKH.toString('hex')}]`)
 
-  // We approve the Deposit contract to transfer the maximum number of tokens
-  // from the user's balance.
-  // Temporary solution until TBTC includes approveAndCall support.
-  // TODO: Replace after https://github.com/keep-network/tbtc/issues/273 is completed.
-  const MAX_TOKEN_ALLOWANCE = (new BN(2)).pow(new BN(256)).sub(new BN(1))
-  await tbtcToken.approve(vendingMachine.address, MAX_TOKEN_ALLOWANCE)
-    .catch((err) => {
-      throw new Error(`TBTC approval failed: [${err}]`)
-    })
+  // Use `approveAndCall` to execute in a single transaction.
+  const depositValue = await deposit.lotSizeTbtc()
+  const signerFee = await deposit.signerFee()
+  const tbtcApprovalAmount = depositValue.sub(signerFeeDivisor)
+  if(!tbtcApprovalAmount.eq(new BN('100000000'))) throw new Error(tbtcApprovalAmount.toString()+" not equal to correct amount")
+  // TOOD: calculate this value from Deposit parameters.
+  // eg. depositValue.add(signerFee)
+  // const tbtcApprovalAmount = new BN('100000000')
 
-  const result = await vendingMachine.tbtcToBtc(
-    depositAddress,
-    outputValueBytes,
-    requesterPKH
+  const tbtcToBtc = vendingMachine.abi.filter((x) => x.name == 'tbtcToBtc')[0]
+  const calldata = web3.eth.abi.encodeFunctionCall(
+    tbtcToBtc, [deposit.address, outputValueBytes, requesterPKH, finalRecipient]
+  )
+
+  const result = await tbtcToken.approveAndCall(
+    redemptionScript.address,
+    tbtcApprovalAmount,
+    calldata
   ).catch((err) => {
     throw new Error(`failed to request redemption: [${err.message}]`)
   })
+  
   console.debug('redemption requested tx hash:', result.tx)
 }
 

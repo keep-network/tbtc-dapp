@@ -38,9 +38,11 @@ export function* saveAddresses({ payload }) {
 export function* requestRedemption() {
     const depositAddress = yield select(state => state.redemption.depositAddress)
     const btcAddress = yield select(state => state.redemption.btcAddress)
+    // TODO: we should explicitly identify this account in the Redux state or UI.
+    const finalRecipient = window.ethereum.selectedAddress
 
-    console.log(`start redemption of deposit [${depositAddress}] to bitcoin address [${btcAddress}]`)
-    yield call(clientRequestRedemption, depositAddress, btcAddress)
+    console.log(`start redemption of deposit [${depositAddress}] to bitcoin address [${btcAddress}], final receipient is [${finalRecipient}]`)
+    yield call(clientRequestRedemption, depositAddress, btcAddress, requesterAddress)
 
     yield put(navigateTo('/redeem/signing'))
 }
