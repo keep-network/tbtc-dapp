@@ -245,7 +245,7 @@ export async function getDepositBtcAmounts(depositAddress) {
   const lotInBtc = new BigNumber(lotInSatoshis.toString()).times(btcInSatoshis)
 
   const signerFeeInTbtc = await deposit.signerFee()
-  const signerFeeInBtc = new BigNumber(signerFeeInTbtc).div(tbtcInBtc) //.div(new BigNumber(signerDivisor.toString()))
+  const signerFeeInBtc = new BigNumber(signerFeeInTbtc).div(tbtcInBtc)
 
   return {
     lotInBtc,

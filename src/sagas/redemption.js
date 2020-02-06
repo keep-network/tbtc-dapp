@@ -104,7 +104,6 @@ export function* findOrSubmitTransaction() {
     const electrumClient = yield call(getElectrumClient)
     const transaction = yield call(findTransaction, electrumClient, requesterAddress, expectedValue)
 
-    console.log("Looked fer it and here we go", transaction, requesterAddress)
     if (transaction) {
         console.log(`Found existing redemption transaction ${transaction.transactionID}.`)
 

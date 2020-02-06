@@ -124,7 +124,6 @@ function* restoreState(nextStepMap, stateKey) {
                 type: DEPOSIT_STATE_RESTORED,
             })
 
-            console.log(depositState.toNumber(), nextStepMap[depositState.toNumber()])
             // TODO Fork on active vs await
             yield put(navigateTo('/deposit/' + depositAddress + nextStepMap[depositState.toNumber()]))
             break

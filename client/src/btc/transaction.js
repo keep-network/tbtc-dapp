@@ -32,7 +32,6 @@ export async function findTransaction(electrumClient, bitcoinAddress, expectedVa
   // Check if any of unspent transactions has required value, if so
   // return this transaction.
   for (const tx of unspentTransactions) {
-    console.log(tx.tx_hash, tx.value, expectedValue.toString())
     if (tx.value == expectedValue) {
       return {
         transactionID: tx.tx_hash,
@@ -42,6 +41,7 @@ export async function findTransaction(electrumClient, bitcoinAddress, expectedVa
     }
   }
 }
+
 /**
  * Waits for a transaction sent to a bitcoin address.
  *
