@@ -18,7 +18,6 @@ import {
 import {
   Start as StartDeposit,
   Invoice,
-  RequestDeposit,
   GetAddress,
   Pay,
   Prove as ProveDeposit,
@@ -33,7 +32,6 @@ import {
   Congratulations as CongratulationsRedemption
 } from './components/redemption'
 
-
 // Wrappers
 import Web3Wrapper from './wrappers/web3'
 import { withAccount } from './wrappers/web3'
@@ -45,7 +43,11 @@ import history from './history'
 import { bindActionCreators } from 'redux';
 import { setEthereumAccount, restoreDepositState, restoreRedemptionState } from './actions';
 import { connect } from 'react-redux'
-import deposit from './reducers/deposit';
+
+const RESTORER = {
+  DEPOSIT: 'deposit',
+  REDEMPTION: 'redemption'
+}
 
 // Set up our store
 const sagaMiddleware = createSagaMiddleware()
@@ -74,36 +76,36 @@ function AppWrapper() {
             <Route path="/deposit/new" component={Invoice} />
             <Route path="/deposit/:address/get-address" component={GetAddress} /> 
             <Route path="/deposit/:address/pay" exact>
-              <Loadable restorer="deposit">
+              <Loadable restorer={RESTORER.DEPOSIT}>
                 <Pay />
               </Loadable>
             </Route>
-            <Route path="/deposit/:address/pay/confirming" render={(props) => <Loadable restorer="deposit"><Pay {...props} confirming={true} /></Loadable>} />
+            <Route path="/deposit/:address/pay/confirming" render={(props) => <Loadable restorer={RESTORER.DEPOSIT}><Pay {...props} confirming={true} /></Loadable>} />
             <Route path="/deposit/:address/prove">
-              <Loadable restorer="deposit">
+              <Loadable restorer={RESTORER.DEPOSIT}>
                 <ProveDeposit />
               </Loadable>
             </Route>
             <Route path="/deposit/:address/congratulations">
-              <Loadable restorer="deposit">
+              <Loadable restorer={RESTORER.DEPOSIT}>
                 <CongratulationsDeposit />
               </Loadable>
             </Route>
             <Route path="/redeem" exact component={StartRedemption} />
             <Route path="/deposit/:address/redemption" exact>
-              <Loadable restorer="redemption"><Redeeming /></Loadable>
+              <Loadable restorer={RESTORER.REDEMPTION}><Redeeming /></Loadable>
             </Route>
             <Route path="/deposit/:address/redemption/signing">
-              <Loadable restorer="redemption"><Signing /></Loadable>
+              <Loadable restorer={RESTORER.REDEMPTION}><Signing /></Loadable>
             </Route>
             <Route path="/deposit/:address/redemption/confirming">
-              <Loadable restorer="redemption"><Confirming /></Loadable>
+              <Loadable restorer={RESTORER.REDEMPTION}><Confirming /></Loadable>
             </Route>
             <Route path="/deposit/:address/redemption/prove">
-              <Loadable restorer="redemption"><ProveRedemption /></Loadable>
+              <Loadable restorer={RESTORER.REDEMPTION}><ProveRedemption /></Loadable>
             </Route>
             <Route path="/deposit/:address/redemption/congratulations">
-              <Loadable restorer="redemption"><CongratulationsRedemption /></Loadable>
+              <Loadable restorer={RESTORER.REDEMPTION}><CongratulationsRedemption /></Loadable>
             </Route>
           </App>
         </Web3Wrapper>
@@ -123,9 +125,9 @@ function LoadableBase({ children, account, setEthereumAccount, restoreDepositSta
 
   if (address && ! depositStateRestored) {
     if (stateAccount) {
-      if (restorer == "deposit") {
+      if (restorer == RESTORER.DEPOSIT) {
         restoreDepositState(address)
-      } else if (restorer == "redemption") {
+      } else if (restorer == RESTORER.REDEMPTION) {
         restoreRedemptionState(address)
       } else {
         throw "Unknown restorer."
