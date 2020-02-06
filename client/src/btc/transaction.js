@@ -16,7 +16,35 @@ const secp256k1 = require('bcrypto/lib/js/secp256k1')
 */
 
 /**
+ * Searches for a transaction sent to a bitcoin address.
+ *
+ * @param {ElectrumClient} electrumClient Electrum Client instance.
+ * @param {string} bitcoinAddress Bitcoin address to check.
+ * @param {number} expectedValue Expected transaction output value (satoshis).
+ * @return {FoundTransaction} Transaction details.
+ */
+export async function findTransaction(electrumClient, bitcoinAddress, expectedValue) {
+  const script = addressToScript(bitcoinAddress)
+
+  // Get list of all unspent bitcoin transactions for the script.
+  const unspentTransactions = await electrumClient.getUnspentToScript(script)
+
+  // Check if any of unspent transactions has required value, if so
+  // return this transaction.
+  for (const tx of unspentTransactions) {
+    if (tx.value == expectedValue) {
+      return {
+        transactionID: tx.tx_hash,
+        outputPosition: tx.tx_pos,
+        value: tx.value,
+      }
+    }
+  }
+}
+
+/**
  * Waits for a transaction sent to a bitcoin address.
+ *
  * @param {ElectrumClient} electrumClient Electrum Client instance.
  * @param {string} bitcoinAddress Bitcoin address to monitor.
  * @param {number} expectedValue Expected transaction output value (satoshis).
@@ -27,32 +55,19 @@ export async function watchForTransaction(electrumClient, bitcoinAddress, expect
 
   // This function is used as a callback to electrum client. It is invoked when
   // am existing or a new transaction is found.
-  const findTransaction = async function(status) {
+  const checkTransactions = async function(status) {
     // Check if status is null which means there are not transactions for the
     // script.
     if (status == null) {
       return null
     }
 
-    // Get list of all unspent bitcoin transactions for the script.
-    const unspentTransactions = await electrumClient.getUnspentToScript(script)
-
-    // Check if any of unspent transactions has required value, if so
-    // return this transaction.
-    for (const tx of unspentTransactions) {
-      if (tx.value == expectedValue) {
-        return {
-          transactionID: tx.tx_hash,
-          outputPosition: tx.tx_pos,
-          value: tx.value,
-        }
-      }
-    }
+    return findTransaction(electrumClient, bitcoinAddress, expectedValue)
   }
 
   const transaction = await electrumClient.onTransactionToScript(
     script,
-    findTransaction
+    checkTransactions
   ).catch((err) => {
     throw new Error(`failed to wait for a transaction to hash: [${err}]`)
   })

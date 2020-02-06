@@ -18,7 +18,6 @@ import {
 import {
   Start as StartDeposit,
   Invoice,
-  RequestDeposit,
   GetAddress,
   Pay,
   Prove as ProveDeposit,
@@ -33,7 +32,6 @@ import {
   Congratulations as CongratulationsRedemption
 } from './components/redemption'
 
-
 // Wrappers
 import Web3Wrapper from './wrappers/web3'
 import { withAccount } from './wrappers/web3'
@@ -43,9 +41,13 @@ import sagas from './sagas'
 import reducers from './reducers'
 import history from './history'
 import { bindActionCreators } from 'redux';
-import { restoreDepositState } from './actions';
+import { setEthereumAccount, restoreDepositState, restoreRedemptionState } from './actions';
 import { connect } from 'react-redux'
-import deposit from './reducers/deposit';
+
+const RESTORER = {
+  DEPOSIT: 'deposit',
+  REDEMPTION: 'redemption'
+}
 
 // Set up our store
 const sagaMiddleware = createSagaMiddleware()
@@ -74,27 +76,37 @@ function AppWrapper() {
             <Route path="/deposit/new" component={Invoice} />
             <Route path="/deposit/:address/get-address" component={GetAddress} /> 
             <Route path="/deposit/:address/pay" exact>
-              <Loadable>
+              <Loadable restorer={RESTORER.DEPOSIT}>
                 <Pay />
               </Loadable>
             </Route>
-            <Route path="/deposit/:address/pay/confirming" render={(props) => <Loadable><Pay {...props} confirming={true} /></Loadable>} />
+            <Route path="/deposit/:address/pay/confirming" render={(props) => <Loadable restorer={RESTORER.DEPOSIT}><Pay {...props} confirming={true} /></Loadable>} />
             <Route path="/deposit/:address/prove">
-              <Loadable>
+              <Loadable restorer={RESTORER.DEPOSIT}>
                 <ProveDeposit />
               </Loadable>
             </Route>
             <Route path="/deposit/:address/congratulations">
-              <Loadable>
+              <Loadable restorer={RESTORER.DEPOSIT}>
                 <CongratulationsDeposit />
               </Loadable>
             </Route>
             <Route path="/redeem" exact component={StartRedemption} />
-            <Route path="/redeem/redeeming" component={Redeeming} />
-            <Route path="/redeem/signing" component={Signing} />
-            <Route path="/redeem/confirming" component={Confirming} />
-            <Route path="/redeem/prove" component={ProveRedemption} />
-            <Route path="/redeem/congratulations" component={CongratulationsRedemption} />
+            <Route path="/deposit/:address/redemption" exact>
+              <Loadable restorer={RESTORER.REDEMPTION}><Redeeming /></Loadable>
+            </Route>
+            <Route path="/deposit/:address/redemption/signing">
+              <Loadable restorer={RESTORER.REDEMPTION}><Signing /></Loadable>
+            </Route>
+            <Route path="/deposit/:address/redemption/confirming">
+              <Loadable restorer={RESTORER.REDEMPTION}><Confirming /></Loadable>
+            </Route>
+            <Route path="/deposit/:address/redemption/prove">
+              <Loadable restorer={RESTORER.REDEMPTION}><ProveRedemption /></Loadable>
+            </Route>
+            <Route path="/deposit/:address/redemption/congratulations">
+              <Loadable restorer={RESTORER.REDEMPTION}><CongratulationsRedemption /></Loadable>
+            </Route>
           </App>
         </Web3Wrapper>
       </Router>
@@ -102,21 +114,46 @@ function AppWrapper() {
   )
 }
 
-function LoadableBase({ children, account, restoreDepositState }) {
+function LoadableBase({ children, account, setEthereumAccount, restoreDepositState, restoreRedemptionState, restorer }) {
   const { address } = useParams()
-  const depositStateRestored = useSelector((state) => state.deposit.stateRestored)
+  const depositStateRestored = useSelector((state) => state[restorer].stateRestored)
+  const stateAccount = useSelector((state) => state.account)
+
+  if (account && account != stateAccount) {
+    setEthereumAccount(account)
+  }
+
   if (address && ! depositStateRestored) {
-    if (account) {
-      restoreDepositState(address)
+    if (stateAccount) {
+      if (restorer == RESTORER.DEPOSIT) {
+        restoreDepositState(address)
+      } else if (restorer == RESTORER.REDEMPTION) {
+        restoreRedemptionState(address)
+      } else {
+        throw "Unknown restorer."
+      }
     }
 
     return <div>Loading...</div>
   } else {
+    // FIXME How do we not render these if we're getting ready to transition to
+    // FIXME a new page?
     return children
   }
 }
 
-const Loadable = connect((_)=>{ return {} }, (dispatch) => bindActionCreators({ restoreDepositState }, dispatch))(withAccount(LoadableBase))
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      setEthereumAccount,
+      restoreDepositState,
+      restoreRedemptionState
+    },
+    dispatch
+  );
+}
+
+const Loadable = connect(null, mapDispatchToProps)(withAccount(LoadableBase))
 
 // Compose our static Landing Page
 function StaticWrapper() {

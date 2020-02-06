@@ -5,6 +5,7 @@ import {
   ECDSAKeep,
   VendingMachine,
   truffleToWeb3Contract,
+  TBTCConstants,
 } from './eth/contracts'
 
 import { BitcoinTxParser } from 'tbtc-helpers'
@@ -26,20 +27,19 @@ const BN = web3.utils.BN
 /**
  * Requests a redemption of the deposit.
  * @param {string} depositAddress Address of the deposit to redeem.
+ * @param {string} redeemerAddress Address of the redeeming Ethereum account.
  * @param {string} toBTCAddress Bitcoin address to send redeemed funds to.
  */
-export async function requestRedemption(depositAddress, toBTCAddress) {
+export async function requestRedemption(depositAddress, redeemerAddress, toBTCAddress) {
   const deposit = await Deposit.at(depositAddress)
   const tbtcToken = await TBTCToken.deployed()
   const vendingMachine = await VendingMachine.deployed()
+  const tbtcConstants = await TBTCConstants.deployed()
 
-  // TODO: We set a fixed a value temporarily as the values are constants currently.
-  // Find a way to get utxosize from the deposit.
-  // `await deposit.utxoSize.call()` seems not to work correctly.
-  const utxoValue = 1000
+  const utxoValue = await deposit.utxoSize()
 
   // TODO: Estimate fee with electrum
-  const txFee = 150 // MINIMUM_REDEMPTION_FEE from TBTCConstants
+  const txFee = await tbtcConstants.getMinimumRedemptionFee() // MINIMUM_REDEMPTION_FEE from TBTCConstants
 
   let outputValueBytes
   try {
@@ -53,6 +53,9 @@ export async function requestRedemption(depositAddress, toBTCAddress) {
   try {
     const script = bcoin.Script.fromAddress(toBTCAddress)
     requesterPKH = script.getWitnessPubkeyhash()
+    if (requesterPKH == null) {
+      throw "Not a P2WPKH address. Try again with a P2WPKH-supporting wallet."
+    }
   } catch (err) {
     throw new Error(`failed to calculate requested public key hash: [${err}]`)
   }
@@ -71,7 +74,8 @@ export async function requestRedemption(depositAddress, toBTCAddress) {
   const result = await vendingMachine.tbtcToBtc(
     depositAddress,
     outputValueBytes,
-    requesterPKH
+    requesterPKH,
+    redeemerAddress,
   ).catch((err) => {
     throw new Error(`failed to request redemption: [${err.message}]`)
   })
@@ -130,7 +134,7 @@ export async function createUnsignedTransaction(depositAddress) {
  * @param {string} depositAddress Address of the deposit.
  * @return {Object} Redemption details.
  */
-async function getLatestRedemptionDetails(depositAddress) {
+export async function getLatestRedemptionDetails(depositAddress) {
   const depositLog = await TBTCSystem.deployed()
 
   const redemptionEvents = await depositLog.getPastEvents(

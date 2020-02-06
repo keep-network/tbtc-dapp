@@ -21,6 +21,7 @@ import { BigNumber } from "bignumber.js"
 import { notifyTransactionConfirmed } from '../lib/notifications/actions'
 import { navigateTo } from '../lib/router/actions'
 import { Web3Loaded } from '../wrappers/web3'
+import { findOrSubmitTransaction } from './redemption'
 
 export const DEPOSIT_REQUEST_BEGIN = 'DEPOSIT_REQUEST_BEGIN'
 export const DEPOSIT_REQUEST_METAMASK_SUCCESS = 'DEPOSIT_REQUEST_METAMASK_SUCCESS'
@@ -51,12 +52,29 @@ export async function getElectrumClient() {
     return electrumClient
 }
 
-export function* restoreDepositState() {
-    const web3Loaded = yield Web3Loaded
+// Deposit flow.
+const DEPOSIT_STEP_MAP = {};
+DEPOSIT_STEP_MAP[DepositStates.AWAITING_BTC_FUNDING_PROOF] = "/pay"
+DEPOSIT_STEP_MAP[DepositStates.ACTIVE] = "/congratulations"
 
-    const depositAddress = yield select(state => state.deposit.depositAddress)
+// Redemption flow.
+const REDEMPTION_STEP_MAP = {};
+REDEMPTION_STEP_MAP[DepositStates.AWAITING_BTC_FUNDING_PROOF] = "/pay"
+REDEMPTION_STEP_MAP[DepositStates.ACTIVE] = "/redemption"
+REDEMPTION_STEP_MAP[DepositStates.AWAITING_WITHDRAWAL_SIGNATURE] = "/redemption/signing"
+REDEMPTION_STEP_MAP[DepositStates.AWAITING_WITHDRAWAL_PROOF] = "/redemption/confirming"
+REDEMPTION_STEP_MAP[DepositStates.REDEEMED] = "/redemption/congratulations"
+
+
+function* restoreState(nextStepMap, stateKey) {
+    yield Web3Loaded
+
+    const depositAddress = yield select(state => state[stateKey].depositAddress)
 
     let depositState = yield call(getDepositCurrentState, depositAddress)
+
+    let finalCalls = null
+    let nextStep = nextStepMap[depositState.toNumber()]
 
     switch(depositState.toNumber()) {
         case DepositStates.START:
@@ -66,8 +84,14 @@ export function* restoreDepositState() {
         case DepositStates.AWAITING_SIGNER_SETUP:
             yield put(navigateTo('/deposit/' + depositAddress + '/generate-address'))
             break
-        
+
+        case DepositStates.AWAITING_WITHDRAWAL_PROOF:
+            finalCalls = findOrSubmitTransaction
+            nextStep = "/redemption/prove"
+
+        case DepositStates.AWAITING_WITHDRAWAL_SIGNATURE:
         case DepositStates.AWAITING_BTC_FUNDING_PROOF:
+        case DepositStates.REDEEMED:
         case DepositStates.ACTIVE: 
             const btcAddress = yield call(getDepositBtcAddress, depositAddress)
             yield put({
@@ -76,6 +100,19 @@ export function* restoreDepositState() {
                     btcAddress,
                 }
             })
+
+            const { lotInBtc, signerFeeInBtc } = yield call(getDepositBtcAmounts, depositAddress)
+            yield put({
+                type: DEPOSIT_BTC_AMOUNTS,
+                payload: {
+                    lotInBtc,
+                    signerFeeInBtc,
+                }
+            })
+
+            if (finalCalls) {
+                yield* finalCalls()
+            }
 
             // FIXME Check to see if Electrum has already seen a tx for payment
             // FIXME and fast-forward to /pay/confirming if so.
@@ -87,12 +124,8 @@ export function* restoreDepositState() {
                 type: DEPOSIT_STATE_RESTORED,
             })
 
-            const nextStep = {}
-            nextStep[DepositStates.AWAITING_BTC_FUNDING_PROOF] = "/pay"
-            nextStep[DepositStates.ACTIVE] = "/congratulations"
-
             // TODO Fork on active vs await
-            yield put(navigateTo('/deposit/' + depositAddress + nextStep[depositState.toNumber()]))
+            yield put(navigateTo('/deposit/' + depositAddress + nextStep))
             break
         
         // Funding failure states
@@ -100,12 +133,6 @@ export function* restoreDepositState() {
         case DepositStates.FAILED_SETUP:
             // TODO Update deposit state to reflect situation.
             break
-
-        // Redemption flow
-        // TODO
-        // case AWAITING_WITHDRAWAL_SIGNATURE:
-        // case AWAITING_WITHDRAWAL_PROOF:
-        // case REDEEMED:    
     }
     
     // Here, we need to look at the logs. getDepositBtcAddress submits a
@@ -116,6 +143,13 @@ export function* restoreDepositState() {
     //yield put({ type:  })
 }
 
+export function* restoreDepositState() {
+    yield* restoreState(DEPOSIT_STEP_MAP, "deposit")
+}
+
+export function* restoreRedemptionState() {
+    yield* restoreState(REDEMPTION_STEP_MAP, "redemption")
+}
 
 export function* requestADeposit() {
     // call Keep to request a deposit
@@ -164,9 +198,8 @@ export function* requestADeposit() {
         }
     })
 
-    let lotInBtc, signerFeeInBtc
     try {
-        let { lotInBtc, signerFeeInBtc } = yield call(getDepositBtcAmounts, depositAddress)
+        const { lotInBtc, signerFeeInBtc } = yield call(getDepositBtcAmounts, depositAddress)
         yield put({ type: DEPOSIT_REQUEST_METAMASK_SUCCESS })
 
         yield put({

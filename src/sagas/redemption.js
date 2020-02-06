@@ -3,17 +3,20 @@ import { call, put, select, delay } from 'redux-saga/effects'
 
 import { navigateTo } from '../lib/router/actions'
 
+import { Script } from 'bcoin/lib/script'
+
 import {
     requestRedemption as clientRequestRedemption,
+    getLatestRedemptionDetails,
     createUnsignedTransaction,
     watchForSignatureSubmitted,
     provideRedemptionSignature,
     combineSignedTransaction,
     broadcastTransaction as clientBroadcastTransaction,
     provideRedemptionProof,
-    waitForConfirmations
+    waitForConfirmations,
+    findTransaction
 } from 'tbtc-client'
-
 
 import { getElectrumClient } from './deposit'
 
@@ -32,17 +35,18 @@ export function* saveAddresses({ payload }) {
         payload
     })
 
-    yield put(navigateTo('/redeem/redeeming'))
+    yield put(navigateTo('/deposit/' + payload.depositAddress + '/redemption'))
 }
 
 export function* requestRedemption() {
+    const redeemerAddress = yield select(state => state.account)
     const depositAddress = yield select(state => state.redemption.depositAddress)
     const btcAddress = yield select(state => state.redemption.btcAddress)
 
-    console.log(`start redemption of deposit [${depositAddress}] to bitcoin address [${btcAddress}]`)
-    yield call(clientRequestRedemption, depositAddress, btcAddress)
+    console.log(`start redemption by [${redeemerAddress}] of deposit [${depositAddress}] to bitcoin address [${btcAddress}]`)
+    yield call(clientRequestRedemption, depositAddress, redeemerAddress, btcAddress)
 
-    yield put(navigateTo('/redeem/signing'))
+    yield put(navigateTo('/deposit/' + depositAddress + '/redemption/signing'))
 }
 
 export function* buildTransactionAndSubmitSignature() {
@@ -62,7 +66,7 @@ export function* buildTransactionAndSubmitSignature() {
         payload: { unsignedTransaction, signature }
     })
 
-    yield put(navigateTo('/redeem/confirming'))
+    yield put(navigateTo('/deposit/' + depositAddress + '/redemption/confirming'))
 }
 
 export function* broadcastTransaction() {
@@ -85,6 +89,34 @@ export function* broadcastTransaction() {
     })
 
     yield call(pollForConfirmations)
+}
+
+export function* findOrSubmitTransaction() {
+    const depositAddress = yield select(state => state.redemption.depositAddress)
+
+    console.log(`Look up latest redemption details.`)
+    // Look for redemption event.
+    const { utxoSize, requestedFee,  requesterPKH } = yield call(getLatestRedemptionDetails, depositAddress)
+    const expectedValue = utxoSize.sub(requestedFee).toNumber()
+    const requesterAddress = Script.fromProgram(0, requesterPKH).getAddress().toBech32('testnet')
+
+    console.log(`Search for existing redemption Bitcoin transaction.`)
+    const electrumClient = yield call(getElectrumClient)
+    const transaction = yield call(findTransaction, electrumClient, requesterAddress, expectedValue)
+
+    if (transaction) {
+        console.log(`Found existing redemption transaction ${transaction.transactionID}.`)
+
+        yield put({
+            type: UPDATE_TX_HASH,
+            payload: { txHash: transaction.transactionID }
+        })
+
+        yield call(pollForConfirmations) // right thing to do?
+    } else {
+        console.log(`Existing transaction not found, building and submitting.`)
+        yield* buildTransactionAndSubmitSignature()
+    }
 }
 
 export function* pollForConfirmations() {
@@ -116,9 +148,10 @@ export function* pollForConfirmations() {
 
     electrumClient.close()
 
+    const depositAddress = yield select(state => state.redemption.depositAddress)
     const pollForConfirmationsError = yield select(state => state.redemption.pollForConfirmationsError)
     if (!pollForConfirmationsError) {
-        yield put(navigateTo('/redeem/prove'))
+        yield put(navigateTo('/deposit/' + depositAddress + '/redemption/prove'))
     }
 }
 
@@ -138,7 +171,7 @@ export function* submitRedemptionProof() {
             type: REDEMPTION_PROVE_BTC_TX_SUCCESS,
         })
 
-        yield put(navigateTo('/redeem/congratulations'))
+        yield put(navigateTo('/deposit/' + depositAddress + '/redemption/congratulations'))
     } catch (err) {
         yield put({
             type: REDEMPTION_PROVE_BTC_TX_ERROR,
