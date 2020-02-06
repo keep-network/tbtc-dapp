@@ -85,11 +85,11 @@ function* restoreState(nextStepMap, stateKey) {
             yield put(navigateTo('/deposit/' + depositAddress + '/generate-address'))
             break
 
-        case DepositStates.AWAITING_WITHDRAWAL_SIGNATURE:
         case DepositStates.AWAITING_WITHDRAWAL_PROOF:
             finalCalls = findOrSubmitTransaction
             nextStep = "/redemption/prove"
 
+        case DepositStates.AWAITING_WITHDRAWAL_SIGNATURE:
         case DepositStates.AWAITING_BTC_FUNDING_PROOF:
         case DepositStates.REDEEMED:
         case DepositStates.ACTIVE: 
@@ -125,7 +125,7 @@ function* restoreState(nextStepMap, stateKey) {
             })
 
             // TODO Fork on active vs await
-            yield put(navigateTo('/deposit/' + depositAddress + nextStepMap[depositState.toNumber()]))
+            yield put(navigateTo('/deposit/' + depositAddress + nextStep))
             break
         
         // Funding failure states
