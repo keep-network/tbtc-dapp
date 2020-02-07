@@ -275,23 +275,27 @@ export async function submitFundingProof(
   const tbtcDepositToken = await TBTCDepositToken.deployed()
   const tdtId = depositAddress
 
-  await tbtcDepositToken.approve(
-    vendingMachine.address,
-    tdtId
-  ).catch((err) => {
-    throw new Error(`failed to approve TDT for transfer: [${err}]`)
-  })
-
-  const result = await vendingMachine.unqualifiedDepositToTbtc(
-    depositAddress,
-    Buffer.from(txDetails.version, 'hex'),
-    Buffer.from(txDetails.txInVector, 'hex'),
-    Buffer.from(txDetails.txOutVector, 'hex'),
-    Buffer.from(txDetails.locktime, 'hex'),
-    fundingOutputIndex,
-    Buffer.from(spvProof.merkleProof, 'hex'),
-    spvProof.txInBlockIndex,
-    Buffer.from(spvProof.chainHeaders, 'hex')
+  // Use `approveAndCall` to execute in a single transaction.  
+  const unqualifiedDepositToTbtc = vendingMachine.abi.filter((x) => x.name == 'unqualifiedDepositToTbtc')[0]
+  const calldata = web3.eth.abi.encodeFunctionCall(
+    unqualifiedDepositToTbtc,
+    [
+      depositAddress,
+      Buffer.from(txDetails.version, 'hex'),
+      Buffer.from(txDetails.txInVector, 'hex'),
+      Buffer.from(txDetails.txOutVector, 'hex'),
+      Buffer.from(txDetails.locktime, 'hex'),
+      fundingOutputIndex,
+      Buffer.from(spvProof.merkleProof, 'hex'),
+      spvProof.txInBlockIndex,
+      Buffer.from(spvProof.chainHeaders, 'hex')
+    ]
+  )
+  
+  const result = await tbtcDepositToken.approveAndCall(
+    fundingScript.address,
+    tdtId,
+    calldata
   ).catch((err) => {
     throw new Error(`failed to submit funding transaction proof: [${err}]`)
   })
