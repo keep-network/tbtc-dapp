@@ -5,21 +5,30 @@ export default () => {
     let data = {
         title: "tBTC on Ropsten",
         date: '02.12.2020',
-        body: `Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Maecenas sed diam eget risus varius blandit sit amet non magna. Nullam id dolor id nibh ultricies vehicula ut id elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+        body: `
+        tBTC is Open-Source and Live on Ropsten
 
-        Donec ullamcorper nulla non metus auctor fringilla. Maecenas faucibus mollis interdum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Sed posuere consectetur est at lobortis. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-        
-        Etiam porta sem malesuada magna mollis euismod. Curabitur blandit tempus porttitor. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur.
-        
-        Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Donec id elit non mi porta gravida at eget metus. Nulla vitae elit libero, a pharetra augue. Etiam porta sem malesuada magna mollis euismod.
-        
-        Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Maecenas sed diam eget risus varius blandit sit amet non magna. Nullam id dolor id nibh ultricies vehicula ut id elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-        
-        Donec ullamcorper nulla non metus auctor fringilla. Maecenas faucibus mollis interdum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Sed posuere consectetur est at lobortis. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-        
-        Etiam porta sem malesuada magna mollis euismod. Curabitur blandit tempus porttitor. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur.
-        
-        Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Donec id elit non mi porta gravida at eget metus. Nulla vitae elit libero, a pharetra augue. Etiam porta sem malesuada magna mollis euismod.`
+        The first release of tBTC is now live on Ropsten, the public Ethereum testnet.
+
+        To try minting your first TBTC, visit the
+        <a href="htps://dapp.test.tbtc.network">reference dApp</a>. Make sure
+        you're loaded up on testnet bitcoin and Ropsten ether, and you can be
+        the first TBTC whale :sunglasses_emoji:
+
+        While the code undergoes audit and further testing, development is
+        now <a href="https://github.com/keep-network/tbtc">public on GitHub</a>.
+        That means you can begin building Bitcoin experiences on DeFi apps
+        like Compound and Uniswap, today. To learn more about this release,
+        you can:
+
+        -> <a href="http://docs.keep.network/tbtc/index.pdf">Read the latest spec</a>
+
+        -> <a href="https://github.com/keep-network/tbtc/implementation">Browse the source code</a>
+
+        -> <a href="https://dapp.test.tbtc.network/">Play with the dApp</a>
+
+        -> <a href="https://www.npmjs.com/package/@keep-network/tbtc.js">Build on testnet (NPM)</a>
+        `
     }
     return <NewsItem {...data}/>
 }
