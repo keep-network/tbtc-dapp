@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import '../../css/news-item.scss'
 
 const NewsItem = ({ title, date, body }) => {
-    const paragraphs = body.split('\n').map(x => x.trim())
+    const paragraphs = body.split('\n\n').map(x => x.trim())
 
     return <div className="news">
         <div className="title">
@@ -24,7 +24,7 @@ const NewsItem = ({ title, date, body }) => {
                 </h2>
                 
                 <div class='body'>
-                    {paragraphs.map(copy => <p>{copy}</p>)}
+                    {paragraphs.map(copy => <p dangerouslySetInnerHTML={{ __html: copy }} />)}
                 </div>
             </div>
         </div>
