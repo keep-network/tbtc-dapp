@@ -8,7 +8,12 @@ const Header = props => (
     <div className="logo">
       <TBTCLogo width="150" />
     </div>
-    { window.location.pathname !== '/' ? <Web3Status /> : null }
+    { 
+      // TODO: remove when proper CMS is selected
+      window.location.pathname == '/' || window.location.pathname.startsWith('/news')
+      ? null
+      : <Web3Status />  
+    }
   </header>
 )
 
