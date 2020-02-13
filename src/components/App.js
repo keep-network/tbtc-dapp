@@ -12,7 +12,10 @@ function App(props) {
         <Header />
         { children }
       </div>
-      <Footer includeSubscription={location.pathname === '/'} />
+      <Footer includeSubscription={
+        location.pathname === '/' ||
+        location.pathname.startsWith('/news') // TODO: remove when proper CMS is selected
+      } />
     </div>
   )
 }
