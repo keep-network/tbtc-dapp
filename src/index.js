@@ -15,6 +15,11 @@ import {
   App,
   Home
 } from './components'
+
+
+import RopstenAnnouncementNewsItem from './components/news/2020-02-14-ropsten'
+
+
 import {
   Start as StartDeposit,
   Invoice,
@@ -72,6 +77,8 @@ function AppWrapper() {
         <Web3Wrapper>
           <App>
             <Route path="/" exact component={Home} />
+            <Route path="/news/2020-02-14-ropsten" exact component={RopstenAnnouncementNewsItem} />
+            <Route path="/deposit" exact component={StartDeposit} />
             <Route path="/deposit" exact component={StartDeposit} />
             <Route path="/deposit/new" component={Invoice} />
             <Route path="/deposit/:address/get-address" component={GetAddress} /> 
