@@ -167,9 +167,16 @@ function StaticWrapper() {
   return (
     <Provider store={store}>
       <Router history={history}>
-        <App>
-            <Home noEntry={true} />
-        </App>
+            <Route path="/news/2020-02-14-ropsten" exact>
+                <App>
+                    <RopstenAnnouncementNewsItem />
+                </App>
+            </Route>
+            <Route path="/" exact>
+                <App>
+                    <Home noEntry={true} />
+                </App>
+            </Route>
       </Router>
     </Provider>
   )
