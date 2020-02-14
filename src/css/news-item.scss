@@ -1,3 +1,5 @@
+$content-width: 768px;
+
 .news {
     .title {
         font-size: 4em;
@@ -15,7 +17,6 @@
 }
 
 .news-item {
-    width: 768px;
     margin-bottom: 80px;
 
     header {
@@ -55,5 +56,18 @@
         font-size: 0.75em;
         line-height: 140.5%;
         color: #201713;
+    }
+
+}
+
+@media (max-width: #{$content-width}) {
+    .news .title {
+        font-size: 2.75em;
+
+        margin-bottom: 50px;
+    }
+
+    .news-item .body p {
+        font-size: 0.6em;
     }
 }
