@@ -18,6 +18,7 @@ import {
 
 
 import RopstenAnnouncementNewsItem from './components/news/2020-02-14-ropsten'
+import TBTCJSNewsItem from './components/news/2020-02-14-announcing-tbtc-js'
 
 
 import {
@@ -78,10 +79,11 @@ function AppWrapper() {
           <App>
             <Route path="/" exact component={Home} />
             <Route path="/news/2020-02-14-ropsten" exact component={RopstenAnnouncementNewsItem} />
+            <Route path="/news/2020-02-14-announcing-tbtc-js" exact component={TBTCJSNewsItem} />
             <Route path="/deposit" exact component={StartDeposit} />
             <Route path="/deposit" exact component={StartDeposit} />
             <Route path="/deposit/new" component={Invoice} />
-            <Route path="/deposit/:address/get-address" component={GetAddress} /> 
+            <Route path="/deposit/:address/get-address" component={GetAddress} />
             <Route path="/deposit/:address/pay" exact>
               <Loadable restorer={RESTORER.DEPOSIT}>
                 <Pay />
@@ -170,6 +172,11 @@ function StaticWrapper() {
             <Route path="/news/2020-02-14-ropsten" exact>
                 <App>
                     <RopstenAnnouncementNewsItem />
+                </App>
+              </Route>
+            <Route path="/news/2020-02-14-announcing-tbtc-js" exact>
+                <App>
+                    <TBTCJSNewsItem />
                 </App>
             </Route>
             <Route path="/" exact>
