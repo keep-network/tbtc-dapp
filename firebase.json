@@ -5,6 +5,12 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/news/2020-02-14-ropsten",
+        "destination": "/index.html"
+      }
     ]
   }
 }
