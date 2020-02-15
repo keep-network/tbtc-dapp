@@ -25,16 +25,16 @@ export default () => {
 
         -> <a href="https://github.com/keep-network/tbtc.js#creating-and-funding-a-deposit">Accept Bitcoin deposits in your dApp</a>
 
-        -> Mint TBTC
+        ->  Mint TBTC
 
-        -> Transfer and trade TBTC as you would any other ERC-20 token
+        ->  Transfer and trade TBTC as you would any other ERC-20 token
 
         -> <a href="https://github.com/keep-network/tbtc.js#redeeming-a-deposit">Redeem users' TBTC for Bitcoin</a>
 
         ... all without taking custody or changing your tech stack.
 
         Take the library for a spin on
-        <a href="https://github.com/keep-network/tbtc.js">GitHub!</a>
+        <a href="https://github.com/keep-network/tbtc.js">GitHub</a>!
         `
     }
     return <NewsItem {...data}/>
