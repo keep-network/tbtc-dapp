@@ -71,7 +71,6 @@ export async function getDepositCurrentState(depositAddress) {
 export async function createDeposit() {
   const depositFactory = await DepositFactory.deployed()
   const tbtcSystem = await TBTCSystem.deployed()
-  const tbtcConstants = await TBTCConstants.deployed()
   const tbtcToken = await TBTCToken.deployed()
   const tbtcDepositToken = await TBTCDepositToken.deployed()
   const feeRebateToken = await FeeRebateToken.deployed()
@@ -81,8 +80,8 @@ export async function createDeposit() {
   const _keepSize = '1'
   const _lotSize = satoshisInBtc.times(0.001).toString() // Hard-code 0.001 BTC lot size for now.
 
-  // Get required funder bond value.
-  const funderBond = await tbtcConstants.getFunderBondAmount()
+  // Get deposit creation fee estimate.
+  const creationFeeEstimate = await tbtcSystem.createNewDepositFeeEstimate()
 
   // Create new deposit.
   const result = await depositFactory.createDeposit(
@@ -95,7 +94,7 @@ export async function createDeposit() {
     _keepSize,
     _lotSize,
     {
-      value: funderBond,
+      value: creationFeeEstimate,
     }
   )
 
