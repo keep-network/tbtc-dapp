@@ -51,7 +51,7 @@ class Start extends Component {
     try {
       const bcoinScript = bcoin.Script.fromAddress(btcAddress)
 
-      return bcoinScript.getWitnessPubkeyhash() != null
+      return bcoinScript.getAddress() != null
     } catch (err) {
       console.log("Error parsing BTC address: ", btcAddress, err)
       return false

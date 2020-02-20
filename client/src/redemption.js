@@ -49,17 +49,18 @@ export async function requestRedemption(depositAddress, redeemerAddress, toBTCAd
     throw new Error(`failed to calculate output value: [${err}]`)
   }
 
-  let requesterPKH
+  let redeemerScript
   try {
     const script = bcoin.Script.fromAddress(toBTCAddress)
-    requesterPKH = script.getWitnessPubkeyhash()
-    if (requesterPKH == null) {
-      throw "Not a P2WPKH address. Try again with a P2WPKH-supporting wallet."
+    if (script.getAddress() == null) {
+      throw "Not a valid address."
     }
+
+    redeemerScript = Buffer.from([script.raw.length].concat(script.raw))
   } catch (err) {
-    throw new Error(`failed to calculate requested public key hash: [${err}]`)
+    throw new Error(`Invalid address: ${err.getMessage()}.`)
   }
-  console.debug(`calculated requester public key hash: [${requesterPKH.toString('hex')}]`)
+  console.debug(`calculated requester public key script: [${redeemerScript.toString('hex')}]`)
 
   // We approve the Deposit contract to transfer the maximum number of tokens
   // from the user's balance.
@@ -74,7 +75,7 @@ export async function requestRedemption(depositAddress, redeemerAddress, toBTCAd
   const result = await vendingMachine.tbtcToBtc(
     depositAddress,
     outputValueBytes,
-    requesterPKH,
+    redeemerScript,
     redeemerAddress,
   ).catch((err) => {
     throw new Error(`failed to request redemption: [${err.message}]`)
