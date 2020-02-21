@@ -2,11 +2,8 @@ import {
   DepositFactory,
   Deposit,
   TBTCSystem,
-  TBTCConstants,
-  TBTCToken,
   TBTCDepositToken,
   ECDSAKeep,
-  FeeRebateToken,
   VendingMachine,
   truffleToWeb3Contract,
 } from './eth/contracts'
@@ -71,13 +68,6 @@ export async function getDepositCurrentState(depositAddress) {
 export async function createDeposit() {
   const depositFactory = await DepositFactory.deployed()
   const tbtcSystem = await TBTCSystem.deployed()
-  const tbtcToken = await TBTCToken.deployed()
-  const tbtcDepositToken = await TBTCDepositToken.deployed()
-  const feeRebateToken = await FeeRebateToken.deployed()
-  const vendingMachine = await VendingMachine.deployed()
-
-  const _keepThreshold = '1'
-  const _keepSize = '1'
   const _lotSize = satoshisInBtc.times(0.001).toString() // Hard-code 0.001 BTC lot size for now.
 
   // Get deposit creation fee estimate.
@@ -85,13 +75,6 @@ export async function createDeposit() {
 
   // Create new deposit.
   const result = await depositFactory.createDeposit(
-    tbtcSystem.address,
-    tbtcToken.address,
-    tbtcDepositToken.address,
-    feeRebateToken.address,
-    vendingMachine.address,
-    _keepThreshold,
-    _keepSize,
     _lotSize,
     {
       value: creationFeeEstimate,
