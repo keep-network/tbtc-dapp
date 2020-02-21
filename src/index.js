@@ -81,7 +81,6 @@ function AppWrapper() {
             <Route path="/news/2020-02-14-ropsten" exact component={RopstenAnnouncementNewsItem} />
             <Route path="/news/2020-02-14-announcing-tbtc-js" exact component={TBTCJSNewsItem} />
             <Route path="/deposit" exact component={StartDeposit} />
-            <Route path="/deposit" exact component={StartDeposit} />
             <Route path="/deposit/new" component={Invoice} />
             <Route path="/deposit/:address/get-address" component={GetAddress} />
             <Route path="/deposit/:address/pay" exact>
