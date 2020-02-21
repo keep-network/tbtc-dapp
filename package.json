@@ -22,9 +22,7 @@
         "web3": "^1.2.0"
     },
     "scripts": {
-        "env": "truffle exec ./scripts/env.js",
         "start-js": "sleep 2 && react-scripts start",
-        "setup": "CONTRACT_DATA_BUCKET=keep-dev-contract-data ./scripts/fetch-contracts.sh",
         "start": "npm-run-all -p start-js",
         "build": "react-scripts --max_old_space_size=8192 build",
         "test": "react-scripts test --env=jsdom",
