@@ -1,6 +1,6 @@
 {
     "name": "tbtc-dapp",
-    "version": "0.1.0",
+    "version": "0.3.0",
     "private": true,
     "dependencies": {
         "classnames": "^2.2.6",
@@ -19,8 +19,7 @@
         "react-snap": "^1.23.0",
         "redux": "^4.0.4",
         "redux-saga": "^1.0.5",
-        "tbtc-client": "file:client",
-        "tbtc-helpers": "file:lib/tbtc-helpers",
+        "@keep-network/tbtc.js": "^0.7.0",
         "truffle": "^5.0.29",
         "truffle-contract": "^4.0.26",
         "web3": "^1.2.0"
