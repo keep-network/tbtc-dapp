@@ -13,12 +13,9 @@
         "react-redux": "^7.1.0",
         "react-router-dom": "^5.1.2",
         "react-scripts": "3.0.1",
-        "react-snap": "^1.23.0",
         "redux": "^4.0.4",
         "redux-saga": "^1.0.5",
         "@keep-network/tbtc.js": "^0.7.0",
-        "truffle": "^5.0.29",
-        "truffle-contract": "^4.0.26",
         "web3": "^1.2.0"
     },
     "scripts": {
