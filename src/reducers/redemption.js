@@ -10,7 +10,7 @@ import {
 } from '../sagas/redemption'
 
 import { RESTORE_REDEMPTION_STATE } from "../actions"
-import { DEPOSIT_STATE_RESTORED } from '../sagas/deposit'
+import { DEPOSIT_STATE_RESTORED, DEPOSIT_RESOLVED } from '../sagas/deposit'
 
 const initialState = {
     btcAddress: null,
@@ -33,6 +33,11 @@ const redemption = (state = initialState, action) => {
             return {
                 ...state,
                 stateRestored: true,
+            }
+        case DEPOSIT_RESOLVED:
+            return {
+                ...state,
+                deposit: action.payload.deposit,
             }
         case UPDATE_ADDRESSES:
             return {

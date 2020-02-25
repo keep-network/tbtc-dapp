@@ -1,19 +1,9 @@
 import React, { Component } from 'react'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import StatusIndicator from '../svgs/StatusIndicator'
-import { broadcastTransaction } from '../../actions'
 
 class Confirming extends Component {
-  componentDidMount() {
-    const { broadcastTransaction, txHash } = this.props
-
-    if (! txHash) {
-      broadcastTransaction()
-    }
-  }
-
   handleClickButton = () => {
     const { txHash } = this.props
 
@@ -87,16 +77,6 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(
-    {
-      broadcastTransaction
-    },
-    dispatch
-  )
-}
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
 )(Confirming)

@@ -3,6 +3,8 @@ import classnames from 'classnames'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
+import { BitcoinHelpers } from "@keep-network/tbtc.js"
+
 import StatusIndicator from '../svgs/StatusIndicator'
 import TLogo from '../svgs/tlogo'
 import Check from '../svgs/Check'
@@ -10,7 +12,6 @@ import X from '../svgs/X'
 import { saveAddresses } from '../../actions'
 
 import web3 from 'web3'
-import bcoin from 'bcoin/lib/bcoin-browser'
 
 class Start extends Component {
 
@@ -49,9 +50,7 @@ class Start extends Component {
 
   verifyBtcAddress = (btcAddress) => {
     try {
-      const bcoinScript = bcoin.Script.fromAddress(btcAddress)
-
-      return bcoinScript.getWitnessPubkeyhash() != null
+      return BitcoinHelpers.Address.pubKeyHashFrom(btcAddress)
     } catch (err) {
       console.log("Error parsing BTC address: ", btcAddress, err)
       return false
