@@ -223,7 +223,7 @@ export function* autoSubmitDepositProof() {
         type: BTC_TX_CONFIRMED_WAIT
     })
 
-    yield autoSubmission.resolvedConfirmations
+    yield autoSubmission.fundingConfirmations
 
     // when it's finally sufficiently confirmed, dispatch the txid
     yield put({
