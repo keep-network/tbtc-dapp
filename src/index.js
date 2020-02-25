@@ -16,11 +16,6 @@ import {
   Home
 } from './components'
 
-
-import RopstenAnnouncementNewsItem from './components/news/2020-02-14-ropsten'
-import TBTCJSNewsItem from './components/news/2020-02-14-announcing-tbtc-js'
-
-
 import {
   Start as StartDeposit,
   Invoice,
@@ -78,8 +73,6 @@ function AppWrapper() {
         <Web3Wrapper>
           <App>
             <Route path="/" exact component={Home} />
-            <Route path="/news/2020-02-14-ropsten" exact component={RopstenAnnouncementNewsItem} />
-            <Route path="/news/2020-02-14-announcing-tbtc-js" exact component={TBTCJSNewsItem} />
             <Route path="/deposit" exact component={StartDeposit} />
             <Route path="/deposit/new" component={Invoice} />
             <Route path="/deposit/:address/get-address" component={GetAddress} />
@@ -163,47 +156,13 @@ const mapDispatchToProps = (dispatch) => {
 
 const Loadable = connect(null, mapDispatchToProps)(withAccount(LoadableBase))
 
-// Compose our static Landing Page
-function StaticWrapper() {
-  return (
-    <Provider store={store}>
-      <Router history={history}>
-            <Route path="/news/2020-02-14-ropsten" exact>
-                <App>
-                    <RopstenAnnouncementNewsItem />
-                </App>
-              </Route>
-            <Route path="/news/2020-02-14-announcing-tbtc-js" exact>
-                <App>
-                    <TBTCJSNewsItem />
-                </App>
-            </Route>
-            <Route path="/" exact>
-                <App>
-                    <Home noEntry={true} />
-                </App>
-            </Route>
-      </Router>
-    </Provider>
-  )
-}
-
-// Are we building a static bundle or running a live app?
-let Entry
-
-if (process.env.REACT_APP_STATIC) {
-  Entry = StaticWrapper
-} else {
-  Entry = AppWrapper
-}
-
 // Render to DOM
 window.addEventListener('load', () => {
   const rootElement = document.getElementById("root");
 
   if (rootElement.hasChildNodes()) {
-    hydrate(<Entry />, rootElement)
+    hydrate(<AppWrapper />, rootElement)
   } else {
-    render(<Entry />, rootElement)
+    render(<AppWrapper />, rootElement)
   }
 })
