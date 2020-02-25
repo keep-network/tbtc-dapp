@@ -34,8 +34,7 @@ export function restoreRedemptionState(depositAddress) {
 
 // Deposit
 export const REQUEST_A_DEPOSIT = 'REQUEST_A_DEPOSIT'
-export const WAIT_CONFIRMATION = 'WAIT_CONFIRMATION'
-export const SUBMIT_DEPOSIT_PROOF = 'SUBMIT_DEPOSIT_PROOF'
+export const AUTO_SUBMIT_DEPOSIT_PROOF = 'AUTO_SUBMIT_DEPOSIT_PROOF'
 
 export function requestADeposit() {
     return {
@@ -43,15 +42,9 @@ export function requestADeposit() {
     }
 }
 
-export function waitConfirmation() {
+export function autoSubmitDepositProof() {
     return {
-        type: WAIT_CONFIRMATION,
-    }
-}
-
-export function submitDepositProof() {
-    return {
-        type: SUBMIT_DEPOSIT_PROOF,
+        type: AUTO_SUBMIT_DEPOSIT_PROOF,
     }
 }
 

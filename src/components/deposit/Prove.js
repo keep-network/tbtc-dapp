@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { useParams, withRouter } from 'react-router-dom'
 
-import { submitDepositProof } from '../../actions'
 import StatusIndicator from '../svgs/StatusIndicator'
 
 function Prove(props) {
@@ -15,10 +13,6 @@ class ProveComponent extends Component {
   handleClickProve = (evt) => {
     evt.preventDefault()
     evt.stopPropagation()
-
-    const { submitDepositProof } = this.props
-
-    submitDepositProof()
   }
 
   render() {
@@ -72,16 +66,6 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(
-      {
-        submitDepositProof
-      },
-      dispatch
-  )
-}
-
 export default withRouter(connect(
   mapStateToProps,
-  mapDispatchToProps
 )(Prove))

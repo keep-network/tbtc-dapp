@@ -4,8 +4,9 @@ import {
     restoreDepositState,
     restoreRedemptionState,
     requestADeposit,
-    waitConfirmation,
-    proveDeposit } from './deposit'
+    autoSubmitDepositProof 
+} from './deposit'
+
 import {
     saveAddresses,
     requestRedemption,
@@ -17,8 +18,7 @@ import {
     RESTORE_DEPOSIT_STATE,
     RESTORE_REDEMPTION_STATE,
     REQUEST_A_DEPOSIT,
-    WAIT_CONFIRMATION,
-    SUBMIT_DEPOSIT_PROOF,
+    AUTO_SUBMIT_DEPOSIT_PROOF,
     SAVE_ADDRESSES,
     REQUEST_REDEMPTION,
     BUILD_TRANSACTION_AND_SUBMIT_SIGNATURE,
@@ -30,8 +30,7 @@ export default function* () {
     yield takeLatest(RESTORE_DEPOSIT_STATE, restoreDepositState)
     yield takeLatest(RESTORE_REDEMPTION_STATE, restoreRedemptionState)
     yield takeLatest(REQUEST_A_DEPOSIT, requestADeposit)
-    yield takeLatest(WAIT_CONFIRMATION, waitConfirmation)
-    yield takeLeading(SUBMIT_DEPOSIT_PROOF, proveDeposit)
+    yield takeLatest(AUTO_SUBMIT_DEPOSIT_PROOF, autoSubmitDepositProof)
     yield takeLatest(SAVE_ADDRESSES, saveAddresses)
     yield takeLatest(REQUEST_REDEMPTION, requestRedemption)
     yield takeLatest(BUILD_TRANSACTION_AND_SUBMIT_SIGNATURE, buildTransactionAndSubmitSignature)
