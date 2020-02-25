@@ -10,7 +10,7 @@ const Header = props => (
     </div>
     { 
       // TODO: remove when proper CMS is selected
-      window.location.pathname == '/' || window.location.pathname.startsWith('/news')
+      window.location.pathname === '/' || window.location.pathname.startsWith('/news')
       ? null
       : <Web3Status />  
     }

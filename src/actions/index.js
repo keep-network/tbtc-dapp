@@ -1,5 +1,3 @@
-const web3 = require('web3')
-
 // Account setup.
 export const SET_ETHEREUM_ACCOUNT = 'SET_ETHEREUM_ACCOUNT'
 
