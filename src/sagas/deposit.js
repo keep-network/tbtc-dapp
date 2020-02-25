@@ -32,7 +32,6 @@ export const DEPOSIT_PROVE_BTC_TX_ERROR = 'DEPOSIT_PROVE_BTC_TX_ERROR'
 function* restoreState(nextStepMap, stateKey) {
     /** @type {TBTC} */
     const tbtc = yield TBTCLoaded
-    global.tbtc = tbtc
 
     const depositAddress = yield select(state => state[stateKey].depositAddress)
     const deposit = yield tbtc.Deposit.withAddress(depositAddress)
