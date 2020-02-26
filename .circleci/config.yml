@@ -12,56 +12,6 @@ orbs:
   gcp-gcr: circleci/gcp-gcr@0.0.4
 
 jobs:
-  test_client:
-    executor: docker-node
-    working_directory: ~/project/client
-    steps:
-      - checkout:
-          path: ~/project
-
-      # Download and cache dependencies.
-      - restore_cache:
-          keys:
-            # When lock file changes, use increasingly general patterns to restore cache.
-            - v1-client-npm-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
-            - v1-client-npm-deps-{{ .Branch }}-
-            - v1-client-npm-deps-
-      - run: npm install
-      - save_cache:
-          key: v1-client-npm-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
-          paths:
-            - node_modules
-
-      # Run tests.
-      - run:
-          name: Run NPM tests
-          command: npm run test:setup && npm run test
-
-  test_tbtc_helpers:
-    executor: docker-node
-    working_directory: ~/project/lib/tbtc-helpers
-    steps:
-      - checkout:
-          path: ~/project
-
-      # Download and cache dependencies.
-      - restore_cache:
-          keys:
-            # When lock file changes, use increasingly general patterns to restore cache.
-            - v1-helpers-npm-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
-            - v1-helpers-npm-deps-{{ .Branch }}-
-            - v1-helpers-npm-deps-
-      - run: npm install
-      - save_cache:
-          key: v1-helpers-npm-deps-{{ checksum "package-lock.json" }}
-          paths:
-            - node_modules
-
-      # Run tests.
-      - run:
-          name: Run NPM tests
-          command: npm test
-
   build_dapp:
     executor: docker-thesis-buildpack
     steps:
@@ -110,12 +60,6 @@ jobs:
 
 workflows:
   version: 2
-  client:
-    jobs:
-      - test_client
-  tbtc_helpers:
-    jobs:
-      - test_tbtc_helpers
   dapp_keep_dev:
     jobs:
       - build_dapp:

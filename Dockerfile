@@ -13,11 +13,7 @@ RUN apk add --update --no-cache \
 COPY package.json /app/package.json
 COPY package-lock.json /app/package-lock.json
 
-## Copy dependencies referenced as a file path.
-COPY client/ /app/client/
-COPY lib/ /app/lib/
-
-RUN npm install
+RUN npm ci
 
 COPY . /app
 
