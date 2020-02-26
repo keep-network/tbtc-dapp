@@ -74,10 +74,6 @@ jobs:
             echo $GCLOUD_SERVICE_KEY_GET_BUCKET_OBJECT > ~/gcloud-service-key.json
             gcloud auth activate-service-account --key-file ~/gcloud-service-key.json
       - run:
-          name: Fetch contract artifacts
-          command: |
-            ./scripts/fetch-contracts.sh
-      - run:
           name: Run Docker build
           command: |
             docker build -t build --target build .
