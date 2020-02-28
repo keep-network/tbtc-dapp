@@ -44,11 +44,6 @@ class ProveComponent extends Component {
               : 'Finally, let’s submit proof to the sidechain and get you your tBTC.'
             }
           </div>
-          <div className={`cta ${provingDeposit ? 'disabled' : ''}`}>
-            <a href="/deposit/congratulations" onClick={this.handleClickProve}>
-              Submit Proof >>>
-            </a>
-          </div>
           <div className="error">
             { proveDepositError }
           </div>
