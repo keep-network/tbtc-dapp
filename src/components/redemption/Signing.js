@@ -1,17 +1,8 @@
 import React, { Component } from 'react'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
 
 import StatusIndicator from '../svgs/StatusIndicator'
-import { buildTransactionAndSubmitSignature } from '../../actions'
 
 class Signing extends Component {
-  componentDidMount() {
-    const { buildTransactionAndSubmitSignature } = this.props
-
-    buildTransactionAndSubmitSignature()
-  }
-
   render() {
     return (
       <div className="confirming">
@@ -35,17 +26,5 @@ class Signing extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(
-    {
-      buildTransactionAndSubmitSignature
-    },
-    dispatch
-  )
-}
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(Signing)
+export default Signing
 

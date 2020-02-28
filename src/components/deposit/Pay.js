@@ -2,10 +2,15 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { waitConfirmation } from '../../actions'
+import { autoSubmitDepositProof } from '../../actions'
 import QRCode from 'qrcode.react'
 import StatusIndicator from '../svgs/StatusIndicator'
 import { useParams } from "react-router-dom"
+
+import { BitcoinHelpers } from '@keep-network/tbtc.js'
+
+import BigNumber from "bignumber.js"
+BigNumber.set({ DECIMAL_PLACES: 8 })
 
 function Pay(props) {
   const params = useParams()
@@ -21,9 +26,9 @@ class PayComponent extends Component {
   }
 
   componentDidMount() {
-    const { waitConfirmation } = this.props
+    const { autoSubmitDepositProof } = this.props
 
-    waitConfirmation()
+    autoSubmitDepositProof()
   }
 
   copyAddress = (evt) => {
@@ -34,7 +39,9 @@ class PayComponent extends Component {
   }
 
   render() {
-    const { btcAddress, btcConfirming, lotInBtc, signerFeeInBtc } = this.props
+    const { btcAddress, btcConfirming, lotInSatoshis, signerFeeInSatoshis } = this.props
+    const lotInBtc = (new BigNumber(lotInSatoshis.toString())).div(BitcoinHelpers.satoshisPerBtc.toString())
+    const signerFeeInBtc = (new BigNumber(signerFeeInSatoshis.toString())).div(BitcoinHelpers.satoshisPerBtc.toString())
 
     const { copied } = this.state
     let renderTop, renderTitle, renderCopyAddress, descriptionText, step;
@@ -136,15 +143,15 @@ const mapStateToProps = (state, ownProps) => {
     btcAddress: state.deposit.btcAddress,
     depositAddress: state.deposit.depositAddress,
     btcConfirming: state.deposit.btcConfirming,
-    lotInBtc: state.deposit.lotInBtc,
-    signerFeeInBtc: state.deposit.signerFeeInBtc,
+    lotInSatoshis: state.deposit.lotInSatoshis,
+    signerFeeInSatoshis: state.deposit.signerFeeInSatoshis,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      waitConfirmation
+      autoSubmitDepositProof
     },
     dispatch
   )

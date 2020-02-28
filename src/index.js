@@ -81,7 +81,6 @@ function AppWrapper() {
             <Route path="/news/2020-02-14-ropsten" exact component={RopstenAnnouncementNewsItem} />
             <Route path="/news/2020-02-14-announcing-tbtc-js" exact component={TBTCJSNewsItem} />
             <Route path="/deposit" exact component={StartDeposit} />
-            <Route path="/deposit" exact component={StartDeposit} />
             <Route path="/deposit/new" component={Invoice} />
             <Route path="/deposit/:address/get-address" component={GetAddress} />
             <Route path="/deposit/:address/pay" exact>
@@ -128,18 +127,18 @@ function LoadableBase({ children, account, setEthereumAccount, restoreDepositSta
   const depositStateRestored = useSelector((state) => state[restorer].stateRestored)
   const stateAccount = useSelector((state) => state.account)
 
-  if (account && account != stateAccount) {
+  if (account && account !== stateAccount) {
     setEthereumAccount(account)
   }
 
   if (address && ! depositStateRestored) {
     if (stateAccount) {
-      if (restorer == RESTORER.DEPOSIT) {
+      if (restorer === RESTORER.DEPOSIT) {
         restoreDepositState(address)
-      } else if (restorer == RESTORER.REDEMPTION) {
+      } else if (restorer === RESTORER.REDEMPTION) {
         restoreRedemptionState(address)
       } else {
-        throw "Unknown restorer."
+        throw new Error("Unknown restorer.")
       }
     }
 

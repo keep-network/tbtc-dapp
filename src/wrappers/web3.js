@@ -1,20 +1,45 @@
 import React, { Component } from 'react'
 import Web3 from 'web3'
-import { setDefaults } from 'tbtc-client'
+import TBTC from '@keep-network/tbtc.js'
 
 const Web3Context = React.createContext({})
 
-let web3loaded = false
+let loadedWeb3 = null
 export let Web3Loaded = new Promise((resolve, _) => {
     function checkAndResolve() {
-        if (web3loaded) {
-            resolve(true)
+        if (loadedWeb3) {
+            resolve(loadedWeb3)
         } else {
             setTimeout(checkAndResolve, 100)
         }
     }
 
     checkAndResolve()
+})
+
+export let TBTCLoaded = Web3Loaded.then((web3) => {
+    web3.eth.defaultAccount = global.ethereum.selectedAddress
+    return TBTC.withConfig({
+        web3: web3,
+        bitcoinNetwork: "testnet",
+        electrum: {
+            "testnet": {
+                "server": "electrumx-server.test.tbtc.network",
+                "port": 50002,
+                "protocol": "ssl"
+            },
+            "testnetPublic": {
+                "server": "testnet1.bauerj.eu",
+                "port": 50002,
+                "protocol": "ssl"
+            },
+            "testnetWS": {
+                "server": "electrumx-server.test.tbtc.network",
+                "port": 50003,
+                "protocol": "ws"
+            }
+        },
+    })
 })
 
 class Web3Wrapper extends Component {
@@ -39,7 +64,7 @@ class Web3Wrapper extends Component {
                 await this.getAndSetAccountInfo()
 
                 this.setState({ loading: false })
-                web3loaded = true
+                loadedWeb3 = this.state.web3
 
                 // Watch for changes
                 provider = this.state.web3.eth.currentProvider
@@ -57,25 +82,12 @@ class Web3Wrapper extends Component {
             if (accounts.length && accounts[0] !== currentAccount) {
                 const balance = await this.getBalanceForAccount(accounts[0])
 
-                await this.initialiseContracts()
-
                 this.setState({
                     balance,
                     account: accounts[0]
                 })
             }
         }
-    }
-
-    initialiseContracts = async () => {
-        const { web3 } = this.state
-        // TruffleContract was built to use web3 0.3.0, which uses an API method of `sendAsync`
-        // in later versions of web (1.0.0), this method was renamed to `send`
-        // This hack makes them work together again.
-        // https://github.com/ethereum/web3.js/issues/1119
-        web3.providers.HttpProvider.prototype.sendAsync = web3.providers.HttpProvider.prototype.send
-
-        await setDefaults(web3)
     }
 
     getBalanceForAccount = async (account) => {

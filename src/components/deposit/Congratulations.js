@@ -1,11 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { useParams } from 'react-router-dom'
 
 import StatusIndicator from '../svgs/StatusIndicator'
 import TLogo from '../svgs/tlogo'
+import { BitcoinHelpers } from '@keep-network/tbtc.js'
 
-const Congratulations = ({ depositAddress }) => {
+import BigNumber from "bignumber.js"
+BigNumber.set({ DECIMAL_PLACES: 8 })
+
+const Congratulations = ({ depositAddress, lotInSatoshis, signerFeeInSatoshis }) => {
+  const mintedSatoshis = lotInSatoshis.sub(signerFeeInSatoshis)
+  const lotInTbtc = (new BigNumber(mintedSatoshis.toString())).div(BitcoinHelpers.satoshisPerBtc.toString())
+
   return <div className="congratulations">
     <div className="page-top">
       <StatusIndicator purple>
@@ -22,7 +28,7 @@ const Congratulations = ({ depositAddress }) => {
       <hr />
       <div className="description">
         <div className="description-content">
-          You are now the proud beneficiary of 1 TBTC
+          You are now the proud beneficiary of {lotInTbtc.toNumber()} TBTC
         </div>
         <div className="bond-duration">
           Bond duration: 6 months
@@ -44,7 +50,9 @@ const Congratulations = ({ depositAddress }) => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    depositAddress: state.deposit.depositAddress
+    depositAddress: state.deposit.depositAddress,
+    lotInSatoshis: state.deposit.lotInSatoshis,
+    signerFeeInSatoshis: state.deposit.signerFeeInSatoshis,
   }
 }
 

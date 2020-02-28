@@ -1,22 +1,11 @@
 import React, { Component } from 'react'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { submitRedemptionProof } from '../../actions'
 import StatusIndicator from '../svgs/StatusIndicator'
 
 class Prove extends Component {
-  handleClickProve = (evt) => {
-    evt.preventDefault()
-    evt.stopPropagation()
-
-    const { submitRedemptionProof } = this.props
-
-    submitRedemptionProof()
-  }
-
   render() {
-    const { provingRedemption, proveRedemptionError } = this.props
+    const { proveRedemptionError } = this.props
 
     return (
       <div className="prove">
@@ -32,16 +21,7 @@ class Prove extends Component {
           </div>
           <hr />
           <div className="description">
-            Finally, let’s submit proof to the sidechain and get you your BTC.
-          </div>
-          <div className="cta">
-            <button
-              onClick={this.handleClickProve}
-              disabled={provingRedemption}
-              className="black"
-              >
-              Redeem BTC
-            </button>
+            Finally, we are submitting proof to the sidechain and get you your BTC.
           </div>
           <div className="error">
             { proveRedemptionError }
@@ -60,16 +40,6 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(
-      {
-        submitRedemptionProof
-      },
-      dispatch
-  )
-}
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
 )(Prove)

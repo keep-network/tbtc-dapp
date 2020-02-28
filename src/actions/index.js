@@ -1,5 +1,3 @@
-const web3 = require('web3')
-
 // Account setup.
 export const SET_ETHEREUM_ACCOUNT = 'SET_ETHEREUM_ACCOUNT'
 
@@ -36,8 +34,7 @@ export function restoreRedemptionState(depositAddress) {
 
 // Deposit
 export const REQUEST_A_DEPOSIT = 'REQUEST_A_DEPOSIT'
-export const WAIT_CONFIRMATION = 'WAIT_CONFIRMATION'
-export const SUBMIT_DEPOSIT_PROOF = 'SUBMIT_DEPOSIT_PROOF'
+export const AUTO_SUBMIT_DEPOSIT_PROOF = 'AUTO_SUBMIT_DEPOSIT_PROOF'
 
 export function requestADeposit() {
     return {
@@ -45,25 +42,15 @@ export function requestADeposit() {
     }
 }
 
-export function waitConfirmation() {
+export function autoSubmitDepositProof() {
     return {
-        type: WAIT_CONFIRMATION,
-    }
-}
-
-export function submitDepositProof() {
-    return {
-        type: SUBMIT_DEPOSIT_PROOF,
+        type: AUTO_SUBMIT_DEPOSIT_PROOF,
     }
 }
 
 // Redemption
 export const SAVE_ADDRESSES = 'SAVE_ADDRESSES'
 export const REQUEST_REDEMPTION = 'REQUEST_REDEMPTION'
-export const BUILD_TRANSACTION_AND_SUBMIT_SIGNATURE = 'BUILD_TRANSACTION_AND_SUBMIT_SIGNATURE'
-export const BROADCAST_TRANSACTION = 'BROADCAST_TRANSACTION'
-export const POLL_FOR_CONFIRMATION = 'POLL_FOR_CONFIRMATION'
-export const SUBMIT_REDEMPTION_PROOF = 'SUBMIT_REDEMPTION_PROOF'
 
 export function saveAddresses({ btcAddress, depositAddress }) {
     return {
@@ -78,30 +65,6 @@ export function saveAddresses({ btcAddress, depositAddress }) {
 export function requestRedemption() {
     return {
         type: REQUEST_REDEMPTION,
-    }
-}
-
-export function buildTransactionAndSubmitSignature() {
-    return {
-        type: BUILD_TRANSACTION_AND_SUBMIT_SIGNATURE
-    }
-}
-
-export function broadcastTransaction() {
-    return {
-        type: BROADCAST_TRANSACTION
-    }
-}
-
-export function pollForConfirmations() {
-    return {
-        type: POLL_FOR_CONFIRMATION
-    }
-}
-
-export function submitRedemptionProof() {
-    return {
-        type: SUBMIT_REDEMPTION_PROOF
     }
 }
 

@@ -8,7 +8,7 @@ import {
   DEPOSIT_PROVE_BTC_TX_SUCCESS,
   DEPOSIT_PROVE_BTC_TX_ERROR,
   DEPOSIT_REQUEST_BEGIN,
-  DEPOSIT_PUBKEY_PUBLISHED,
+  DEPOSIT_RESOLVED,
   DEPOSIT_STATE_RESTORED,
 } from "../sagas/deposit"
 import { RESTORE_DEPOSIT_STATE } from "../actions"
@@ -47,10 +47,11 @@ const deposit = (state = initialState, action) => {
         depositAddress: action.payload.depositAddress,
         invoiceStatus: 2
       }
-    case DEPOSIT_PUBKEY_PUBLISHED:
+    case DEPOSIT_RESOLVED:
       return {
         ...state,
-        invoiceStatus: 3
+        deposit: action.payload.deposit,
+        invoiceStatus: 2
       }
     case DEPOSIT_BTC_ADDRESS:
       return {
@@ -60,8 +61,8 @@ const deposit = (state = initialState, action) => {
     case DEPOSIT_BTC_AMOUNTS:
       return {
         ...state,
-        lotInBtc: action.payload.lotInBtc,
-        signerFeeInBtc: action.payload.signerFeeInBtc,
+        lotInSatoshis: action.payload.lotInSatoshis,
+        signerFeeInSatoshis: action.payload.signerFeeInSatoshis,
       }
     case BTC_TX_MINED:
       return {
