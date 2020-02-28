@@ -99,10 +99,15 @@ function* restoreState(nextStepMap, stateKey) {
                 type: DEPOSIT_STATE_RESTORED,
             })
 
+            const inVendingMachine = yield call([deposit, deposit.inVendingMachine])
+            if (depositState == tbtc.Deposit.State.ACTIVE && ! inVendingMachine) {
+                yield call([deposit, deposit.mintTBTC])
+            }
+
             // TODO Fork on active vs await
             yield put(navigateTo('/deposit/' + depositAddress + nextStep))
             break
-        
+
         // Funding failure states
         case tbtc.Deposit.State.FRAUD_AWAITING_BTC_FUNDING_PROOF:
         case tbtc.Deposit.State.FAILED_SETUP:
@@ -112,7 +117,7 @@ function* restoreState(nextStepMap, stateKey) {
         default:
             throw new Error(`Unexpected state ${depositState.toNumber()}.`)
     }
-    
+
     // Here, we need to look at the logs. getDepositBtcAddress submits a
     // signed tx to Metamask, so that's not what we need.
     //
