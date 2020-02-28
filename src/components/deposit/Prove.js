@@ -41,7 +41,7 @@ class ProveComponent extends Component {
             {
               provingDeposit
               ? 'Generating SPV and submitting to the sidechain...'
-              : 'Finally, let’s submit proof to the sidechain and get you your tBTC.'
+              : 'Finally, let’s submit proof to the sidechain and get you your TBTC.'
             }
           </div>
           <div className="error">
