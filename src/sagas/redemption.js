@@ -13,6 +13,7 @@ export const UPDATE_TRANSACTION_AND_SIGNATURE = 'UPDATE_TRANSACTION_AND_SIGNATUR
 export const UPDATE_TX_HASH = 'UPDATE_TX_HASH'
 export const UPDATE_CONFIRMATIONS = 'UPDATE_CONFIRMATIONS'
 export const POLL_FOR_CONFIRMATIONS_ERROR = 'POLL_FOR_CONFIRMATIONS_ERROR'
+export const REDEMPTION_REQUESTED = 'REDEMPTION_REQUESTED'
 export const REDEMPTION_PROVE_BTC_TX_BEGIN = 'REDEMPTION_PROVE_BTC_TX_BEGIN'
 export const REDEMPTION_PROVE_BTC_TX_SUCCESS = 'REDEMPTION_PROVE_BTC_TX_SUCCESS'
 export const REDEMPTION_PROVE_BTC_TX_ERROR = 'REDEMPTION_PROVE_BTC_TX_ERROR'
@@ -52,7 +53,19 @@ export function* requestRedemption() {
 export function* resumeRedemption() {
     /** @type {Deposit} */
     const deposit = yield select(state => state.redemption.deposit)
+    const existingRedemption = yield select(state => state.redemption.redemption)
+    if (existingRedemption) {
+        return // just one at a time please; FIXME should be handled better
+    }
+
     const redemption = yield call([deposit, deposit.getCurrentRedemption])
+
+    yield put({
+        type: REDEMPTION_REQUESTED,
+        payload: {
+            redemption
+        }
+    })
 
     yield* runRedemption(redemption)
 }

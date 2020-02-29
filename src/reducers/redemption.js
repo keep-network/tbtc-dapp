@@ -6,7 +6,8 @@ import {
     POLL_FOR_CONFIRMATIONS_ERROR,
     REDEMPTION_PROVE_BTC_TX_BEGIN,
     REDEMPTION_PROVE_BTC_TX_SUCCESS,
-    REDEMPTION_PROVE_BTC_TX_ERROR
+    REDEMPTION_PROVE_BTC_TX_ERROR,
+    REDEMPTION_REQUESTED
 } from '../sagas/redemption'
 
 import { RESTORE_REDEMPTION_STATE } from "../actions"
@@ -65,6 +66,11 @@ const redemption = (state = initialState, action) => {
             return {
                 ...state,
                 pollForConfirmationsError: action.payload.pollForConfirmationsError
+            }
+        case REDEMPTION_REQUESTED:
+            return {
+                ...state,
+                redemption: action.payload.redemption,
             }
         case REDEMPTION_PROVE_BTC_TX_BEGIN:
             return {
