@@ -8,30 +8,20 @@ toc::[]
 
 === Setup
 
-The dApp requires artifacts of the contracts deployed to the development environment.
-To fetch the latest artifacts run `npm run setup`. The command will download files
-stored in the Google Cloud. For initial configuration of the `gcloud` please refer
-to the https://github.com/keep-network/keep-core/blob/master/infrastructure/kube/keep-dev/kube-setup.org#first-time-with-this-environment[instructions].
+The dApp requires a version of the tbtc.js library corresponding to the
+environment being tested on. Versions with version `-pre*` are for the Keep
+internal testnet and _will not work_ with Ropsten. For Ropsten, look for
+versions of tbtc.js labeled `-rc*` instead. Clones of the`master` branch of
+this repository will by default use a `-pre*` version of the tbtc.js library;
+this version can be adjusted in the `package.json` file.
 
 === Run
 
 `npm start` runs the app in the development mode.<br>
 Open http://localhost:3000[http://localhost:3000] to view it in the browser.
 
-The page will reload if you make edits. You will also see any lint errors in the console.
-
-== Deployment
-
-Currently the dApp, and its landing page, are deployed using Firebase to
-tbtc.network on the `tbtc-prod` GCP project and cluster. Deploying a new build
-involves two steps:
-
-* `npm run publish` builds a static version of the site to `build/`
-* `firebase deploy` deploys the contents of `build/` to firebase
-
-If the local machine hasn't authed to firebase, `firebase deploy` should prompt
-for login. If the logged in user isn't authorized to run a deploy, check to see
-if that authorization can be added.
+The page will reload if you make edits. You will also see any lint errors in
+the console.
 
 == Docker
 
@@ -47,32 +37,19 @@ docker run -p 8080:80 tbtc-dapp
 
 This will expose the app under http://localhost:8080[http://localhost:8080].
 
-== Internal TestNet
+== Internal Testnet
 
-To access the internal tBTC TestNet you need to be connected to it via VPN.
-Contracts with which the app is interacting are deployed under the following
-addresses:
-
-|===
-| Name           | Address
-
-| `Deposit`        | 0xe94728C7572900d914178ab17D7bbc9af8C543A0
-| `DepositFactory` | 0xE54dDac3bDBe943b4b76343c72C02aF5369b9Aaf
-| `TBTCSystem`     | 0x20c0D2C470D9Afcb3846E694a0D9d6dB5ED11a6A
-| `TBTCConstants`  | 0xC9435e9722509aD5AA7B01eBB2F33bdA453A6E58
-| `TBTCToken`      | 0x5373196E86906312c87cB7A30b9461a946DD5C82
-| `ECDSAKeep`      | deployed via keep factory
-|===
+To access the internal Keep testnet you need to be connected to it via VPN.
+Contracts with which the app is interacting are deployed under an address that
+depends on the current deployment; the latest `tbtc.js` version with prerelease
+id `pre` should point to the deployed version.
 
 === MetaMask
 
-Add custom network to your MetaMask:
+To use the internal testnet, a custom network must be added to MetaMask:
 
 [cols="1,2"]
 |===
 | **RPC URL**| `http://eth-tx-node.default.svc.cluster.local:8545`
 | **ChainID**| `1101`
 |===
-
-NOTE: It was confirmed to work on Chrome browser, there were some problems with
-connection to the custom RPC on Firefox.
