@@ -13,7 +13,7 @@ request.
 
 1. Fork https://github.com/keep-network/tbtc-dapp[`keep-network/tbtc-dapp`]
 2. Clone your fork
-3. Follow the <<installation & build steps,README.adoc#setup>> in the
+3. Follow the <<README.adoc#setup,installation & build steps>> in the
    repository's top-level README.
 4. Setup the recommended <<Development Tooling>>.
 5. Open a PR against the `master` branch and describe the change you are
