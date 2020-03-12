@@ -24,7 +24,8 @@
         "build": "react-scripts --max_old_space_size=8192 build",
         "test": "react-scripts test --env=jsdom",
         "eject": "react-scripts eject",
-        "publish": "REACT_APP_STATIC=true npm run build"
+        "publish": "REACT_APP_STATIC=true npm run build",
+        "lint": "eslint ."
     },
     "eslintConfig": {
         "extends": "react-app"
