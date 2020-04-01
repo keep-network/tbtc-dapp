@@ -2,6 +2,7 @@
     "name": "tbtc-dapp",
     "version": "0.10.0-pre.0",
     "dependencies": {
+        "@keep-network/tbtc.js": ">0.10.0-pre <0.10.0-rc",
         "bignumber.js": "^9.0.0",
         "classnames": "^2.2.6",
         "history": "^4.9.0",
@@ -15,8 +16,7 @@
         "react-scripts": "3.0.1",
         "redux": "^4.0.4",
         "redux-saga": "^1.0.5",
-        "@keep-network/tbtc.js": ">0.10.0-pre <0.10.0-rc",
-        "web3": "^1.2.0"
+        "web3": "^1.2.6"
     },
     "scripts": {
         "start-js": "sleep 2 && react-scripts start",
