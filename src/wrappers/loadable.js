@@ -1,47 +1,56 @@
-import React, { Component } from 'react'
-import { useParams } from "react-router-dom"
-import { useSelector, connect } from "react-redux"
-import { bindActionCreators } from "redux"
-import { withAccount } from '../wrappers/web3'
-import { setEthereumAccount, restoreDepositState, restoreRedemptionState } from '../actions'
+import React, { useEffect } from 'react'
+import { Router, Route, useParams } from 'react-router-dom'
+import { bindActionCreators } from 'redux'
+import { connect, useSelector } from 'react-redux'
+import { restoreDepositState, restoreRedemptionState } from '../actions';
+import { useWeb3React } from '@web3-react/core'
 
 export const RESTORER = {
-    DEPOSIT: 'deposit',
-    REDEMPTION: 'redemption'
+  DEPOSIT: 'deposit',
+  REDEMPTION: 'redemption'
 }
 
-function LoadableBase({ children, account, setEthereumAccount, restoreDepositState, restoreRedemptionState, restorer }) {
+function LoadableBase({ children, account, restoreDepositState, restoreRedemptionState, restorer }) {
+    // Wait for web3 connected
+    const { active: web3Active } = useWeb3React()
     const { address } = useParams()
     const depositStateRestored = useSelector((state) => state[restorer].stateRestored)
-    const stateAccount = useSelector((state) => state.account)
-
-    if (account && account != stateAccount) {
-        setEthereumAccount(account)
-    }
-
-    if (address && !depositStateRestored) {
-        if (stateAccount) {
-            if (restorer == RESTORER.DEPOSIT) {
-                restoreDepositState(address)
-            } else if (restorer == RESTORER.REDEMPTION) {
-                restoreRedemptionState(address)
+    
+    useEffect(() => {
+        if(web3Active) {
+            if (address && ! depositStateRestored) {
+                if (restorer == RESTORER.DEPOSIT) {
+                    restoreDepositState(address)
+                } else if (restorer == RESTORER.REDEMPTION) {
+                    restoreRedemptionState(address)
+                } else {
+                    throw "Unknown restorer."
+                }
+                // return <div>Loading...</div>
             } else {
-                throw "Unknown restorer."
+                // FIXME How do we not render these if we're getting ready to transition to
+                // FIXME a new page?
+                // return children
             }
         }
+    }, [web3Active])
 
-        return <div>Loading...</div>
-    } else {
-        // FIXME How do we not render these if we're getting ready to transition to
-        // FIXME a new page?
-        return children
+    if(!depositStateRestored) {
+        return <div className="pay">
+            <div className="page-top">
+                <p>Loading...</p>
+            </div>
+            <div className="page-body">
+            </div>
+        </div>
     }
+    
+    return children
 }
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators(
         {
-            setEthereumAccount,
             restoreDepositState,
             restoreRedemptionState
         },
@@ -49,4 +58,6 @@ const mapDispatchToProps = (dispatch) => {
     );
 }
 
-export default connect(null, mapDispatchToProps)(withAccount(LoadableBase))
+const Loadable = connect(null, mapDispatchToProps)(LoadableBase)
+
+export default Loadable

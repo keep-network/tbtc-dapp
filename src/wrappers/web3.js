@@ -1,154 +1,92 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 import Web3 from 'web3'
 import TBTC from '@keep-network/tbtc.js'
+import { Web3ReactProvider, useWeb3React } from '@web3-react/core'
 
-const Web3Context = React.createContext({})
+import config from '../config/config.json'
 
-let loadedWeb3 = null
-export let Web3Loaded = new Promise((resolve, _) => {
-    function checkAndResolve() {
-        if (loadedWeb3) {
-            resolve(loadedWeb3)
-        } else {
-            setTimeout(checkAndResolve, 100)
-        }
+/**
+ * @typedef {Object} Deferred
+ * @property {(value) => void} resolve - A function to resolve the promise.
+ * @property {(error) => void} reject - A function to reject the promise.
+ * @property {Promise} promise - The promise whose resolution is deferred.
+ */
+/**
+ * Deferred is a Promise that can be resolved,
+ * at a later point in time.
+ * @return {Deferred} A deferred promise.
+ */
+function Deferred() {
+    let resolve
+    let reject
+
+    const promise = new Promise((res, rej) => {
+        resolve = res
+        reject = rej
+    })
+
+    return {
+        promise,
+        reject,
+        resolve
     }
+}
 
-    checkAndResolve()
-})
+let Web3LoadedDeferred = new Deferred()
+let TBTCLoadedDeferred = new Deferred()
 
-export let TBTCLoaded = Web3Loaded.then((web3) => {
-    web3.eth.defaultAccount = global.ethereum.selectedAddress
-    return TBTC.withConfig({
+export let Web3Loaded = Web3LoadedDeferred.promise
+export let TBTCLoaded = TBTCLoadedDeferred.promise
+
+const initializeContracts = async (web3, connector) => {
+    // Initialise default account.
+    const accounts = await web3.eth.getAccounts()
+    web3.eth.defaultAccount = accounts[0]
+
+    // Log the netId/chainId.
+    const netId = await web3.eth.net.getId()
+    const chainId = await web3.eth.getChainId()
+    console.debug(`netId: ${netId}\nchainId: ${chainId}`)
+
+    Web3LoadedDeferred.resolve(web3)
+    
+    const tbtc = await TBTC.withConfig({
         web3: web3,
         bitcoinNetwork: "testnet",
-        electrum: {
-            "testnet": {
-                "server": "electrumx-server.test.tbtc.network",
-                "port": 50002,
-                "protocol": "ssl"
-            },
-            "testnetPublic": {
-                "server": "testnet1.bauerj.eu",
-                "port": 50002,
-                "protocol": "ssl"
-            },
-            "testnetWS": {
-                "server": "electrumx-server.test.tbtc.network",
-                "port": 50003,
-                "protocol": "ws"
-            }
-        },
+        electrum: config.electrum
     })
-})
 
-class Web3Wrapper extends Component {
-    state = {
-        account: null,
-    }
+    TBTCLoadedDeferred.resolve(tbtc)
+}
 
-    connectDapp = () => {
-        let provider
-        if (typeof window.ethereum !== 'undefined'
-        || (typeof window.web3 !== 'undefined')) {
-            provider = window.ethereum || window.web3.currentProvider
+function getLibrary(provider, connector) {
+    const library = new Web3(provider)
+    return library
+}
 
-            this.setState({
-                loading: true,
-                web3: new Web3(provider)
-            }, async () => {
-                // Connect to web3 if not done yet
-                await this.state.web3.currentProvider.enable()
+const Web3ReactManager = ({ children }) => {
+    const { activate, active, library, connector } = useWeb3React()
 
-                // Initial fetch
-                await this.getAndSetAccountInfo()
-
-                this.setState({ loading: false })
-                loadedWeb3 = this.state.web3
-
-                // Watch for changes
-                provider = this.state.web3.eth.currentProvider
-                provider.on('networkChanged', this.getAndSetAccountInfo)
-                provider.on('accountsChanged', this.getAndSetAccountInfo)
-            })
+    useEffect(() => {
+        if(active) {
+            initializeContracts(library, connector)
         }
-    }
+    }, [active])
 
-    getAndSetAccountInfo = async () => {
-        const { account:currentAccount, web3 } = this.state
+    // Watch for changes:
+    // provider = this.state.web3.eth.currentProvider
+    // provider.on('networkChanged', this.getAndSetAccountInfo)
+    // provider.on('accountsChanged', this.getAndSetAccountInfo)
 
-        if (web3) {
-            const accounts = await web3.eth.getAccounts()
-            if (accounts.length && accounts[0] !== currentAccount) {
-                const balance = await this.getBalanceForAccount(accounts[0])
-
-                this.setState({
-                    balance,
-                    account: accounts[0]
-                })
-            }
-        }
-    }
-
-    getBalanceForAccount = async (account) => {
-        const { web3 } = this.state
-
-        if (web3) {
-            return await web3.eth.getBalance(account)
-        }
-    }
-
-    render() {
-        const { account, balance, loading, web3 } = this.state
-
-        const contextValue = {
-            account,
-            balance,
-            loading,
-            web3,
-            connectDapp: this.connectDapp
-        }
-
-        return (
-            <Web3Context.Provider value={contextValue}>
-                {this.props.children}
-            </Web3Context.Provider>
-        )
-    }
+    return children
 }
 
-function withWeb3(Child) {
-    return (props) => (
-        <Web3Context.Consumer>
-            {({ web3 }) => <Child {...props} web3={web3} />}
-        </Web3Context.Consumer>
-    )
+const Web3Wrapper = ({ children }) => {
+    return <Web3ReactProvider getLibrary={getLibrary}>
+        <Web3ReactManager>
+            {children}
+        </Web3ReactManager>
+    </Web3ReactProvider>
 }
 
-function withAccount(Child) {
-    return (props) => (
-        <Web3Context.Consumer>
-            {({ account }) => <Child {...props} account={account} />}
-        </Web3Context.Consumer>
-    )
-}
-
-function withBalance(Child) {
-    return (props) => (
-        <Web3Context.Consumer>
-            {({ balance }) => <Child {...props} balance={balance} />}
-        </Web3Context.Consumer>
-    )
-}
-
-function withConnectDapp(Child) {
-    return (props) => (
-        <Web3Context.Consumer>
-            {({ connectDapp, loading }) => <Child {...props} connectDapp={connectDapp} loading={loading} />}
-        </Web3Context.Consumer>
-    )
-}
-
-const Web3Consumer = Web3Context.Consumer
-export { Web3Consumer, withWeb3, withAccount, withBalance, withConnectDapp }
 export default Web3Wrapper
