@@ -2,6 +2,7 @@ import React, { Component, useReducer, useState } from 'react'
 import Check from '../svgs/Check'
 import { useWeb3React } from '@web3-react/core'
 import { InjectedConnector } from '@web3-react/injected-connector'
+import { LedgerConnector } from '../../connectors/ledger'
 
 const SUPPORTED_CHAIN_IDS = [
 	// Mainnet
@@ -22,12 +23,33 @@ const injectedConnector = new InjectedConnector({
 	supportedChainIds: SUPPORTED_CHAIN_IDS
 })
 
+const ledgerConnector = new LedgerConnector({
+	// We use the chainId of mainnet here to workaround an issue with the ledgerjs library.
+	// It currently throws an error for the default chainId of 1377 used by Geth/Ganache.
+	// 
+	// The `v` value in ECDSA sigs is typically used as a recovery ID, but we also encode it 
+	// differently depending on the chain to prevent transaction replay (the so called chainId of EIP155).
+	// 
+	// At some point, Ledger had to update their firmware, to swap from a uint8 chainId to a uint32 chainId [1].
+	// 
+	// They updated their client library with a 'workaround' [2], but it doesn't appear to work.
+	// 
+	// [1]: https://github.com/LedgerHQ/ledger-app-eth/commit/8260268b0214810872dabd154b476f5bb859aac0
+	// [2]: https://github.com/LedgerHQ/ledgerjs/blob/master/packages/web3-subprovider/src/index.js#L143
+    chainId: 1,
+	url: 'ws://localhost:8545'
+})
 // Wallets.
 const WALLETS = [
 	{
 		name: "Metamask",
 		icon: "/images/metamask-fox.svg",
 		showName: true
+	},
+	{
+		name: "Ledger",
+		icon: "/images/ledger.svg"
+	},
 	}
 ]
 
@@ -44,8 +66,15 @@ export const ConnectWalletDialog = ({ shown, onConnected }) => {
 	async function chooseWallet(wallet) {
 		setChosenWallet(wallet)
 
+		let connector
+		if (wallet == 'Ledger') {
+			connector = ledgerConnector
+		} else if (wallet == 'Metamask') {
+			connector = injectedConnector
+		}
+
 		try {
-			await activate(injectedConnector, undefined, true)
+			await activate(connector, undefined, true)
 			onConnected()
 		} catch(ex) {
 			setError(ex.toString())
