@@ -8,10 +8,18 @@ import { AbstractConnector } from '@web3-react/abstract-connector'
 
 /**
  * An implementation of a LedgerConnector for web3-react, based on the original
- * @web3-react/ledger-connector.
+ * `@web3-react/ledger-connector`.
  * 
- * Allows direct access to the LedgerJS client (useful for custom BTC logic), and 
- * uses WebSockets instead of HTTP JSON-RPC.
+ * Some differences:
+ * 
+ * 1. The original doesn't expose the LedgerJS client API. 
+ *    We will probably want access to this in future, eg. signing BTC transactions
+ * 
+ * 2. The original doesn't work with event subscriptions, as it assumes a HTTP RPC 
+ *    endpoint. Event subscriptions use `eth_subscribe`, which HttpProvider does not 
+ *    implement out-of-the-box. There are some packages, such as Metamask's 
+ *    eth-json-rpc-filters, which will implement a middleware to achieve this. Assuming 
+ *    a Websocket provider is simpler for our case.
  */
 export class LedgerConnector extends AbstractConnector {
   constructor({
