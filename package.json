@@ -19,7 +19,7 @@
         "web3": "^1.2.0"
     },
     "scripts": {
-        "start-js": "sleep 2 && react-scripts start",
+        "start-js": "react-scripts start",
         "start": "npm-run-all -p start-js",
         "build": "react-scripts --max_old_space_size=8192 build",
         "test": "react-scripts test --env=jsdom",
