@@ -1,8 +1,8 @@
 {
     "name": "tbtc-dapp",
-    "version": "0.10.0-pre.0",
+    "version": "0.12.0-pre",
     "dependencies": {
-        "@keep-network/tbtc.js": ">0.10.0-pre <0.10.0-rc",
+        "@keep-network/tbtc.js": ">0.12.0-pre <0.12.0-rc",
         "bignumber.js": "^9.0.0",
         "classnames": "^2.2.6",
         "history": "^4.9.0",
