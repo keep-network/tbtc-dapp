@@ -75,7 +75,7 @@ function* restoreState(nextStepMap, stateKey) {
             })
 
             const lotInSatoshis = yield call([deposit, deposit.getSatoshiLotSize])
-            const signerFeeTbtc = yield call([deposit.contract, deposit.contract.signerFee])
+            const signerFeeTbtc = yield call([deposit, deposit.getTbtcSignerFee])
             const signerFeeInSatoshis = signerFeeTbtc.div(tbtc.satoshisPerTbtc)
             yield put({
                 type: DEPOSIT_BTC_AMOUNTS,
@@ -95,6 +95,9 @@ function* restoreState(nextStepMap, stateKey) {
             // FIXME Check to see if we have a transaction in the mempool for
             // FIXME submitting funding proof, and update state accordingly.
 
+            // TODO Fork on active vs await
+            yield put(navigateTo('/deposit/' + depositAddress + nextStep))
+            
             yield put({
                 type: DEPOSIT_STATE_RESTORED,
             })
@@ -191,7 +194,7 @@ export function* requestADeposit() {
     })
 
     const lotInSatoshis = yield call([deposit, deposit.getSatoshiLotSize])
-    const signerFeeTbtc = yield call([deposit.contract, deposit.contract.signerFee])
+    const signerFeeTbtc = yield call([deposit, deposit.getTbtcSignerFee])
     const signerFeeInSatoshis = signerFeeTbtc.div(tbtc.satoshisPerTbtc)
     yield put({
         type: DEPOSIT_BTC_AMOUNTS,
