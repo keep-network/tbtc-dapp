@@ -20,7 +20,6 @@ jobs:
           name: Resolve latest tbtc.js
           command: |
             npm update @keep-network/tbtc.js
-            echo "Resolved tbtc.js version " $(jq '.dependencies["@keep-network/tbtc.js"]')
       - persist_to_workspace:
           root: .
           paths:
