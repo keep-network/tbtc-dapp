@@ -99,14 +99,14 @@ class Start extends Component {
           <div className="description">
           <div className={classnames("paste-field", { success: depositAddressIsValid, alert: depositAddressHasError })}>
               <label htmlFor="deposit-address">
-                What was your deposit address?
+                What was your TDT ID?
               </label>
               <input
                 type="text"
                 id="deposit-address"
                 onChange={this.handleDepositAddressChange}
                 value={depositAddress}
-                placeholder="Enter ETH Deposit Address"
+                placeholder="Enter TDT ID"
               />
               { depositAddressIsValid && <Check height="28px" width="28px" /> }
               { depositAddressHasError && <X height="28px" width="28px" /> }
