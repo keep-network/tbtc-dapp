@@ -50,7 +50,7 @@ class Start extends Component {
 
   verifyBtcAddress = (btcAddress) => {
     try {
-      return BitcoinHelpers.Address.pubKeyHashFrom(btcAddress)
+      return BitcoinHelpers.Address.toScript(btcAddress)
     } catch (err) {
       console.log("Error parsing BTC address: ", btcAddress, err)
       return false
