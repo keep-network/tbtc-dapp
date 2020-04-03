@@ -60,16 +60,16 @@ export const ConnectWalletDialog = ({ shown, onConnected }) => {
 			</header>
 			<p>This wallet will be used to sign transactions on Ethereum.</p>
 
-			<div className='wallets'>
+			<ul className='wallets unstyled-list'>
 				{
 					WALLETS.map(({ name, icon, showName }) => {
-						return <div className='wallet-option' onClick={() => chooseWallet(name)}>
+						return <li className='wallet-option' onClick={() => chooseWallet(name)}>
 							<img src={icon} />
 							{showName && name}
-						</div>
+						</li>
 					})
 				}
-			</div>
+			</ul>
 		</>
 	}
 
