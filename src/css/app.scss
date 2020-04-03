@@ -102,6 +102,11 @@ a {
             a {
                 color: unset;
             }
+
+            &:hover {
+                background: darken($lighter-grey, 5%);
+                cursor: pointer;
+            }
         }
     }
 
