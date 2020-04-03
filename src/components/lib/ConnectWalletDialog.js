@@ -79,7 +79,7 @@ export const ConnectWalletDialog = ({ shown, onConnected }) => {
 				<div className="title">Connect To A Wallet</div>
 			</header>
 			<p>Connecting to {chosenWallet} wallet...</p>
-			<p>{error}</p>
+			{ error && <p>{error}</p> }
 		</>
 	}
 
