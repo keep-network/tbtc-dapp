@@ -43,6 +43,9 @@
         display: flex;
         flex-direction: column;
         border: 1px solid black;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
 
         .wallet-option {
             flex: 1;
