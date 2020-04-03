@@ -17,23 +17,16 @@ function LoadableBase({ children, account, restoreDepositState, restoreRedemptio
     const depositStateRestored = useSelector((state) => state[restorer].stateRestored)
     
     useEffect(() => {
-        if(web3Active) {
-            if (address && ! depositStateRestored) {
-                if (restorer == RESTORER.DEPOSIT) {
-                    restoreDepositState(address)
-                } else if (restorer == RESTORER.REDEMPTION) {
-                    restoreRedemptionState(address)
-                } else {
-                    throw "Unknown restorer."
-                }
-                // return <div>Loading...</div>
+        if(web3Active && address && ! depositStateRestored) {
+            if (restorer == RESTORER.DEPOSIT) {
+                restoreDepositState(address)
+            } else if (restorer == RESTORER.REDEMPTION) {
+                restoreRedemptionState(address)
             } else {
-                // FIXME How do we not render these if we're getting ready to transition to
-                // FIXME a new page?
-                // return children
+                throw "Unknown restorer."
             }
         }
-    }, [web3Active])
+    }, [web3Active, address, depositStateRestored, restorer, restoreDepositState, restoreRedemptionState])
 
     if(!depositStateRestored) {
         return <div className="pay">
