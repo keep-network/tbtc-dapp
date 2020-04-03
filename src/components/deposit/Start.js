@@ -35,7 +35,7 @@ const Start = () => {
       </div>
       <hr />
       <div className="description">
-        <p>To mint tBTC, we first need to initiate a deposit. This is where we will send BTC.</p>
+        <p>To mint TBTC, we first need to initiate a deposit. This is where we will send BTC.</p>
         <p>This should take less than 1 minute.</p>
       </div>
       <div className='cta'>
