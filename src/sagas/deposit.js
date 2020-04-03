@@ -94,9 +94,6 @@ function* restoreState(nextStepMap, stateKey) {
             //
             // FIXME Check to see if we have a transaction in the mempool for
             // FIXME submitting funding proof, and update state accordingly.
-
-            // TODO Fork on active vs await
-            yield put(navigateTo('/deposit/' + depositAddress + nextStep))
             
             yield put({
                 type: DEPOSIT_STATE_RESTORED,
