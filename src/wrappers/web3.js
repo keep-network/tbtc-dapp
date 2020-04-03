@@ -59,9 +59,8 @@ const initializeContracts = async (web3, connector) => {
     TBTCLoadedDeferred.resolve(tbtc)
 }
 
-function getLibrary(provider, connector) {
-    const library = new Web3(provider)
-    return library
+function instantiateWeb3(provider, connector) {
+    return new Web3(provider)
 }
 
 const Web3ReactManager = ({ children }) => {
@@ -82,7 +81,7 @@ const Web3ReactManager = ({ children }) => {
 }
 
 const Web3Wrapper = ({ children }) => {
-    return <Web3ReactProvider getLibrary={getLibrary}>
+    return <Web3ReactProvider getLibrary={instantiateWeb3}>
         <Web3ReactManager>
             {children}
         </Web3ReactManager>
