@@ -2,17 +2,18 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: tbtc-dapp-http
-  namespace: tbtc
+  name: tbtc-dapp
+  namespace: default
+  annotations:
   labels:
     app: tbtc
     type: dapp
 spec:
   type: NodePort
   ports:
-  - name: tbtc-dapp-http-port
-    port: 80
+  - port: 80
     targetPort: 80
+    name: http-80
   selector:
     app: tbtc
     type: dapp
