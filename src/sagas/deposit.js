@@ -65,7 +65,7 @@ function* restoreState(nextStepMap, stateKey) {
         case tbtc.Deposit.State.AWAITING_WITHDRAWAL_SIGNATURE:
         case tbtc.Deposit.State.AWAITING_BTC_FUNDING_PROOF:
         case tbtc.Deposit.State.REDEEMED:
-        case tbtc.Deposit.State.ACTIVE: 
+        case tbtc.Deposit.State.ACTIVE:
             const btcAddress = yield call([deposit, deposit.getBitcoinAddress])
             yield put({
                 type: DEPOSIT_BTC_ADDRESS,
@@ -75,7 +75,7 @@ function* restoreState(nextStepMap, stateKey) {
             })
 
             const lotInSatoshis = yield call([deposit, deposit.getSatoshiLotSize])
-            const signerFeeTbtc = yield call([deposit.contract, deposit.contract.signerFee])
+            const signerFeeTbtc = yield call([deposit, deposit.getSignerFeeTBTC])
             const signerFeeInSatoshis = signerFeeTbtc.div(tbtc.satoshisPerTbtc)
             yield put({
                 type: DEPOSIT_BTC_AMOUNTS,
@@ -94,7 +94,7 @@ function* restoreState(nextStepMap, stateKey) {
             //
             // FIXME Check to see if we have a transaction in the mempool for
             // FIXME submitting funding proof, and update state accordingly.
-
+            
             yield put({
                 type: DEPOSIT_STATE_RESTORED,
             })
@@ -191,7 +191,7 @@ export function* requestADeposit() {
     })
 
     const lotInSatoshis = yield call([deposit, deposit.getSatoshiLotSize])
-    const signerFeeTbtc = yield call([deposit.contract, deposit.contract.signerFee])
+    const signerFeeTbtc = yield call([deposit, deposit.getSignerFeeTBTC])
     const signerFeeInSatoshis = signerFeeTbtc.div(tbtc.satoshisPerTbtc)
     yield put({
         type: DEPOSIT_BTC_AMOUNTS,

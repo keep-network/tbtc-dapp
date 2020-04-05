@@ -35,20 +35,14 @@ import {
 
 // Wrappers
 import Web3Wrapper from './wrappers/web3'
-import { withAccount } from './wrappers/web3'
+import Loadable, { RESTORER } from './wrappers/loadable'
 
 // Redux
 import sagas from './sagas'
 import reducers from './reducers'
 import history from './history'
 import { bindActionCreators } from 'redux';
-import { setEthereumAccount, restoreDepositState, restoreRedemptionState } from './actions';
 import { connect } from 'react-redux'
-
-const RESTORER = {
-  DEPOSIT: 'deposit',
-  REDEMPTION: 'redemption'
-}
 
 // Set up our store
 const sagaMiddleware = createSagaMiddleware()
@@ -115,46 +109,7 @@ function AppWrapper() {
   )
 }
 
-function LoadableBase({ children, account, setEthereumAccount, restoreDepositState, restoreRedemptionState, restorer }) {
-  const { address } = useParams()
-  const depositStateRestored = useSelector((state) => state[restorer].stateRestored)
-  const stateAccount = useSelector((state) => state.account)
 
-  if (account && account !== stateAccount) {
-    setEthereumAccount(account)
-  }
-
-  if (address && ! depositStateRestored) {
-    if (stateAccount) {
-      if (restorer === RESTORER.DEPOSIT) {
-        restoreDepositState(address)
-      } else if (restorer === RESTORER.REDEMPTION) {
-        restoreRedemptionState(address)
-      } else {
-        throw new Error("Unknown restorer.")
-      }
-    }
-
-    return <div>Loading...</div>
-  } else {
-    // FIXME How do we not render these if we're getting ready to transition to
-    // FIXME a new page?
-    return children
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(
-    {
-      setEthereumAccount,
-      restoreDepositState,
-      restoreRedemptionState
-    },
-    dispatch
-  );
-}
-
-const Loadable = connect(null, mapDispatchToProps)(withAccount(LoadableBase))
 
 // Render to DOM
 window.addEventListener('load', () => {

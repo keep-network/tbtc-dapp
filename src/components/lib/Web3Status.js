@@ -1,46 +1,37 @@
-import React, { Component } from 'react'
-
-import { withWeb3, withAccount, withConnectDapp } from '../../wrappers/web3'
+import React, { Component, useReducer, useState } from 'react'
 import Check from '../svgs/Check'
+import { useWeb3React } from '@web3-react/core'
+import { ConnectWalletDialog } from './ConnectWalletDialog'
 
-class Web3Status extends Component {
-  componentDidMount() {
-    this.props.connectDapp()
-  }
+export const Web3Status = (props) => {
+	const { active, error } = useWeb3React()
 
-  render() {
-    const { account, loading, web3 } = this.props
+	let [showConnectWallet, setShowConnectWallet] = useState(false)
 
-    if (loading) {
-      return (
-        <div className="web3-status loading">
-          loading...
-          </div>
-      )
-    }
-  
-    if (!web3) {
-      return (
-        <div className="web3-status alert">
-          Web3 not detected.  We suggest <a href="http://metamask.io" target="_blank" rel="noopener noreferrer">MetaMask</a>.
-          </div>
-      )
-    }
-  
-    if (!account) {
-      return (
-        <div className="web3-status notify">
-          Web3 detected, but you need to connect & log into an account.
-          </div>
-      )
-    }
-  
-    return (
-      <div className="web3-status success">
-        <Check width="15px" /> Account logged in
-      </div>
-    )
-  }
+	let body = <div>
+		<div className="web3-status loading">
+			Loading...
+		</div>
+	</div>
+	
+	if(!active) {
+		body = <div className="web3-status notify">
+			<span onClick={() => setShowConnectWallet(true)}>
+				Connect to a Wallet
+			</span>
+		</div>
+	}
+
+	else if(active) {
+		body = <div className="web3-status success">
+			<Check width="15px" /> Connected
+		</div>
+	}
+
+	return <div>
+		<ConnectWalletDialog onConnected={() => setShowConnectWallet(false)} shown={showConnectWallet} />
+		{body}
+	</div>
 }
 
-export default withConnectDapp(withWeb3(withAccount(Web3Status)))
+export default Web3Status
