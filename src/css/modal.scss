@@ -29,5 +29,43 @@
         padding: 20px 25px 40px 80px;
         width: #{$content-width};
         background-color: #{$white};
+        border: 1px solid black;
+    }
+}
+
+
+.modal.connect-wallet {
+    .modal-body {
+        padding: 20px 40px;
+    }
+
+    .wallets {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid black;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+
+        .wallet-option {
+            flex: 1;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid black;
+
+            &:last-child {
+                border-bottom: 0;
+            }
+
+            &:hover {
+                background-color: darken($white, 5%);
+                cursor: pointer;
+            }
+
+            img {
+                height: 30px;
+            }
+        }
     }
 }

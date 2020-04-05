@@ -38,7 +38,7 @@ const Congratulations = ({ depositAddress, lotInSatoshis, signerFeeInSatoshis })
           depositAddress && depositAddress.length > 0
           ? <div>
               <br />
-              <h3>Deposit Address:</h3>
+              <h3>TDT ID:</h3>
               { depositAddress }
             </div>
           : ''
