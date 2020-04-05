@@ -1,0 +1,14 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: tbtc-dapp
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.allow-http: "false"
+spec:
+  tls:
+  - secretName: dapp-test-tbtc-network
+  backend:
+    serviceName: tbtc-dapp
+    servicePort: 80
