@@ -4,7 +4,6 @@ kind: Service
 metadata:
   name: tbtc-dapp
   namespace: default
-  annotations:
   labels:
     app: tbtc
     type: dapp
