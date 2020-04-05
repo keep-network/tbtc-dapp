@@ -2,7 +2,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: tbtc-dapp-ingress
+  name: tbtc-dapp
   namespace: default
   annotations:
     kubernetes.io/ingress.allow-http: "false"
