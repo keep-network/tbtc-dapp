@@ -142,7 +142,7 @@ export const ConnectWalletDialog = ({ shown, onConnected, onClose }) => {
 	const ConnectedView = () => {
 		return <div className='connected-view'>
 			<header>
-				<div className="title">Connect To A Wallet</div>
+				<div className="title">Wallet connected</div>
 			</header>
 
 			<div className='details'>
