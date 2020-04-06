@@ -4,6 +4,33 @@ import { useWeb3React } from '@web3-react/core'
 import { InjectedConnector } from '@web3-react/injected-connector'
 import { LedgerConnector } from '../../connectors/ledger'
 
+const CHAINS = [
+	{
+		name: 'Mainnet',
+		id: 1,
+	},
+	{
+		name: 'Ropsten',
+		id: 3,
+	},
+	{
+		name: 'Rinkeby',
+		id: 4,
+	},
+	{
+		name: 'Kovan',
+		id: 42,
+	},
+	{
+		name: 'Ganache',
+		id: 1337,
+	},
+	{
+		name: 'Ganache',
+		id: 123,
+	}
+]
+
 const SUPPORTED_CHAIN_IDS = [
 	// Mainnet
 	1,
@@ -54,6 +81,7 @@ const WALLETS = [
 ]
 
 export const ConnectWalletDialog = ({ shown, onConnected, onClose }) => {
+	const { active, account, activate, chainId, connector } = useWeb3React()
 
 	let [chosenWallet, setChosenWallet] = useState(null)
 	let [error, setError] = useState(null)
@@ -118,6 +146,7 @@ export const ConnectWalletDialog = ({ shown, onConnected, onClose }) => {
 			</header>
 
 			<div className='details'>
+				<p>Chain: {CHAINS.filter(chain => chain.id == chainId)[0].name}</p>
 				<p>{chosenWallet}</p>
 				<p>
 					{account}
