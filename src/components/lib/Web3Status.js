@@ -23,13 +23,16 @@ export const Web3Status = (props) => {
 	}
 
 	else if(active) {
-		body = <div className="web3-status success">
+		body = <div className="web3-status success" onClick={() => setShowConnectWallet(true)}>
 			<Check width="15px" /> Connected
 		</div>
 	}
 
 	return <div>
-		<ConnectWalletDialog onConnected={() => setShowConnectWallet(false)} shown={showConnectWallet} />
+		<ConnectWalletDialog 
+			onConnected={() => setShowConnectWallet(false)} 
+			onClose={() => setShowConnectWallet(false)}
+			shown={showConnectWallet} />
 		{body}
 	</div>
 }
