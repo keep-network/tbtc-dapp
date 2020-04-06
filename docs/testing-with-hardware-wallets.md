@@ -14,31 +14,14 @@ To-Do.
 
 ## Trezor
 
-### Install and run emulator
+### Setup Software
 
-```bash
-git clone --recurse-submodules https://github.com/trezor/trezor-firmware.git\n
-cd trezor-firmware/core
-make build_unix
-./emu.py
-```
+ - Install and [run the emulator](https://docs.trezor.io/trezor-firmware/core/emulator/index.html)
+ - Install and run the [Trezor bridge daemon](https://github.com/trezor/trezord-go)
 
-### Install and run the `trezord` daemon
-
-```bash
-go get github.com/trezor/trezord-go
-go build github.com/trezor/trezord-go
-./trezord-go -e 21324
-```
-
-### Setup Trezor Wallet
-
-In order to start using Bitcoin testnet with Trezor, you need to run custom backend in Trezor Wallet.
-
-Follow the instructions in [their guide](https://wiki.trezor.io/Bitcoin_testnet).
 
 ### Send funds
 
-Connect to the wallet in Metamask, and deposit some ether for testing.
+Connect to the Trezor in Metamask, and deposit some ether for testing.
 
 Now you're ready!
