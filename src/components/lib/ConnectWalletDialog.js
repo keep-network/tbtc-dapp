@@ -112,7 +112,7 @@ export const ConnectWalletDialog = ({ shown, onConnected, onClose }) => {
 	const ChooseWalletStep = () => {
 		return <>
 			<header>
-				<div className="title">Connect To A Wallet</div>
+				<div className="title">Connect to a wallet</div>
 			</header>
 			<p>This wallet will be used to sign transactions on Ethereum.</p>
 
