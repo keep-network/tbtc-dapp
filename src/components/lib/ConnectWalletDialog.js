@@ -134,6 +134,15 @@ export const ConnectWalletDialog = ({ shown, onConnected, onClose }) => {
 			return <ErrorConnecting/>
 		}
 
+		if(chosenWallet == 'Ledger') {
+			return <>
+				<header>
+					<div className="title">Plug In Ledger & Enter Pin</div>
+				</header>
+				<p>Open Ethereum application and make sure Contract Data and Browser Support are enabled.</p>
+				<p>Connecting...</p>
+			</>
+		}
 
 		return <>
 			<header>
