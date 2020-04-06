@@ -130,11 +130,31 @@ export const ConnectWalletDialog = ({ shown, onConnected, onClose }) => {
 	}
 
 	const ConnectToWalletStep = () => {
+		if(error) {
+			return <ErrorConnecting/>
+		}
+
+
 		return <>
 			<header>
-				<div className="title">Connect To A Wallet</div>
+				<div className="title">Connect to a wallet</div>
 			</header>
 			<p>Connecting to {chosenWallet} wallet...</p>
+		</>
+	}
+
+	const ErrorConnecting = () => {
+		return <>
+			<header>
+				<div className="title">Connect to a wallet</div>
+			</header>
+			<p>Error connecting to {chosenWallet} wallet...</p>
+			<a onClick={async () => {
+				setError(null)
+				await chooseWallet(chosenWallet)
+			}}>
+				Try Again
+			</a>
 			{ error && <p>{error}</p> }
 		</>
 	}
