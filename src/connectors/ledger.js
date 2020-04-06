@@ -1,10 +1,14 @@
-import Web3 from "web3";
-import createLedgerSubprovider from "@ledgerhq/web3-subprovider";
-import TransportU2F from "@ledgerhq/hw-transport-u2f";
-import ProviderEngine from "web3-provider-engine";
+import createLedgerSubprovider from "@ledgerhq/web3-subprovider"
+import TransportWebUSB from "@ledgerhq/hw-transport-webusb"
+import TransportU2F from "@ledgerhq/hw-transport-u2f"
+import AppEth from '@ledgerhq/hw-app-eth'
+import { ConnectorUpdate } from '@web3-react/types'
+import { AbstractConnector } from '@web3-react/abstract-connector'
+import Web3ProviderEngine from 'web3-provider-engine'
+import { LedgerSubprovider } from '@0x/subproviders/lib/src/subproviders/ledger' // https://github.com/0xProject/0x-monorepo/issues/1400
+import CacheSubprovider from 'web3-provider-engine/subproviders/cache.js'
+import { RPCSubprovider } from '@0x/subproviders/lib/src/subproviders/rpc_subprovider' // https://github.com/0xProject/0x-monorepo/issues/1400
 import WebsocketSubprovider from 'web3-provider-engine/subproviders/websocket'
-import { AbstractConnector } from '@web3-react/abstract-connector' 
-
 
 /**
  * An implementation of a LedgerConnector for web3-react, based on the original
@@ -16,10 +20,8 @@ import { AbstractConnector } from '@web3-react/abstract-connector'
  *    We will probably want access to this in future, eg. signing BTC transactions
  * 
  * 2. The original doesn't work with event subscriptions, as it assumes a HTTP RPC 
- *    endpoint. Event subscriptions use `eth_subscribe`, which HttpProvider does not 
- *    implement out-of-the-box. There are some packages, such as Metamask's 
- *    eth-json-rpc-filters, which will implement a middleware to achieve this. Assuming 
- *    a Websocket provider is simpler for our case.
+ *    endpoint. Event subscriptions use `eth_subscribe`, which Ganache does not 
+ *    support out-of-the-box. Assuming a Websocket provider is simpler for our case.
  */
 export class LedgerConnector extends AbstractConnector {
   constructor({
@@ -30,42 +32,35 @@ export class LedgerConnector extends AbstractConnector {
     accountFetchingConfigs,
     baseDerivationPath
   }) {
-    super({
-      supportedChainIds: [chainId]
-    })
+    super({ supportedChainIds: [chainId] })
+
     this.chainId = chainId
     this.url = url
     this.pollingInterval = pollingInterval
     this.requestTimeoutMs = requestTimeoutMs
     this.accountFetchingConfigs = accountFetchingConfigs
     this.baseDerivationPath = baseDerivationPath
-
-    this.ledgerSubprovider = null
   }
 
-  /**
-   * @returns {Promise<Object>}
-   */
-  async activate(): Promise {
+  async activate(): Promise<ConnectorUpdate> {
     if (!this.provider) {
-      const engine = new ProviderEngine();
+      let ledgerEthereumClientFactoryAsync = async () => {
+        const ledgerConnection = await TransportU2F.create()
+        const ledgerEthClient = new AppEth(ledgerConnection)
+        return ledgerEthClient
+      }
 
-      const getTransport = () => TransportU2F.create();
-      const ledger = createLedgerSubprovider(getTransport, {
-        accountsLength: 1,
-        networkId: await this.getChainId()
-      })
-
-      this.ledgerSubprovider = ledger
-      
-      engine.addProvider(ledger)
-
-      engine.addProvider(new WebsocketSubprovider({ 
-        rpcUrl: this.url 
-      }))
-
-      engine.start()
-
+      const engine = new Web3ProviderEngine({ pollingInterval: this.pollingInterval })
+      engine.addProvider(
+        new LedgerSubprovider({
+          networkId: this.chainId,
+          ledgerEthereumClientFactoryAsync,
+          accountFetchingConfigs: this.accountFetchingConfigs,
+          baseDerivationPath: this.baseDerivationPath
+        })
+      )
+      engine.addProvider(new CacheSubprovider())
+      engine.addProvider(new WebsocketSubprovider({ rpcUrl: this.url }))
       this.provider = engine
     }
 
@@ -74,38 +69,16 @@ export class LedgerConnector extends AbstractConnector {
     return { provider: this.provider, chainId: this.chainId }
   }
 
-  /**
-   * @returns {Promise<Web3ProviderEngine>}
-   */
-  async getProvider() {
+  async getProvider(): Promise<Web3ProviderEngine> {
     return this.provider
   }
 
-  /**
-   * @returns {Promise<number>}
-   */
-  async getChainId() {
+  async getChainId(): Promise<number> {
     return this.chainId
   }
 
-  /**
-   * @returns {Promise<null>}
-   */
-  async getAccount() {
-    if (!this.provider) {
-      return null
-    }
-    
-    return new Promise((resolve, reject) => { 
-      console.debug(`Ledger - loading accounts...`)
-      this.ledgerSubprovider.getAccounts((error, accounts) => {
-        if(error) {
-          return reject(error)
-        }
-        console.debug(`Ledger - loaded ${accounts.length} accounts...`)
-        resolve(accounts[0])
-      })
-    })
+  async getAccount(): Promise<null> {
+    return this.provider._providers[0].getAccountsAsync(1).then((accounts: string[]): string => accounts[0])
   }
 
   deactivate() {
