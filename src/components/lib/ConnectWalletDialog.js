@@ -53,8 +53,7 @@ const WALLETS = [
 	}
 ]
 
-export const ConnectWalletDialog = ({ shown, onConnected }) => {
-	const { active, account, activate } = useWeb3React()
+export const ConnectWalletDialog = ({ shown, onConnected, onClose }) => {
 
 	let [chosenWallet, setChosenWallet] = useState(null)
 	let [error, setError] = useState(null)
@@ -130,6 +129,9 @@ export const ConnectWalletDialog = ({ shown, onConnected }) => {
 	return <div>
 		<div className={`modal connect-wallet ${shown ? 'open' : 'closed'}`}>
 			<div className="modal-body">
+				<div className="close">
+					<div className="x" onClick={onClose}>&#9587;</div>
+				</div>
 				{!chosenWallet && <ChooseWalletStep />}
 				{(chosenWallet && !active) && <ConnectToWalletStep />}
 				{(chosenWallet && active) && <ConnectedView />}
