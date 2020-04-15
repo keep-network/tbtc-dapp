@@ -45,7 +45,7 @@ export class LedgerConnector extends AbstractConnector {
    */
   async activate() {
     if (!this.provider) {
-      let ledgerEthereumClientFactory = async () => {
+      let ledgerEthereumClientFactoryAsync = async () => {
         const ledgerConnection = await TransportU2F.create()
         // Ledger will automatically timeout the U2F "sign" request after `exchangeTimeout` ms.
         // The default is set at an annoyingly low threshold, of 10,000ms, wherein the connection breaks
@@ -62,7 +62,7 @@ export class LedgerConnector extends AbstractConnector {
       engine.addProvider(
         new LedgerSubprovider({
           chainId: this.chainId,
-          ledgerEthereumClientFactory,
+          ledgerEthereumClientFactoryAsync,
           accountFetchingConfigs: this.accountFetchingConfigs,
           baseDerivationPath: this.baseDerivationPath
         })
