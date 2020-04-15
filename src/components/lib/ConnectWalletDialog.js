@@ -4,41 +4,15 @@ import { useWeb3React } from '@web3-react/core'
 import { InjectedConnector } from '@web3-react/injected-connector'
 import { LedgerConnector } from '../../connectors/ledger'
 
-const CHAINS = [
-	{
-		name: 'Mainnet',
-		id: 1,
-	},
-	{
-		name: 'Ropsten',
-		id: 3,
-	},
-	{
-		name: 'Rinkeby',
-		id: 4,
-	},
-	{
-		name: 'Kovan',
-		id: 42,
-	},
-	{
-		name: 'Ganache',
-		id: 1337,
-	},
-	{
-		name: 'Ganache',
-		id: 123,
-	}
-]
-
+const CHAIN_ID = process.env.CHAIN_ID || 1337
+const ETH_RPC_URL = process.env.ETH_RPC_URL || 'ws://localhost:8545'
 
 // Connectors.
 const injectedConnector = new InjectedConnector({})
 
 const ledgerConnector = new LedgerConnector({
-	// TODO: introduce CHAIN_ID and ETH_RPC_URL env variables.
-    chainId: process.env.CHAIN_ID || 1377,
-	url: 'ws://localhost:8545'
+    chainId: CHAIN_ID,
+	url: ETH_RPC_URL
 })
 
 // Wallets.
