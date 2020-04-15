@@ -46,7 +46,7 @@ class LedgerSubprovider extends LedgerSubprovider0x {
 
             // Set the EIP155 bits
             const vIndex = 6;
-            tx.raw[vIndex] = getBufferFromHex(this.chainId.toString(16)) // v
+            tx.raw[vIndex] = hexToPaddedBuffer(this.chainId.toString(16), 4) // v
             const rIndex = 7;
             tx.raw[rIndex] = Buffer.from([]); // r
             const sIndex = 8;
@@ -80,7 +80,7 @@ class LedgerSubprovider extends LedgerSubprovider0x {
             }
 
             // Store signature in transaction.
-            tx.v = getBufferFromHex(signedV.toString(16))
+            tx.v = hexToPaddedBuffer(signedV.toString(16), 4)
             tx.r = Buffer.from(response.r, 'hex')
             tx.s = Buffer.from(response.s, 'hex')
             
@@ -94,13 +94,16 @@ class LedgerSubprovider extends LedgerSubprovider0x {
     }
 }
 
-const getBufferFromHex = (hex) => {
-    hex = hex.substring(0, 2) == '0x' ? hex.substring(2) : hex
-    if (hex == '') {
-        return new Buffer('', 'hex')
-    }
-    const padLeft = hex.length % 2 != 0 ? '0' + hex : hex
-    return new Buffer(padLeft.toLowerCase(), 'hex')
+/**
+ * Pads a hex string with zeroes, and returns a buffer.
+ * @param {string} hexString The hex string, with/without the 0x prefix.
+ * @param {number} padLength Length to pad string to, in bytes.
+ * @return {Buffer} The padded hex as a Buffer.
+ */
+function hexToPaddedBuffer(hexString, padLength) {
+    hexString = hexString.startsWith('0x') ? hexString.slice(2) : hexString
+    hexString = hexString.padStart(padLength, '0')
+    return new Buffer(hexString, 'hex')
 }
 
 export { LedgerSubprovider }
