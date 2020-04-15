@@ -1,9 +1,9 @@
 {
     "name": "tbtc-dapp",
-    "version": "0.12.0-pre",
+    "version": "0.14.0-pre",
     "dependencies": {
         "@0x/subproviders": "^6.0.8",
-        "@keep-network/tbtc.js": ">0.12.0-pre <0.12.0-rc",
+        "@keep-network/tbtc.js": ">0.14.0-pre <0.14.0-rc",
         "@ledgerhq/hw-app-eth": "^5.12.2",
         "@ledgerhq/hw-transport-u2f": "^5.11.0",
         "@ledgerhq/web3-subprovider": "^5.11.0",
