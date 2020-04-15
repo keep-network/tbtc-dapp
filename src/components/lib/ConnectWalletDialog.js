@@ -66,11 +66,11 @@ export const ConnectWalletDialog = ({ shown, onConnected, onClose }) => {
 		error
 	}
 
-	async function chooseWallet(wallet, connector) {
+	async function chooseWallet(wallet) {
 		setChosenWallet(wallet)
 
 		try {
-			await activate(connector, undefined, true)
+			await activate(wallet.connector, undefined, true)
 			onConnected()
 		} catch(ex) {
 			setError(ex.toString())
@@ -87,10 +87,10 @@ export const ConnectWalletDialog = ({ shown, onConnected, onClose }) => {
 
 			<ul className='wallets'>
 				{
-					WALLETS.map(({ name, icon, showName, connector }) => {
-						return <li className='wallet-option' onClick={() => chooseWallet(name, connector)}>
-							<img src={icon} />
-							{showName && name}
+					WALLETS.map(wallet => {
+						return <li className='wallet-option' onClick={() => chooseWallet(wallet)}>
+							<img src={wallet.icon} />
+							{wallet.showName && wallet.name}
 						</li>
 					})
 				}
@@ -103,7 +103,7 @@ export const ConnectWalletDialog = ({ shown, onConnected, onClose }) => {
 			return <ErrorConnecting/>
 		}
 
-		if(chosenWallet == 'Ledger') {
+		if(chosenWallet.name == 'Ledger') {
 			return <>
 				<header>
 					<div className="title">Plug In Ledger & Enter Pin</div>
@@ -114,19 +114,15 @@ export const ConnectWalletDialog = ({ shown, onConnected, onClose }) => {
 		}
 
 		return <>
-			<header>
-				<div className="title">Connect to a wallet</div>
-			</header>
-			<p>Connecting to {chosenWallet} wallet...</p>
+			<div className="title">Connect to a wallet</div>
+			<p>Connecting to {chosenWallet.name} wallet...</p>
 		</>
 	}
 
 	const ErrorConnecting = () => {
 		return <>
-			<header>
-				<div className="title">Connect to a wallet</div>
-			</header>
-			<p>Error connecting to {chosenWallet} wallet...</p>
+			<div className="title">Connect to a wallet</div>
+			<p>Error connecting to {chosenWallet.name} wallet...</p>
 			<a onClick={async () => {
 				setError(null)
 				await chooseWallet(chosenWallet)
@@ -144,11 +140,8 @@ export const ConnectWalletDialog = ({ shown, onConnected, onClose }) => {
 			</header>
 
 			<div className='details'>
-				<p>Chain: {CHAINS.filter(chain => chain.id == chainId)[0].name}</p>
-				<p>{chosenWallet}</p>
-				<p>
-					{account}
-				</p>
+				<p>{chosenWallet.name}</p>
+				<p>Account: {account}</p>
 			</div>
 		</div>
 	}
