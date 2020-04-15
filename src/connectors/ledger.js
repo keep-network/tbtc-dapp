@@ -46,10 +46,12 @@ export class LedgerConnector extends AbstractConnector {
       let ledgerEthereumClientFactoryAsync = async () => {
         const ledgerConnection = await TransportU2F.create()
         // Ledger will automatically timeout the U2F "sign" request after `exchangeTimeout` ms.
-        // This will result in a cryptic error:
+        // The default is set at an annoyingly low threshold, of 10,000ms, wherein the connection breaks
+        // and throws this cryptic error:
         //   `{name: "TransportError", message: "Failed to sign with Ledger device: U2F DEVICE_INELIGIBLE", ...}`
-        // Setting the exchange timeout fixes that, although I haven't seen it documented anywhere else in the Ledger docs.
-        ledgerConnection.setExchangeTimeout(100000)
+        // Here we set it to 3hrs, to avoid this occurring, even if the user leaves the tab
+        // open and comes back to it later.
+        ledgerConnection.setExchangeTimeout(10800000)
         const ledgerEthClient = new AppEth(ledgerConnection)
         return ledgerEthClient
       }
