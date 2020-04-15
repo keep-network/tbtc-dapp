@@ -1,11 +1,10 @@
 import createLedgerSubprovider from "@ledgerhq/web3-subprovider"
-import TransportWebUSB from "@ledgerhq/hw-transport-webusb"
 import TransportU2F from "@ledgerhq/hw-transport-u2f"
 import AppEth from '@ledgerhq/hw-app-eth'
 import { ConnectorUpdate } from '@web3-react/types'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import Web3ProviderEngine from 'web3-provider-engine'
-import { LedgerSubprovider } from '@0x/subproviders/lib/src/subproviders/ledger' // https://github.com/0xProject/0x-monorepo/issues/1400
+import { LedgerSubprovider } from './ledger_subprovider'
 import CacheSubprovider from 'web3-provider-engine/subproviders/cache.js'
 import { RPCSubprovider } from '@0x/subproviders/lib/src/subproviders/rpc_subprovider' // https://github.com/0xProject/0x-monorepo/issues/1400
 import WebsocketSubprovider from 'web3-provider-engine/subproviders/websocket'
@@ -58,7 +57,7 @@ export class LedgerConnector extends AbstractConnector {
       const engine = new Web3ProviderEngine({ pollingInterval: this.pollingInterval })
       engine.addProvider(
         new LedgerSubprovider({
-          networkId: this.chainId,
+          chainId: this.chainId,
           ledgerEthereumClientFactoryAsync,
           accountFetchingConfigs: this.accountFetchingConfigs,
           baseDerivationPath: this.baseDerivationPath
