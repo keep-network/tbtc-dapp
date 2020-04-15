@@ -31,19 +31,6 @@ const CHAINS = [
 	}
 ]
 
-const SUPPORTED_CHAIN_IDS = [
-	// Mainnet
-	1,
-	// Ropsten
-	3,
-	// Rinkeby
-	4,
-	// Dev chains (Ganache, Geth)
-	123, // Low chainId to workaround ledgerjs signing issues.
-	1337,
-	// Keep testnet
-	1101
-]
 
 // Connectors.
 const injectedConnector = new InjectedConnector({})
