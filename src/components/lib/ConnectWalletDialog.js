@@ -80,11 +80,9 @@ export const ConnectWalletDialog = ({ shown, onConnected, onClose }) => {
 
 	const ChooseWalletStep = () => {
 		return <>
-			<header>
-				<div className="title">Connect to a wallet</div>
-			</header>
+			<div className="title">Connect to a wallet</div>
 			<p>This wallet will be used to sign transactions on Ethereum.</p>
-
+ 
 			<ul className='wallets'>
 				{
 					WALLETS.map(wallet => {
@@ -105,9 +103,7 @@ export const ConnectWalletDialog = ({ shown, onConnected, onClose }) => {
 
 		if(chosenWallet.name == 'Ledger') {
 			return <>
-				<header>
-					<div className="title">Plug In Ledger & Enter Pin</div>
-				</header>
+				<div className="title">Plug In Ledger & Enter Pin</div>
 				<p>Open Ethereum application and make sure Contract Data and Browser Support are enabled.</p>
 				<p>Connecting...</p>
 			</>
@@ -135,10 +131,7 @@ export const ConnectWalletDialog = ({ shown, onConnected, onClose }) => {
 
 	const ConnectedView = () => {
 		return <div className='connected-view'>
-			<header>
-				<div className="title">Wallet connected</div>
-			</header>
-
+			<div className="title">Wallet connected</div>
 			<div className='details'>
 				<p>{chosenWallet.name}</p>
 				<p>Account: {account}</p>
@@ -146,16 +139,14 @@ export const ConnectWalletDialog = ({ shown, onConnected, onClose }) => {
 		</div>
 	}
 
-	return <div>
-		<div className={`modal connect-wallet ${shown ? 'open' : 'closed'}`}>
-			<div className="modal-body">
-				<div className="close">
-					<div className="x" onClick={onClose}>&#9587;</div>
-				</div>
-				{!chosenWallet && <ChooseWalletStep />}
-				{(chosenWallet && !active) && <ConnectToWalletStep />}
-				{(chosenWallet && active) && <ConnectedView />}
+	return <div className={`modal connect-wallet ${shown ? 'open' : 'closed'}`}>
+		<div className="modal-body">
+			<div className="close">
+				<div className="x" onClick={onClose}>&#9587;</div>
 			</div>
+			{!chosenWallet && <ChooseWalletStep />}
+			{(chosenWallet && !active) && <ConnectToWalletStep />}
+			{(chosenWallet && active) && <ConnectedView />}
 		</div>
 	</div>
 }
