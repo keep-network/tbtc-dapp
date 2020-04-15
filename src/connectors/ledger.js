@@ -1,4 +1,3 @@
-import createLedgerSubprovider from "@ledgerhq/web3-subprovider"
 import TransportU2F from "@ledgerhq/hw-transport-u2f"
 import AppEth from '@ledgerhq/hw-app-eth'
 import { ConnectorUpdate } from '@web3-react/types'
@@ -41,9 +40,12 @@ export class LedgerConnector extends AbstractConnector {
     this.baseDerivationPath = baseDerivationPath
   }
 
-  async activate(): Promise<ConnectorUpdate> {
+  /**
+   * @return {Promise<ConnectorUpdate>}
+   */
+  async activate() {
     if (!this.provider) {
-      let ledgerEthereumClientFactoryAsync = async () => {
+      let ledgerEthereumClientFactory = async () => {
         const ledgerConnection = await TransportU2F.create()
         // Ledger will automatically timeout the U2F "sign" request after `exchangeTimeout` ms.
         // The default is set at an annoyingly low threshold, of 10,000ms, wherein the connection breaks
@@ -60,7 +62,7 @@ export class LedgerConnector extends AbstractConnector {
       engine.addProvider(
         new LedgerSubprovider({
           chainId: this.chainId,
-          ledgerEthereumClientFactoryAsync,
+          ledgerEthereumClientFactory,
           accountFetchingConfigs: this.accountFetchingConfigs,
           baseDerivationPath: this.baseDerivationPath
         })
@@ -75,15 +77,24 @@ export class LedgerConnector extends AbstractConnector {
     return { provider: this.provider, chainId: this.chainId }
   }
 
-  async getProvider(): Promise<Web3ProviderEngine> {
+  /**
+   * @return {Promise<Web3ProviderEngine>}
+   */
+  async getProvider() {
     return this.provider
   }
 
-  async getChainId(): Promise<number> {
+  /**
+   * @return {Promise<number>}
+   */
+  async getChainId() {
     return this.chainId
   }
 
-  async getAccount(): Promise<null> {
+  /**
+   * @return {Promise<null>}
+   */
+  async getAccount() {
     return this.provider._providers[0].getAccountsAsync(1).then((accounts: string[]): string => accounts[0])
   }
 

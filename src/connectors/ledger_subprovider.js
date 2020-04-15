@@ -8,7 +8,12 @@ import {
     WalletSubproviderErrors
 } from '@0x/subproviders/lib/src/types'
 
-
+/**
+ * A custom Ledger subprovider, inheriting from the 0x Subprovider.
+ * 
+ * Supports chains with a chainId > 255, and mitigates some issues with the
+ * LedgerJS library.
+ */
 class LedgerSubprovider extends LedgerSubprovider0x {
     chainId
 
