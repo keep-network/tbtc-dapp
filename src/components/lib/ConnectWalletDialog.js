@@ -3,6 +3,7 @@ import Check from '../svgs/Check'
 import { useWeb3React } from '@web3-react/core'
 import { InjectedConnector } from '@web3-react/injected-connector'
 import { LedgerConnector } from '../../connectors/ledger'
+import { TrezorConnector } from '../../connectors/trezor'
 
 const CHAIN_ID = process.env.CHAIN_ID || 1337
 const ETH_RPC_URL = process.env.ETH_RPC_URL || 'ws://localhost:8545'
@@ -13,6 +14,20 @@ const injectedConnector = new InjectedConnector({})
 const ledgerConnector = new LedgerConnector({
     chainId: CHAIN_ID,
 	url: ETH_RPC_URL
+})
+
+const trezorConnector = new TrezorConnector({ 
+	chainId: 1,
+	pollingInterval: 1000,
+	requestTimeoutMs: 1000,
+	config: {
+		// TODO: Trezor's API will throw for larger network id's. 
+		// TODO: apply same solution as Ledger.
+		chainId: CHAIN_ID,
+	},
+	url: ETH_RPC_URL,
+	manifestEmail: 'contact@keep.network', 
+	manifestAppUrl: 'https://localhost'
 })
 
 // Wallets.
@@ -28,7 +43,13 @@ const WALLETS = [
 		icon: "/images/ledger.svg",
 		connector: ledgerConnector
 	},
+	{
+		name: "Trezor",
+		icon: "/images/trezor.png",
+		connector: trezorConnector
+	}
 ]
+
 
 export const ConnectWalletDialog = ({ shown, onConnected, onClose }) => {
 	const { active, account, activate, chainId, connector } = useWeb3React()
