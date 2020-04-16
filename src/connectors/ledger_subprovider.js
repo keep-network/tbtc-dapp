@@ -68,7 +68,7 @@ class LedgerSubprovider extends LedgerSubprovider0x {
             // [1] https://github.com/ethereum/EIPs/blob/master/EIPS/eip-155.md
             const eip155Constant = 35
             let signedV = (this.chainId * 2) + eip155Constant
-            if(ledgerSignedV % 2 == 0) {
+            if(ledgerSignedV % 2 === 0) {
                 signedV += 1
             }
 
