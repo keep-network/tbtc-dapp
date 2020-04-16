@@ -1,12 +1,9 @@
-import TransportU2F from "@ledgerhq/hw-transport-u2f"
 import AppEth from '@ledgerhq/hw-app-eth'
-import { ConnectorUpdate } from '@web3-react/types'
+import TransportU2F from "@ledgerhq/hw-transport-u2f"
 import { AbstractConnector } from '@web3-react/abstract-connector'
+import { ConnectorUpdate } from '@web3-react/types'
 import Web3ProviderEngine from 'web3-provider-engine'
 import { LedgerSubprovider } from './ledger_subprovider'
-import CacheSubprovider from 'web3-provider-engine/subproviders/cache.js'
-import { RPCSubprovider } from '@0x/subproviders/lib/src/subproviders/rpc_subprovider' // https://github.com/0xProject/0x-monorepo/issues/1400
-import WebsocketSubprovider from 'web3-provider-engine/subproviders/websocket'
 import { MetamaskSubprovider } from './metamask_subprovider'
 
 /**
@@ -71,7 +68,6 @@ export class LedgerConnector extends AbstractConnector {
       // Metamask.
       let metamaskProvider = new MetamaskSubprovider()
       await metamaskProvider.enable()
-      engine.addProvider(new CacheSubprovider())
       engine.addProvider(metamaskProvider)
 
       engine.start()
