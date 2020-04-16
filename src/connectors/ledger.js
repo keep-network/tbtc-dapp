@@ -7,6 +7,7 @@ import { LedgerSubprovider } from './ledger_subprovider'
 import CacheSubprovider from 'web3-provider-engine/subproviders/cache.js'
 import { RPCSubprovider } from '@0x/subproviders/lib/src/subproviders/rpc_subprovider' // https://github.com/0xProject/0x-monorepo/issues/1400
 import WebsocketSubprovider from 'web3-provider-engine/subproviders/websocket'
+import { MetamaskSubprovider } from './metamask_subprovider'
 
 /**
  * An implementation of a LedgerConnector for web3-react, based on the original
@@ -14,28 +15,25 @@ import WebsocketSubprovider from 'web3-provider-engine/subproviders/websocket'
  * 
  * Some differences:
  * 
- * 1. The original doesn't expose the LedgerJS client API. 
- *    We will probably want access to this in future, eg. signing BTC transactions
- * 
- * 2. The original doesn't work with event subscriptions, as it assumes a HTTP RPC 
- *    endpoint. Event subscriptions use `eth_subscribe`, which Ganache does not 
- *    support out-of-the-box. Assuming a Websocket provider is simpler for our case.
+ * 1. Sensible defaults for LedgerJS signing request timeouts.
+ * 2. Uses Metamask-injected provider, rather than requiring an RPC URL to be specified.
+ * 3. Uses our implementation of a Ledger subprovider, which works correclty for chainId's > 255.
  */
 export class LedgerConnector extends AbstractConnector {
+  engine
+  provider
+  ledgerSubprovider
+
   constructor({
     chainId,
-    url,
     pollingInterval,
-    requestTimeoutMs,
     accountFetchingConfigs,
     baseDerivationPath
   }) {
     super({ supportedChainIds: [chainId] })
 
     this.chainId = chainId
-    this.url = url
     this.pollingInterval = pollingInterval
-    this.requestTimeoutMs = requestTimeoutMs
     this.accountFetchingConfigs = accountFetchingConfigs
     this.baseDerivationPath = baseDerivationPath
   }
@@ -59,20 +57,27 @@ export class LedgerConnector extends AbstractConnector {
       }
 
       const engine = new Web3ProviderEngine({ pollingInterval: this.pollingInterval })
-      engine.addProvider(
-        new LedgerSubprovider({
-          chainId: this.chainId,
-          ledgerEthereumClientFactoryAsync,
-          accountFetchingConfigs: this.accountFetchingConfigs,
-          baseDerivationPath: this.baseDerivationPath
-        })
-      )
+      
+      // Ledger.
+      const ledgerSubprovider = new LedgerSubprovider({
+        chainId: this.chainId,
+        ledgerEthereumClientFactoryAsync,
+        accountFetchingConfigs: this.accountFetchingConfigs,
+        baseDerivationPath: this.baseDerivationPath
+      })
+      this.ledgerSubprovider = ledgerSubprovider
+      engine.addProvider(ledgerSubprovider)
+
+      // Metamask.
+      let metamaskProvider = new MetamaskSubprovider()
+      await metamaskProvider.enable()
       engine.addProvider(new CacheSubprovider())
-      engine.addProvider(new WebsocketSubprovider({ rpcUrl: this.url }))
+      engine.addProvider(metamaskProvider)
+
+      engine.start()
+      this.engine = engine
       this.provider = engine
     }
-
-    this.provider.start()
 
     return { provider: this.provider, chainId: this.chainId }
   }
@@ -95,10 +100,10 @@ export class LedgerConnector extends AbstractConnector {
    * @return {Promise<null>}
    */
   async getAccount() {
-    return this.provider._providers[0].getAccountsAsync(1).then((accounts: string[]): string => accounts[0])
+    return this.ledgerSubprovider.getAccountsAsync(1).then(accounts => accounts[0])
   }
 
   deactivate() {
-    this.provider.stop()
+    this.engine.stop()
   }
 }

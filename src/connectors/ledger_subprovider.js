@@ -23,7 +23,6 @@ class LedgerSubprovider extends LedgerSubprovider0x {
     }
 
     async signTransactionAsync(txParams) {
-        LedgerSubprovider._validateTxParams(txParams)
         if (txParams.from === undefined || !addressUtils.isAddress(txParams.from)) {
             throw new Error(WalletSubproviderErrors.FromAddressMissingOrInvalid);
         }
