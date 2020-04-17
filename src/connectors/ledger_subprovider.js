@@ -7,6 +7,7 @@ import {
     LedgerSubproviderErrors,
     WalletSubproviderErrors
 } from '@0x/subproviders/lib/src/types'
+import { hexToPaddedBuffer } from './utils';
 
 /**
  * A custom Ledger subprovider, inheriting from the 0x Subprovider.
@@ -92,18 +93,6 @@ class LedgerSubprovider extends LedgerSubprovider0x {
             throw err;
         }
     }
-}
-
-/**
- * Pads a hex string with zeroes, and returns a buffer.
- * @param {string} hexString The hex string, with/without the 0x prefix.
- * @param {number} padLength Length to pad string to, in bytes.
- * @return {Buffer} The padded hex as a Buffer.
- */
-function hexToPaddedBuffer(hexString, padLength) {
-    hexString = hexString.startsWith('0x') ? hexString.slice(2) : hexString
-    hexString = hexString.padStart(padLength, '0')
-    return new Buffer(hexString, 'hex')
 }
 
 export { LedgerSubprovider }
