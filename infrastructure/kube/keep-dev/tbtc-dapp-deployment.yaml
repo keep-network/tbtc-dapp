@@ -25,3 +25,16 @@ spec:
         image: gcr.io/keep-dev-fe24/tbtc-dapp
         ports:
           - containerPort: 80
+        env:
+        # TODO: ETH_WS_URL needs to be using wss:// instead of ws://, otherwise
+        # insecure connection will be blocked.
+        - name: ETH_WS_URL
+          valueFrom:
+            configMapKeyRef:
+              name: eth-network-internal
+              key: ws-url
+        - name: ETH_CHAIN_ID
+          valueFrom:
+            configMapKeyRef:
+              name: eth-network-internal
+              key: network-id
