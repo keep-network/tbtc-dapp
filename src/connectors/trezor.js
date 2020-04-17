@@ -2,9 +2,10 @@ import WebsocketSubprovider from 'web3-provider-engine/subproviders/websocket'
 import { ConnectorUpdate } from '@web3-react/types'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import Web3ProviderEngine from 'web3-provider-engine'
-import { TrezorSubprovider } from '@0x/subproviders/lib/src/subproviders/trezor' 
 import CacheSubprovider from 'web3-provider-engine/subproviders/cache.js'
 import { RPCSubprovider } from '@0x/subproviders/lib/src/subproviders/rpc_subprovider'
+import { TrezorSubprovider } from './trezor_subprovider'
+import TrezorConnect from 'trezor-connect'
 
 /**
  * An implementation of a TrezorConnector for web3-react, based on the original
@@ -26,7 +27,9 @@ export class TrezorConnector extends AbstractConnector {
     manifestEmail,
     manifestAppUrl
   }) {
-    super({ supportedChainIds: [chainId] })
+    super({
+      supportedChainIds: [chainId], 
+    })
 
     this.chainId = chainId
     this.url = url
@@ -38,11 +41,12 @@ export class TrezorConnector extends AbstractConnector {
   }
 
   async activate(): Promise<ConnectorUpdate> {
-    if (!this.provider) {const { default: TrezorConnect } = await import('trezor-connect')
+    if (!this.provider) {
       TrezorConnect.manifest({
         email: this.manifestEmail,
         appUrl: this.manifestAppUrl
       })
+
       const engine = new Web3ProviderEngine({ pollingInterval: this.pollingInterval })
       engine.addProvider(new TrezorSubprovider({ trezorConnectClientApi: TrezorConnect, ...this.config }))
       engine.addProvider(new CacheSubprovider())
