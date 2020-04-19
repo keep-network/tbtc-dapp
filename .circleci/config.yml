@@ -42,12 +42,12 @@ jobs:
           name: Run Docker build
           command: |
             docker build -t build --target build .
-            docker build -t $GCR_REGISTRY_URL/$GOOGLE_PROJECT_ID/tbtc-dapp .
+            docker build -t $GCR_REGISTRY_URL/$GOOGLE_PROJECT_ID/tbtc-dapp:$DOCKER_IMAGE_TAG .
       - run:
           name: Save tbtc-dapp image
           command: |
             mkdir -p /tmp/tbtc-dapp/docker-images/
-            docker save -o /tmp/tbtc-dapp/docker-images/tbtc-dapp.tar $GCR_REGISTRY_URL/$GOOGLE_PROJECT_ID/tbtc-dapp
+            docker save -o /tmp/tbtc-dapp/docker-images/tbtc-dapp.tar $GCR_REGISTRY_URL/$GOOGLE_PROJECT_ID/tbtc-dapp:$DOCKER_IMAGE_TAG
       - persist_to_workspace:
           root: /tmp/tbtc-dapp
           paths:
@@ -71,7 +71,7 @@ jobs:
           google-project-id: GOOGLE_PROJECT_ID
           registry-url: $GCR_REGISTRY_URL
           image: tbtc-dapp
-          tag: latest
+          tag: $DOCKER_IMAGE_TAG
 
 workflows:
   version: 2
