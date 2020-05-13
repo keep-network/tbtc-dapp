@@ -10,6 +10,14 @@ function App(props) {
     <div className="main">
       <div className="app">
         <Header />
+
+        <p class="warning">
+          The tBTC dApp is in ALPHA. Improper use can lead to LOSS OF FUNDS. If
+          you're uncomfortable with these risks, consider using another method
+          to mint TBTC. Visit <a href="https://discord.gg/Bpzfsgx">our
+          Discord</a> for options.
+        </p>
+
         { children }
       </div>
       <Footer includeSubscription={
