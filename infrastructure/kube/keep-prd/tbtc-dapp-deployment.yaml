@@ -1,0 +1,26 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: tbtc-dapp
+  namespace: default
+  labels:
+    app: tbtc-dapp
+    type: dapp
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      app: tbtc-dapp
+      type: dapp
+  template:
+    metadata:
+      labels:
+        app: tbtc-dapp
+        type: dapp
+    spec:
+      containers:
+      - name: tbtc-dapp
+        image: keepnetwork/tbtc-dapp:v0.16.2
+        ports:
+          - containerPort: 80
