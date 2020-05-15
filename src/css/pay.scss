@@ -1,4 +1,43 @@
 .pay {
+    .qr-code {
+        position: relative;
+
+        font-size: 1.2rem;
+
+        &:after {
+            position: absolute;
+            content: 'Click to reveal. Do NOT fund from an exchange.';
+
+            top: 75px;
+            bottom: 0;
+            left: calc(50% - 100px);
+
+            width: 200px;
+
+            text-align: center;
+
+            color: white;
+        }
+
+        > svg {
+            background-color: black;
+            > * {
+                visibility: hidden;
+            }
+        }
+        &.visible {
+            &:after {
+                content: '';
+            }
+            > svg {
+                background-color: transparent;
+                > * {
+                    visibility: visible;
+                }
+            }
+        }
+    }
+
     .page-body {
         .custodial-fee {
             margin-top: 40px;
@@ -53,7 +92,7 @@
         //         transform: translate(175px, 175px)
         //     }
         // }
-      
+
         // @keyframes dash {
         //     from {
         //         stroke-dashoffset:1000;

@@ -23,6 +23,17 @@
 }
 
 @font-face {
+    font-family: 'apercu-mono-bold-pro';
+    src: url('./fonts/Apercu/apercu-mono-bold-pro-web/apercu-mono-bold-pro.eot');
+    src: url('./fonts/Apercu/apercu-mono-bold-pro-web/apercu-mono-bold-pro.eot?#iefix') format('embedded-opentype'),
+         url('./fonts/Apercu/apercu-mono-bold-pro-web/apercu-mono-bold-pro.woff2') format('woff2'),
+         url('./fonts/Apercu/apercu-mono-bold-pro-web/apercu-mono-bold-pro.woff') format('woff'),
+         url('./fonts/Apercu/apercu-mono-bold-pro-web/apercu-mono-bold-pro.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'apercu-bold-pro';
     src: url('./fonts/Apercu/apercu-bold-pro-web/apercu-bold-pro.eot');
     src: url('./fonts/Apercu/apercu-bold-pro-web/apercu-bold-pro.eot?#iefix') format('embedded-opentype'),

@@ -20,6 +20,7 @@ function Pay(props) {
 class PayComponent extends Component {
   state = {
     copied: false,
+    qrVisible: false,
     deposit: {
       depositAddress: this.props.address
     }
@@ -38,12 +39,16 @@ class PayComponent extends Component {
     this.setState({ copied: true })
   }
 
+  setQRVisible = (evt) => {
+    this.setState({ qrVisible: true })
+  }
+
   render() {
     const { btcAddress, btcConfirming, lotInSatoshis, signerFeeInSatoshis } = this.props
     const lotInBtc = (new BigNumber(lotInSatoshis.toString())).div(BitcoinHelpers.satoshisPerBtc.toString())
     const signerFeeInBtc = (new BigNumber(signerFeeInSatoshis.toString())).div(BitcoinHelpers.satoshisPerBtc.toString())
 
-    const { copied } = this.state
+    const { copied, qrVisible } = this.state
     let renderTop, renderTitle, renderCopyAddress, descriptionText, step;
 
     const btcAmount = lotInBtc.toString()
@@ -53,7 +58,7 @@ class PayComponent extends Component {
 
     if (!btcConfirming) {
       renderTop = (
-        <div className="qr-code">
+        <div className={"qr-code" + (qrVisible ? " visible" : "")} onClick={this.setQRVisible}>
           <QRCode
             value={btcURL}
             renderAs="svg"
@@ -119,10 +124,11 @@ class PayComponent extends Component {
           <hr />
           <div className="description">
             <p class="warning">
-              Do NOT fund from an exchange. Exchanges transfers can result in
-              transactions that cannot be proven on Ethereum. If you have BTC
-              in an exchange, transfer through an intermediary wallet and make
-              a single transaction to the deposit's funding address.
+              <strong>Do NOT fund from an exchange.</strong> Exchanges
+              transfers can result in transactions that cannot be proven on
+              Ethereum. If you have BTC in an exchange, transfer through an
+              intermediary wallet and make a single transaction to the
+              deposit's funding address.
             </p>
 
             <div>
