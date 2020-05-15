@@ -118,6 +118,13 @@ class PayComponent extends Component {
           {renderTitle}
           <hr />
           <div className="description">
+            <p class="warning">
+              Do NOT fund from an exchange. Exchanges transfers can result in
+              transactions that cannot be proven on Ethereum. If you have BTC
+              in an exchange, transfer through an intermediary wallet and make
+              a single transaction to the deposit's funding address.
+            </p>
+
             <div>
               {descriptionText}
             </div>
