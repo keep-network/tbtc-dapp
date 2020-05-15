@@ -1,17 +1,12 @@
 {
     "electrum": {
         "testnet": {
-            "server": "electrumx-server.test.tbtc.network",
-            "port": 50002,
-            "protocol": "ssl"
-        },
-        "testnetPublic": {
-            "server": "testnet1.bauerj.eu",
-            "port": 50002,
+            "server": "electrumx-server.tbtc.network",
+            "port": 443,
             "protocol": "ssl"
         },
         "testnetWS": {
-            "server": "electrumx-server.test.tbtc.network",
+            "server": "electrumx-server.tbtc.network",
             "port": 8443,
             "protocol": "wss"
         }

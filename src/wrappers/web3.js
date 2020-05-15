@@ -49,10 +49,10 @@ const initializeContracts = async (web3, connector) => {
     console.debug(`netId: ${netId}\nchainId: ${chainId}`)
 
     Web3LoadedDeferred.resolve(web3)
-    
+
     const tbtc = await TBTC.withConfig({
         web3: web3,
-        bitcoinNetwork: "testnet",
+        bitcoinNetwork: "main",
         electrum: config.electrum
     })
 
