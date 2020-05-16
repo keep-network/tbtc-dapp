@@ -59,7 +59,7 @@ function* restoreState(nextStepMap, stateKey) {
 
         case tbtc.Deposit.State.AWAITING_WITHDRAWAL_PROOF:
             finalCalls = resumeRedemption
-            nextStep = "/redemption/prove"
+            nextStep = "/redemption/confirming"
             // Explicitly fall through.
 
         case tbtc.Deposit.State.AWAITING_WITHDRAWAL_SIGNATURE:
@@ -94,7 +94,7 @@ function* restoreState(nextStepMap, stateKey) {
             //
             // FIXME Check to see if we have a transaction in the mempool for
             // FIXME submitting funding proof, and update state accordingly.
-            
+
             yield put({
                 type: DEPOSIT_STATE_RESTORED,
             })
