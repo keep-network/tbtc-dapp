@@ -68,7 +68,7 @@ class PayComponent extends Component {
 
       renderTitle = (
         <div className="title">
-          Pay: {btcAmount} BTC
+          Pay EXACTLY: {btcAmount} BTC
         </div>
       )
 
