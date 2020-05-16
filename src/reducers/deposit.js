@@ -45,6 +45,8 @@ const deposit = (state = initialState, action) => {
       return {
         ...state,
         depositAddress: action.payload.depositAddress,
+        lotInSatoshis: action.payload.lotInSatoshis,
+        signerFeeInSatoshis: action.payload.signerFeeInSatoshis,
         invoiceStatus: 2
       }
     case DEPOSIT_RESOLVED:
@@ -56,7 +58,7 @@ const deposit = (state = initialState, action) => {
     case DEPOSIT_BTC_ADDRESS:
       return {
         ...state,
-        btcAddress: action.payload.btcAddress
+        btcAddress: action.payload.btcAddress,
       }
     case DEPOSIT_BTC_AMOUNTS:
       return {

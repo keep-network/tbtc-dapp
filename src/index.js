@@ -69,7 +69,11 @@ function AppWrapper() {
             <Route path="/" exact component={Home} />
             <Route path="/deposit" exact component={StartDeposit} />
             <Route path="/deposit/new" component={Invoice} />
-            <Route path="/deposit/:address/get-address" component={GetAddress} />
+            <Route path="/deposit/:address/get-address">
+              <Loadable restorer={RESTORER.DEPOSIT}>
+                <GetAddress />
+              </Loadable>
+            </Route>
             <Route path="/deposit/:address/pay" exact>
               <Loadable restorer={RESTORER.DEPOSIT}>
                 <Pay />

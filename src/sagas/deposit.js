@@ -54,7 +54,19 @@ function* restoreState(nextStepMap, stateKey) {
 
         // Funding flow.
         case tbtc.Deposit.State.AWAITING_SIGNER_SETUP:
-            yield put(navigateTo('/deposit/' + depositAddress + '/generate-address'))
+            yield put(navigateTo('/deposit/' + depositAddress + '/get-address'))
+            yield put({
+                type: DEPOSIT_REQUEST_SUCCESS,
+                payload: {
+                    depositAddress: deposit.address,
+                    lotInSatoshis: yield call([deposit, deposit.getSatoshiLotSize]),
+                    signerFeeInSatoshis: (yield call([deposit, deposit.getSignerFeeTBTC])).div(tbtc.satoshisPerTbtc),
+                },
+            })
+            yield put({
+                type: DEPOSIT_STATE_RESTORED,
+            })
+
             break
 
         case tbtc.Deposit.State.AWAITING_WITHDRAWAL_PROOF:
@@ -172,8 +184,11 @@ export function* requestADeposit() {
         type: DEPOSIT_REQUEST_SUCCESS,
         payload: {
             depositAddress: deposit.address,
-        }
+            lotInSatoshis: yield call([deposit, deposit.getSatoshiLotSize]),
+            signerFeeInSatoshis: (yield call([deposit, deposit.getSignerFeeTBTC])).div(tbtc.satoshisPerTbtc),
+        },
     })
+    yield put(navigateTo('/deposit/' + deposit.address + "/get-address"))
     yield put({
         type: DEPOSIT_RESOLVED,
         payload: {
