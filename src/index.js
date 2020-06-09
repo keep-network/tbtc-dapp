@@ -6,6 +6,7 @@ import routerMiddleware from './lib/router/middleware'
 import notificationMiddleware from './lib/notifications/middleware'
 import { Provider } from 'react-redux'
 import { Router, Route } from 'react-router-dom'
+import { composeWithDevTools } from 'redux-devtools-extension'
 
 // Styles
 import './css/app.scss'
@@ -52,7 +53,9 @@ const middleware = [
 
 const store = createStore(
   reducers,
-  applyMiddleware(...middleware),
+  composeWithDevTools(
+    applyMiddleware(...middleware)
+  ),
 )
 
 sagaMiddleware.run(sagas)
