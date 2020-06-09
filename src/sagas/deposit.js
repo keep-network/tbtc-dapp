@@ -100,7 +100,7 @@ function* restoreState(nextStepMap, stateKey) {
             })
 
             const inVendingMachine = yield call([deposit, deposit.inVendingMachine])
-            if (depositState == tbtc.Deposit.State.ACTIVE && ! inVendingMachine) {
+            if (depositState === tbtc.Deposit.State.ACTIVE && ! inVendingMachine) {
                 yield call([deposit, deposit.mintTBTC])
             }
 

@@ -4,8 +4,8 @@ import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import routerMiddleware from './lib/router/middleware'
 import notificationMiddleware from './lib/notifications/middleware'
-import { Provider, useSelector } from 'react-redux'
-import { Router, Route, useParams } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { Router, Route } from 'react-router-dom'
 
 // Styles
 import './css/app.scss'
@@ -41,8 +41,6 @@ import Loadable, { RESTORER } from './wrappers/loadable'
 import sagas from './sagas'
 import reducers from './reducers'
 import history from './history'
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux'
 
 // Set up our store
 const sagaMiddleware = createSagaMiddleware()

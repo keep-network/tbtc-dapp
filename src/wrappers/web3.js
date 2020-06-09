@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Web3 from 'web3'
 import TBTC from '@keep-network/tbtc.js'
 import { Web3ReactProvider, useWeb3React } from '@web3-react/core'
@@ -64,13 +64,13 @@ function instantiateWeb3(provider, connector) {
 }
 
 const Web3ReactManager = ({ children }) => {
-    const { activate, active, library, connector } = useWeb3React()
+    const { active, library, connector } = useWeb3React()
 
     useEffect(() => {
         if(active) {
             initializeContracts(library, connector)
         }
-    }, [active])
+    }, [active, connector, library])
 
     // Watch for changes:
     // provider = this.state.web3.eth.currentProvider
