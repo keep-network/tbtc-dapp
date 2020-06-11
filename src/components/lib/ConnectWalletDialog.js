@@ -63,7 +63,7 @@ export const ConnectWalletDialog = ({ shown, onConnected }) => {
 			<ul className='wallets'>
 				{
 					WALLETS.map(({ name, icon, showName }) => {
-						return <li className='wallet-option' onClick={() => chooseWallet(name)}>
+						return <li key={name} className='wallet-option' onClick={() => chooseWallet(name)}>
 							<img src={icon} />
 							{showName && name}
 						</li>
