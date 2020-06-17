@@ -54,7 +54,7 @@ function* restoreState(nextStepMap, stateKey) {
 
         // Funding flow.
         case tbtc.Deposit.State.AWAITING_SIGNER_SETUP:
-            yield put(navigateTo('/deposit/' + depositAddress + '/generate-address'))
+            yield put(navigateTo('/deposit/' + depositAddress + '/get-address'))
             break
 
         case tbtc.Deposit.State.AWAITING_WITHDRAWAL_PROOF:
