@@ -228,6 +228,9 @@ export function* autoSubmitDepositProof() {
         type: BTC_TX_CONFIRMED_WAIT
     })
 
+    // goto
+    yield put(navigateTo('/deposit/' + deposit.address + '/pay/confirming'))
+
     yield autoSubmission.fundingConfirmations
 
     // when it's finally sufficiently confirmed, dispatch the txid
