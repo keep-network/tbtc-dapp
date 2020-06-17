@@ -22,6 +22,7 @@ import {
   Invoice,
   GetAddress,
   Pay,
+  Confirming as ConfirmingDeposit,
   Prove as ProveDeposit,
   Congratulations as CongratulationsDeposit
 } from './components/deposit'
@@ -76,7 +77,11 @@ function AppWrapper() {
                 <Pay />
               </Loadable>
             </Route>
-            <Route path="/deposit/:address/pay/confirming" render={(props) => <Loadable restorer={RESTORER.DEPOSIT}><Pay {...props} confirming={true} /></Loadable>} />
+            <Route path="/deposit/:address/pay/confirming">
+              <Loadable restorer={RESTORER.DEPOSIT}>
+                <ConfirmingDeposit />
+              </Loadable>
+            </Route>
             <Route path="/deposit/:address/prove">
               <Loadable restorer={RESTORER.DEPOSIT}>
                 <ProveDeposit />
