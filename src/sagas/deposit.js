@@ -174,6 +174,10 @@ export function* requestADeposit() {
             depositAddress: deposit.address,
         }
     })
+
+    // goto
+    yield put(navigateTo('/deposit/' + deposit.address + '/get-address'))
+
     yield put({
         type: DEPOSIT_RESOLVED,
         payload: {
