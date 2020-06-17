@@ -51,7 +51,7 @@ const deposit = (state = initialState, action) => {
       return {
         ...state,
         deposit: action.payload.deposit,
-        invoiceStatus: 2
+        invoiceStatus: 3
       }
     case DEPOSIT_BTC_ADDRESS:
       return {
