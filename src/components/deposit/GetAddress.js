@@ -6,13 +6,16 @@ import StatusIndicator from '../svgs/StatusIndicator'
 import { getBitcoinAddress } from '../../actions'
 
 const GetAddress = ({ status, getBitcoinAddress }) => {
+  useEffect(() => {
+    getBitcoinAddress()
+  }, [getBitcoinAddress])
+
   const [statusText, setStatusText] = useState('Generating BTC address...')
   useEffect(() => {
     if (status === 3) {
       setStatusText('Fetching BTC address...')
     }
-    getBitcoinAddress()
-  }, [status, getBitcoinAddress])
+  }, [status])
 
   return (
     <div className="invoice">
