@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import StatusIndicator from '../svgs/StatusIndicator'
+import { getBitcoinAddress } from '../../actions'
 
-const GetAddress = ({ status }) => {
+const GetAddress = ({ status, getBitcoinAddress }) => {
   const [statusText, setStatusText] = useState('Generating BTC address...')
   useEffect(() => {
     if (status === 3) {
       setStatusText('Fetching BTC address...')
     }
-  }, [status])
+    getBitcoinAddress()
+  }, [status, getBitcoinAddress])
 
   return (
     <div className="invoice">
@@ -38,6 +41,16 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+  {
+    getBitcoinAddress
+  },
+  dispatch
+  )
+}
+
 export default connect(
   mapStateToProps,
+  mapDispatchToProps
 )(GetAddress)

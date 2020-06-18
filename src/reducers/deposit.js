@@ -45,7 +45,10 @@ const deposit = (state = initialState, action) => {
       return {
         ...state,
         depositAddress: action.payload.depositAddress,
-        invoiceStatus: 2
+        invoiceStatus: 2,
+        // Flagging as true so that /get-address can render the GetAddress
+        // component as expected since we are using the LoadableWrapper
+        stateRestored: true
       }
     case DEPOSIT_RESOLVED:
       return {

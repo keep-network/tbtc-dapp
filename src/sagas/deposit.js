@@ -54,6 +54,15 @@ function* restoreState(nextStepMap, stateKey) {
 
         // Funding flow.
         case tbtc.Deposit.State.AWAITING_SIGNER_SETUP:
+            // We want to flag `stateRestored` as true in the deposit reducer
+            // to be able to restart the flow from page refresh
+            yield put({
+                type: DEPOSIT_REQUEST_SUCCESS,
+                payload: {
+                    depositAddress,
+                }
+            })
+
             yield put(navigateTo('/deposit/' + depositAddress + '/get-address'))
             break
 
@@ -184,6 +193,14 @@ export function* requestADeposit() {
              deposit,
         }
     })
+}
+
+export function* getBitcoinAddress() {
+    /** @type {TBTC} */
+    const tbtc = yield TBTCLoaded
+
+    /** @type Deposit */
+    const deposit = yield select(state => state.deposit.deposit)
 
     const btcAddress = yield deposit.bitcoinAddress
 
