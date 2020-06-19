@@ -54,10 +54,8 @@ function* restoreState(nextStepMap, stateKey) {
 
         // Funding flow.
         case tbtc.Deposit.State.AWAITING_SIGNER_SETUP:
-            // We want to flag `stateRestored` as true in the deposit reducer
-            // to be able to restart the flow from page refresh
             yield put({
-                type: DEPOSIT_REQUEST_SUCCESS,
+                type: DEPOSIT_STATE_RESTORED,
                 payload: {
                     depositAddress,
                 }
