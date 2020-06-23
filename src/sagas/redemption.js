@@ -74,16 +74,32 @@ export function* resumeRedemption() {
  * @param {Redemption} redemption
  */
 function* runRedemption(redemption) {
-    const withdrawnPromise = redemption.autoSubmit()
+    const autoSubmission = redemption.autoSubmit()
     const depositAddress = redemption.deposit.address
 
     yield put(navigateTo('/deposit/' + depositAddress + '/redemption/signing'))
 
-    yield redemption.signedTransaction
+    yield autoSubmission.broadcastTransactionID
 
     yield put(navigateTo('/deposit/' + depositAddress + '/redemption/confirming'))
 
-    yield withdrawnPromise
+    yield autoSubmission.confirmations
 
-    yield put(navigateTo('/deposit/' + depositAddress + '/redemption/congratulations'))
+    yield put(navigateTo('/deposit/' + depositAddress + '/redemption/prove'))
+
+    try {
+        yield put({ type: REDEMPTION_PROVE_BTC_TX_BEGIN })
+        yield autoSubmission.proofTransaction
+
+        yield put({ type: REDEMPTION_PROVE_BTC_TX_SUCCESS })
+
+        yield put(navigateTo('/deposit/' + depositAddress + '/redemption/congratulations'))
+    } catch (error) {
+        yield put({
+            type: REDEMPTION_PROVE_BTC_TX_ERROR,
+            payload: {
+                error,
+            }
+        })
+    }
 }
