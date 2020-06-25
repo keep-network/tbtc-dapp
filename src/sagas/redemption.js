@@ -98,7 +98,7 @@ function* runRedemption(redemption) {
         yield put({
             type: REDEMPTION_PROVE_BTC_TX_ERROR,
             payload: {
-                error,
+                error: error.message
             }
         })
     }
