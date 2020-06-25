@@ -33,8 +33,8 @@ const Confirming = ({ autoSubmitDepositProof, signerFeeInSatoshis }) => {
         <hr />
         <div className="description">
           <div>
-            Waiting for transaction confirmations. We’ll send you a notification
-            when your TBTC is ready to be minted.
+            Waiting for transaction confirmations. We’ll send you a browser
+            notification when your TBTC is ready to be minted.
             <p><i>A watched block never boils.</i></p>
           </div>
           <div className="custodial-fee">
