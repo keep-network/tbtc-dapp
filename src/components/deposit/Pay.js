@@ -25,9 +25,11 @@ class PayComponent extends Component {
   }
 
   componentDidMount() {
-    const { autoSubmitDepositProof } = this.props
+    const { autoSubmitDepositProof, didSubmitDepositProof } = this.props
 
-    autoSubmitDepositProof()
+    if (!didSubmitDepositProof) {
+      autoSubmitDepositProof()
+    }
   }
 
   copyAddress = (evt) => {
@@ -103,6 +105,7 @@ const mapStateToProps = (state, ownProps) => {
     depositAddress: state.deposit.depositAddress,
     lotInSatoshis: state.deposit.lotInSatoshis,
     signerFeeInSatoshis: state.deposit.signerFeeInSatoshis,
+    didSubmitDepositProof: state.deposit.didSubmitDepositProof,
   }
 }
 

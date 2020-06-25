@@ -10,10 +10,16 @@ import { BitcoinHelpers } from '@keep-network/tbtc.js'
 import BigNumber from "bignumber.js"
 BigNumber.set({ DECIMAL_PLACES: 8 })
 
-const Confirming = ({ autoSubmitDepositProof, signerFeeInSatoshis }) => {
+const Confirming = ({
+  autoSubmitDepositProof,
+  didSubmitDepositProof,
+  signerFeeInSatoshis
+}) => {
   useEffect(() => {
-    autoSubmitDepositProof()
-  }, [autoSubmitDepositProof])
+    if (!didSubmitDepositProof) {
+      autoSubmitDepositProof()
+    }
+  }, [autoSubmitDepositProof, didSubmitDepositProof])
 
   const signerFee = (new BigNumber(signerFeeInSatoshis.toString()))
     .div(BitcoinHelpers.satoshisPerBtc.toString()).toString()
@@ -50,6 +56,7 @@ const Confirming = ({ autoSubmitDepositProof, signerFeeInSatoshis }) => {
 const mapStateToProps = (state, ownProps) => {
   return {
     signerFeeInSatoshis: state.deposit.signerFeeInSatoshis,
+    didSubmitDepositProof: state.deposit.didSubmitDepositProof,
   }
 }
 
