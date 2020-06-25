@@ -70,6 +70,14 @@ function* restoreState(nextStepMap, stateKey) {
             // Explicitly fall through.
 
         case tbtc.Deposit.State.AWAITING_WITHDRAWAL_SIGNATURE:
+            yield put({
+                type: DEPOSIT_STATE_RESTORED,
+                payload: {
+                    depositAddress,
+                }
+            })
+            finalCalls = resumeRedemption
+
         case tbtc.Deposit.State.AWAITING_BTC_FUNDING_PROOF:
         case tbtc.Deposit.State.REDEEMED:
         case tbtc.Deposit.State.ACTIVE:
