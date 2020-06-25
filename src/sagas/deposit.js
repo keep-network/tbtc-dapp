@@ -52,18 +52,6 @@ function* restoreState(nextStepMap, stateKey) {
         case tbtc.Deposit.State.START:
             throw new Error("Unexpected state.")
 
-        // Funding flow.
-        case tbtc.Deposit.State.AWAITING_SIGNER_SETUP:
-            yield put({
-                type: DEPOSIT_STATE_RESTORED,
-                payload: {
-                    depositAddress,
-                }
-            })
-
-            yield put(navigateTo('/deposit/' + depositAddress + '/get-address'))
-            break
-
         case tbtc.Deposit.State.AWAITING_WITHDRAWAL_PROOF:
             finalCalls = resumeRedemption
             nextStep = "/redemption/prove"
@@ -77,6 +65,7 @@ function* restoreState(nextStepMap, stateKey) {
                 }
             })
             finalCalls = resumeRedemption
+            // Explicitly fall through.
 
         case tbtc.Deposit.State.AWAITING_BTC_FUNDING_PROOF:
         case tbtc.Deposit.State.REDEEMED:
@@ -88,7 +77,9 @@ function* restoreState(nextStepMap, stateKey) {
                     btcAddress,
                 }
             })
+            // Explicitly fall through.
 
+        case tbtc.Deposit.State.AWAITING_SIGNER_SETUP:
             const lotInSatoshis = yield call([deposit, deposit.getSatoshiLotSize])
             const signerFeeTbtc = yield call([deposit, deposit.getSignerFeeTBTC])
             const signerFeeInSatoshis = signerFeeTbtc.div(tbtc.satoshisPerTbtc)
@@ -146,6 +137,7 @@ export function* restoreDepositState() {
     const tbtc = yield TBTCLoaded
 
     const DEPOSIT_STEP_MAP = {};
+    DEPOSIT_STEP_MAP[tbtc.Deposit.State.AWAITING_SIGNER_SETUP] = '/get-address'
     DEPOSIT_STEP_MAP[tbtc.Deposit.State.AWAITING_BTC_FUNDING_PROOF] = "/pay"
     DEPOSIT_STEP_MAP[tbtc.Deposit.State.ACTIVE] = "/congratulations"
 
