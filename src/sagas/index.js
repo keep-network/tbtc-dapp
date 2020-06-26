@@ -11,6 +11,7 @@ import {
 import {
     saveAddresses,
     requestRedemption,
+    resumeRedemption,
 } from './redemption'
 import {
     RESTORE_DEPOSIT_STATE,
@@ -20,6 +21,7 @@ import {
     AUTO_SUBMIT_DEPOSIT_PROOF,
     SAVE_ADDRESSES,
     REQUEST_REDEMPTION,
+    RESUME_REDEMPTION,
 } from '../actions'
 
 export default function* () {
@@ -30,4 +32,5 @@ export default function* () {
     yield takeLatest(AUTO_SUBMIT_DEPOSIT_PROOF, autoSubmitDepositProof)
     yield takeLatest(SAVE_ADDRESSES, saveAddresses)
     yield takeLatest(REQUEST_REDEMPTION, requestRedemption)
+    yield takeLatest(RESUME_REDEMPTION, resumeRedemption)
 }

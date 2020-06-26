@@ -13,7 +13,7 @@ export const UPDATE_TRANSACTION_AND_SIGNATURE = 'UPDATE_TRANSACTION_AND_SIGNATUR
 export const UPDATE_TX_HASH = 'UPDATE_TX_HASH'
 export const UPDATE_CONFIRMATIONS = 'UPDATE_CONFIRMATIONS'
 export const POLL_FOR_CONFIRMATIONS_ERROR = 'POLL_FOR_CONFIRMATIONS_ERROR'
-export const REDEMPTION_REQUESTED = 'REDEMPTION_REQUESTED'
+export const REDEMPTION_REQUEST_SUCCESS = 'REDEMPTION_REQUEST_SUCCESS'
 export const REDEMPTION_PROVE_BTC_TX_BEGIN = 'REDEMPTION_PROVE_BTC_TX_BEGIN'
 export const REDEMPTION_PROVE_BTC_TX_SUCCESS = 'REDEMPTION_PROVE_BTC_TX_SUCCESS'
 export const REDEMPTION_PROVE_BTC_TX_ERROR = 'REDEMPTION_PROVE_BTC_TX_ERROR'
@@ -47,6 +47,13 @@ export function* requestRedemption() {
 
     /** @type {Redemption} */
     const redemption = yield call([deposit, deposit.requestRedemption], btcAddress)
+    yield put({
+        type: REDEMPTION_REQUEST_SUCCESS,
+        payload: {
+            redemption
+        }
+    })
+
     yield* runRedemption(redemption)
 }
 
@@ -61,7 +68,7 @@ export function* resumeRedemption() {
     const redemption = yield call([deposit, deposit.getCurrentRedemption])
 
     yield put({
-        type: REDEMPTION_REQUESTED,
+        type: REDEMPTION_REQUEST_SUCCESS,
         payload: {
             redemption
         }
