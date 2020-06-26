@@ -1,9 +1,7 @@
 import WebsocketSubprovider from 'web3-provider-engine/subproviders/websocket'
-import { ConnectorUpdate } from '@web3-react/types'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import Web3ProviderEngine from 'web3-provider-engine'
 import CacheSubprovider from 'web3-provider-engine/subproviders/cache.js'
-import { RPCSubprovider } from '@0x/subproviders/lib/src/subproviders/rpc_subprovider'
 import { TrezorSubprovider } from './trezor_subprovider'
 import TrezorConnect from 'trezor-connect'
 
@@ -40,7 +38,7 @@ export class TrezorConnector extends AbstractConnector {
     this.manifestAppUrl = manifestAppUrl
   }
 
-  async activate(): Promise<ConnectorUpdate> {
+  async activate() {
     if (!this.provider) {
       TrezorConnect.manifest({
         email: this.manifestEmail,
@@ -68,7 +66,8 @@ export class TrezorConnector extends AbstractConnector {
   }
 
   async getAccount() {
-    return this.provider._providers[0].getAccountsAsync(1).then((accounts: string[]): string => accounts[0])
+    return this.provider._providers[0].getAccountsAsync(1)
+      .then((accounts) => accounts[0])
   }
 
   deactivate() {
