@@ -19,6 +19,7 @@ html, body, #root {
     margin: 0;
     font-family: 'apercu-mono-regular-pro';
     overflow-x: hidden;
+    background-color: $white;
 }
 
 a {
@@ -84,33 +85,39 @@ a {
             padding: 5px 10px;
             border: 1px solid transparent;
             border-radius: 4px;
-            background-color: #{$lighter-grey};
             font-size: .6em;
             font-family: 'apercu-mono-regular-pro';
-
-            &.loading {
-                border-color: #{$loading};
-                color: #{$loading};
-            }
 
             &.alert {
                 border-color: #{$alert};
                 color: #{$alert};
             }
 
+            &.loading,
             &.notify {
-                border-color: #{$notify};
-                color: #{$notify};
+                border-color: $black;
+                color: $black;
             }
 
             &.success {
-                border-color: #{$success};
-                color: #{$success};
+                border-color: $black;
+                background-color: $black;
+                color: $white;
+                box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
             }
 
             svg {
                 display: inline-block;
                 vertical-align: text-bottom;
+
+                circle {
+                    fill: $white;
+                    stroke: $black;
+                }
+
+                path {
+                    stroke: $black;
+                }
             }
 
             a {
@@ -118,7 +125,6 @@ a {
             }
 
             &:hover {
-                background: darken($lighter-grey, 5%);
                 cursor: pointer;
             }
         }
