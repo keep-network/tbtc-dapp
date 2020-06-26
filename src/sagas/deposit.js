@@ -161,7 +161,7 @@ export function* requestADeposit() {
     /** @type {Deposit} */
     let deposit
     try {
-        deposit = yield call([tbtc.Deposit, tbtc.Deposit.withSatoshiLotSize], new BN(100000))
+        deposit = yield call([tbtc.Deposit, tbtc.Deposit.withSatoshiLotSize], new BN(1000000))
     } catch (err) {
         if (err.message.includes(METAMASK_TX_DENIED_ERROR)) return
         throw err
