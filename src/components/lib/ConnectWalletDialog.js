@@ -65,11 +65,11 @@ export const ConnectWalletDialog = ({ shown, onConnected, onClose }) => {
 			await wallet.connector.activate()
 			setAvailableAccounts(await wallet.connector.getAccounts())
 		} else {
-			await activateProvider(wallet)
+			await activateProvider(null, wallet)
 		}
 	}
 
-	const activateProvider = async (wallet = chosenWallet, selectedAccount) => {
+	const activateProvider = async (selectedAccount, wallet = chosenWallet) => {
 		try {
 			if(isHardwareWallet(wallet)) {
 				wallet.connector.setDefaultAccount(selectedAccount)
