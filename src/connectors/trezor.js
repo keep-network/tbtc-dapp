@@ -16,6 +16,8 @@ import TrezorConnect from 'trezor-connect'
  *    support out-of-the-box. Assuming a Websocket provider is simpler for our case.
  */
 export class TrezorConnector extends AbstractConnector {
+  defaultAccount = ""
+
   constructor({
     chainId,
     url,
@@ -66,8 +68,15 @@ export class TrezorConnector extends AbstractConnector {
   }
 
   async getAccount() {
-    return this.provider._providers[0].getAccountsAsync(1)
-      .then((accounts) => accounts[0])
+    return this.defaultAccount
+  }
+
+  async getAccounts() {
+    return await this.provider._providers[0].getAccountsAsync(15)
+  }
+
+  setDefaultAccount(account) {
+    this.defaultAccount = account
   }
 
   deactivate() {
