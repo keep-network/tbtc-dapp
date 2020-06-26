@@ -6,7 +6,7 @@ import { LedgerConnector } from '../../connectors/ledger'
 import { TrezorConnector } from '../../connectors/trezor'
 
 const CHAIN_ID = process.env.CHAIN_ID || 1337
-const ETH_RPC_URL = process.env.ETH_RPC_URL || 'ws://localhost:8545'
+const ETH_RPC_URL = process.env.ETH_RPC_URL || 'ws://localhost:8546'
 
 // Connectors.
 const injectedConnector = new InjectedConnector({})
@@ -52,25 +52,35 @@ const WALLETS = [
 
 
 export const ConnectWalletDialog = ({ shown, onConnected, onClose }) => {
-	const { active, account, activate, chainId, connector } = useWeb3React()
+	const { active, account, activate } = useWeb3React()
 
-	let [chosenWallet, setChosenWallet] = useState(null)
+	let [chosenWallet, setChosenWallet] = useState({})
 	let [error, setError] = useState(null)
-	let state = {
-		chosenWallet,
-		error
-	}
+	const [availableAccounts, setAvailableAccounts] = useState([])
+	const isHardwareWallet = ({ name }) => name === "Ledger" || name === "Trezor"
 
 	async function chooseWallet(wallet) {
 		setChosenWallet(wallet)
+		if(isHardwareWallet(wallet)) {
+			await wallet.connector.activate()
+			setAvailableAccounts(await wallet.connector.getAccounts())
+		} else {
+			await activateProvider(wallet)
+		}
+	}
 
+	const activateProvider = async (wallet = chosenWallet, selectedAccount) => {
 		try {
+			if(isHardwareWallet(wallet)) {
+				wallet.connector.setDefaultAccount(selectedAccount)
+			}
 			await activate(wallet.connector, undefined, true)
 			onConnected()
 		} catch(ex) {
 			setError(ex.toString())
 			throw ex
 		}
+		
 	}
 
 	const ChooseWalletStep = () => {
@@ -82,7 +92,7 @@ export const ConnectWalletDialog = ({ shown, onConnected, onClose }) => {
 				{
 					WALLETS.map(wallet => {
 						return <li className='wallet-option' onClick={() => chooseWallet(wallet)}>
-							<img src={wallet.icon} />
+							<img alt="wallet-icon" src={wallet.icon} />
 							{wallet.showName && wallet.name}
 						</li>
 					})
@@ -134,14 +144,32 @@ export const ConnectWalletDialog = ({ shown, onConnected, onClose }) => {
 		</div>
 	}
 
+	const ChooseAccount = () => {
+		if(isHardwareWallet(chosenWallet) && availableAccounts.length !== 0 && !active) {
+			return (
+				<>
+				<div className="title">Select account</div>
+				{availableAccounts.map(account => (
+					<div onClick={() => activateProvider(account)}>
+						{account}
+					</div>
+				))}
+				</>
+			)
+		} 
+
+		return null
+	}
+
 	return <div className={`modal connect-wallet ${shown ? 'open' : 'closed'}`}>
 		<div className="modal-body">
 			<div className="close">
 				<div className="x" onClick={onClose}>&#9587;</div>
 			</div>
-			{!chosenWallet && <ChooseWalletStep />}
-			{(chosenWallet && !active) && <ConnectToWalletStep />}
-			{(chosenWallet && active) && <ConnectedView />}
+			{!chosenWallet.name && <ChooseWalletStep />}
+			{(chosenWallet.name && !active) && <ConnectToWalletStep />}
+			{(chosenWallet.name && active) && <ConnectedView />}
+			<ChooseAccount />
 		</div>
 	</div>
 }
