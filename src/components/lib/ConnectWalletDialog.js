@@ -17,12 +17,10 @@ const ledgerConnector = new LedgerConnector({
 })
 
 const trezorConnector = new TrezorConnector({ 
-	chainId: 1,
+	chainId: CHAIN_ID,
 	pollingInterval: 1000,
 	requestTimeoutMs: 1000,
 	config: {
-		// TODO: Trezor's API will throw for larger network id's. 
-		// TODO: apply same solution as Ledger.
 		chainId: CHAIN_ID,
 	},
 	url: ETH_RPC_URL,
@@ -61,12 +59,16 @@ export const ConnectWalletDialog = ({ shown, onConnected, onClose }) => {
 	const [availableAccounts, setAvailableAccounts] = useState([])
 
 	async function chooseWallet(wallet) {
-		setChosenWallet(wallet)
-		if(wallet.isHardwareWallet) {
-			await wallet.connector.activate()
-			setAvailableAccounts(await wallet.connector.getAccounts())
-		} else {
-			await activateProvider(null, wallet)
+		try {
+			setChosenWallet(wallet)
+			if(wallet.isHardwareWallet) {
+				await wallet.connector.activate()
+				setAvailableAccounts(await wallet.connector.getAccounts())
+			} else {
+				await activateProvider(null, wallet)
+			}
+		} catch(error) {
+			setError(error.toString())
 		}
 	}
 
