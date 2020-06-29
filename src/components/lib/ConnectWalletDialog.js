@@ -11,9 +11,16 @@ const ETH_RPC_URL = process.env.ETH_RPC_URL || 'ws://localhost:8546'
 // Connectors.
 const injectedConnector = new InjectedConnector({})
 
-const ledgerConnector = new LedgerConnector({
+const ledgerLiveConnector = new LedgerConnector({
     chainId: CHAIN_ID,
-	url: ETH_RPC_URL
+	url: ETH_RPC_URL,
+	baseDerivationPath: "44'/60'/0'/0",
+})
+
+const ledgerLegacyConnector = new LedgerConnector({
+    chainId: CHAIN_ID,
+	url: ETH_RPC_URL,
+	baseDerivationPath: "44'/60'/0'",
 })
 
 const trezorConnector = new TrezorConnector({ 
@@ -33,18 +40,23 @@ const WALLETS = [
 	{
 		name: "Metamask",
 		icon: "/images/metamask-fox.svg",
-		showName: true,
 		connector: injectedConnector
 	},
 	{
-		name: "Ledger",
+		name: "Ledger Legacy",
 		icon: "/images/ledger.svg",
-		connector: ledgerConnector,
+		connector: ledgerLegacyConnector,
+		isHardwareWallet: true,
+	},
+	{
+		name: "Ledger Live",
+		icon: "/images/ledger.svg",
+		connector: ledgerLiveConnector,
 		isHardwareWallet: true,
 	},
 	{
 		name: "Trezor",
-		icon: "/images/trezor.png",
+		icon: "/images/trezor.svg",
 		connector: trezorConnector,
 		isHardwareWallet: true,
 	}
@@ -119,9 +131,9 @@ const ChooseWalletStep = ({ onChooseWallet }) => {
 		<ul className='wallets'>
 			{
 				WALLETS.map(wallet => {
-					return <li className='wallet-option' onClick={() => onChooseWallet(wallet)}>
+					return <li key={wallet.name} className='wallet-option' onClick={() => onChooseWallet(wallet)}>
 						<img alt="wallet-icon" src={wallet.icon} />
-						{wallet.showName && wallet.name}
+						{wallet.name}
 					</li>
 				})
 			}
