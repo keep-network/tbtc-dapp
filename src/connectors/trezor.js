@@ -71,8 +71,8 @@ export class TrezorConnector extends AbstractConnector {
     return this.defaultAccount
   }
 
-  async getAccounts() {
-    return await this.provider._providers[0].getAccountsAsync(15)
+  async getAccounts(numberOfAccounts = 15) {
+    return await this.provider._providers[0].getAccountsAsync(numberOfAccounts)
   }
 
   setDefaultAccount(account) {
