@@ -1,13 +1,6 @@
 import { LedgerSubprovider as LedgerSubprovider0x } from '@0x/subproviders/lib/src/subproviders/ledger' // https://github.com/0xProject/0x-monorepo/issues/1400
-import { Transaction } from 'ethereumjs-tx'
-import Common from 'ethereumjs-common'
-import { addressUtils } from '@0x/utils';
-import web3 from 'web3'
-import { 
-    LedgerSubproviderErrors,
-    WalletSubproviderErrors
-} from '@0x/subproviders/lib/src/types'
-import { hexToPaddedBuffer } from './utils';
+import web3Utils from 'web3-utils';
+import { hexToPaddedBuffer, buildTransactionForChain } from './utils';
 
 /**
  * A custom Ledger subprovider, inheriting from the 0x Subprovider.
@@ -25,8 +18,8 @@ class LedgerSubprovider extends LedgerSubprovider0x {
 
     async signTransactionAsync(txParams) {
         LedgerSubprovider._validateTxParams(txParams)
-        if (txParams.from === undefined || !addressUtils.isAddress(txParams.from)) {
-            throw new Error(WalletSubproviderErrors.FromAddressMissingOrInvalid);
+        if (txParams.from === undefined || !web3Utils.isAddress(txParams.from)) {
+            throw new Error('Invalid address')
         }
         const initialDerivedKeyInfo = await this._initialDerivedKeyInfoAsync();
         const derivedKeyInfo = this._findDerivedKeyInfoForAddress(initialDerivedKeyInfo, txParams.from);
@@ -35,15 +28,7 @@ class LedgerSubprovider extends LedgerSubprovider0x {
 
         try {
             const fullDerivationPath = derivedKeyInfo.derivationPath
-            const common = Common.forCustomChain(
-                'mainnet',
-                {
-                    name: 'keep-dev',
-                    chainId: this.chainId,
-                },
-                'petersburg', ['petersburg']
-            )
-            let tx = new Transaction(txParams, { common })
+            const tx = buildTransactionForChain(txParams, this.chainId)
 
             // Set the EIP155 bits
             const vIndex = 6;
@@ -69,15 +54,13 @@ class LedgerSubprovider extends LedgerSubprovider0x {
             // [1] https://github.com/ethereum/EIPs/blob/master/EIPS/eip-155.md
             const eip155Constant = 35
             let signedV = (this.chainId * 2) + eip155Constant
-            if(ledgerSignedV % 2 == 0) {
+            if(ledgerSignedV % 2 === 0) {
                 signedV += 1
             }
 
             // Verify signature `v` value returned from Ledger.
             if ((signedV & 0xff) !== ledgerSignedV) {
-                await this._destroyLedgerClientAsync();
-                const err = new Error(LedgerSubproviderErrors.TooOldLedgerFirmware);
-                throw err;
+                throw new Error('Invalid chainID')
             }
 
             // Store signature in transaction.
