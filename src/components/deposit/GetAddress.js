@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import StatusIndicator from '../svgs/StatusIndicator'
 import { getBitcoinAddress } from '../../actions'
 
-const GetAddress = ({ status, getBitcoinAddress }) => {
+const GetAddress = ({ status, getBitcoinAddress, btcAddressError }) => {
   useEffect(() => {
     getBitcoinAddress()
   }, [getBitcoinAddress])
@@ -33,6 +33,9 @@ const GetAddress = ({ status, getBitcoinAddress }) => {
         <div className="description">
           {statusText}
         </div>
+        <div className="error">
+          { btcAddressError }
+        </div>
       </div>
     </div >
   )
@@ -40,7 +43,8 @@ const GetAddress = ({ status, getBitcoinAddress }) => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    status: state.deposit.invoiceStatus
+    status: state.deposit.invoiceStatus,
+    btcAddressError: state.deposit.btcAddressError,
   }
 }
 

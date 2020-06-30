@@ -18,6 +18,7 @@ export const DEPOSIT_REQUEST_METAMASK_SUCCESS = 'DEPOSIT_REQUEST_METAMASK_SUCCES
 export const DEPOSIT_REQUEST_SUCCESS = 'DEPOSIT_REQUEST_SUCCESS'
 export const DEPOSIT_RESOLVED = 'DEPOSIT_RESOLVED'
 export const DEPOSIT_BTC_ADDRESS = 'DEPOSIT_BTC_ADDRESS'
+export const DEPOSIT_BTC_ADDRESS_FAILED = 'DEPOSIT_BTC_ADDRESS_FAILED'
 export const DEPOSIT_STATE_RESTORED = 'DEPOSIT_STATE_RESTORED'
 export const DEPOSIT_BTC_AMOUNTS = 'DEPOSIT_BTC_AMOUNTS'
 
@@ -191,14 +192,22 @@ export function* getBitcoinAddress() {
     /** @type Deposit */
     const deposit = yield select(state => state.deposit.deposit)
 
-    const btcAddress = yield deposit.bitcoinAddress
-
-    yield put({
-        type: DEPOSIT_BTC_ADDRESS,
-        payload: {
-            btcAddress,
-        }
-    })
+    try {
+        const btcAddress = yield deposit.bitcoinAddress
+        yield put({
+            type: DEPOSIT_BTC_ADDRESS,
+            payload: {
+                btcAddress,
+            }
+        })
+    } catch (error) {
+        yield put({
+            type: DEPOSIT_BTC_ADDRESS_FAILED,
+            payload: {
+                error: error.message,
+            }
+        })
+    }
 
     const lotInSatoshis = yield call([deposit, deposit.getSatoshiLotSize])
     const signerFeeTbtc = yield call([deposit, deposit.getSignerFeeTBTC])
