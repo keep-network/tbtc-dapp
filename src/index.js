@@ -4,8 +4,9 @@ import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import routerMiddleware from './lib/router/middleware'
 import notificationMiddleware from './lib/notifications/middleware'
-import { Provider, useSelector } from 'react-redux'
-import { Router, Route, useParams } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { Router, Route } from 'react-router-dom'
+import { composeWithDevTools } from 'redux-devtools-extension'
 
 // Styles
 import './css/app.scss'
@@ -21,6 +22,7 @@ import {
   Invoice,
   GetAddress,
   Pay,
+  Confirming as ConfirmingDeposit,
   Prove as ProveDeposit,
   Congratulations as CongratulationsDeposit
 } from './components/deposit'
@@ -41,8 +43,6 @@ import Loadable, { RESTORER } from './wrappers/loadable'
 import sagas from './sagas'
 import reducers from './reducers'
 import history from './history'
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux'
 
 // Set up our store
 const sagaMiddleware = createSagaMiddleware()
@@ -54,7 +54,9 @@ const middleware = [
 
 const store = createStore(
   reducers,
-  applyMiddleware(...middleware),
+  composeWithDevTools(
+    applyMiddleware(...middleware)
+  ),
 )
 
 sagaMiddleware.run(sagas)
@@ -69,13 +71,21 @@ function AppWrapper() {
             <Route path="/" exact component={Home} />
             <Route path="/deposit" exact component={StartDeposit} />
             <Route path="/deposit/new" component={Invoice} />
-            <Route path="/deposit/:address/get-address" component={GetAddress} />
+            <Route path="/deposit/:address/get-address">
+              <Loadable restorer={RESTORER.DEPOSIT}>
+                <GetAddress />
+              </Loadable>
+            </Route>
             <Route path="/deposit/:address/pay" exact>
               <Loadable restorer={RESTORER.DEPOSIT}>
                 <Pay />
               </Loadable>
             </Route>
-            <Route path="/deposit/:address/pay/confirming" render={(props) => <Loadable restorer={RESTORER.DEPOSIT}><Pay {...props} confirming={true} /></Loadable>} />
+            <Route path="/deposit/:address/pay/confirming">
+              <Loadable restorer={RESTORER.DEPOSIT}>
+                <ConfirmingDeposit />
+              </Loadable>
+            </Route>
             <Route path="/deposit/:address/prove">
               <Loadable restorer={RESTORER.DEPOSIT}>
                 <ProveDeposit />

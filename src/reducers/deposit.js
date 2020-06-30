@@ -11,11 +11,12 @@ import {
   DEPOSIT_RESOLVED,
   DEPOSIT_STATE_RESTORED,
 } from "../sagas/deposit"
-import { RESTORE_DEPOSIT_STATE } from "../actions"
+import { AUTO_SUBMIT_DEPOSIT_PROOF, RESTORE_DEPOSIT_STATE } from "../actions"
 
 const initialState = {
   btcAddress: null,
   depositAddress: null,
+  didSubmitDepositProof: false,
   btcDepositedTxID: null,
   tbtcMintedTxID: null,
   fundingOutputIndex: null,
@@ -45,13 +46,13 @@ const deposit = (state = initialState, action) => {
       return {
         ...state,
         depositAddress: action.payload.depositAddress,
-        invoiceStatus: 2
+        invoiceStatus: 2,
       }
     case DEPOSIT_RESOLVED:
       return {
         ...state,
         deposit: action.payload.deposit,
-        invoiceStatus: 2
+        invoiceStatus: 3
       }
     case DEPOSIT_BTC_ADDRESS:
       return {
@@ -63,6 +64,11 @@ const deposit = (state = initialState, action) => {
         ...state,
         lotInSatoshis: action.payload.lotInSatoshis,
         signerFeeInSatoshis: action.payload.signerFeeInSatoshis,
+      }
+    case AUTO_SUBMIT_DEPOSIT_PROOF:
+      return {
+        ...state,
+        didSubmitDepositProof: true,
       }
     case BTC_TX_MINED:
       return {

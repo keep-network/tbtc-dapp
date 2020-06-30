@@ -1,5 +1,4 @@
-import React, { Component, useReducer, useState } from 'react'
-import Check from '../svgs/Check'
+import React, { useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { InjectedConnector } from '@web3-react/injected-connector'
 
@@ -36,10 +35,6 @@ export const ConnectWalletDialog = ({ shown, onConnected }) => {
 
 	let [chosenWallet, setChosenWallet] = useState(null)
 	let [error, setError] = useState(null)
-	let state = {
-		chosenWallet,
-		error
-	}
 
 	async function chooseWallet(wallet) {
 		setChosenWallet(wallet)
@@ -64,7 +59,7 @@ export const ConnectWalletDialog = ({ shown, onConnected }) => {
 				{
 					WALLETS.map(({ name, icon, showName }) => {
 						return <li key={name} className='wallet-option' onClick={() => chooseWallet(name)}>
-							<img src={icon} />
+							<img src={icon} alt={`${name} icon`} />
 							{showName && name}
 						</li>
 					})

@@ -5,6 +5,7 @@ import Congratulations from './Congratulations'
 import Start from './Start'
 import RequestDeposit from './RequestDeposit'
 import GetAddress from './GetAddress'
+import Confirming from './Confirming'
 
 export {
     Invoice,
@@ -13,5 +14,6 @@ export {
     Congratulations,
     Start,
     RequestDeposit,
-    GetAddress
+    GetAddress,
+    Confirming
 }
