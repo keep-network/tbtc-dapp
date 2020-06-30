@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 import history from '../../history'
 import { requestPermission } from '../../lib/notifications'

@@ -11,7 +11,7 @@ function App(props) {
       <div className="app">
         <Header />
 
-        <p class="warning">
+        <p className="warning">
           The tBTC dApp is in ALPHA. Improper use can lead to LOSS OF FUNDS. If
           you're uncomfortable with these risks, consider using another method
           to mint TBTC. Visit <a href="https://discord.gg/Bpzfsgx">our

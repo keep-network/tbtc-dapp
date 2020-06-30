@@ -1,10 +1,10 @@
-import React, { Component, useReducer, useState } from 'react'
+import React, { useState } from 'react'
 import Check from '../svgs/Check'
 import { useWeb3React } from '@web3-react/core'
 import { ConnectWalletDialog } from './ConnectWalletDialog'
 
 export const Web3Status = (props) => {
-	const { active, error } = useWeb3React()
+	const { active } = useWeb3React()
 
 	let [showConnectWallet, setShowConnectWallet] = useState(false)
 
