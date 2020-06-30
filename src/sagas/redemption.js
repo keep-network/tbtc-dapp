@@ -75,16 +75,25 @@ export function* resumeRedemption() {
         return // just one at a time please; FIXME should be handled better
     }
 
-    const redemption = yield call([deposit, deposit.getCurrentRedemption])
+    try {
+        const redemption = yield call([deposit, deposit.getCurrentRedemption])
 
-    yield put({
-        type: REDEMPTION_REQUESTED,
-        payload: {
-            redemption
-        }
-    })
+        yield put({
+            type: REDEMPTION_REQUESTED,
+            payload: {
+                redemption
+            }
+        })
 
-    yield* runRedemption(redemption)
+        yield* runRedemption(redemption)
+    } catch (error) {
+        yield put({
+            type: REDEMPTION_REQUEST_FAILED,
+            payload: {
+                error: error.message,
+            }
+        })
+    }
 }
 
 /**
