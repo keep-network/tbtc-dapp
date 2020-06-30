@@ -256,15 +256,24 @@ export function* autoSubmitDepositProof() {
     // goto
     yield put(navigateTo('/deposit/' + deposit.address + '/prove'))
 
-    yield put({ type: DEPOSIT_PROVE_BTC_TX_BEGIN })
-    const proofTransaction = yield autoSubmission.proofTransaction
+    try {
+        yield put({ type: DEPOSIT_PROVE_BTC_TX_BEGIN })
+        const proofTransaction = yield autoSubmission.proofTransaction
 
-    yield put({
-        type: DEPOSIT_PROVE_BTC_TX_SUCCESS,
-        payload: {
-            proofTransaction,
-        }
-    })
+        yield put({
+            type: DEPOSIT_PROVE_BTC_TX_SUCCESS,
+            payload: {
+                proofTransaction,
+            }
+        })
+    } catch (error) {
+        yield put({
+            type: DEPOSIT_PROVE_BTC_TX_ERROR,
+            payload: {
+                error: error.message
+            }
+        })
+    }
 
     yield call([deposit, deposit.mintTBTC])
 
