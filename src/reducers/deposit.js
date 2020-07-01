@@ -23,7 +23,7 @@ const initialState = {
   fundingOutputIndex: null,
   btcConfirming: false,
   invoiceStatus: 0,
-  stateRestored: false,
+  isStateReady: false,
 }
 
 const deposit = (state = initialState, action) => {
@@ -36,7 +36,7 @@ const deposit = (state = initialState, action) => {
     case DEPOSIT_STATE_RESTORED:
       return {
         ...state,
-        stateRestored: true,
+        isStateReady: true,
       }
     case DEPOSIT_REQUEST_BEGIN:
       return {
@@ -48,9 +48,7 @@ const deposit = (state = initialState, action) => {
         ...state,
         depositAddress: action.payload.depositAddress,
         invoiceStatus: 2,
-        // Flagging as true so that /get-address route can render the GetAddress
-        // component as expected since we are using the LoadableWrapper
-        stateRestored: true
+        isStateReady: true
       }
     case DEPOSIT_RESOLVED:
       return {

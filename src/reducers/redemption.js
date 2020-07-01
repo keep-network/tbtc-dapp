@@ -23,6 +23,7 @@ const initialState = {
     confirmations: null,
     pollForConfirmationsError: null,
     redemption: null,
+    isStateReady: false,
 }
 
 const redemption = (state = initialState, action) => {
@@ -35,7 +36,7 @@ const redemption = (state = initialState, action) => {
         case DEPOSIT_STATE_RESTORED:
             return {
                 ...state,
-                stateRestored: true,
+                isStateReady: true,
             }
         case DEPOSIT_RESOLVED:
             return {
