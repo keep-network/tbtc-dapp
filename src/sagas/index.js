@@ -9,7 +9,6 @@ import {
 import {
     saveAddresses,
     requestRedemption,
-    resumeRedemption,
 } from './redemption'
 import {
     RESTORE_DEPOSIT_STATE,
@@ -17,7 +16,6 @@ import {
     REQUEST_A_DEPOSIT,
     SAVE_ADDRESSES,
     REQUEST_REDEMPTION,
-    RESUME_REDEMPTION,
 } from '../actions'
 
 export default function* () {
@@ -26,5 +24,4 @@ export default function* () {
     yield takeLatest(REQUEST_A_DEPOSIT, requestADeposit)
     yield takeLatest(SAVE_ADDRESSES, saveAddresses)
     yield takeLatest(REQUEST_REDEMPTION, requestRedemption)
-    yield takeLatest(RESUME_REDEMPTION, resumeRedemption)
 }

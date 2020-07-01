@@ -1,17 +1,8 @@
-import React, { useEffect } from 'react'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+import React from 'react'
 
 import StatusIndicator from '../svgs/StatusIndicator'
-import { resumeRedemption } from '../../actions'
 
-const Signing = ({ resumeRedemption, redemptionInProgress }) => {
-  useEffect(() => {
-    if (!redemptionInProgress) {
-      resumeRedemption()
-    }
-  }, [resumeRedemption, redemptionInProgress])
-
+const Signing = () => {
   return (
     <div className="confirming">
       <div className="page-top">
@@ -33,17 +24,4 @@ const Signing = ({ resumeRedemption, redemptionInProgress }) => {
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    redemptionInProgress: !!state.redemption.redemption
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ resumeRedemption }, dispatch)
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Signing)
+export default Signing

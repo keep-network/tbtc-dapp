@@ -164,6 +164,9 @@ export function* onStateRestored(depositState) {
         case tbtc.Deposit.State.AWAITING_BTC_FUNDING_PROOF:
             yield* autoSubmitDepositProof()
             break
+        case tbtc.Deposit.State.AWAITING_WITHDRAWAL_SIGNATURE:
+            yield* resumeRedemption()
+            break
         default:
             // noop
             break

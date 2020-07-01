@@ -44,7 +44,6 @@ export function requestADeposit() {
 // Redemption
 export const SAVE_ADDRESSES = 'SAVE_ADDRESSES'
 export const REQUEST_REDEMPTION = 'REQUEST_REDEMPTION'
-export const RESUME_REDEMPTION = 'RESUME_REDEMPTION'
 
 export function saveAddresses({ btcAddress, depositAddress }) {
     return {
@@ -59,12 +58,6 @@ export function saveAddresses({ btcAddress, depositAddress }) {
 export function requestRedemption() {
     return {
         type: REQUEST_REDEMPTION,
-    }
-}
-
-export function resumeRedemption() {
-    return {
-        type: RESUME_REDEMPTION
     }
 }
 
