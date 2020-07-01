@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react'
-import { bindActionCreators } from 'redux'
+import React from 'react'
 import { connect } from 'react-redux'
 
-import { autoSubmitDepositProof } from '../../actions'
 import StatusIndicator from '../svgs/StatusIndicator'
 
 import { BitcoinHelpers } from '@keep-network/tbtc.js'
@@ -10,17 +8,7 @@ import { BitcoinHelpers } from '@keep-network/tbtc.js'
 import BigNumber from "bignumber.js"
 BigNumber.set({ DECIMAL_PLACES: 8 })
 
-const Confirming = ({
-  autoSubmitDepositProof,
-  didSubmitDepositProof,
-  signerFeeInSatoshis
-}) => {
-  useEffect(() => {
-    if (!didSubmitDepositProof) {
-      autoSubmitDepositProof()
-    }
-  }, [autoSubmitDepositProof, didSubmitDepositProof])
-
+const Confirming = ({ signerFeeInSatoshis }) => {
   const signerFee = (new BigNumber(signerFeeInSatoshis.toString()))
     .div(BitcoinHelpers.satoshisPerBtc.toString()).toString()
 
@@ -53,23 +41,13 @@ const Confirming = ({
   )
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
     signerFeeInSatoshis: state.deposit.signerFeeInSatoshis,
-    didSubmitDepositProof: state.deposit.didSubmitDepositProof,
   }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(
-  {
-    autoSubmitDepositProof
-  },
-  dispatch
-  )
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(Confirming)

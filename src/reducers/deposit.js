@@ -5,6 +5,7 @@ import {
   DEPOSIT_BTC_AMOUNTS,
   BTC_TX_MINED,
   BTC_TX_CONFIRMED_WAIT,
+  DEPOSIT_AUTO_SUBMIT_PROOF,
   DEPOSIT_PROVE_BTC_TX_BEGIN,
   DEPOSIT_PROVE_BTC_TX_SUCCESS,
   DEPOSIT_PROVE_BTC_TX_ERROR,
@@ -12,7 +13,7 @@ import {
   DEPOSIT_RESOLVED,
   DEPOSIT_STATE_RESTORED,
 } from "../sagas/deposit"
-import { AUTO_SUBMIT_DEPOSIT_PROOF, RESTORE_DEPOSIT_STATE } from "../actions"
+import { RESTORE_DEPOSIT_STATE } from "../actions"
 
 const initialState = {
   btcAddress: null,
@@ -73,7 +74,7 @@ const deposit = (state = initialState, action) => {
         lotInSatoshis: action.payload.lotInSatoshis,
         signerFeeInSatoshis: action.payload.signerFeeInSatoshis,
       }
-    case AUTO_SUBMIT_DEPOSIT_PROOF:
+    case DEPOSIT_AUTO_SUBMIT_PROOF:
       return {
         ...state,
         didSubmitDepositProof: true,

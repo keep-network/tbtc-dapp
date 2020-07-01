@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { autoSubmitDepositProof } from '../../actions'
 import QRCode from 'qrcode.react'
 import { useParams } from "react-router-dom"
 
@@ -21,14 +19,6 @@ class PayComponent extends Component {
     copied: false,
     deposit: {
       depositAddress: this.props.address
-    }
-  }
-
-  componentDidMount() {
-    const { autoSubmitDepositProof, didSubmitDepositProof } = this.props
-
-    if (!didSubmitDepositProof) {
-      autoSubmitDepositProof()
     }
   }
 
@@ -99,26 +89,16 @@ class PayComponent extends Component {
 }
 
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
     btcAddress: state.deposit.btcAddress,
     depositAddress: state.deposit.depositAddress,
     lotInSatoshis: state.deposit.lotInSatoshis,
     signerFeeInSatoshis: state.deposit.signerFeeInSatoshis,
-    didSubmitDepositProof: state.deposit.didSubmitDepositProof,
   }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(
-    {
-      autoSubmitDepositProof
-    },
-    dispatch
-  )
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(Pay)

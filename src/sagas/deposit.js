@@ -2,7 +2,6 @@ import { call, put, select } from 'redux-saga/effects'
 
 import { METAMASK_TX_DENIED_ERROR } from '../chain'
 
-
 import { notifyTransactionConfirmed } from '../lib/notifications/actions'
 import { navigateTo } from '../lib/router/actions'
 import { TBTCLoaded } from '../wrappers/web3'
@@ -21,6 +20,7 @@ export const DEPOSIT_BTC_ADDRESS = 'DEPOSIT_BTC_ADDRESS'
 export const DEPOSIT_BTC_ADDRESS_FAILED = 'DEPOSIT_BTC_ADDRESS_FAILED'
 export const DEPOSIT_STATE_RESTORED = 'DEPOSIT_STATE_RESTORED'
 export const DEPOSIT_BTC_AMOUNTS = 'DEPOSIT_BTC_AMOUNTS'
+export const DEPOSIT_AUTO_SUBMIT_PROOF = 'DEPOSIT_AUTO_SUBMIT_PROOF'
 
 export const BTC_TX_MINED = 'BTC_TX_MINED'
 export const BTC_TX_CONFIRMED_WAIT = 'BTC_TX_CONFIRMED_WAIT'
@@ -157,13 +157,12 @@ export function* onStateRestored(depositState) {
     /** @type {TBTC} */
     const tbtc = yield TBTCLoaded
 
-    if (!depositState) {
-        return
-    }
-
     switch(depositState) {
         case tbtc.Deposit.State.AWAITING_SIGNER_SETUP:
             yield* getBitcoinAddress()
+            break
+        case tbtc.Deposit.State.AWAITING_BTC_FUNDING_PROOF:
+            yield* autoSubmitDepositProof()
             break
         default:
             // noop
@@ -245,12 +244,22 @@ export function* getBitcoinAddress() {
 
     // goto
     yield put(navigateTo('/deposit/' + deposit.address + '/pay'))
+    yield* autoSubmitDepositProof()
 }
 
 export function* autoSubmitDepositProof() {
     /** @type Deposit */
     const deposit = yield select(state => state.deposit.deposit)
+    const didSubmitDepositProof =
+        yield select(state => state.deposit.didSubmitDepositProof)
+
+    if (didSubmitDepositProof) {
+        return
+    }
+
     const autoSubmission = deposit.autoSubmit()
+
+    yield put({ type: DEPOSIT_AUTO_SUBMIT_PROOF })
 
     const fundingTx = yield autoSubmission.fundingTransaction
 

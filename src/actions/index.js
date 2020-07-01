@@ -34,17 +34,10 @@ export function restoreRedemptionState(depositAddress) {
 
 // Deposit
 export const REQUEST_A_DEPOSIT = 'REQUEST_A_DEPOSIT'
-export const AUTO_SUBMIT_DEPOSIT_PROOF = 'AUTO_SUBMIT_DEPOSIT_PROOF'
 
 export function requestADeposit() {
     return {
         type: REQUEST_A_DEPOSIT,
-    }
-}
-
-export function autoSubmitDepositProof() {
-    return {
-        type: AUTO_SUBMIT_DEPOSIT_PROOF,
     }
 }
 
