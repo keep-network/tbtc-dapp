@@ -55,7 +55,6 @@ function* restoreState(nextStepMap, stateKey) {
 
         case tbtc.Deposit.State.AWAITING_WITHDRAWAL_PROOF:
             finalCalls = resumeRedemption
-            nextStep = "/redemption/prove"
             // Explicitly fall through.
 
         case tbtc.Deposit.State.AWAITING_WITHDRAWAL_SIGNATURE:
@@ -69,9 +68,7 @@ function* restoreState(nextStepMap, stateKey) {
                     btcAddress,
                 }
             })
-            // Explicitly fall through.
 
-        case tbtc.Deposit.State.AWAITING_SIGNER_SETUP:
             const lotInSatoshis = yield call([deposit, deposit.getSatoshiLotSize])
             const signerFeeTbtc = yield call([deposit, deposit.getSignerFeeTBTC])
             const signerFeeInSatoshis = signerFeeTbtc.div(tbtc.satoshisPerTbtc)
@@ -92,7 +89,10 @@ function* restoreState(nextStepMap, stateKey) {
             //
             // FIXME Check to see if we have a transaction in the mempool for
             // FIXME submitting funding proof, and update state accordingly.
-            
+
+            // Explicitly fall through.
+
+        case tbtc.Deposit.State.AWAITING_SIGNER_SETUP:
             yield put({
                 type: DEPOSIT_STATE_RESTORED,
             })
@@ -104,6 +104,9 @@ function* restoreState(nextStepMap, stateKey) {
 
             // TODO Fork on active vs await
             yield put(navigateTo('/deposit/' + depositAddress + nextStep))
+
+            yield* onStateRestored(depositState)
+
             break
 
         // Funding failure states
@@ -144,10 +147,28 @@ export function* restoreRedemptionState() {
     REDEMPTION_STEP_MAP[tbtc.Deposit.State.AWAITING_BTC_FUNDING_PROOF] = "/pay"
     REDEMPTION_STEP_MAP[tbtc.Deposit.State.ACTIVE] = "/redemption"
     REDEMPTION_STEP_MAP[tbtc.Deposit.State.AWAITING_WITHDRAWAL_SIGNATURE] = "/redemption/signing"
-    REDEMPTION_STEP_MAP[tbtc.Deposit.State.AWAITING_WITHDRAWAL_PROOF] = "/redemption/confirming"
+    REDEMPTION_STEP_MAP[tbtc.Deposit.State.AWAITING_WITHDRAWAL_PROOF] = "/redemption/prove"
     REDEMPTION_STEP_MAP[tbtc.Deposit.State.REDEEMED] = "/redemption/congratulations"
 
     yield* restoreState(REDEMPTION_STEP_MAP, "redemption")
+}
+
+export function* onStateRestored(depositState) {
+    /** @type {TBTC} */
+    const tbtc = yield TBTCLoaded
+
+    if (!depositState) {
+        return
+    }
+
+    switch(depositState) {
+        case tbtc.Deposit.State.AWAITING_SIGNER_SETUP:
+            yield* getBitcoinAddress()
+            break
+        default:
+            // noop
+            break
+    }
 }
 
 export function* requestADeposit() {
@@ -183,6 +204,8 @@ export function* requestADeposit() {
              deposit,
         }
     })
+
+    yield* getBitcoinAddress()
 }
 
 export function* getBitcoinAddress() {
