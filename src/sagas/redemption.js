@@ -11,6 +11,7 @@ import { DEPOSIT_RESOLVED } from "./deposit"
 export const UPDATE_ADDRESSES = 'UPDATE_ADDRESSES'
 export const UPDATE_TRANSACTION_AND_SIGNATURE = 'UPDATE_TRANSACTION_AND_SIGNATURE'
 export const UPDATE_TX_HASH = 'UPDATE_TX_HASH'
+export const SIGN_TX_ERROR = 'SIGN_TX_ERROR'
 export const UPDATE_CONFIRMATIONS = 'UPDATE_CONFIRMATIONS'
 export const POLL_FOR_CONFIRMATIONS_ERROR = 'POLL_FOR_CONFIRMATIONS_ERROR'
 export const REDEMPTION_REQUESTED = 'REDEMPTION_REQUESTED'
@@ -105,9 +106,18 @@ function* runRedemption(redemption) {
 
     yield put(navigateTo('/deposit/' + depositAddress + '/redemption/signing'))
 
-    yield autoSubmission.broadcastTransactionID
+    try {
+        yield autoSubmission.broadcastTransactionID
 
-    yield put(navigateTo('/deposit/' + depositAddress + '/redemption/confirming'))
+        yield put(navigateTo('/deposit/' + depositAddress + '/redemption/confirming'))
+    } catch (error) {
+        yield put({
+            type: SIGN_TX_ERROR,
+            payload: {
+                error: error.message,
+            }
+        })
+    }
 
     try {
         yield autoSubmission.confirmations

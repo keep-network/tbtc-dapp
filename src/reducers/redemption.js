@@ -3,6 +3,7 @@ import {
     UPDATE_TRANSACTION_AND_SIGNATURE,
     UPDATE_TX_HASH,
     UPDATE_CONFIRMATIONS,
+    SIGN_TX_ERROR,
     POLL_FOR_CONFIRMATIONS_ERROR,
     REDEMPTION_PROVE_BTC_TX_BEGIN,
     REDEMPTION_PROVE_BTC_TX_SUCCESS,
@@ -54,6 +55,11 @@ const redemption = (state = initialState, action) => {
                 ...state,
                 unsignedTransaction: action.payload.unsignedTransaction,
                 signature: action.payload.signature
+            }
+        case SIGN_TX_ERROR:
+            return {
+                ...state,
+                signTxError: action.payload.error,
             }
         case UPDATE_TX_HASH:
             return {

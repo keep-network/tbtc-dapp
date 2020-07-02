@@ -1,8 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import StatusIndicator from '../svgs/StatusIndicator'
 
-const Signing = () => {
+const Signing = ({ error }) => {
   return (
     <div className="confirming">
       <div className="page-top">
@@ -13,15 +14,24 @@ const Signing = () => {
           Step 3/6
         </div>
         <div className="title">
-          Waiting on signing group
+          { error ? 'Error signing your transaction' : 'Waiting on signing group' }
         </div>
         <hr />
         <div className="description">
           <p>We’re waiting for the deposit signing group to build and sign your Bitcoin transaction.</p>
+        </div>
+        <div className="error">
+          { error }
         </div>
       </div>
     </div>
   )
 }
 
-export default Signing
+const mapStateToProps = (state) => ({
+  error: state.redemption.signTxError,
+})
+
+export default connect(
+  mapStateToProps,
+)(Signing)
