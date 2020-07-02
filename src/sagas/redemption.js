@@ -122,6 +122,7 @@ function* runRedemption(redemption) {
                 error: error.message,
             }
         })
+        return
     }
 
     try {
@@ -135,6 +136,7 @@ function* runRedemption(redemption) {
                 error: error.message,
             }
         })
+        return
     }
 
     try {

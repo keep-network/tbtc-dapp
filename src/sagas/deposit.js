@@ -198,6 +198,7 @@ export function* requestADeposit() {
                 error: err.message,
             }
         })
+        return
     }
     yield put({ type: DEPOSIT_REQUEST_METAMASK_SUCCESS })
 
@@ -243,6 +244,7 @@ export function* getBitcoinAddress() {
                 error: error.message,
             }
         })
+        return
     }
 
     try {
@@ -263,6 +265,7 @@ export function* getBitcoinAddress() {
                 error: error.message,
             }
         })
+        return
     }
 
     // goto
@@ -302,6 +305,7 @@ export function* autoSubmitDepositProof() {
                 error: error.message,
             }
         })
+        return
     }
 
     // wait a certain number of confirmations on this step
@@ -328,6 +332,7 @@ export function* autoSubmitDepositProof() {
                 error: error.message
             }
         })
+        return
     }
 
     // emit a notification
@@ -354,6 +359,7 @@ export function* autoSubmitDepositProof() {
                 error: error.message
             }
         })
+        return
     }
 
     try {
@@ -366,6 +372,7 @@ export function* autoSubmitDepositProof() {
                 error: error.message,
             }
         })
+        return
     }
 
     // goto
