@@ -109,9 +109,18 @@ function* runRedemption(redemption) {
 
     yield put(navigateTo('/deposit/' + depositAddress + '/redemption/confirming'))
 
-    yield autoSubmission.confirmations
+    try {
+        yield autoSubmission.confirmations
 
-    yield put(navigateTo('/deposit/' + depositAddress + '/redemption/prove'))
+        yield put(navigateTo('/deposit/' + depositAddress + '/redemption/prove'))
+    } catch (error) {
+        yield put({
+            type: POLL_FOR_CONFIRMATIONS_ERROR,
+            payload: {
+                error: error.message,
+            }
+        })
+    }
 
     try {
         yield put({ type: REDEMPTION_PROVE_BTC_TX_BEGIN })
