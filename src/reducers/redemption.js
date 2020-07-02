@@ -8,7 +8,7 @@ import {
     REDEMPTION_PROVE_BTC_TX_SUCCESS,
     REDEMPTION_PROVE_BTC_TX_ERROR,
     REDEMPTION_REQUESTED,
-    REDEMPTION_REQUEST_FAILED,
+    REDEMPTION_REQUEST_ERROR,
 } from '../sagas/redemption'
 
 import { RESTORE_REDEMPTION_STATE } from "../actions"
@@ -75,7 +75,7 @@ const redemption = (state = initialState, action) => {
                 ...state,
                 redemption: action.payload.redemption,
             }
-        case REDEMPTION_REQUEST_FAILED:
+        case REDEMPTION_REQUEST_ERROR:
             return {
                 ...state,
                 requestRedemptionError: action.payload.error,

@@ -14,7 +14,7 @@ export const UPDATE_TX_HASH = 'UPDATE_TX_HASH'
 export const UPDATE_CONFIRMATIONS = 'UPDATE_CONFIRMATIONS'
 export const POLL_FOR_CONFIRMATIONS_ERROR = 'POLL_FOR_CONFIRMATIONS_ERROR'
 export const REDEMPTION_REQUESTED = 'REDEMPTION_REQUESTED'
-export const REDEMPTION_REQUEST_FAILED = 'REDEMPTION_REQUEST_FAILED'
+export const REDEMPTION_REQUEST_ERROR = 'REDEMPTION_REQUEST_ERROR'
 export const REDEMPTION_PROVE_BTC_TX_BEGIN = 'REDEMPTION_PROVE_BTC_TX_BEGIN'
 export const REDEMPTION_PROVE_BTC_TX_SUCCESS = 'REDEMPTION_PROVE_BTC_TX_SUCCESS'
 export const REDEMPTION_PROVE_BTC_TX_ERROR = 'REDEMPTION_PROVE_BTC_TX_ERROR'
@@ -59,7 +59,7 @@ export function* requestRedemption() {
         yield* runRedemption(redemption)
     } catch (error) {
         yield put({
-            type: REDEMPTION_REQUEST_FAILED,
+            type: REDEMPTION_REQUEST_ERROR,
             payload: {
                 error: error.message,
             }
@@ -88,7 +88,7 @@ export function* resumeRedemption() {
         yield* runRedemption(redemption)
     } catch (error) {
         yield put({
-            type: REDEMPTION_REQUEST_FAILED,
+            type: REDEMPTION_REQUEST_ERROR,
             payload: {
                 error: error.message,
             }
