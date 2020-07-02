@@ -30,7 +30,7 @@ class PayComponent extends Component {
   }
 
   render() {
-    const { btcAddress, lotInSatoshis, signerFeeInSatoshis } = this.props
+    const { btcAddress, lotInSatoshis, signerFeeInSatoshis, error } = this.props
     const lotInBtc = (new BigNumber(lotInSatoshis.toString())).div(BitcoinHelpers.satoshisPerBtc.toString())
     const signerFeeInBtc = (new BigNumber(signerFeeInSatoshis.toString())).div(BitcoinHelpers.satoshisPerBtc.toString())
 
@@ -78,6 +78,9 @@ class PayComponent extends Component {
               : ''
             }
           </div>
+          <div className="error">
+            { error }
+          </div>
         </div>
         <textarea
           className="hidden-copy-field"
@@ -95,6 +98,7 @@ const mapStateToProps = (state) => {
     depositAddress: state.deposit.depositAddress,
     lotInSatoshis: state.deposit.lotInSatoshis,
     signerFeeInSatoshis: state.deposit.signerFeeInSatoshis,
+    error: state.deposit.btcTxError,
   }
 }
 

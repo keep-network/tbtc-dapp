@@ -5,7 +5,8 @@ import {
   DEPOSIT_BTC_ADDRESS_ERROR,
   DEPOSIT_BTC_AMOUNTS,
   DEPOSIT_BTC_AMOUNTS_ERROR,
-  BTC_TX_MINED,
+  BTC_TX_SEEN,
+  BTC_TX_ERROR,
   BTC_TX_CONFIRMED_WAIT,
   BTC_TX_CONFIRMED,
   BTC_TX_CONFIRMING_ERROR,
@@ -91,11 +92,16 @@ const deposit = (state = initialState, action) => {
         ...state,
         didSubmitDepositProof: true,
       }
-    case BTC_TX_MINED:
+    case BTC_TX_SEEN:
       return {
         ...state,
         btcDepositedTxID: action.payload.btcDepositedTxID,
         fundingOutputIndex: action.payload.fundingOutputIndex
+      }
+    case BTC_TX_ERROR:
+      return {
+        ...state,
+        btcTxError: action.payload.error,
       }
     case BTC_TX_CONFIRMED_WAIT:
       return {

@@ -24,7 +24,8 @@ export const DEPOSIT_BTC_AMOUNTS = 'DEPOSIT_BTC_AMOUNTS'
 export const DEPOSIT_BTC_AMOUNTS_ERROR = 'DEPOSIT_BTC_AMOUNTS_ERROR'
 export const DEPOSIT_AUTO_SUBMIT_PROOF = 'DEPOSIT_AUTO_SUBMIT_PROOF'
 
-export const BTC_TX_MINED = 'BTC_TX_MINED'
+export const BTC_TX_SEEN = 'BTC_TX_SEEN'
+export const BTC_TX_ERROR = 'BTC_TX_ERROR'
 export const BTC_TX_CONFIRMED_WAIT = 'BTC_TX_CONFIRMED_WAIT'
 export const BTC_TX_CONFIRMED = 'BTC_TX_CONFIRMED'
 export const BTC_TX_CONFIRMING_ERROR = 'BTC_TX_CONFIRMING_ERROR'
@@ -283,18 +284,25 @@ export function* autoSubmitDepositProof() {
 
     yield put({ type: DEPOSIT_AUTO_SUBMIT_PROOF })
 
-    const fundingTx = yield autoSubmission.fundingTransaction
+    try {
+        const fundingTx = yield autoSubmission.fundingTransaction
 
-    yield put({
-        // FIXME This is incorrect, at this point the transaction is _submitted_
-        // FIXME but it is not yet _mined_, i.e. we only know for a fact that it
-        // FIXME is in the mempool.
-        type: BTC_TX_MINED,
-        payload: {
-            btcDepositedTxID: fundingTx.transactionID,
-            fundingOutputIndex: fundingTx.outputPosition
-        }
-    })
+        yield put({
+            // Tx seen in mempool
+            type: BTC_TX_SEEN,
+            payload: {
+                btcDepositedTxID: fundingTx.transactionID,
+                fundingOutputIndex: fundingTx.outputPosition
+            }
+        })
+    } catch (error) {
+        yield put({
+            type: BTC_TX_ERROR,
+            payload: {
+                error: error.message,
+            }
+        })
+    }
 
     // wait a certain number of confirmations on this step
     yield put({
