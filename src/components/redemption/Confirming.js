@@ -5,10 +5,10 @@ import StatusIndicator from '../svgs/StatusIndicator'
 
 class Confirming extends Component {
   handleClickButton = () => {
-    const { txHash } = this.props
+    const { txHash, btcNetwork } = this.props
 
     window.open(
-      `https://blockstream.info/tx/${txHash}`,
+      `https://blockstream.info/${btcNetwork === 'testnet' ? 'testnet/' : ''}tx/${txHash}`,
       '_blank'
     );
   }
@@ -62,6 +62,7 @@ const mapStateToProps = (state) => {
   return {
     txHash: state.redemption.txHash,
     error: state.redemption.pollForConfirmationsError,
+    btcNetwork: state.redemption.btcNetwork,
   }
 }
 

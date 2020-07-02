@@ -33,6 +33,7 @@ export function* saveAddresses({ payload }) {
         type: DEPOSIT_RESOLVED,
         payload: {
             deposit,
+            btcNetwork: tbtc.config.bitcoinNetwork,
         }
     })
 
