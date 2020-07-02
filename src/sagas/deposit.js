@@ -17,9 +17,10 @@ export const DEPOSIT_REQUEST_METAMASK_SUCCESS = 'DEPOSIT_REQUEST_METAMASK_SUCCES
 export const DEPOSIT_REQUEST_SUCCESS = 'DEPOSIT_REQUEST_SUCCESS'
 export const DEPOSIT_RESOLVED = 'DEPOSIT_RESOLVED'
 export const DEPOSIT_BTC_ADDRESS = 'DEPOSIT_BTC_ADDRESS'
-export const DEPOSIT_BTC_ADDRESS_FAILED = 'DEPOSIT_BTC_ADDRESS_FAILED'
+export const DEPOSIT_BTC_ADDRESS_ERROR = 'DEPOSIT_BTC_ADDRESS_ERROR'
 export const DEPOSIT_STATE_RESTORED = 'DEPOSIT_STATE_RESTORED'
 export const DEPOSIT_BTC_AMOUNTS = 'DEPOSIT_BTC_AMOUNTS'
+export const DEPOSIT_BTC_AMOUNTS_ERROR = 'DEPOSIT_BTC_AMOUNTS_ERROR'
 export const DEPOSIT_AUTO_SUBMIT_PROOF = 'DEPOSIT_AUTO_SUBMIT_PROOF'
 
 export const BTC_TX_MINED = 'BTC_TX_MINED'
@@ -229,23 +230,32 @@ export function* getBitcoinAddress() {
         })
     } catch (error) {
         yield put({
-            type: DEPOSIT_BTC_ADDRESS_FAILED,
+            type: DEPOSIT_BTC_ADDRESS_ERROR,
             payload: {
                 error: error.message,
             }
         })
     }
 
-    const lotInSatoshis = yield call([deposit, deposit.getSatoshiLotSize])
-    const signerFeeTbtc = yield call([deposit, deposit.getSignerFeeTBTC])
-    const signerFeeInSatoshis = signerFeeTbtc.div(tbtc.satoshisPerTbtc)
-    yield put({
-        type: DEPOSIT_BTC_AMOUNTS,
-        payload: {
-            lotInSatoshis,
-            signerFeeInSatoshis,
-        }
-    })
+    try {
+        const lotInSatoshis = yield call([deposit, deposit.getSatoshiLotSize])
+        const signerFeeTbtc = yield call([deposit, deposit.getSignerFeeTBTC])
+        const signerFeeInSatoshis = signerFeeTbtc.div(tbtc.satoshisPerTbtc)
+        yield put({
+            type: DEPOSIT_BTC_AMOUNTS,
+            payload: {
+                lotInSatoshis,
+                signerFeeInSatoshis,
+            }
+        })
+    } catch (error) {
+        yield put({
+            type: DEPOSIT_BTC_AMOUNTS_ERROR,
+            payload: {
+                error: error.message,
+            }
+        })
+    }
 
     // goto
     yield put(navigateTo('/deposit/' + deposit.address + '/pay'))

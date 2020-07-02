@@ -1,8 +1,9 @@
 import {
   DEPOSIT_REQUEST_SUCCESS,
   DEPOSIT_BTC_ADDRESS,
-  DEPOSIT_BTC_ADDRESS_FAILED,
+  DEPOSIT_BTC_ADDRESS_ERROR,
   DEPOSIT_BTC_AMOUNTS,
+  DEPOSIT_BTC_AMOUNTS_ERROR,
   BTC_TX_MINED,
   BTC_TX_CONFIRMED_WAIT,
   DEPOSIT_AUTO_SUBMIT_PROOF,
@@ -64,7 +65,8 @@ const deposit = (state = initialState, action) => {
         btcAddress: action.payload.btcAddress,
         btcAddressError: undefined
       }
-    case DEPOSIT_BTC_ADDRESS_FAILED:
+    case DEPOSIT_BTC_ADDRESS_ERROR:
+    case DEPOSIT_BTC_AMOUNTS_ERROR:
       return {
         ...state,
         btcAddressError: action.payload.error,
