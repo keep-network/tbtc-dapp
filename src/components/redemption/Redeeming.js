@@ -11,7 +11,7 @@ function Redeeming(props) {
   return <RedeemingComponent {...props} address={props.address || params.address} />
 }
 
-const RedeemingComponent = ({ requestRedemption, requestRedemptionError }) => {
+const RedeemingComponent = ({ requestRedemption, error }) => {
   useEffect(() => {
     requestRedemption()
   }, [requestRedemption])
@@ -26,14 +26,14 @@ const RedeemingComponent = ({ requestRedemption, requestRedemptionError }) => {
           Step 2/6
         </div>
         <div className="title">
-          Redeeming...
+          { error ? 'Error redeeming bond' : 'Redeeming...'}
         </div>
         <hr />
         <div className="description">
           <p>We’re waiting for you to confirm invoice details in your Wallet.</p>
         </div>
         <div className="error">
-          { requestRedemptionError }
+          { error }
         </div>
       </div>
     </div>
@@ -41,7 +41,7 @@ const RedeemingComponent = ({ requestRedemption, requestRedemptionError }) => {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  requestRedemptionError: state.redemption.requestRedemptionError,
+  error: state.redemption.requestRedemptionError,
 })
 
 const mapDispatchToProps = (dispatch) => {
