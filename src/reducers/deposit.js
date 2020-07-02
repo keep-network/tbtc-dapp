@@ -9,6 +9,7 @@ import {
   DEPOSIT_PROVE_BTC_TX_BEGIN,
   DEPOSIT_PROVE_BTC_TX_SUCCESS,
   DEPOSIT_PROVE_BTC_TX_ERROR,
+  DEPOSIT_MINT_TBTC_ERROR,
   DEPOSIT_REQUEST_BEGIN,
   DEPOSIT_RESOLVED,
   DEPOSIT_STATE_RESTORED,
@@ -104,6 +105,7 @@ const deposit = (state = initialState, action) => {
         proveDepositError: undefined
       }
     case DEPOSIT_PROVE_BTC_TX_ERROR:
+    case DEPOSIT_MINT_TBTC_ERROR:
       return {
         ...state,
         provingDeposit: false,

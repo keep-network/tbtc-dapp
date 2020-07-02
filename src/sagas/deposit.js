@@ -29,6 +29,8 @@ export const BTC_TX_CONFIRMED = 'BTC_TX_CONFIRMED'
 export const DEPOSIT_PROVE_BTC_TX_BEGIN = 'DEPOSIT_PROVE_BTC_TX_BEGIN'
 export const DEPOSIT_PROVE_BTC_TX_SUCCESS = 'DEPOSIT_PROVE_BTC_TX_SUCCESS'
 export const DEPOSIT_PROVE_BTC_TX_ERROR = 'DEPOSIT_PROVE_BTC_TX_ERROR'
+export const DEPOSIT_MINT_TBTC = 'DEPOSIT_MINT_TBTC'
+export const DEPOSIT_MINT_TBTC_ERROR = 'DEPOSIT_MINT_TBTC_ERROR'
 
 function* restoreState(nextStepMap, stateKey) {
     /** @type {TBTC} */
@@ -319,7 +321,17 @@ export function* autoSubmitDepositProof() {
         })
     }
 
-    yield call([deposit, deposit.mintTBTC])
+    try {
+        yield put({ type: DEPOSIT_MINT_TBTC })
+        yield call([deposit, deposit.mintTBTC])
+    } catch (error) {
+        yield put({
+            type: DEPOSIT_MINT_TBTC_ERROR,
+            payload: {
+                error: error.message,
+            }
+        })
+    }
 
     // goto
     yield put(navigateTo('/deposit/' + deposit.address + '/congratulations'))
