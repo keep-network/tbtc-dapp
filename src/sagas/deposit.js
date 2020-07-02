@@ -27,6 +27,7 @@ export const DEPOSIT_AUTO_SUBMIT_PROOF = 'DEPOSIT_AUTO_SUBMIT_PROOF'
 export const BTC_TX_MINED = 'BTC_TX_MINED'
 export const BTC_TX_CONFIRMED_WAIT = 'BTC_TX_CONFIRMED_WAIT'
 export const BTC_TX_CONFIRMED = 'BTC_TX_CONFIRMED'
+export const BTC_TX_CONFIRMING_ERROR = 'BTC_TX_CONFIRMING_ERROR'
 
 export const DEPOSIT_PROVE_BTC_TX_BEGIN = 'DEPOSIT_PROVE_BTC_TX_BEGIN'
 export const DEPOSIT_PROVE_BTC_TX_SUCCESS = 'DEPOSIT_PROVE_BTC_TX_SUCCESS'
@@ -303,13 +304,23 @@ export function* autoSubmitDepositProof() {
     // goto
     yield put(navigateTo('/deposit/' + deposit.address + '/pay/confirming'))
 
-    yield autoSubmission.fundingConfirmations
+    try {
+        const confirmations = yield autoSubmission.fundingConfirmations
 
-    // when it's finally sufficiently confirmed, dispatch the txid
-    yield put({
-        type: BTC_TX_CONFIRMED
-        // TODO Which transaction?
-    })
+        yield put({
+            type: BTC_TX_CONFIRMED,
+            payload: {
+                btcConfirmedTxID: confirmations.transaction.transactionID,
+            }
+        })
+    } catch (error) {
+        yield put({
+            type: BTC_TX_CONFIRMING_ERROR,
+            payload: {
+                error: error.message
+            }
+        })
+    }
 
     // emit a notification
     // FIXME This should be a reducer on BTC_TX_CONFIRMED.

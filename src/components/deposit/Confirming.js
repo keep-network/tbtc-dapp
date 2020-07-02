@@ -8,7 +8,7 @@ import { BitcoinHelpers } from '@keep-network/tbtc.js'
 import BigNumber from "bignumber.js"
 BigNumber.set({ DECIMAL_PLACES: 8 })
 
-const Confirming = ({ signerFeeInSatoshis }) => {
+const Confirming = ({ signerFeeInSatoshis, error }) => {
   const signerFee = (new BigNumber(signerFeeInSatoshis.toString()))
     .div(BitcoinHelpers.satoshisPerBtc.toString()).toString()
 
@@ -22,7 +22,7 @@ const Confirming = ({ signerFeeInSatoshis }) => {
           Step 3/5
         </div>
         <div className="title">
-          Confirming...
+          { error ? 'Error confirming transaction' : 'Confirming...' }
         </div>
         <hr />
         <div className="description">
@@ -36,6 +36,9 @@ const Confirming = ({ signerFeeInSatoshis }) => {
             {signerFee} BTC*
           </div>
         </div>
+        <div className="error">
+          { error }
+        </div>
       </div>
     </div>
   )
@@ -44,6 +47,7 @@ const Confirming = ({ signerFeeInSatoshis }) => {
 const mapStateToProps = (state) => {
   return {
     signerFeeInSatoshis: state.deposit.signerFeeInSatoshis,
+    error: state.deposit.btcConfirmingError,
   }
 }
 
