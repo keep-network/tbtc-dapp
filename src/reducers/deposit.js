@@ -1,5 +1,6 @@
 import {
   DEPOSIT_REQUEST_SUCCESS,
+  DEPOSIT_REQUEST_ERROR,
   DEPOSIT_BTC_ADDRESS,
   DEPOSIT_BTC_ADDRESS_ERROR,
   DEPOSIT_BTC_AMOUNTS,
@@ -52,6 +53,11 @@ const deposit = (state = initialState, action) => {
         depositAddress: action.payload.depositAddress,
         invoiceStatus: 2,
         isStateReady: true
+      }
+    case DEPOSIT_REQUEST_ERROR:
+      return {
+        ...state,
+        requestDepositError: action.payload.error,
       }
     case DEPOSIT_RESOLVED:
       return {

@@ -15,6 +15,7 @@ import BN from "bn.js"
 export const DEPOSIT_REQUEST_BEGIN = 'DEPOSIT_REQUEST_BEGIN'
 export const DEPOSIT_REQUEST_METAMASK_SUCCESS = 'DEPOSIT_REQUEST_METAMASK_SUCCESS'
 export const DEPOSIT_REQUEST_SUCCESS = 'DEPOSIT_REQUEST_SUCCESS'
+export const DEPOSIT_REQUEST_ERROR = 'DEPOSIT_REQUEST_ERROR'
 export const DEPOSIT_RESOLVED = 'DEPOSIT_RESOLVED'
 export const DEPOSIT_BTC_ADDRESS = 'DEPOSIT_BTC_ADDRESS'
 export const DEPOSIT_BTC_ADDRESS_ERROR = 'DEPOSIT_BTC_ADDRESS_ERROR'
@@ -189,7 +190,12 @@ export function* requestADeposit() {
         deposit = yield call([tbtc.Deposit, tbtc.Deposit.withSatoshiLotSize], new BN(1000000))
     } catch (err) {
         if (err.message.includes(METAMASK_TX_DENIED_ERROR)) return
-        throw err
+        yield put({
+            type: DEPOSIT_REQUEST_ERROR,
+            payload: {
+                error: err.message,
+            }
+        })
     }
     yield put({ type: DEPOSIT_REQUEST_METAMASK_SUCCESS })
 
