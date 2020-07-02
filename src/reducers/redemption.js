@@ -1,8 +1,6 @@
 import {
     UPDATE_ADDRESSES,
-    UPDATE_TRANSACTION_AND_SIGNATURE,
     UPDATE_TX_HASH,
-    UPDATE_CONFIRMATIONS,
     SIGN_TX_ERROR,
     POLL_FOR_CONFIRMATIONS_ERROR,
     REDEMPTION_PROVE_BTC_TX_BEGIN,
@@ -50,12 +48,6 @@ const redemption = (state = initialState, action) => {
                 btcAddress: action.payload.btcAddress,
                 depositAddress: action.payload.depositAddress
             }
-        case UPDATE_TRANSACTION_AND_SIGNATURE:
-            return {
-                ...state,
-                unsignedTransaction: action.payload.unsignedTransaction,
-                signature: action.payload.signature
-            }
         case SIGN_TX_ERROR:
             return {
                 ...state,
@@ -65,11 +57,6 @@ const redemption = (state = initialState, action) => {
             return {
                 ...state,
                 txHash: action.payload.txHash
-            }
-        case UPDATE_CONFIRMATIONS:
-            return {
-                ...state,
-                confirmations: action.payload.confirmations
             }
         case POLL_FOR_CONFIRMATIONS_ERROR:
             return {

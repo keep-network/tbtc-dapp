@@ -9,10 +9,8 @@ import { navigateTo } from '../lib/router/actions'
 import { DEPOSIT_RESOLVED } from "./deposit"
 
 export const UPDATE_ADDRESSES = 'UPDATE_ADDRESSES'
-export const UPDATE_TRANSACTION_AND_SIGNATURE = 'UPDATE_TRANSACTION_AND_SIGNATURE'
 export const UPDATE_TX_HASH = 'UPDATE_TX_HASH'
 export const SIGN_TX_ERROR = 'SIGN_TX_ERROR'
-export const UPDATE_CONFIRMATIONS = 'UPDATE_CONFIRMATIONS'
 export const POLL_FOR_CONFIRMATIONS_ERROR = 'POLL_FOR_CONFIRMATIONS_ERROR'
 export const REDEMPTION_REQUESTED = 'REDEMPTION_REQUESTED'
 export const REDEMPTION_REQUEST_ERROR = 'REDEMPTION_REQUEST_ERROR'
@@ -107,7 +105,14 @@ function* runRedemption(redemption) {
     yield put(navigateTo('/deposit/' + depositAddress + '/redemption/signing'))
 
     try {
-        yield autoSubmission.broadcastTransactionID
+        const txHash = yield autoSubmission.broadcastTransactionID
+
+        yield put({
+            type: UPDATE_TX_HASH,
+            payload: {
+                txHash,
+            },
+        })
 
         yield put(navigateTo('/deposit/' + depositAddress + '/redemption/confirming'))
     } catch (error) {

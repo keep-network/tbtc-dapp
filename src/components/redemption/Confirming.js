@@ -15,9 +15,7 @@ class Confirming extends Component {
 
   render() {
     const {
-      confirmations,
-      requiredConfirmations,
-      pollForConfirmationsError,
+      error,
       txHash
     } = this.props
 
@@ -31,19 +29,11 @@ class Confirming extends Component {
             Step 4/6
           </div>
           <div className="title">
-            {
-              confirmations
-              ? `${confirmations}/${requiredConfirmations} blocks confirmed...`
-              : 'Broadcasting Transaction'
-            }
+            { error ? 'Error confirming transaction' : 'Confirming...' }
           </div>
           <hr />
           <div className="description">
-            {
-              confirmations
-              ? <p>We're waiting to confirm your transaction.</p>
-              : <p>Broadcasting your transaction...</p>
-            }
+            <p>We're waiting to confirm your transaction.</p>
             {
               txHash
               ? <button
@@ -55,9 +45,9 @@ class Confirming extends Component {
               : ''
             }
             {
-              pollForConfirmationsError
+              error
               ? <div className="error">
-                  { pollForConfirmationsError }
+                  { error }
                 </div>
               : ''
             }
@@ -68,12 +58,10 @@ class Confirming extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
     txHash: state.redemption.txHash,
-    confirmations: state.redemption.confirmations,
-    requiredConfirmations: state.redemption.requiredConfirmations,
-    pollForConfirmationsError: state.redemption.pollForConfirmationsError
+    error: state.redemption.pollForConfirmationsError,
   }
 }
 
