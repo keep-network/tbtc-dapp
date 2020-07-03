@@ -146,7 +146,7 @@ const ConnectToWalletStep = ({ error, wallet, onTryAgainClick }) => {
 		return <ErrorConnecting error={error} wallet={wallet} onTryAgainClick={onTryAgainClick} />
 	}
 
-	if(wallet.name == 'Ledger') {
+	if(wallet.name.includes('Ledger')) {
 		return <>
 			<div className="title">Plug In Ledger & Enter Pin</div>
 			<p>Open Ethereum application and make sure Contract Data and Browser Support are enabled.</p>
