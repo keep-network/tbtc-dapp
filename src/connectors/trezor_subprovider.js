@@ -18,10 +18,10 @@ export class TrezorSubprovider extends TrezorSubprovider0x {
     if (txData.from === undefined || !web3Utils.isAddress(txData.from)) {
       throw new Error('Invalid address')
     }
-    txData.value = txData.value ? txData.value : '0x0'
-    txData.data = txData.data ? txData.data : '0x'
-    txData.gas = txData.gas ? txData.gas : '0x0'
-    txData.gasPrice = txData.gasPrice ? txData.gasPrice : '0x0'
+    txData.value = txData.value || '0x0'
+    txData.data = txData.data || '0x'
+    txData.gas = txData.gas || '0x0'
+    txData.gasPrice = txData.gasPrice || '0x0'
 
     const initialDerivedKeyInfo = await this._initialDerivedKeyInfoAsync()
     const derivedKeyInfo = this._findDerivedKeyInfoForAddress(initialDerivedKeyInfo, txData.from)

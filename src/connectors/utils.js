@@ -4,7 +4,7 @@ import { Transaction } from 'ethereumjs-tx'
 /**
  * Builds a Transaction object for a custom chain.
  * @param {*} txData The transaction data
- * @param {*} chainId The custom chain's ID.
+ * @param {number} chainId The custom chain's ID.
  * @return {Transaction} The Ethereum transaction
  */
 export const buildTransactionForChain = (txData, chainId) => {
