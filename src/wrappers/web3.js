@@ -40,8 +40,7 @@ export let TBTCLoaded = TBTCLoadedDeferred.promise
 
 const initializeContracts = async (web3, connector) => {
     // Initialise default account.
-    const accounts = await web3.eth.getAccounts()
-    web3.eth.defaultAccount = accounts[0]
+    web3.eth.defaultAccount = await connector.getAccount()
 
     // Log the netId/chainId.
     const netId = await web3.eth.net.getId()
@@ -64,13 +63,13 @@ function instantiateWeb3(provider, connector) {
 }
 
 const Web3ReactManager = ({ children }) => {
-    const { activate, active, library, connector } = useWeb3React()
+    const { active, library, connector } = useWeb3React()
 
     useEffect(() => {
         if(active) {
             initializeContracts(library, connector)
         }
-    }, [active])
+    }, [library, connector, active])
 
     // Watch for changes:
     // provider = this.state.web3.eth.currentProvider

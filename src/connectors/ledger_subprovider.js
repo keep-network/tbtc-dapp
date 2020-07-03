@@ -1,12 +1,6 @@
 import { LedgerSubprovider as LedgerSubprovider0x } from '@0x/subproviders/lib/src/subproviders/ledger' // https://github.com/0xProject/0x-monorepo/issues/1400
-import { Transaction } from 'ethereumjs-tx'
-import Common from 'ethereumjs-common'
-import { addressUtils } from '@0x/utils';
-import web3 from 'web3'
-import { 
-    LedgerSubproviderErrors,
-    WalletSubproviderErrors
-} from '@0x/subproviders/lib/src/types'
+import web3Utils from 'web3-utils';
+import { hexToPaddedBuffer, buildTransactionForChain } from './utils';
 
 /**
  * A custom Ledger subprovider, inheriting from the 0x Subprovider.
@@ -24,8 +18,8 @@ class LedgerSubprovider extends LedgerSubprovider0x {
 
     async signTransactionAsync(txParams) {
         LedgerSubprovider._validateTxParams(txParams)
-        if (txParams.from === undefined || !addressUtils.isAddress(txParams.from)) {
-            throw new Error(WalletSubproviderErrors.FromAddressMissingOrInvalid);
+        if (txParams.from === undefined || !web3Utils.isAddress(txParams.from)) {
+            throw new Error('Invalid address')
         }
         const initialDerivedKeyInfo = await this._initialDerivedKeyInfoAsync();
         const derivedKeyInfo = this._findDerivedKeyInfoForAddress(initialDerivedKeyInfo, txParams.from);
@@ -34,15 +28,7 @@ class LedgerSubprovider extends LedgerSubprovider0x {
 
         try {
             const fullDerivationPath = derivedKeyInfo.derivationPath
-            const common = Common.forCustomChain(
-                'mainnet',
-                {
-                    name: 'keep-dev',
-                    chainId: this.chainId,
-                },
-                'petersburg', ['petersburg']
-            )
-            let tx = new Transaction(txParams, { common })
+            const tx = buildTransactionForChain(txParams, this.chainId)
 
             // Set the EIP155 bits
             const vIndex = 6;
@@ -74,9 +60,7 @@ class LedgerSubprovider extends LedgerSubprovider0x {
 
             // Verify signature `v` value returned from Ledger.
             if ((signedV & 0xff) !== ledgerSignedV) {
-                await this._destroyLedgerClientAsync();
-                const err = new Error(LedgerSubproviderErrors.TooOldLedgerFirmware);
-                throw err;
+                throw new Error('Invalid chainID')
             }
 
             // Store signature in transaction.
@@ -92,18 +76,6 @@ class LedgerSubprovider extends LedgerSubprovider0x {
             throw err;
         }
     }
-}
-
-/**
- * Pads a hex string with zeroes, and returns a buffer.
- * @param {string} hexString The hex string, with/without the 0x prefix.
- * @param {number} padLength Length to pad string to, in bytes.
- * @return {Buffer} The padded hex as a Buffer.
- */
-function hexToPaddedBuffer(hexString, padLength) {
-    hexString = hexString.startsWith('0x') ? hexString.slice(2) : hexString
-    hexString = hexString.padStart(padLength, '0')
-    return new Buffer(hexString, 'hex')
 }
 
 export { LedgerSubprovider }

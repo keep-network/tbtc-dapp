@@ -1,11 +1,9 @@
 import TransportU2F from "@ledgerhq/hw-transport-u2f"
 import AppEth from '@ledgerhq/hw-app-eth'
-import { ConnectorUpdate } from '@web3-react/types'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import Web3ProviderEngine from 'web3-provider-engine'
 import { LedgerSubprovider } from './ledger_subprovider'
 import CacheSubprovider from 'web3-provider-engine/subproviders/cache.js'
-import { RPCSubprovider } from '@0x/subproviders/lib/src/subproviders/rpc_subprovider' // https://github.com/0xProject/0x-monorepo/issues/1400
 import WebsocketSubprovider from 'web3-provider-engine/subproviders/websocket'
 
 /**
@@ -22,6 +20,8 @@ import WebsocketSubprovider from 'web3-provider-engine/subproviders/websocket'
  *    support out-of-the-box. Assuming a Websocket provider is simpler for our case.
  */
 export class LedgerConnector extends AbstractConnector {
+  defaultAccount = ""
+
   constructor({
     chainId,
     url,
@@ -91,11 +91,16 @@ export class LedgerConnector extends AbstractConnector {
     return this.chainId
   }
 
-  /**
-   * @return {Promise<null>}
-   */
   async getAccount() {
-    return this.provider._providers[0].getAccountsAsync(1).then((accounts: string[]): string => accounts[0])
+    return this.defaultAccount
+  }
+
+  async getAccounts(numberOfAccounts = 15) {
+    return await this.provider._providers[0].getAccountsAsync(numberOfAccounts)
+  }
+
+  setDefaultAccount(account) {
+    this.defaultAccount = account
   }
 
   deactivate() {

@@ -1,0 +1,24 @@
+$sides: (top, bottom, left, right);
+
+.cursor {
+    &-pointer {
+       cursor: pointer;
+    }
+}
+
+@for $value from 1 through 5 {
+    @each $side in $sides {
+        .m#{str-slice($side, 0, 1)} {
+            &-#{$value} {
+                margin-#{$side}: #{$value}rem;
+            }
+        }
+
+        .p#{str-slice($side, 0, 1)} {
+            &-#{$value} {
+                padding-#{$side}: #{$value}rem;
+            }
+        }
+    }
+}
+  
