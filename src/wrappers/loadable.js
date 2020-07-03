@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Router, Route, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect, useSelector } from 'react-redux'
 import { restoreDepositState, restoreRedemptionState } from '../actions';
@@ -10,7 +10,7 @@ export const RESTORER = {
   REDEMPTION: 'redemption'
 }
 
-function LoadableBase({ children, account, restoreDepositState, restoreRedemptionState, restorer }) {
+function LoadableBase({ children, restoreDepositState, restoreRedemptionState, restorer }) {
     // Wait for web3 connected
     const { active: web3Active } = useWeb3React()
     const { address } = useParams()
@@ -18,12 +18,12 @@ function LoadableBase({ children, account, restoreDepositState, restoreRedemptio
     
     useEffect(() => {
         if(web3Active && address && ! depositStateRestored) {
-            if (restorer == RESTORER.DEPOSIT) {
+            if (restorer === RESTORER.DEPOSIT) {
                 restoreDepositState(address)
-            } else if (restorer == RESTORER.REDEMPTION) {
+            } else if (restorer === RESTORER.REDEMPTION) {
                 restoreRedemptionState(address)
             } else {
-                throw "Unknown restorer."
+                throw new Error("Unknown restorer.")
             }
         }
     }, [web3Active, address, depositStateRestored, restorer, restoreDepositState, restoreRedemptionState])

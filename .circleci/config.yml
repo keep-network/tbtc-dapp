@@ -98,13 +98,13 @@ workflows:
             tags:
               only: /^v.*/
             branches:
-              ignore: /.*/
+              only: /releases\/ropsten\/.*/
       - resolve_latest:
           filters:
             tags:
               only: /^v.*/
             branches:
-              ignore: /.*/
+              only: /releases\/ropsten\/.*/
           context: keep-test
           requires:
             - keep_test_approval
@@ -113,7 +113,7 @@ workflows:
             tags:
               only: /^v.*/
             branches:
-              ignore: /.*/
+              only: /releases\/ropsten\/.*/
           context: keep-test
           requires:
             - resolve_latest
@@ -122,7 +122,7 @@ workflows:
             tags:
               only: /^v.*/
             branches:
-              ignore: /.*/
+              only: /releases\/ropsten\/.*/
           context: keep-test
           requires:
             - build_dapp

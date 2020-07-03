@@ -79,7 +79,7 @@ class Home extends Component {
             No middlemen. Period.
 		      </div>
           <div className="line-and-sinker">
-            Censorship resistant, seizure resistant, inflation resistant.
+            Deposit and redeem BTC in DeFi without intermediaries.
 		      </div>
         </div>
       </div>

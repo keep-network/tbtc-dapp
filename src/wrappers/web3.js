@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Web3 from 'web3'
 import TBTC from '@keep-network/tbtc.js'
 import { Web3ReactProvider, useWeb3React } from '@web3-react/core'

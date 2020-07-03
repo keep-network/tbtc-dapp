@@ -52,11 +52,6 @@ function* restoreState(nextStepMap, stateKey) {
         case tbtc.Deposit.State.START:
             throw new Error("Unexpected state.")
 
-        // Funding flow.
-        case tbtc.Deposit.State.AWAITING_SIGNER_SETUP:
-            yield put(navigateTo('/deposit/' + depositAddress + '/generate-address'))
-            break
-
         case tbtc.Deposit.State.AWAITING_WITHDRAWAL_PROOF:
             finalCalls = resumeRedemption
             nextStep = "/redemption/prove"
@@ -73,7 +68,9 @@ function* restoreState(nextStepMap, stateKey) {
                     btcAddress,
                 }
             })
+            // Explicitly fall through.
 
+        case tbtc.Deposit.State.AWAITING_SIGNER_SETUP:
             const lotInSatoshis = yield call([deposit, deposit.getSatoshiLotSize])
             const signerFeeTbtc = yield call([deposit, deposit.getSignerFeeTBTC])
             const signerFeeInSatoshis = signerFeeTbtc.div(tbtc.satoshisPerTbtc)
@@ -100,7 +97,7 @@ function* restoreState(nextStepMap, stateKey) {
             })
 
             const inVendingMachine = yield call([deposit, deposit.inVendingMachine])
-            if (depositState == tbtc.Deposit.State.ACTIVE && ! inVendingMachine) {
+            if (depositState === tbtc.Deposit.State.ACTIVE && ! inVendingMachine) {
                 yield call([deposit, deposit.mintTBTC])
             }
 
@@ -131,6 +128,7 @@ export function* restoreDepositState() {
     const tbtc = yield TBTCLoaded
 
     const DEPOSIT_STEP_MAP = {};
+    DEPOSIT_STEP_MAP[tbtc.Deposit.State.AWAITING_SIGNER_SETUP] = '/get-address'
     DEPOSIT_STEP_MAP[tbtc.Deposit.State.AWAITING_BTC_FUNDING_PROOF] = "/pay"
     DEPOSIT_STEP_MAP[tbtc.Deposit.State.ACTIVE] = "/congratulations"
 
@@ -161,7 +159,7 @@ export function* requestADeposit() {
     /** @type {Deposit} */
     let deposit
     try {
-        deposit = yield call([tbtc.Deposit, tbtc.Deposit.withSatoshiLotSize], new BN(100000))
+        deposit = yield call([tbtc.Deposit, tbtc.Deposit.withSatoshiLotSize], new BN(1000000))
     } catch (err) {
         if (err.message.includes(METAMASK_TX_DENIED_ERROR)) return
         throw err
@@ -174,12 +172,24 @@ export function* requestADeposit() {
             depositAddress: deposit.address,
         }
     })
+
+    // goto
+    yield put(navigateTo('/deposit/' + deposit.address + '/get-address'))
+
     yield put({
         type: DEPOSIT_RESOLVED,
         payload: {
              deposit,
         }
     })
+}
+
+export function* getBitcoinAddress() {
+    /** @type {TBTC} */
+    const tbtc = yield TBTCLoaded
+
+    /** @type Deposit */
+    const deposit = yield select(state => state.deposit.deposit)
 
     const btcAddress = yield deposit.bitcoinAddress
 
@@ -227,6 +237,9 @@ export function* autoSubmitDepositProof() {
     yield put({
         type: BTC_TX_CONFIRMED_WAIT
     })
+
+    // goto
+    yield put(navigateTo('/deposit/' + deposit.address + '/pay/confirming'))
 
     yield autoSubmission.fundingConfirmations
 

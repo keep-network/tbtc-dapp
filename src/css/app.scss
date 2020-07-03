@@ -33,6 +33,20 @@ a {
     min-height: 100%;
 }
 
+.warning {
+    font-family: 'apercu-mono-regular-pro';
+    font-size: 1rem;
+    line-height: 1.5rem;
+    background: rgb(149, 30, 28);
+    color: white;
+    padding: 15px 20px;
+    margin-bottom: 3em;
+
+    a {
+        color: rgb(102, 173, 255);
+    }
+}
+
 .app {
     flex: 1;
     color: #{$black};
