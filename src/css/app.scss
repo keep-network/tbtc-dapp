@@ -38,13 +38,13 @@ a {
     font-family: 'apercu-mono-regular-pro';
     font-size: 1rem;
     line-height: 1.5rem;
-    background: rgb(149, 30, 28);
+    background: $black;
     color: white;
     padding: 15px 20px;
     margin-bottom: 3em;
 
     a {
-        color: rgb(102, 173, 255);
+        color: $grey;
     }
 }
 
@@ -210,7 +210,7 @@ footer {
 
                 a {
                     white-space: nowrap;
-                    color: #{$blue};
+                    color: $grey;
                     text-decoration: underline;
                 }
             }
