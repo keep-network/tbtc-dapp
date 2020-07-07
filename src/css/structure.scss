@@ -12,8 +12,10 @@
 
         .step {
             flex: 0 1;
-            color: $blue;
+            color: $grey;
             font-size: .5em;
+            font-weight: bold;
+            text-transform: uppercase;
             margin-bottom: 30px;
         }
 
@@ -29,7 +31,7 @@
             flex: 0 1;
             border-style: dashed;
             border-width: 2px 0 0 0;
-            border-color: $blue;
+            border-color: $grey;
             width: 150px;
             margin: 0 auto 40px auto;
         }
