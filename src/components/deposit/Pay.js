@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { autoSubmitDepositProof } from '../../actions'
 import QRCode from 'qrcode.react'
 import { useParams } from "react-router-dom"
 
@@ -24,14 +22,6 @@ class PayComponent extends Component {
     }
   }
 
-  componentDidMount() {
-    const { autoSubmitDepositProof, didSubmitDepositProof } = this.props
-
-    if (!didSubmitDepositProof) {
-      autoSubmitDepositProof()
-    }
-  }
-
   copyAddress = (evt) => {
     this.hiddenCopyField.select()
     document.execCommand('copy')
@@ -40,7 +30,7 @@ class PayComponent extends Component {
   }
 
   render() {
-    const { btcAddress, lotInSatoshis, signerFeeInSatoshis } = this.props
+    const { btcAddress, lotInSatoshis, signerFeeInSatoshis, error } = this.props
     const lotInBtc = (new BigNumber(lotInSatoshis.toString())).div(BitcoinHelpers.satoshisPerBtc.toString())
     const signerFeeInBtc = (new BigNumber(signerFeeInSatoshis.toString())).div(BitcoinHelpers.satoshisPerBtc.toString())
 
@@ -88,6 +78,9 @@ class PayComponent extends Component {
               : ''
             }
           </div>
+          <div className="error">
+            { error }
+          </div>
         </div>
         <textarea
           className="hidden-copy-field"
@@ -99,26 +92,17 @@ class PayComponent extends Component {
 }
 
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
     btcAddress: state.deposit.btcAddress,
     depositAddress: state.deposit.depositAddress,
     lotInSatoshis: state.deposit.lotInSatoshis,
     signerFeeInSatoshis: state.deposit.signerFeeInSatoshis,
-    didSubmitDepositProof: state.deposit.didSubmitDepositProof,
+    error: state.deposit.btcTxError,
   }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(
-    {
-      autoSubmitDepositProof
-    },
-    dispatch
-  )
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(Pay)

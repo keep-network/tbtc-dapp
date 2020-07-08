@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { requestADeposit } from '../../actions'
 import StatusIndicator from '../svgs/StatusIndicator'
 
-const Invoice = ({ requestADeposit }) => {
+const Invoice = ({ requestADeposit, error }) => {
   useEffect(() => {
     requestADeposit()
   }, [requestADeposit])
@@ -20,16 +20,23 @@ const Invoice = ({ requestADeposit }) => {
           Step 2/5
         </div>
         <div className="title">
-          Initiating deposit
+          { error ? 'Error initiating deposit' : 'Initiating deposit' }
         </div>
         <hr />
         <div className="description">
           Initiating...
         </div>
+        <div className="error">
+          { error }
+        </div>
       </div>
     </div >
   )
 }
+
+const mapStateToProps = (state) => ({
+  error: state.deposit.requestDepositError,
+})
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
@@ -41,6 +48,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Invoice)
