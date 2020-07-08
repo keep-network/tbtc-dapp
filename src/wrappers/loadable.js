@@ -14,7 +14,7 @@ function LoadableBase({ children, restoreDepositState, restoreRedemptionState, r
     // Wait for web3 connected
     const { active: web3Active } = useWeb3React()
     const { address } = useParams()
-    const depositStateRestored = useSelector((state) => state[restorer].stateRestored)
+    const depositStateRestored = useSelector((state) => state[restorer].isStateReady)
     
     useEffect(() => {
         if(web3Active && address && ! depositStateRestored) {

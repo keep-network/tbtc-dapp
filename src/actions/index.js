@@ -34,8 +34,6 @@ export function restoreRedemptionState(depositAddress) {
 
 // Deposit
 export const REQUEST_A_DEPOSIT = 'REQUEST_A_DEPOSIT'
-export const GET_BITCOIN_ADDRESS = 'GET_BITCOIN_ADDRESS'
-export const AUTO_SUBMIT_DEPOSIT_PROOF = 'AUTO_SUBMIT_DEPOSIT_PROOF'
 
 export function requestADeposit() {
     return {
@@ -43,22 +41,9 @@ export function requestADeposit() {
     }
 }
 
-export function getBitcoinAddress() {
-    return {
-        type: GET_BITCOIN_ADDRESS,
-    }
-}
-
-export function autoSubmitDepositProof() {
-    return {
-        type: AUTO_SUBMIT_DEPOSIT_PROOF,
-    }
-}
-
 // Redemption
 export const SAVE_ADDRESSES = 'SAVE_ADDRESSES'
 export const REQUEST_REDEMPTION = 'REQUEST_REDEMPTION'
-export const RESUME_REDEMPTION = 'RESUME_REDEMPTION'
 
 export function saveAddresses({ btcAddress, depositAddress }) {
     return {
@@ -73,12 +58,6 @@ export function saveAddresses({ btcAddress, depositAddress }) {
 export function requestRedemption() {
     return {
         type: REQUEST_REDEMPTION,
-    }
-}
-
-export function resumeRedemption() {
-    return {
-        type: RESUME_REDEMPTION
     }
 }
 

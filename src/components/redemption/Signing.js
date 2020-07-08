@@ -1,17 +1,9 @@
-import React, { useEffect } from 'react'
-import { bindActionCreators } from 'redux'
+import React from 'react'
 import { connect } from 'react-redux'
 
 import StatusIndicator from '../svgs/StatusIndicator'
-import { resumeRedemption } from '../../actions'
 
-const Signing = ({ resumeRedemption, redemptionInProgress }) => {
-  useEffect(() => {
-    if (!redemptionInProgress) {
-      resumeRedemption()
-    }
-  }, [resumeRedemption, redemptionInProgress])
-
+const Signing = ({ error }) => {
   return (
     <div className="confirming">
       <div className="page-top">
@@ -22,28 +14,24 @@ const Signing = ({ resumeRedemption, redemptionInProgress }) => {
           Step 3/6
         </div>
         <div className="title">
-          Waiting on signing group
+          { error ? 'Error signing your transaction' : 'Waiting on signing group' }
         </div>
         <hr />
         <div className="description">
           <p>We’re waiting for the deposit signing group to build and sign your Bitcoin transaction.</p>
+        </div>
+        <div className="error">
+          { error }
         </div>
       </div>
     </div>
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    redemptionInProgress: !!state.redemption.redemption
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ resumeRedemption }, dispatch)
-}
+const mapStateToProps = (state) => ({
+  error: state.redemption.signTxError,
+})
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
 )(Signing)

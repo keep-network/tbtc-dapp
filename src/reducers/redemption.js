@@ -1,13 +1,13 @@
 import {
     UPDATE_ADDRESSES,
-    UPDATE_TRANSACTION_AND_SIGNATURE,
     UPDATE_TX_HASH,
-    UPDATE_CONFIRMATIONS,
+    SIGN_TX_ERROR,
     POLL_FOR_CONFIRMATIONS_ERROR,
     REDEMPTION_PROVE_BTC_TX_BEGIN,
     REDEMPTION_PROVE_BTC_TX_SUCCESS,
     REDEMPTION_PROVE_BTC_TX_ERROR,
-    REDEMPTION_REQUEST_SUCCESS
+    REDEMPTION_REQUESTED,
+    REDEMPTION_REQUEST_ERROR,
 } from '../sagas/redemption'
 
 import { RESTORE_REDEMPTION_STATE } from "../actions"
@@ -22,6 +22,7 @@ const initialState = {
     confirmations: null,
     pollForConfirmationsError: null,
     redemption: null,
+    isStateReady: false,
 }
 
 const redemption = (state = initialState, action) => {
@@ -34,12 +35,13 @@ const redemption = (state = initialState, action) => {
         case DEPOSIT_STATE_RESTORED:
             return {
                 ...state,
-                stateRestored: true,
+                isStateReady: true,
             }
         case DEPOSIT_RESOLVED:
             return {
                 ...state,
                 deposit: action.payload.deposit,
+                btcNetwork: action.payload.btcNetwork,
             }
         case UPDATE_ADDRESSES:
             return {
@@ -47,31 +49,30 @@ const redemption = (state = initialState, action) => {
                 btcAddress: action.payload.btcAddress,
                 depositAddress: action.payload.depositAddress
             }
-        case UPDATE_TRANSACTION_AND_SIGNATURE:
+        case SIGN_TX_ERROR:
             return {
                 ...state,
-                unsignedTransaction: action.payload.unsignedTransaction,
-                signature: action.payload.signature
+                signTxError: action.payload.error,
             }
         case UPDATE_TX_HASH:
             return {
                 ...state,
                 txHash: action.payload.txHash
             }
-        case UPDATE_CONFIRMATIONS:
-            return {
-                ...state,
-                confirmations: action.payload.confirmations
-            }
         case POLL_FOR_CONFIRMATIONS_ERROR:
             return {
                 ...state,
                 pollForConfirmationsError: action.payload.pollForConfirmationsError
             }
-        case REDEMPTION_REQUEST_SUCCESS:
+        case REDEMPTION_REQUESTED:
             return {
                 ...state,
                 redemption: action.payload.redemption,
+            }
+        case REDEMPTION_REQUEST_ERROR:
+            return {
+                ...state,
+                requestRedemptionError: action.payload.error,
             }
         case REDEMPTION_PROVE_BTC_TX_BEGIN:
             return {
