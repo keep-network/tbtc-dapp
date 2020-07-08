@@ -17,7 +17,7 @@ class Congratulations extends Component {
     return (
       <div className="congratulations">
         <div className="page-top">
-          <StatusIndicator green>
+          <StatusIndicator>
             <BTCLogo height={100} width={100} />
           </StatusIndicator>
         </div>

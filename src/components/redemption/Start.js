@@ -84,7 +84,7 @@ class Start extends Component {
     return (
       <div className="redemption-start">
         <div className="page-top">
-          <StatusIndicator purple>
+          <StatusIndicator>
             <TLogo height={100} width={100} />
           </StatusIndicator>
         </div>

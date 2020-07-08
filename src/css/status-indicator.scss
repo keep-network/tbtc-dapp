@@ -43,6 +43,15 @@
       background: #{$success};
     }
 
+    &.pulse .wavy-svg {
+      background: transparent;
+    }
+
+    &.rotate {
+      animation: rotate 45s linear infinite;
+      transform-origin: center;
+    }
+
     .wavy-svg {
         position: absolute;
         top: 0;
@@ -50,20 +59,22 @@
         left: 0;
         bottom: 0;
         width: 100%;
+        background: $black;
+        z-index: 0;
     }
 
     .st0 {
-        fill: #fff;
+        fill: $white;
     }
 }
 
 @keyframes shadow-pulse
 {
   0% {
-    box-shadow: 0 0 0 0px $success;
+    box-shadow: 0 0 0 0px $black;
   }
   30% {
-    box-shadow: 0 0 255px 255px $success;
+    box-shadow: 0 0 255px 255px $black;
   }
   50% {
     box-shadow: 0 0 255px 255px transparent;
@@ -72,10 +83,10 @@
     box-shadow: 0 0 0 0px transparent;
   }
   52% {
-    box-shadow: 0 0 0 0px $purple;
+    box-shadow: 0 0 0 0px $grey;
   }
   80% {
-    box-shadow: 0 0 255px 255px $purple;
+    box-shadow: 0 0 255px 255px $grey;
   }
   100% {
     box-shadow: 0 0 255px 255px transparent;
@@ -89,5 +100,14 @@
     }
     100% {
         transform: scaleX(1)
+    }
+}
+
+@keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
     }
 }
