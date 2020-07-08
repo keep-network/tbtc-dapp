@@ -50,7 +50,8 @@
             flex: 1 1;
             font-size: .7em;
             color: $alert;
-            margin-top: 25px;
+            margin: 25px 0;
+            word-break: break-word;
         }
     }
 }

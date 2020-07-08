@@ -9,11 +9,11 @@ import { navigateTo } from '../lib/router/actions'
 import { DEPOSIT_RESOLVED } from "./deposit"
 
 export const UPDATE_ADDRESSES = 'UPDATE_ADDRESSES'
-export const UPDATE_TRANSACTION_AND_SIGNATURE = 'UPDATE_TRANSACTION_AND_SIGNATURE'
 export const UPDATE_TX_HASH = 'UPDATE_TX_HASH'
-export const UPDATE_CONFIRMATIONS = 'UPDATE_CONFIRMATIONS'
+export const SIGN_TX_ERROR = 'SIGN_TX_ERROR'
 export const POLL_FOR_CONFIRMATIONS_ERROR = 'POLL_FOR_CONFIRMATIONS_ERROR'
-export const REDEMPTION_REQUEST_SUCCESS = 'REDEMPTION_REQUEST_SUCCESS'
+export const REDEMPTION_REQUESTED = 'REDEMPTION_REQUESTED'
+export const REDEMPTION_REQUEST_ERROR = 'REDEMPTION_REQUEST_ERROR'
 export const REDEMPTION_PROVE_BTC_TX_BEGIN = 'REDEMPTION_PROVE_BTC_TX_BEGIN'
 export const REDEMPTION_PROVE_BTC_TX_SUCCESS = 'REDEMPTION_PROVE_BTC_TX_SUCCESS'
 export const REDEMPTION_PROVE_BTC_TX_ERROR = 'REDEMPTION_PROVE_BTC_TX_ERROR'
@@ -33,6 +33,7 @@ export function* saveAddresses({ payload }) {
         type: DEPOSIT_RESOLVED,
         payload: {
             deposit,
+            btcNetwork: tbtc.config.bitcoinNetwork,
         }
     })
 
@@ -45,16 +46,25 @@ export function* requestRedemption() {
     /** @type string */
     const btcAddress = yield select(state => state.redemption.btcAddress)
 
-    /** @type {Redemption} */
-    const redemption = yield call([deposit, deposit.requestRedemption], btcAddress)
-    yield put({
-        type: REDEMPTION_REQUEST_SUCCESS,
-        payload: {
-            redemption
-        }
-    })
+    try {
+        /** @type {Redemption} */
+        const redemption = yield call([deposit, deposit.requestRedemption], btcAddress)
+        yield put({
+            type: REDEMPTION_REQUESTED,
+            payload: {
+                redemption
+            }
+        })
 
-    yield* runRedemption(redemption)
+        yield* runRedemption(redemption)
+    } catch (error) {
+        yield put({
+            type: REDEMPTION_REQUEST_ERROR,
+            payload: {
+                error: error.message,
+            }
+        })
+    }
 }
 
 export function* resumeRedemption() {
@@ -65,16 +75,25 @@ export function* resumeRedemption() {
         return // just one at a time please; FIXME should be handled better
     }
 
-    const redemption = yield call([deposit, deposit.getCurrentRedemption])
+    try {
+        const redemption = yield call([deposit, deposit.getCurrentRedemption])
 
-    yield put({
-        type: REDEMPTION_REQUEST_SUCCESS,
-        payload: {
-            redemption
-        }
-    })
+        yield put({
+            type: REDEMPTION_REQUESTED,
+            payload: {
+                redemption
+            }
+        })
 
-    yield* runRedemption(redemption)
+        yield* runRedemption(redemption)
+    } catch (error) {
+        yield put({
+            type: REDEMPTION_REQUEST_ERROR,
+            payload: {
+                error: error.message,
+            }
+        })
+    }
 }
 
 /**
@@ -86,13 +105,40 @@ function* runRedemption(redemption) {
 
     yield put(navigateTo('/deposit/' + depositAddress + '/redemption/signing'))
 
-    yield autoSubmission.broadcastTransactionID
+    try {
+        const txHash = yield autoSubmission.broadcastTransactionID
 
-    yield put(navigateTo('/deposit/' + depositAddress + '/redemption/confirming'))
+        yield put({
+            type: UPDATE_TX_HASH,
+            payload: {
+                txHash,
+            },
+        })
 
-    yield autoSubmission.confirmations
+        yield put(navigateTo('/deposit/' + depositAddress + '/redemption/confirming'))
+    } catch (error) {
+        yield put({
+            type: SIGN_TX_ERROR,
+            payload: {
+                error: error.message,
+            }
+        })
+        return
+    }
 
-    yield put(navigateTo('/deposit/' + depositAddress + '/redemption/prove'))
+    try {
+        yield autoSubmission.confirmations
+
+        yield put(navigateTo('/deposit/' + depositAddress + '/redemption/prove'))
+    } catch (error) {
+        yield put({
+            type: POLL_FOR_CONFIRMATIONS_ERROR,
+            payload: {
+                error: error.message,
+            }
+        })
+        return
+    }
 
     try {
         yield put({ type: REDEMPTION_PROVE_BTC_TX_BEGIN })
