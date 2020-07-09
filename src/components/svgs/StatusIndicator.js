@@ -1,9 +1,9 @@
 import React from 'react'
 import classnames from 'classnames'
 
-const StatusIndicator = ({ purple = false, green = false, pulse = false, children }) => {
+const StatusIndicator = ({ pulse = false, children }) => {
   return (
-    <div className={classnames('status-indicator', { purple, green, pulse, 'rotate': pulse })}>
+    <div className={classnames('status-indicator', { pulse, 'rotate': pulse })}>
       { children }
       <svg className="wavy-svg" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 626 629" style={{enableBackground: "new 0 0"}}>
         <g>

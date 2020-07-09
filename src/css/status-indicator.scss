@@ -26,23 +26,6 @@
       animation-timing-function: ease-in-out;
     }
 
-    &.purple::before, &.green::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-    }
-
-    &.purple .wavy-svg {
-      background: #{$purple};
-    }
-
-    &.green .wavy-svg {
-      background: #{$success};
-    }
-
     &.pulse .wavy-svg {
       background: transparent;
     }
