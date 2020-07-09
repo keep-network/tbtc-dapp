@@ -9,14 +9,69 @@
         }
 
         .copy-address {
+            border: 1px solid $black;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            cursor: pointer;
+            padding: 16px 20px;
+            line-height: 1;
+            font-size: 0.9em;
+
+            .qr-code-wrapper {
+                position: relative;
+
+                .qr-code {
+                    display: none;
+                    position: absolute;
+                    bottom: 155%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    padding: 12px 12px 8px 12px;
+                    background-color: $white;
+                    border: 1px solid $black;
+                    border-radius: 6px;
+                    box-shadow: 6px 6px 0 $black;
+
+                    // carets
+                    &:before,
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 0;
+                        height: 0;
+                        border-left: 8px solid transparent;
+                        border-right: 8px solid transparent;
+                    }
+
+                    // caret shadow
+                    &:before {
+                        bottom: -14px;
+                        transform: translateX(-24%);
+                        border-top: 8px solid $black;
+                    }
+
+                    // caret
+                    &:after {
+                        bottom: -8px;
+                        border-top: 8px solid $white;
+                    }
+                }
+
+                .qr-code-icon {
+                    position: relative;
+                    top: 1px;
+                }
+            }
+
             .address {
-                color: $blue;
-                text-decoration: underline;
-                cursor: pointer;
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 overflow: hidden;
                 min-width: 1px;
+                text-transform: uppercase;
 
                 &:hover {
                     text-overflow: unset;
@@ -26,8 +81,17 @@
                 }
             }
 
-            .copied {
-                color: red;
+            .copy-text {
+                color: $grey;
+                text-decoration: underline;
+            }
+
+            &:hover {
+                .qr-code-wrapper {
+                    .qr-code {
+                        display: block;
+                    }
+                }
             }
         }
     }
@@ -53,7 +117,7 @@
         //         transform: translate(175px, 175px)
         //     }
         // }
-      
+
         // @keyframes dash {
         //     from {
         //         stroke-dashoffset:1000;

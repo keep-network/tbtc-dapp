@@ -6,6 +6,9 @@ import { useParams } from "react-router-dom"
 
 import { BitcoinHelpers } from '@keep-network/tbtc.js'
 
+import StatusIndicator from '../svgs/StatusIndicator'
+import QRCodeIcon from '../svgs/QRCodeIcon'
+
 import BigNumber from "bignumber.js"
 BigNumber.set({ DECIMAL_PLACES: 8 })
 
@@ -44,12 +47,7 @@ class PayComponent extends Component {
     return (
       <div className="pay">
         <div className="page-top">
-          <div className="qr-code">
-            <QRCode
-              value={btcURL}
-              renderAs="svg"
-              size={225} />
-          </div>
+          <StatusIndicator />
         </div>
         <div className="page-body">
           <div className="step">
@@ -69,14 +67,21 @@ class PayComponent extends Component {
             </div>
           </div>
           <div className="copy-address">
+            <div className="qr-code-wrapper">
+              <QRCodeIcon />
+              <div className="qr-code">
+                <QRCode
+                  value={btcURL}
+                  renderAs="svg"
+                  size={225} />
+              </div>
+            </div>
             <div className="address" onClick={this.copyAddress}>
               {btcAddress}
             </div>
-            {
-              copied
-              ? <div className="copied">Copied!</div>
-              : ''
-            }
+            <div className="copy-text">
+              { copied ? 'copied!' : 'copy' }
+            </div>
           </div>
           <div className="error">
             { error }
