@@ -61,12 +61,11 @@ class Footer extends Component {
         <div className="footer-content">
           <div className="white-paper">
             <div className="white-paper-label">
-              Learn how
+              Learn more about tBTC
             </div>
-            <hr />
             <div className="white-paper-link">
               <a href="http://docs.keep.network/tbtc/index.pdf" target="_blank" rel="noopener noreferrer">
-                Read the Spec >>>>
+                Read the White Paper >>>>
               </a>
             </div>
           </div>
@@ -97,18 +96,6 @@ class Footer extends Component {
             </div>
           )
         }
-        <div className="footer-content">
-          <div className="footer-bottom">
-            <div className="footer-logo">
-              <TBTCLogo width="150" />
-            </div>
-            <div className="footer-links">
-              <a href="https://tbtc.network/about" target="_blank" rel="noopener noreferrer">
-                about
-              </a>
-            </div>
-          </div>
-        </div>
       </footer>
     )
   }
