@@ -71,7 +71,7 @@
 @keyframes shadow-pulse
 {
   0% {
-    box-shadow: 0 0 0 0px $black;
+    box-shadow: 0 0 0 0px $grey;
   }
   30% {
     box-shadow: 0 0 255px 255px $black;
@@ -86,7 +86,7 @@
     box-shadow: 0 0 0 0px $grey;
   }
   80% {
-    box-shadow: 0 0 255px 255px $grey;
+    box-shadow: 0 0 255px 255px $black;
   }
   100% {
     box-shadow: 0 0 255px 255px transparent;
