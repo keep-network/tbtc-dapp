@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 
-import TBTCLogo from '../svgs/TBTCLogo'
 import Check from '../svgs/Check'
 
 const validEmailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
