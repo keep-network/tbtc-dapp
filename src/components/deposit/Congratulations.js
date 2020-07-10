@@ -1,8 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import Lottie from 'react-lottie'
 
 import StatusIndicator from '../svgs/StatusIndicator'
-import TLogo from '../svgs/tlogo'
+import * as animationData from '../animation/tBTC-logo-animate.json'
 import { BitcoinHelpers } from '@keep-network/tbtc.js'
 
 import BigNumber from "bignumber.js"
@@ -15,7 +16,12 @@ const Congratulations = ({ depositAddress, lotInSatoshis, signerFeeInSatoshis })
   return <div className="congratulations">
     <div className="page-top">
       <StatusIndicator>
-        <TLogo height={100} width={100} />
+        <Lottie options={{
+            animationData: animationData.default,
+            rendererSettings: {
+              preserveAspectRatio: 'xMidYMid slice'
+            }
+          }} />
       </StatusIndicator>
     </div>
     <div className="page-body">
