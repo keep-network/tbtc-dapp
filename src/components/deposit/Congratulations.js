@@ -17,6 +17,8 @@ const Congratulations = ({ depositAddress, lotInSatoshis, signerFeeInSatoshis })
     <div className="page-top">
       <StatusIndicator>
         <Lottie options={{
+            loop: false,
+            autoplay: true,
             animationData: animationData.default,
             rendererSettings: {
               preserveAspectRatio: 'xMidYMid slice'
