@@ -1,5 +1,5 @@
 ---
 name: General Issue
-about: Use this template for geenral issues.
+about: Use this template for general issues
 labels: bug
 ---
