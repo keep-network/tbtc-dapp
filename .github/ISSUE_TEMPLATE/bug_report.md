@@ -6,7 +6,7 @@ labels: bug
 
 
 ### Description:
-A clear and concise description of what the bug is and where it appeared e.g. did it appear in the browser or in wallet (e.g. metamask). If the bug was in the broswer, what was url at that point.
+A clear and concise description of what the bug is and where it appeared e.g. did it appear in the browser or in wallet (e.g. MetaMask). If the bug was in the browser, what was url at that point.
 
 ### Steps to reproduce the behavior:
 1. Go to '...'
