@@ -1,3 +1,10 @@
+---
+name: Bug Report
+about: Use this template for reporting bugs.
+labels: bug
+---
+
+
 ### Description:
 A clear and concise description of what the bug is and where it appeared e.g. did it appear in the browser or in wallet (e.g. metamask). If the bug was in the broswer, what was url at that point.
 
@@ -9,7 +16,6 @@ A clear and concise description of what the bug is and where it appeared e.g. di
 
 ### Expected behavior:
 A clear and concise description of what you expected to happen.
-
 
 ### Environment details:
 OS: Windows 10 Pro, Version 1909, build 18363.900, 64 bit OS  
