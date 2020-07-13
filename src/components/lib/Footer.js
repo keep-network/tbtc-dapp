@@ -69,6 +69,28 @@ class Footer extends Component {
                 Read the Spec >>>>
               </a>
             </div>
+            <div className="white-paper-link">
+              <a href="http://docs.keep.network/tbtc/index.pdf" target="_blank" rel="noopener noreferrer">
+                Read the Spec >>>>
+              </a>
+            </div>
+          </div>
+          <hr>
+          <div className="white-paper">
+            <div className="white-paper-label">
+              Answers
+            </div>
+            <hr />
+            <div className="white-paper-link">
+              <a href="https://tbtc.network/faq" target="_blank" rel="noopener noreferrer">
+                Read the FAQs >>>>
+              </a>
+            </div>
+            <div className="white-paper-link">
+              <a href="https://tbtc.network/faq" target="_blank" rel="noopener noreferrer">
+                Read the FAQs >>>>
+              </a>
+            </div>
           </div>
         </div>
         {
@@ -105,6 +127,10 @@ class Footer extends Component {
             <div className="footer-links">
               <a href="https://tbtc.network/about" target="_blank" rel="noopener noreferrer">
                 about
+              </a>
+            <div className="footer-links">
+              <a href="https://tbtc.network/faq" target="_blank" rel="noopener noreferrer">
+                FAQs
               </a>
             </div>
           </div>
