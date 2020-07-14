@@ -17,22 +17,37 @@
         animation-timing-function: ease-in-out;
     }
 
-    &.pulse::before {
-      content: '';
-      position: absolute;
-      top:50%;
-      left: 50%;
-      animation: shadow-pulse 5000ms infinite;
-      animation-timing-function: ease-in-out;
-    }
-
-    &.pulse .wavy-svg {
-      background: transparent;
-    }
-
     &.rotate {
       animation: rotate 45s linear infinite;
       transform-origin: center;
+    }
+
+    &.fade-in,
+    &.pulse {
+      &::before {
+        content: '';
+        position: absolute;
+        top:50%;
+        left: 50%;
+      }
+
+      .wavy-svg {
+        background: transparent;
+      }
+    }
+
+    &.fade-in {
+      &::before {
+        animation: shadow-fade-in 3s ease-in-out;
+        animation-fill-mode: forwards;
+      }
+    }
+
+    &.pulse {
+      &::before {
+        animation: shadow-pulse 5000ms infinite;
+        animation-timing-function: ease-in-out;
+      }
     }
 
     .wavy-svg {
@@ -113,4 +128,13 @@
     100% {
         transform: rotate(360deg);
     }
+}
+
+@keyframes shadow-fade-in {
+  0% {
+    box-shadow: 0 0 0 0px $black;
+  }
+  100% {
+    box-shadow: 0 0 255px 255px $black;
+  }
 }
