@@ -5,6 +5,19 @@
                 font-family: 'apercu-bold-pro';
                 margin-top: 30px;
             }
+
+            .deposit-address-label {
+                color: $grey;
+            }
+
+            .copy-address-field {
+                margin: 36px auto;
+
+                .copy-address {
+                    background-color: rgba($grey, 0.2);
+                    border-color: $grey;
+                }
+            }
         }
     }
 }

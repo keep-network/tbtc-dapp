@@ -4,6 +4,7 @@ import Lottie from 'react-lottie'
 
 import StatusIndicator from '../svgs/StatusIndicator'
 import * as animationData from '../animation/tBTC-logo-animate.json'
+import CopyAddressField from '../lib/CopyAddressField'
 import { BitcoinHelpers } from '@keep-network/tbtc.js'
 
 import BigNumber from "bignumber.js"
@@ -35,22 +36,20 @@ const Congratulations = ({ depositAddress, lotInSatoshis, signerFeeInSatoshis })
       </div>
       <hr />
       <div className="description">
+        {
+          depositAddress && depositAddress.length > 0
+          ? <>
+              <div className="deposit-address-label">Deposit Address:</div>
+              <CopyAddressField address={depositAddress} />
+            </>
+          : ''
+        }
         <div className="description-content">
           You are now the proud beneficiary of {lotInTbtc.toNumber()} TBTC
         </div>
         <div className="bond-duration">
           Bond duration: 6 months
         </div>
-        {/* TODO: Update to use CopyInputField */}
-        {
-          depositAddress && depositAddress.length > 0
-          ? <div>
-              <br />
-              <h3>TDT ID:</h3>
-              { depositAddress }
-            </div>
-          : ''
-        }
       </div>
     </div>
   </div>
