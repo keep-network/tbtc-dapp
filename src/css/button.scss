@@ -1,5 +1,4 @@
 button, .button {
-    &.blue { --button-color: #{$blue}; }
     &.black {
         --button-color: #{$black};
 
@@ -30,10 +29,6 @@ button, .button {
         background-color: var(--button-color);
         color: #{$white};
         transform: scale(1.05);
-    }
-
-    &:focus {
-        background-color: #{darken($blue, 10%)};
     }
 
     &:disabled {
