@@ -1,49 +1,47 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { connect } from 'react-redux'
 
 import StatusIndicator from '../svgs/StatusIndicator'
 import BTCLogo from '../svgs/btclogo'
 
-class Congratulations extends Component {
-
-  handleClickViewTransaction = (evt) => {
-    evt.preventDefault()
-    evt.stopPropagation()
-
-    // TODO: Etherscan!
-  }
-
-  render() {
-
-    return (
-      <div className="congratulations">
-        <div className="page-top">
-          <StatusIndicator>
-            <BTCLogo height={100} width={100} />
-          </StatusIndicator>
+const Congratulations = ({ chainId, depositAddress }) => {
+  return (
+    <div className="congratulations">
+      <div className="page-top">
+        <StatusIndicator>
+          <BTCLogo height={100} width={100} />
+        </StatusIndicator>
+      </div>
+      <div className="page-body">
+        <div className="step">
+          Step 6/6
         </div>
-        <div className="page-body">
-          <div className="step">
-            Step 6/6
-          </div>
-          <div className="title">
-            Redemption Complete
-          </div>
-          <hr />
-          <div className="description">
-            <p>Enjoy your Bitcoin</p>
-          </div>
-          <div className='cta'>
-            <button
-              onClick={this.handleClickViewTransaction}
-              className="black"
-              >
+        <div className="title">
+          Redemption Complete
+        </div>
+        <hr />
+        <div className="description">
+          <p>Enjoy your Bitcoin</p>
+        </div>
+        <div className='cta'>
+          <button className="black">
+            <a href={
+              `https://${chainId === 3 ? 'ropsten.' : ''}etherscan.io/token/${depositAddress}`
+            } target="_blank" rel="noopener noreferrer">
               View your transaction
-            </button>
-          </div>
+            </a>
+          </button>
         </div>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
-export default Congratulations
+const mapStateToProps = (state) => ({
+  depositAddress: state.deposit.depositAddress,
+  chainId: state.tbtc.chainId,
+})
+
+export default connect(
+  mapStateToProps
+)(Congratulations)
