@@ -49,7 +49,7 @@ class Home extends Component {
           : (
             <div className="mint-or-redeem">
               <a href="/deposit" onClick={this.handleClickDeposit}>
-                <button className="blue">
+                <button className="black">
                   Deposit
                 </button>
               </a>
