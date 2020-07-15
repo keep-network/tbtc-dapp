@@ -31,7 +31,8 @@
         left: 50%;
       }
 
-      .wavy-svg {
+      .wavy-svg,
+      .wavy-donut-svg {
         background: transparent;
       }
     }
@@ -50,7 +51,8 @@
       }
     }
 
-    .wavy-svg {
+    .wavy-svg,
+    .wavy-donut-svg {
         position: absolute;
         top: 0;
         right: 0;

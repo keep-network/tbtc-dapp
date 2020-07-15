@@ -16,7 +16,7 @@ const Congratulations = ({ depositAddress, lotInSatoshis, signerFeeInSatoshis, c
 
   return <div className="congratulations">
     <div className="page-top">
-      <StatusIndicator fadeIn>
+      <StatusIndicator donut fadeIn>
         <Lottie options={{
             loop: false,
             autoplay: true,
