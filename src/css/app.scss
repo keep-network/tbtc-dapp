@@ -226,10 +226,7 @@ footer {
     }
 
     &.include-subscription {
-        background-image: url('../static/Flow.png');
-        background-color: #{$purple};
-        background-position: center top;
-        background-size: 100% auto;
+        background-color: $white;
         padding: 50px 0 0 0;
 
         .footer-content {
@@ -242,7 +239,7 @@ footer {
         }
 
         .mailing-list {
-            margin: 75px auto;
+            margin: 75px auto 100px;
             width: #{$content-width};
             position: relative;
 
@@ -258,9 +255,31 @@ footer {
 
                 input[type="text"] {
                     flex: 1 0;
-                    padding-left: 24px;
-                    color: #{$dark-grey};
+                    margin-right: 24px;
+                    color: $black;
                     font-size: 1.3em;
+
+                    border: 0;
+                    border-radius: 0;
+                    border-bottom: 1px solid $black;
+                    background-color: transparent;
+                    box-shadow: none;
+                    transition: all 0.5s ease-in;
+
+                    &:focus {
+                        outline: 0;
+                        box-shadow: none;
+                        border-color: $black;
+                    }
+
+                    &:-webkit-autofill,
+                    &:-webkit-autofill:hover,
+                    &:-webkit-autofill:focus,
+                    &:-webkit-autofill:active,
+                    &:-internal-autofill-selected,
+                    &:-internal-autofill-previewed  {
+                        -webkit-box-shadow: 0 0 0 30px white inset !important;
+                    }
 
                     &:disabled {
                         background-color: #888;
@@ -270,15 +289,8 @@ footer {
                 input[type="submit"] {
                     flex: 0 1;
                     padding: 20px 30px;
-                    background-color: #{$black};
-                    color: #{$white};
-                    font-size: 1.2em;
-                    text-decoration: underline;
-                    cursor: pointer;
-
-                    &:hover {
-                        background-color: #{$success};
-                    }
+                    @extend .button;
+                    @extend .button.black;
                 }
 
                 input {
@@ -291,7 +303,7 @@ footer {
 
             .error {
                 margin-top: 20px;
-                padding: 10px;
+                padding: 10px 0;
                 background-color: #{$white};
                 color: #{$alert};
             }
@@ -342,6 +354,7 @@ footer {
                     input[type="text"] {
                         padding: 16px;
                         font-size: .9em;
+                        margin: 0 0 20px;
                     }
 
                     input[type="submit"] {
