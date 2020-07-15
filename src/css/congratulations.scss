@@ -3,7 +3,7 @@
         .description {
             .bond-duration {
                 font-family: 'apercu-bold-pro';
-                margin-top: 30px;
+                margin: 30px 0;
             }
 
             .deposit-address-label {
@@ -17,6 +17,10 @@
                     background-color: rgba($grey, 0.2);
                     border-color: $grey;
                 }
+            }
+
+            button {
+                margin-bottom: 100px;
             }
         }
     }

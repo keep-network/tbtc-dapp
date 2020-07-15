@@ -10,7 +10,7 @@ import { BitcoinHelpers } from '@keep-network/tbtc.js'
 import BigNumber from "bignumber.js"
 BigNumber.set({ DECIMAL_PLACES: 8 })
 
-const Congratulations = ({ depositAddress, lotInSatoshis, signerFeeInSatoshis }) => {
+const Congratulations = ({ depositAddress, lotInSatoshis, signerFeeInSatoshis, chainId }) => {
   const mintedSatoshis = lotInSatoshis.sub(signerFeeInSatoshis)
   const lotInTbtc = (new BigNumber(mintedSatoshis.toString())).div(BitcoinHelpers.satoshisPerBtc.toString())
 
@@ -50,6 +50,11 @@ const Congratulations = ({ depositAddress, lotInSatoshis, signerFeeInSatoshis })
         <div className="bond-duration">
           Bond duration: 6 months
         </div>
+        <button className="black">
+          <a href={
+            `https://${chainId === 3 ? 'ropsten.' : ''}etherscan.io/token/${depositAddress}`
+          } target="_blank" rel="noopener noreferrer">view on Etherscan</a>
+        </button>
       </div>
     </div>
   </div>
@@ -60,6 +65,7 @@ const mapStateToProps = (state, ownProps) => {
     depositAddress: state.deposit.depositAddress,
     lotInSatoshis: state.deposit.lotInSatoshis,
     signerFeeInSatoshis: state.deposit.signerFeeInSatoshis,
+    chainId: state.tbtc.chainId,
   }
 }
 
