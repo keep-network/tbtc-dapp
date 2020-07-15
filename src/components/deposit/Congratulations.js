@@ -24,7 +24,7 @@ const Congratulations = ({ depositAddress, lotInSatoshis, signerFeeInSatoshis, c
             rendererSettings: {
               preserveAspectRatio: 'xMidYMid slice'
             }
-          }} />
+          }} width="125%" height="125%" />
       </StatusIndicator>
     </div>
     <div className="page-body">
