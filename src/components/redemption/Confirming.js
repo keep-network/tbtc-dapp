@@ -62,7 +62,7 @@ const mapStateToProps = (state) => {
   return {
     txHash: state.redemption.txHash,
     error: state.redemption.pollForConfirmationsError,
-    btcNetwork: state.redemption.btcNetwork,
+    btcNetwork: state.tbtc.btcNetwork,
   }
 }
 

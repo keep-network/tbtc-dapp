@@ -2,8 +2,11 @@ import React, { useEffect } from 'react'
 import Web3 from 'web3'
 import TBTC from '@keep-network/tbtc.js'
 import { Web3ReactProvider, useWeb3React } from '@web3-react/core'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 import config from '../config/config.json'
+import { tbtcLoaded } from '../actions'
 
 /**
  * @typedef {Object} Deferred
@@ -38,7 +41,7 @@ let TBTCLoadedDeferred = new Deferred()
 export let Web3Loaded = Web3LoadedDeferred.promise
 export let TBTCLoaded = TBTCLoadedDeferred.promise
 
-const initializeContracts = async (web3, connector) => {
+const initializeContracts = async (web3, connector, onTBTCLoaded) => {
     // Initialise default account.
     const accounts = await web3.eth.getAccounts()
     web3.eth.defaultAccount = accounts[0]
@@ -57,20 +60,22 @@ const initializeContracts = async (web3, connector) => {
     })
 
     TBTCLoadedDeferred.resolve(tbtc)
+
+    onTBTCLoaded(chainId, tbtc.config.bitcoinNetwork)
 }
 
 function instantiateWeb3(provider, connector) {
     return new Web3(provider)
 }
 
-const Web3ReactManager = ({ children }) => {
+let Web3ReactManager = ({ children, tbtcLoaded }) => {
     const { active, library, connector } = useWeb3React()
 
     useEffect(() => {
         if(active) {
-            initializeContracts(library, connector)
+            initializeContracts(library, connector, tbtcLoaded)
         }
-    }, [active, connector, library])
+    }, [active, connector, library, tbtcLoaded])
 
     // Watch for changes:
     // provider = this.state.web3.eth.currentProvider
@@ -79,6 +84,15 @@ const Web3ReactManager = ({ children }) => {
 
     return children
 }
+
+const mapDispatchToProps = (dispatch) => bindActionCreators(
+    { tbtcLoaded }, dispatch
+)
+
+Web3ReactManager = connect(
+    null,
+    mapDispatchToProps
+)(Web3ReactManager)
 
 const Web3Wrapper = ({ children }) => {
     return <Web3ReactProvider getLibrary={instantiateWeb3}>

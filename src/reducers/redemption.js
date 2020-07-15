@@ -41,7 +41,6 @@ const redemption = (state = initialState, action) => {
             return {
                 ...state,
                 deposit: action.payload.deposit,
-                btcNetwork: action.payload.btcNetwork,
             }
         case UPDATE_ADDRESSES:
             return {
