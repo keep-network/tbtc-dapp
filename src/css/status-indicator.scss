@@ -41,6 +41,7 @@
       &::before {
         animation: shadow-fade-in 3s ease-in-out;
         animation-fill-mode: forwards;
+        animation-delay: 0.75s;
       }
     }
 
