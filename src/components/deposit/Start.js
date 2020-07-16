@@ -5,6 +5,7 @@ import { requestPermission } from '../../lib/notifications'
 import StatusIndicator from '../svgs/StatusIndicator'
 import BTCLogo from '../svgs/btclogo'
 import { useWeb3React } from '@web3-react/core'
+import LotSizeSelector from './LotSizeSelector'
 
 const handleClickPay = (evt) => {
   evt.preventDefault()
@@ -31,12 +32,11 @@ const Start = () => {
         Step 1/5
       </div>
       <div className="title">
-        Initiate a deposit
+        Select Lot Size
       </div>
       <hr />
       <div className="description">
-        <p>To mint TBTC, we first need to initiate a deposit. This is where we will send BTC.</p>
-        <p>This should take less than 1 minute.</p>
+        <LotSizeSelector />
       </div>
       <div className='cta'>
         <button
@@ -44,7 +44,7 @@ const Start = () => {
           disabled={typeof account === 'undefined'}
           className="black"
           >
-          Begin now
+          Create Address
         </button>
       </div>
     </div>

@@ -1,3 +1,12 @@
+.deposit-start {
+    // Allow lot size selector to appear on a single row for larger screens
+    min-width: 850px;
+
+    @media (max-width: 960px) {
+        min-width: 0;
+    }
+}
+
 .redemption-start {
     .paste-field {
         position: relative;

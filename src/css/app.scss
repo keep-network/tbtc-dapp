@@ -9,6 +9,7 @@ $bp-small: 576px;
 @import 'modal.scss';
 @import 'status-indicator.scss';
 @import 'copy-address-field.scss';
+@import 'lot-size-selector.scss';
 @import 'home.scss';
 @import 'start.scss';
 @import 'pay.scss';
@@ -78,7 +79,7 @@ a {
     color: #{$black};
     font-family: sans-serif;
     font-size: 1.5em;
-    width: #{$content-width};
+    min-width: #{$content-width};
     margin: 0 auto;
 
     .nav {
@@ -158,6 +159,7 @@ a {
     @media (max-width: #{$content-width}) {
         padding: 40px;
         width: 100%;
+        min-width: 0;
         box-sizing: border-box;
 
         .nav {
