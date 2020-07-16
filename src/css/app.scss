@@ -1,4 +1,5 @@
 $content-width: 768px;
+$bp-small: 576px;
 
 @import 'colors.scss';
 @import 'button.scss';
@@ -37,16 +38,38 @@ a {
 
 .warning {
     font-family: 'apercu-mono-regular-pro';
-    font-size: 1rem;
+    font-size: 12px;
     line-height: 1.5rem;
-    background: $black;
-    color: white;
-    padding: 15px 20px;
-    margin-bottom: 3em;
+    background: $alert;
+    border-radius: 8px;
+    color: $white;
+    max-width: 568px;
+    padding: 15px;
+    margin: 0 auto 3em;
     position: relative;
+    background-image: url(../components/svgs/warning.svg);
+    background-position: 50px center;
+    background-repeat: no-repeat;
 
-    a {
-        color: $grey;
+    .message {
+        max-width: 333px;
+        margin-left: 116px;
+
+        p {
+            line-height: 1.32;
+        }
+
+        a {
+            color: $white;
+        }
+    }
+
+    @media (max-width: #{$bp-small}) {
+        padding: 55px 15px 15px;
+        background-position: center 20px;
+        .message {
+            margin-left: 0;
+        }
     }
 }
 

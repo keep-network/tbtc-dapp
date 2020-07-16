@@ -11,12 +11,20 @@ function App(props) {
       <div className="app">
         <Header />
 
-        <p className="warning">
-          The tBTC dApp is in ALPHA. Improper use can lead to LOSS OF FUNDS. If
-          you're uncomfortable with these risks, consider using another method
-          to mint TBTC. Visit <a href="https://discord.gg/Bpzfsgx">our
-          Discord</a> for options.
-        </p>
+        <div className="warning">
+          <div className="message">
+            <p>
+              The safety of your funds is important to us.
+            </p>
+            <p>
+              This dApp is in ALPHA and improper use may lead to LOSS OF FUNDS.
+            </p>
+            <p>
+              For more information and options please{" "}
+              <a href="https://discord.gg/Bpzfsgx">visit our Discord community</a>.
+            </p>
+          </div>
+        </div>
 
         { children }
       </div>
