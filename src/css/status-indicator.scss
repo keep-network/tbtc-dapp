@@ -12,11 +12,6 @@
         left: 79px;
     }
 
-    .tlogo {
-        animation: spin 1750ms 1;
-        animation-timing-function: ease-in-out;
-    }
-
     &.rotate {
       animation: rotate 45s linear infinite;
       transform-origin: center;
