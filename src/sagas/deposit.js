@@ -224,12 +224,12 @@ export function* requestADeposit() {
 
         deposit = yield call([tbtc.Deposit, tbtc.Deposit.withSatoshiLotSize],
             lotSizeInSatoshis)
-    } catch (err) {
-        if (err.message.includes(METAMASK_TX_DENIED_ERROR)) return
+    } catch (error) {
+        if (error.message.includes(METAMASK_TX_DENIED_ERROR)) return
         yield put({
             type: DEPOSIT_REQUEST_ERROR,
             payload: {
-                error: err.message,
+                error: error.message,
             }
         })
         return
