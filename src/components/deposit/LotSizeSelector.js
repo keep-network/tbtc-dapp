@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import classNames from 'classnames'
 
 import Check from '../svgs/Check'
-import BTCLogo from '../svgs/btclogo'
 
 const LotSizeOption = ({ lotSize, onClick, selected }) => {
   const handleClick = () => {
@@ -23,7 +22,7 @@ const LotSizeOption = ({ lotSize, onClick, selected }) => {
 
 const LotSizeSelector = ({ onSelect = () => {} }) => {
   // in BTC
-  const lotSizeOptions = [0.01, 0.1, 0.25, 0.5, 1]
+  const lotSizeOptions = [0.01, 0.1, 0.2, 0.5, 1]
 
   const [selectedLotSize, setSelectedLotSize] = useState(null)
   const handleClick = (size) => {
