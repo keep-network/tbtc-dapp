@@ -2,16 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import StatusIndicator from '../svgs/StatusIndicator'
+import { formatSatsToBtc } from '../../utils'
 
-import { BitcoinHelpers } from '@keep-network/tbtc.js'
-
-import BigNumber from "bignumber.js"
-BigNumber.set({ DECIMAL_PLACES: 8 })
-
-const Confirming = ({ signerFeeInSatoshis, error }) => {
-  const signerFee = (new BigNumber(signerFeeInSatoshis.toString()))
-    .div(BitcoinHelpers.satoshisPerBtc.toString()).toString()
-
+const Confirming = ({ signerFee, error }) => {
   return (
     <div className="pay pay-confirming">
       <div className="page-top">
@@ -45,9 +38,10 @@ const Confirming = ({ signerFeeInSatoshis, error }) => {
 }
 
 const mapStateToProps = (state) => {
+  const { signerFeeInSatoshis, btcConfirmingError } = state.deposit
   return {
-    signerFeeInSatoshis: state.deposit.signerFeeInSatoshis,
-    error: state.deposit.btcConfirmingError,
+    signerFee: formatSatsToBtc(signerFeeInSatoshis),
+    error: btcConfirmingError,
   }
 }
 

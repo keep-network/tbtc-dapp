@@ -3,25 +3,17 @@ import { connect } from 'react-redux'
 
 import { useParams } from "react-router-dom"
 
-import { BitcoinHelpers } from '@keep-network/tbtc.js'
-
 import StatusIndicator from '../svgs/StatusIndicator'
 import CopyAddressField from '../lib/CopyAddressField'
 
-import BigNumber from "bignumber.js"
-BigNumber.set({ DECIMAL_PLACES: 8 })
+import { formatSatsToBtc } from '../../utils'
 
 function Pay(props) {
   const params = useParams()
   return <PayComponent {...props} address={props.address || params.address} />
 }
 
-const PayComponent = ({ btcAddress, lotInSatoshis, signerFeeInSatoshis, error }) => {
-  const lotInBtc = (new BigNumber(lotInSatoshis.toString())).div(BitcoinHelpers.satoshisPerBtc.toString())
-  const signerFeeInBtc = (new BigNumber(signerFeeInSatoshis.toString())).div(BitcoinHelpers.satoshisPerBtc.toString())
-
-  const btcAmount = lotInBtc.toString()
-  const signerFee = signerFeeInBtc.toString()
+const PayComponent = ({ btcAddress, btcAmount, signerFee, error }) => {
   const btcURL =
     `bitcoin:${btcAddress}?amount=${btcAmount}&label=Single-Use+tBTC+Deposit+Wallet`
 
@@ -57,12 +49,18 @@ const PayComponent = ({ btcAddress, lotInSatoshis, signerFeeInSatoshis, error })
 }
 
 const mapStateToProps = (state) => {
+  const {
+    btcAddress,
+    lotInSatoshis,
+    signerFeeInSatoshis,
+    btcTxError
+  } = state.deposit
+
   return {
-    btcAddress: state.deposit.btcAddress,
-    depositAddress: state.deposit.depositAddress,
-    lotInSatoshis: state.deposit.lotInSatoshis,
-    signerFeeInSatoshis: state.deposit.signerFeeInSatoshis,
-    error: state.deposit.btcTxError,
+    btcAddress,
+    btcAmount: formatSatsToBtc(lotInSatoshis),
+    signerFee: formatSatsToBtc(signerFeeInSatoshis),
+    error: btcTxError,
   }
 }
 
