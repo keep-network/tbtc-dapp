@@ -18,6 +18,8 @@ import {
   DEPOSIT_REQUEST_BEGIN,
   DEPOSIT_RESOLVED,
   DEPOSIT_STATE_RESTORED,
+  DEPOSIT_AVAILABLE_LOT_SIZES_REQUESTED,
+  DEPOSIT_AVAILABLE_LOT_SIZES_ERROR,
 } from "../sagas/deposit"
 import { RESTORE_DEPOSIT_STATE, SELECT_LOT_SIZE } from "../actions"
 
@@ -33,6 +35,7 @@ const initialState = {
   invoiceStatus: 0,
   isStateReady: false,
   lotSize: null,
+  availableLotSizes: [],
 }
 
 const deposit = (state = initialState, action) => {
@@ -46,6 +49,16 @@ const deposit = (state = initialState, action) => {
       return {
         ...state,
         isStateReady: true,
+      }
+    case DEPOSIT_AVAILABLE_LOT_SIZES_REQUESTED:
+      return {
+        ...state,
+        availableLotSizes: action.payload.availableLotSizes,
+      }
+    case DEPOSIT_AVAILABLE_LOT_SIZES_ERROR:
+      return {
+        ...state,
+        lotSizeError: action.payload.error,
       }
     case SELECT_LOT_SIZE:
       return {

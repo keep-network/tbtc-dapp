@@ -14,6 +14,10 @@ import BN from "bn.js"
 /** @typedef { import("@keep-network/tbtc.js").TBTC } TBTC */
 /** @typedef { import("@keep-network/tbtc.js").Deposit } Deposit */
 
+export const DEPOSIT_AVAILABLE_LOT_SIZES_REQUESTED =
+    'DEPOSIT_AVAILABLE_LOT_SIZES_REQUESTED'
+export const DEPOSIT_AVAILABLE_LOT_SIZES_ERROR =
+    'DEPOSIT_AVAILABLE_LOT_SIZES_ERROR'
 export const DEPOSIT_REQUEST_BEGIN = 'DEPOSIT_REQUEST_BEGIN'
 export const DEPOSIT_REQUEST_METAMASK_SUCCESS = 'DEPOSIT_REQUEST_METAMASK_SUCCESS'
 export const DEPOSIT_REQUEST_SUCCESS = 'DEPOSIT_REQUEST_SUCCESS'
@@ -178,6 +182,29 @@ export function* onStateRestored(depositState) {
         default:
             // noop
             break
+    }
+}
+
+export function* requestAvailableLotSizes() {
+    /** @type {TBTC} */
+    const tbtc = yield TBTCLoaded
+
+    try {
+        let availableLotSizes =
+            yield call([tbtc.Deposit, tbtc.Deposit.availableSatoshiLotSizes])
+        yield put({
+            type: DEPOSIT_AVAILABLE_LOT_SIZES_REQUESTED,
+            payload: {
+                availableLotSizes,
+            },
+        })
+    } catch (error) {
+        yield put({
+            type: DEPOSIT_AVAILABLE_LOT_SIZES_ERROR,
+            payload: {
+                error: error.message,
+            },
+        })
     }
 }
 

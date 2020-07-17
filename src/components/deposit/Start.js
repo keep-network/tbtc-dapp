@@ -1,14 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
+import { BitcoinHelpers } from '@keep-network/tbtc.js'
+
 import history from '../../history'
 import { requestPermission } from '../../lib/notifications'
-import { selectLotSize } from '../../actions'
+import { selectLotSize, requestAvailableLotSizes } from '../../actions'
 import StatusIndicator from '../svgs/StatusIndicator'
 import BTCLogo from '../svgs/btclogo'
 import { useWeb3React } from '@web3-react/core'
 import LotSizeSelector from './LotSizeSelector'
+
+import BigNumber from "bignumber.js"
+BigNumber.set({ DECIMAL_PLACES: 8 })
 
 const handleClickPay = (evt) => {
   evt.preventDefault()
@@ -17,12 +22,34 @@ const handleClickPay = (evt) => {
   history.push('/deposit/new')
 }
 
-const Start = ({ lotSize, selectLotSize }) => {
+const Start = ({
+  requestAvailableLotSizes,
+  availableLotSizes = [],
+  lotSize,
+  selectLotSize,
+  error
+}) => {
   useEffect(() => {
     requestPermission()
   }, [])
 
   let { account } = useWeb3React()
+
+  useEffect(() => {
+    if (account) {
+      requestAvailableLotSizes()
+    }
+  }, [account, requestAvailableLotSizes])
+
+  const [lotSizesInBtc, setLotSizesInBtc] = useState([])
+  useEffect(() => {
+    setLotSizesInBtc(
+      availableLotSizes
+        .map(lotSize => (new BigNumber(lotSize.toString()))
+          .div(BitcoinHelpers.satoshisPerBtc.toString()).toString()
+        )
+    )
+  }, [availableLotSizes])
 
   return <div className="deposit-start">
     <div className="page-top">
@@ -35,11 +62,15 @@ const Start = ({ lotSize, selectLotSize }) => {
         Step 1/5
       </div>
       <div className="title">
-        Select Lot Size
+        { error ? 'Error getting available lot sizes' : 'Select Lot Size' }
       </div>
       <hr />
-      <div className="description">
-        <LotSizeSelector onSelect={selectLotSize} />
+      <div className={error ? "error" : "description"}>
+        { error ? error : (
+          <LotSizeSelector
+            lotSizes={lotSizesInBtc}
+            onSelect={selectLotSize} />
+        )}
       </div>
       <div className='cta'>
         <button
@@ -56,10 +87,15 @@ const Start = ({ lotSize, selectLotSize }) => {
 
 const mapStateToProps = (state) => ({
   lotSize: state.deposit.lotSize,
+  availableLotSizes: state.deposit.availableLotSizes,
+  error: state.deposit.lotSizeError,
 })
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ selectLotSize }, dispatch)
+  return bindActionCreators(
+    { selectLotSize, requestAvailableLotSizes, },
+    dispatch
+  )
 }
 
 export default connect(

@@ -54,6 +54,14 @@ export function requestADeposit() {
     }
 }
 
+export const REQUEST_AVAILABLE_LOT_SIZES = 'REQUEST_AVAILABLE_LOT_SIZES'
+
+export function requestAvailableLotSizes() {
+    return {
+        type: REQUEST_AVAILABLE_LOT_SIZES
+    }
+}
+
 export const SELECT_LOT_SIZE = 'SELECT_LOT_SIZE'
 
 export function selectLotSize(lotSize) {

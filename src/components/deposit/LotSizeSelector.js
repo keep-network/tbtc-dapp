@@ -20,10 +20,7 @@ const LotSizeOption = ({ lotSize, onClick, selected }) => {
   )
 }
 
-const LotSizeSelector = ({ onSelect = () => {} }) => {
-  // in BTC
-  const lotSizeOptions = [0.01, 0.1, 0.2, 0.5, 1]
-
+const LotSizeSelector = ({ lotSizes = [], onSelect = () => {} }) => {
   const [selectedLotSize, setSelectedLotSize] = useState(null)
   const handleClick = (size) => {
     setSelectedLotSize(size)
@@ -32,7 +29,7 @@ const LotSizeSelector = ({ onSelect = () => {} }) => {
 
   return (
     <ul className="lot-size-selector">
-      { lotSizeOptions.map((lotSize, i) => (
+      { lotSizes.map((lotSize, i) => (
         <LotSizeOption
           key={`lot-size-option-${i}`}
           lotSize={lotSize}
