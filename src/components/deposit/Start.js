@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-
-import { BitcoinHelpers } from '@keep-network/tbtc.js'
 
 import history from '../../history'
 import { requestPermission } from '../../lib/notifications'
@@ -11,9 +9,7 @@ import StatusIndicator from '../svgs/StatusIndicator'
 import BTCLogo from '../svgs/btclogo'
 import { useWeb3React } from '@web3-react/core'
 import LotSizeSelector from './LotSizeSelector'
-
-import BigNumber from "bignumber.js"
-BigNumber.set({ DECIMAL_PLACES: 8 })
+import { formatSatsToBtc } from '../../utils'
 
 const handleClickPay = (evt) => {
   evt.preventDefault()
@@ -41,16 +37,6 @@ const Start = ({
     }
   }, [account, requestAvailableLotSizes])
 
-  const [lotSizesInBtc, setLotSizesInBtc] = useState([])
-  useEffect(() => {
-    setLotSizesInBtc(
-      availableLotSizes
-        .map(lotSize => (new BigNumber(lotSize.toString()))
-          .div(BitcoinHelpers.satoshisPerBtc.toString()).toString()
-        )
-    )
-  }, [availableLotSizes])
-
   return <div className="deposit-start">
     <div className="page-top">
       <StatusIndicator>
@@ -68,7 +54,7 @@ const Start = ({
       <div className={error ? "error" : "description"}>
         { error ? error : (
           <LotSizeSelector
-            lotSizes={lotSizesInBtc}
+            lotSizes={availableLotSizes}
             onSelect={selectLotSize} />
         )}
       </div>
@@ -85,10 +71,10 @@ const Start = ({
   </div>
 }
 
-const mapStateToProps = (state) => ({
-  lotSize: state.deposit.lotSize,
-  availableLotSizes: state.deposit.availableLotSizes,
-  error: state.deposit.lotSizeError,
+const mapStateToProps = ({ deposit }) => ({
+  lotSize: deposit.lotSize,
+  availableLotSizes: deposit.availableLotSizes.map(ls => formatSatsToBtc(ls)),
+  error: deposit.lotSizeError,
 })
 
 const mapDispatchToProps = (dispatch) => {
