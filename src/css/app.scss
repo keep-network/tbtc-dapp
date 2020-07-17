@@ -79,7 +79,7 @@ a {
     color: #{$black};
     font-family: sans-serif;
     font-size: 1.5em;
-    min-width: #{$content-width};
+    width: #{$content-width};
     margin: 0 auto;
 
     .nav {
