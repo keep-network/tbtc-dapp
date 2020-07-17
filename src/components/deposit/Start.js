@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 import history from '../../history'
 import { requestPermission } from '../../lib/notifications'
+import { selectLotSize } from '../../actions'
 import StatusIndicator from '../svgs/StatusIndicator'
 import BTCLogo from '../svgs/btclogo'
 import { useWeb3React } from '@web3-react/core'
@@ -14,7 +17,7 @@ const handleClickPay = (evt) => {
   history.push('/deposit/new')
 }
 
-const Start = () => {
+const Start = ({ lotSize, selectLotSize }) => {
   useEffect(() => {
     requestPermission()
   }, [])
@@ -36,12 +39,12 @@ const Start = () => {
       </div>
       <hr />
       <div className="description">
-        <LotSizeSelector />
+        <LotSizeSelector onSelect={selectLotSize} />
       </div>
       <div className='cta'>
         <button
           onClick={handleClickPay}
-          disabled={typeof account === 'undefined'}
+          disabled={typeof account === 'undefined' || !lotSize}
           className="black"
           >
           Create Address
@@ -51,4 +54,15 @@ const Start = () => {
   </div>
 }
 
-export default Start
+const mapStateToProps = (state) => ({
+  lotSize: state.deposit.lotSize,
+})
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ selectLotSize }, dispatch)
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Start)

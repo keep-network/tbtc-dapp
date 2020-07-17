@@ -54,6 +54,17 @@ export function requestADeposit() {
     }
 }
 
+export const SELECT_LOT_SIZE = 'SELECT_LOT_SIZE'
+
+export function selectLotSize(lotSize) {
+    return {
+        type: SELECT_LOT_SIZE,
+        payload: {
+            lotSize,
+        },
+    }
+}
+
 // Redemption
 export const SAVE_ADDRESSES = 'SAVE_ADDRESSES'
 export const REQUEST_REDEMPTION = 'REQUEST_REDEMPTION'

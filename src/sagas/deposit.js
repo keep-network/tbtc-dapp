@@ -1,5 +1,7 @@
 import { call, put, select } from 'redux-saga/effects'
 
+import { BitcoinHelpers } from '@keep-network/tbtc.js'
+
 import { METAMASK_TX_DENIED_ERROR } from '../chain'
 
 import { notifyTransactionConfirmed } from '../lib/notifications/actions'
@@ -189,7 +191,12 @@ export function* requestADeposit() {
     /** @type {Deposit} */
     let deposit
     try {
-        deposit = yield call([tbtc.Deposit, tbtc.Deposit.withSatoshiLotSize], new BN(1000000))
+        const lotSizeInBtc = yield select(state => state.deposit.lotSize)
+        const lotSizeInSatoshis =
+            new BN(lotSizeInBtc * BitcoinHelpers.satoshisPerBtc.toNumber())
+
+        deposit = yield call([tbtc.Deposit, tbtc.Deposit.withSatoshiLotSize],
+            lotSizeInSatoshis)
     } catch (err) {
         if (err.message.includes(METAMASK_TX_DENIED_ERROR)) return
         yield put({
