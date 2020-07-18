@@ -5,6 +5,11 @@
     padding: 0;
     margin-bottom: 70px;
 
+    // Prevent single items on last row
+    @media (max-width: #{map-get($breakpoints, 'xl')}) {
+        max-width: 640px;
+    }
+
     .lot-size-option {
         list-style: none;
         margin: 10px;
