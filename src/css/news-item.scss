@@ -1,4 +1,4 @@
-$content-width: 768px;
+map-get($breakpoints, 'md'): 768px;
 
 .news {
     .title {
@@ -60,7 +60,7 @@ $content-width: 768px;
 
 }
 
-@media (max-width: #{$content-width}) {
+@media (max-width: #{map-get($breakpoints, 'md')}) {
     .news .title {
         font-size: 2.75em;
 

@@ -1,13 +1,5 @@
 .deposit-start {
-    // Allow lot size selector to appear on a single row for larger screens
-    // without affecting the rest of the app layout css
-    @media (min-width: 960px) {
-        width: 850px;
 
-        position: relative;
-        left: 50%;
-        transform: translateX(-50%);
-    }
 }
 
 .redemption-start {

@@ -27,7 +27,7 @@
     .modal-body {
         margin: 200px auto;
         padding: 20px 25px 40px 80px;
-        width: #{$content-width};
+        width: #{map-get($breakpoints, 'md')};
         background-color: #{$white};
         border: 1px solid black;
     }

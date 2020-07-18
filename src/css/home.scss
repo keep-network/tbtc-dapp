@@ -1,6 +1,7 @@
 .home {
     font-family: 'apercu-mono-regular-pro';
-    margin-top: 3em;
+    max-width: map-get($breakpoints, 'md');
+    margin: 3em auto 0;
 
     .title {
         font-size: 4em;
@@ -55,7 +56,7 @@
             counter-reset: step-by-step;
             list-style: none;
 
-            width: #{$content-width};
+            width: #{map-get($breakpoints, 'md')};
             margin: 0 auto;
             padding: 75px 0;
             display: flex;
@@ -90,7 +91,7 @@
         }
     }
 
-    @media (max-width: #{$content-width}) {
+    @media (max-width: #{map-get($breakpoints, 'md')}) {
         .title {
             font-size: 2.75em;
 
