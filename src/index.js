@@ -134,3 +134,8 @@ window.addEventListener('load', () => {
     render(<AppWrapper />, rootElement)
   }
 })
+
+// Log any uncaught errors to the console
+window.addEventListener("error", (event) => {
+  console.error(event.error)
+})
