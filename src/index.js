@@ -8,6 +8,9 @@ import { Provider } from 'react-redux'
 import { Router, Route } from 'react-router-dom'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
+// Create console history
+import 'console.history'
+
 // Styles
 import './css/app.scss'
 
