@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Lottie from 'react-lottie'
 
 import StatusIndicator from '../svgs/StatusIndicator'
-import * as animationData from '../animation/tBTC-logo-animate.json'
+import * as tbtcLogoAnimationData from '../animation/tBTC-logo-animate.json'
 import CopyAddressField from '../lib/CopyAddressField'
 import { formatSatsToBtc } from '../../utils'
 
@@ -14,7 +14,7 @@ const Congratulations = ({ depositAddress, lotInTbtc, chainId }) => {
         <Lottie options={{
             loop: false,
             autoplay: true,
-            animationData: animationData.default,
+            animationData: tbtcLogoAnimationData.default,
             rendererSettings: {
               preserveAspectRatio: 'xMidYMid slice'
             }
