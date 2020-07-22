@@ -64,7 +64,7 @@ class Footer extends Component {
             </div>
             <div className="white-paper-link">
               <a href="http://docs.keep.network/tbtc/index.pdf" target="_blank" rel="noopener noreferrer">
-                Read the White Paper >>>>
+                Read the Spec >>>>
               </a>
             </div>
           </div>
