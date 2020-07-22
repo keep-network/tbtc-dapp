@@ -37,8 +37,7 @@ const Confirming = ({ signerFee, error }) => {
   )
 }
 
-const mapStateToProps = (state) => {
-  const { signerFeeInSatoshis, btcConfirmingError } = state.deposit
+const mapStateToProps = ({ deposit: { signerFeeInSatoshis, btcConfirmingError }}) => {
   return {
     signerFee: formatSatsToBtc(signerFeeInSatoshis),
     error: btcConfirmingError,
