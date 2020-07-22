@@ -7,3 +7,7 @@ export function formatSatsToBtc(sats) {
     return new BigNumber(sats.toString())
         .div(BitcoinHelpers.satoshisPerBtc.toString()).toString()
 }
+
+export function getEtherscanUrl(chainId, address) {
+    return `https://${chainId === 3 ? 'ropsten.' : ''}etherscan.io/token/${address}`
+}

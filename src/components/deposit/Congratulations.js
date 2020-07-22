@@ -5,7 +5,7 @@ import Lottie from 'react-lottie'
 import StatusIndicator from '../svgs/StatusIndicator'
 import * as tbtcLogoAnimationData from '../animation/tBTC-logo-animate.json'
 import CopyAddressField from '../lib/CopyAddressField'
-import { formatSatsToBtc } from '../../utils'
+import { formatSatsToBtc, getEtherscanUrl } from '../../utils'
 
 const Congratulations = ({ depositAddress, lotInTbtc, chainId }) => {
   return <div className="congratulations">
@@ -39,9 +39,8 @@ const Congratulations = ({ depositAddress, lotInTbtc, chainId }) => {
           Bond duration: 6 months
         </div>
         <button className="black">
-          <a href={
-            `https://${chainId === 3 ? 'ropsten.' : ''}etherscan.io/token/${depositAddress}`
-          } target="_blank" rel="noopener noreferrer">view on Etherscan</a>
+          <a href={getEtherscanUrl(chainId, depositAddress)}
+            target="_blank" rel="noopener noreferrer">view on Etherscan</a>
         </button>
       </div>
     </div>
