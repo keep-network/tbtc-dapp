@@ -9,7 +9,8 @@ class Footer extends Component {
     email: '',
     success: false,
     error: '',
-    loading: false
+    loading: false,
+    errorLogUrl: ''
   }
 
   handleInput = (evt) => {
@@ -51,6 +52,15 @@ class Footer extends Component {
     }
   }
 
+  handleExportError = (e) => {
+    const blob = new Blob(
+      [JSON.stringify(console.history, null, 2)], { type: 'application/json' }
+    )
+    this.setState({
+      errorLogUrl: window.URL.createObjectURL(blob)
+    })
+  }
+
   render() {
     const { includeSubscription } = this.props
     const { email, error, success, loading } = this.state
@@ -68,6 +78,13 @@ class Footer extends Component {
               </a>
             </div>
           </div>
+          <button className="error-export-button" onClick={this.handleExportError}>
+            <a
+              href={this.state.errorLogUrl}
+              download={`tbtc-dApp-console-log-${new Date().getTime()}.json`}>
+                Download Error Log ↓
+            </a>
+          </button>
         </div>
         {
           includeSubscription && (
