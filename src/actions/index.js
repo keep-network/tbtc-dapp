@@ -10,6 +10,19 @@ export function setEthereumAccount(account) {
     }
 }
 
+// Web3/TBTC Initialization
+export const TBTC_LOADED = 'TBTC_LOADED'
+
+export function tbtcLoaded(chainId, btcNetwork) {
+    return {
+        type: TBTC_LOADED,
+        payload: {
+            chainId,
+            btcNetwork,
+        }
+    }
+}
+
 // State restoration.
 export const RESTORE_DEPOSIT_STATE = 'RESTORE_DEPOSIT_STATE'
 export const RESTORE_REDEMPTION_STATE = 'RESTORE_REDEMPTION_STATE'

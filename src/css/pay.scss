@@ -7,34 +7,6 @@
                 font-family: 'apercu-bold-pro';
             }
         }
-
-        .copy-address {
-            .address {
-                color: $blue;
-                text-decoration: underline;
-                cursor: pointer;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-                overflow: hidden;
-                min-width: 1px;
-
-                &:hover {
-                    text-overflow: unset;
-                    white-space: unset;
-                    overflow: unset;
-                    word-wrap: break-word;
-                }
-            }
-
-            .copied {
-                color: red;
-            }
-        }
-    }
-
-    .hidden-copy-field {
-        position: absolute;
-        right: 999999px;
     }
 
     .confirming  {
@@ -53,7 +25,7 @@
         //         transform: translate(175px, 175px)
         //     }
         // }
-      
+
         // @keyframes dash {
         //     from {
         //         stroke-dashoffset:1000;

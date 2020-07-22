@@ -1,4 +1,5 @@
 $content-width: 768px;
+$bp-small: 576px;
 
 @import 'colors.scss';
 @import 'button.scss';
@@ -7,6 +8,7 @@ $content-width: 768px;
 @import 'structure.scss';
 @import 'modal.scss';
 @import 'status-indicator.scss';
+@import 'copy-address-field.scss';
 @import 'home.scss';
 @import 'start.scss';
 @import 'pay.scss';
@@ -19,10 +21,11 @@ html, body, #root {
     margin: 0;
     font-family: 'apercu-mono-regular-pro';
     overflow-x: hidden;
+    background-color: $white;
 }
 
 a {
-    color: #{$blue};
+    color: $black;
     text-decoration: underline;
     cursor: pointer;
 }
@@ -30,20 +33,43 @@ a {
 .main {
     display: flex;
     flex-direction: column;
-    min-height: 100%;
+    min-height: 100vh;
 }
 
 .warning {
     font-family: 'apercu-mono-regular-pro';
-    font-size: 1rem;
+    font-size: 12px;
     line-height: 1.5rem;
-    background: rgb(149, 30, 28);
-    color: white;
-    padding: 15px 20px;
-    margin-bottom: 3em;
+    background: $alert;
+    border-radius: 8px;
+    color: $white;
+    max-width: 568px;
+    padding: 15px;
+    margin: 0 auto 3em;
+    position: relative;
+    background-image: url(../components/svgs/warning.svg);
+    background-position: 50px center;
+    background-repeat: no-repeat;
 
-    a {
-        color: rgb(102, 173, 255);
+    .message {
+        max-width: 333px;
+        margin-left: 116px;
+
+        p {
+            line-height: 1.32;
+        }
+
+        a {
+            color: $white;
+        }
+    }
+
+    @media (max-width: #{$bp-small}) {
+        padding: 55px 15px 15px;
+        background-position: center 20px;
+        .message {
+            margin-left: 0;
+        }
     }
 }
 
@@ -84,33 +110,39 @@ a {
             padding: 5px 10px;
             border: 1px solid transparent;
             border-radius: 4px;
-            background-color: #{$lighter-grey};
             font-size: .6em;
             font-family: 'apercu-mono-regular-pro';
-
-            &.loading {
-                border-color: #{$loading};
-                color: #{$loading};
-            }
 
             &.alert {
                 border-color: #{$alert};
                 color: #{$alert};
             }
 
+            &.loading,
             &.notify {
-                border-color: #{$notify};
-                color: #{$notify};
+                border-color: $black;
+                color: $black;
             }
 
             &.success {
-                border-color: #{$success};
-                color: #{$success};
+                border-color: $black;
+                background-color: $black;
+                color: $white;
+                box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
             }
 
             svg {
                 display: inline-block;
                 vertical-align: text-bottom;
+
+                circle {
+                    fill: $white;
+                    stroke: $black;
+                }
+
+                path {
+                    stroke: $black;
+                }
             }
 
             a {
@@ -118,7 +150,6 @@ a {
             }
 
             &:hover {
-                background: darken($lighter-grey, 5%);
                 cursor: pointer;
             }
         }
@@ -170,41 +201,25 @@ footer {
     align-items: stretch;
     width: 100%;
     background-color: #{$black};
-    padding: 80px 0;
+    padding: 100px 0;
     overflow: hidden;
 
     .footer-content {
         .white-paper {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
             width: #{$content-width};
             margin: 0 auto;
+            font-size: 1.5em;
 
             .white-paper-label {
-                font-size: 2.25em;
                 color: #{$white};
-                max-width: 200px;
-                flex: 1;
                 font-family: 'apercu-bold-pro';
-            }
-
-            hr {
-                border-style: dashed;
-                border-width: 1px 0 0 0;
-                border-color: #{$white};
-                margin: 0 50px;
-                flex: 1;
+                margin-bottom: 10px;
             }
 
             .white-paper-link {
-                font-size: 1.2em;
-                flex: 0;
-
                 a {
                     white-space: nowrap;
-                    color: #{$blue};
+                    color: $grey;
                     text-decoration: underline;
                 }
             }
@@ -234,10 +249,7 @@ footer {
     }
 
     &.include-subscription {
-        background-image: url('../static/Flow.png');
-        background-color: #{$purple};
-        background-position: center top;
-        background-size: 100% auto;
+        background-color: $white;
         padding: 50px 0 0 0;
 
         .footer-content {
@@ -250,7 +262,7 @@ footer {
         }
 
         .mailing-list {
-            margin: 75px auto;
+            margin: 75px auto 100px;
             width: #{$content-width};
             position: relative;
 
@@ -266,9 +278,31 @@ footer {
 
                 input[type="text"] {
                     flex: 1 0;
-                    padding-left: 24px;
-                    color: #{$dark-grey};
+                    margin-right: 24px;
+                    color: $black;
                     font-size: 1.3em;
+
+                    border: 0;
+                    border-radius: 0;
+                    border-bottom: 1px solid $black;
+                    background-color: transparent;
+                    box-shadow: none;
+                    transition: all 0.5s ease-in;
+
+                    &:focus {
+                        outline: 0;
+                        box-shadow: none;
+                        border-color: $black;
+                    }
+
+                    &:-webkit-autofill,
+                    &:-webkit-autofill:hover,
+                    &:-webkit-autofill:focus,
+                    &:-webkit-autofill:active,
+                    &:-internal-autofill-selected,
+                    &:-internal-autofill-previewed  {
+                        -webkit-box-shadow: 0 0 0 30px white inset !important;
+                    }
 
                     &:disabled {
                         background-color: #888;
@@ -278,15 +312,8 @@ footer {
                 input[type="submit"] {
                     flex: 0 1;
                     padding: 20px 30px;
-                    background-color: #{$black};
-                    color: #{$white};
-                    font-size: 1.2em;
-                    text-decoration: underline;
-                    cursor: pointer;
-
-                    &:hover {
-                        background-color: #{$success};
-                    }
+                    @extend .button;
+                    @extend .button.black;
                 }
 
                 input {
@@ -299,7 +326,7 @@ footer {
 
             .error {
                 margin-top: 20px;
-                padding: 10px;
+                padding: 10px 0;
                 background-color: #{$white};
                 color: #{$alert};
             }
@@ -350,6 +377,7 @@ footer {
                     input[type="text"] {
                         padding: 16px;
                         font-size: .9em;
+                        margin: 0 0 20px;
                     }
 
                     input[type="submit"] {

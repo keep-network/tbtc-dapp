@@ -1,5 +1,6 @@
 .home {
     font-family: 'apercu-mono-regular-pro';
+    margin-top: 3em;
 
     .title {
         font-size: 4em;
@@ -47,8 +48,7 @@
         margin-top: 110px;
         border-width: 1px 0;
         border-style: solid;
-        border-color: #{$light-blue};
-        background-color: #{$lighter-grey};
+        border-color: $black;
         font-size: .75em;
 
         ol {
@@ -64,12 +64,10 @@
                 counter-increment: step-by-step;
 
                 flex: 1;
-                color: #{$dark-grey};
 
                 &::before {
                     content: "0" #{counter(step-by-step)};
                     display: block;
-                    color: #{$blue};
                     font-weight: bold;
                     line-height: 2em;
                 }
