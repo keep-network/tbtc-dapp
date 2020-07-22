@@ -30,14 +30,8 @@ const Congratulations = ({ depositAddress, lotInTbtc, chainId }) => {
       </div>
       <hr />
       <div className="description">
-        {
-          depositAddress && depositAddress.length > 0
-          ? <>
-              <div className="deposit-address-label">Deposit Address:</div>
-              <CopyAddressField address={depositAddress} />
-            </>
-          : ''
-        }
+        <div className="deposit-address-label">Deposit Address:</div>
+        <CopyAddressField address={depositAddress} />
         <div className="description-content">
           You are now the proud beneficiary of {lotInTbtc} TBTC
         </div>
