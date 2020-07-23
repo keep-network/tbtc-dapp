@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import classNames from 'classnames'
 
-import Check from '../svgs/Check'
-
 const LotSizeOption = ({ lotSize, onClick, selected }) => {
   const handleClick = () => {
     onClick(lotSize)
@@ -10,12 +8,11 @@ const LotSizeOption = ({ lotSize, onClick, selected }) => {
   return (
     <li className={classNames('lot-size-option', { selected })}
       onClick={handleClick}>
-      <button>
-        <span className="lot-size-option-label">
+        <input type="radio" id={lotSize} name="lot-size" value={lotSize} 
+          checked={selected} readOnly />
+        <label className="lot-size-option-label">
           {lotSize}&nbsp;&nbsp;฿
-        </span>
-        { selected ? <Check /> : '' }
-      </button>
+        </label>
     </li>
   )
 }
