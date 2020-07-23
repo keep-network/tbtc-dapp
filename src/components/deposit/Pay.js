@@ -34,8 +34,8 @@ const PayComponent = ({ btcAddress, btcAmount, signerFee, error }) => {
           <div>
             Scan the QR code or click to copy the address below into your wallet.
           </div>
-          <div className="custodial-fee">
-            <span className="custodial-fee-label">Signer Fee: </span>
+          <div className="signer-fee">
+            <span className="signer-fee-label">Signer Fee: </span>
             {signerFee} BTC*
           </div>
         </div>

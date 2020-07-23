@@ -24,8 +24,8 @@ const Confirming = ({ signerFee, error }) => {
             notification when your TBTC is ready to be minted.
             <p><i>A watched block never boils.</i></p>
           </div>
-          <div className="custodial-fee">
-            <span className="custodial-fee-label">Signer Fee: </span>
+          <div className="signer-fee">
+            <span className="signer-fee-label">Signer Fee: </span>
             {signerFee} BTC*
           </div>
         </div>
