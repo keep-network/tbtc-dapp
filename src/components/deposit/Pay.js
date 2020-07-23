@@ -39,7 +39,7 @@ const PayComponent = ({ btcAddress, btcAmount, signerFee, error }) => {
             {signerFee} BTC*
           </div>
         </div>
-        <CopyAddressField address={btcAddress} addressUrl={btcURL} />
+        <CopyAddressField address={btcAddress} qrCodeUrl={btcURL} />
         <div className="error">
           { error }
         </div>
