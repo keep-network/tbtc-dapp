@@ -52,7 +52,7 @@ class Footer extends Component {
     }
   }
 
-  handleExportError = (e) => {
+  handleDownloadError = (e) => {
     const blob = new Blob(
       [JSON.stringify(console.history, null, 2)], { type: 'application/json' }
     )
@@ -78,13 +78,12 @@ class Footer extends Component {
               </a>
             </div>
           </div>
-          <button className="error-export-button" onClick={this.handleExportError}>
-            <a
-              href={this.state.errorLogUrl}
-              download={`tbtc-dApp-console-log-${new Date().getTime()}.json`}>
-                Download Error Log ↓
-            </a>
-          </button>
+          <a
+            className="download-error-button" onClick={this.handleDownloadError}
+            href={this.state.errorLogUrl}
+            download={`tbtc-dApp-console-log-${new Date().getTime()}.json`}>
+              Download Error Log ↓
+          </a>
         </div>
         {
           includeSubscription && (

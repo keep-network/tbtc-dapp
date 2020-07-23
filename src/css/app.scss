@@ -191,9 +191,15 @@ footer {
     overflow: hidden;
 
     .footer-content {
+        @extend .container;
+        margin: 0 auto;
+        width: 100%;
+        padding: 0 40px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+
         .white-paper {
-            @extend .container;
-            margin: 0 auto;
             font-size: 1.5em;
 
             .white-paper-label {
@@ -208,6 +214,25 @@ footer {
                     color: $grey;
                     text-decoration: underline;
                 }
+            }
+        }
+
+        .download-error-button {
+            --button-color: #{$grey};
+            @extend .button;
+            padding: 10px 15px;
+            background-color: transparent;
+
+            &:hover {
+                --button-color: #{$white};
+                background-color: transparent;
+                transform: none;
+            }
+
+            &:active {
+                color: $black;
+                border-color: $white;
+                background-color: $white;
             }
         }
 
@@ -235,30 +260,32 @@ footer {
     }
 
     &.include-subscription {
-        background-color: $white;
-        padding: 50px 0 0 0;
+        padding: 0;
 
         .footer-content {
             background-color: #{$black};
-            padding: 80px;
-
-            .white-paper {
-                max-width: #{map-get($breakpoints, 'md')};
-            }
+            padding: 80px 0;
+            max-width: #{map-get($breakpoints, 'md')};
 
             .footer-logo {
                 margin-top: 0;
             }
+
+            .download-error-button {
+                display: none;
+            }
         }
 
         .mailing-list {
-            margin: 75px auto 100px;
-            width: #{map-get($breakpoints, 'md')};
+            background-color: $white;
+            padding: 75px 100px;
             position: relative;
 
             form {
                 display: flex;
                 width: 100%;
+                margin: 0 auto;
+                max-width: #{map-get($breakpoints, 'md')};
 
                 input {
                     border: 0;
@@ -315,7 +342,8 @@ footer {
             }
 
             .error {
-                margin-top: 20px;
+                margin: 20px auto 0;
+                max-width: #{map-get($breakpoints, 'md')};
                 padding: 10px 0;
                 background-color: #{$white};
                 color: #{$alert};
@@ -342,9 +370,19 @@ footer {
     }
 
     @media (max-width: #{map-get($breakpoints, 'md')}) {
+        .footer-content {
+            padding: 0 40px;
+            flex-direction: column;
+            align-items: flex-start;
+
+            .download-error-button {
+                margin-top: 2em;
+            }
+        }
+
         &.include-subscription {
             .footer-content {
-                padding: 80px 50px;
+                padding: 80px 40px;
 
                 .white-paper {
                     flex-direction: column;
