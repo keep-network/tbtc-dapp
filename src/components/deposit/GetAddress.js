@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import StatusIndicator from '../svgs/StatusIndicator'
 
-const GetAddress = ({ status, btcAddressError }) => {
+const GetAddress = ({ status, error }) => {
   const [statusText, setStatusText] = useState('Generating BTC address...')
   useEffect(() => {
     if (status === 3) {
@@ -28,7 +28,7 @@ const GetAddress = ({ status, btcAddressError }) => {
           {statusText}
         </div>
         <div className="error">
-          { btcAddressError }
+          { error }
         </div>
       </div>
     </div >
@@ -38,7 +38,7 @@ const GetAddress = ({ status, btcAddressError }) => {
 const mapStateToProps = (state, ownProps) => {
   return {
     status: state.deposit.invoiceStatus,
-    btcAddressError: state.deposit.btcAddressError,
+    error: state.deposit.btcAddressError,
   }
 }
 
