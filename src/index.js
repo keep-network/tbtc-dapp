@@ -48,7 +48,14 @@ import reducers from './reducers'
 import history from './history'
 
 // Set up our store
-const sagaMiddleware = createSagaMiddleware()
+const sagaMiddleware = createSagaMiddleware({
+  // Log any uncaught exceptions. If any error is not handled in a saga, it
+  // bubbles up to the root saga to find its way here
+  onError: (error) => {
+    console.error(error)
+  }
+})
+
 const middleware = [
   routerMiddleware,
   notificationMiddleware,
@@ -133,9 +140,4 @@ window.addEventListener('load', () => {
   } else {
     render(<AppWrapper />, rootElement)
   }
-})
-
-// Log any uncaught errors to the console
-window.addEventListener("error", (event) => {
-  console.error(event.error)
 })
