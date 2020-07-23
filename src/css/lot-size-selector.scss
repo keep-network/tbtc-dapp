@@ -1,0 +1,59 @@
+.lot-size-selector {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0;
+    margin-bottom: 70px;
+
+    // Prevent single items on last row
+    @media (max-width: #{map-get($breakpoints, 'xl')}) {
+        max-width: 640px;
+    }
+
+    .lot-size-option {
+        list-style: none;
+        margin: 10px;
+
+        position: relative;
+        width: 150px;
+        height: 120px;
+        padding: 14px 18px;
+        box-sizing: border-box;
+        font-family: 'apercu-regular-pro', sans-serif;
+        font-size: 30px;
+        line-height: 1;
+        border: 2px solid $black;
+        border-radius: 10px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-end;
+        transition: box-shadow 0.25s ease-in;
+
+        input {
+            display: none;
+        }
+
+        &:hover {
+            transform: none;
+            color: $black;
+            box-shadow: 4px 4px 0 $black;
+        }
+
+        &:focus {
+            outline: 0;
+        }
+
+        &.selected {
+            background-color: $black;
+            background-image: url(../components/svgs/check.svg);
+            background-repeat: no-repeat;
+            background-position: top 7px right 7px;
+            background-size: 25px 25px;
+            color: $white;
+
+            &:hover {
+                box-shadow: none;
+            }
+        }
+    }
+}

@@ -12,18 +12,16 @@ function App(props) {
         <Header />
 
         <div className="warning">
-          <div className="message">
-            <p>
-              The safety of your funds is important to us.
-            </p>
-            <p>
-              This dApp is in ALPHA and improper use may lead to LOSS OF FUNDS.
-            </p>
-            <p>
-              For more information and options please{" "}
-              <a href="https://discord.gg/Bpzfsgx">visit our Discord community</a>.
-            </p>
-          </div>
+          <p>
+            The safety of your funds is important to us.
+          </p>
+          <p>
+            This dApp is in ALPHA and improper use may lead to LOSS OF FUNDS.
+          </p>
+          <p>
+            For more information and options please{" "}
+            <a href="https://discord.gg/Bpzfsgx">visit our Discord community</a>.
+          </p>
         </div>
 
         { children }

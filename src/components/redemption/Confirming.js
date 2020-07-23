@@ -24,12 +24,10 @@ const Confirming = ({ txHash, btcNetwork, error }) => {
           <p>We're waiting to confirm your transaction.</p>
           {
             txHash
-            ? <button className="black">
-                <a href={blockExplorerUrl}
+            ? <a className=""href={blockExplorerUrl}
                 target="_blank" rel="noopener noreferrer">
                   Follow along in block explorer
-                </a>
-              </button>
+              </a>
             : ''
           }
           {

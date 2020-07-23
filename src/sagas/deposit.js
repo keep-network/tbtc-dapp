@@ -1,5 +1,7 @@
 import { call, put, select } from 'redux-saga/effects'
 
+import { BitcoinHelpers } from '@keep-network/tbtc.js'
+
 import { METAMASK_TX_DENIED_ERROR } from '../chain'
 
 import { notifyTransactionConfirmed } from '../lib/notifications/actions'
@@ -12,6 +14,10 @@ import BN from "bn.js"
 /** @typedef { import("@keep-network/tbtc.js").TBTC } TBTC */
 /** @typedef { import("@keep-network/tbtc.js").Deposit } Deposit */
 
+export const DEPOSIT_AVAILABLE_LOT_SIZES_REQUESTED =
+    'DEPOSIT_AVAILABLE_LOT_SIZES_REQUESTED'
+export const DEPOSIT_AVAILABLE_LOT_SIZES_ERROR =
+    'DEPOSIT_AVAILABLE_LOT_SIZES_ERROR'
 export const DEPOSIT_REQUEST_BEGIN = 'DEPOSIT_REQUEST_BEGIN'
 export const DEPOSIT_REQUEST_METAMASK_SUCCESS = 'DEPOSIT_REQUEST_METAMASK_SUCCESS'
 export const DEPOSIT_REQUEST_SUCCESS = 'DEPOSIT_REQUEST_SUCCESS'
@@ -179,6 +185,29 @@ export function* onStateRestored(depositState) {
     }
 }
 
+export function* requestAvailableLotSizes() {
+    /** @type {TBTC} */
+    const tbtc = yield TBTCLoaded
+
+    try {
+        let availableLotSizes =
+            yield call([tbtc.Deposit, tbtc.Deposit.availableSatoshiLotSizes])
+        yield put({
+            type: DEPOSIT_AVAILABLE_LOT_SIZES_REQUESTED,
+            payload: {
+                availableLotSizes,
+            },
+        })
+    } catch (error) {
+        yield put({
+            type: DEPOSIT_AVAILABLE_LOT_SIZES_ERROR,
+            payload: {
+                error: error.message,
+            },
+        })
+    }
+}
+
 export function* requestADeposit() {
     /** @type {TBTC} */
     const tbtc = yield TBTCLoaded
@@ -189,13 +218,18 @@ export function* requestADeposit() {
     /** @type {Deposit} */
     let deposit
     try {
-        deposit = yield call([tbtc.Deposit, tbtc.Deposit.withSatoshiLotSize], new BN(1000000))
-    } catch (err) {
-        if (err.message.includes(METAMASK_TX_DENIED_ERROR)) return
+        const lotSizeInBtc = yield select(state => state.deposit.lotSize)
+        const lotSizeInSatoshis =
+            new BN(lotSizeInBtc * BitcoinHelpers.satoshisPerBtc.toNumber())
+
+        deposit = yield call([tbtc.Deposit, tbtc.Deposit.withSatoshiLotSize],
+            lotSizeInSatoshis)
+    } catch (error) {
+        if (error.message.includes(METAMASK_TX_DENIED_ERROR)) return
         yield put({
             type: DEPOSIT_REQUEST_ERROR,
             payload: {
-                error: err.message,
+                error: error.message,
             }
         })
         return

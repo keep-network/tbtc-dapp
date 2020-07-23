@@ -1,3 +1,58 @@
+// inspired by bootstrap
+$breakpoints: (
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1400px
+);
+
+$app-max-widths: (
+    md: 720px,
+    lg: 960px,
+    xl: 1140px,
+    xxl: 1320px
+);
+
+@mixin media-breakpoint-up($bp_key) {
+    $min: map-get($breakpoints, $bp_key);
+    @if $min {
+        @media (min-width: $min) {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+}
+
+.container {
+    @include media-breakpoint-up('md') {
+        padding: 0;
+        max-width: map-get($app-max-widths, 'md');
+    }
+
+    @include media-breakpoint-up('lg') {
+        max-width: map-get($app-max-widths, 'lg');
+    }
+
+    @include media-breakpoint-up('xl') {
+        max-width: map-get($app-max-widths, 'xl');
+    }
+}
+
+.app {
+    width: 100%;
+    flex: 1;
+    color: #{$black};
+    font-family: sans-serif;
+    font-size: 1.5em;
+    margin: 0 auto;
+    padding: 40px;
+    box-sizing: border-box;
+
+    @extend .container;
+}
+
 .deposit-start, .invoice, .pay, .prove, .congratulations, .redemption-start, .confirming {
     display: flex;
     flex-direction: column;

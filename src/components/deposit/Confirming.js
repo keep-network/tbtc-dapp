@@ -2,16 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import StatusIndicator from '../svgs/StatusIndicator'
+import { formatSatsToBtc } from '../../utils'
 
-import { BitcoinHelpers } from '@keep-network/tbtc.js'
-
-import BigNumber from "bignumber.js"
-BigNumber.set({ DECIMAL_PLACES: 8 })
-
-const Confirming = ({ signerFeeInSatoshis, error }) => {
-  const signerFee = (new BigNumber(signerFeeInSatoshis.toString()))
-    .div(BitcoinHelpers.satoshisPerBtc.toString()).toString()
-
+const Confirming = ({ signerFee, error }) => {
   return (
     <div className="pay pay-confirming">
       <div className="page-top">
@@ -31,8 +24,8 @@ const Confirming = ({ signerFeeInSatoshis, error }) => {
             notification when your TBTC is ready to be minted.
             <p><i>A watched block never boils.</i></p>
           </div>
-          <div className="custodial-fee">
-            <span className="custodial-fee-label">Signer Fee: </span>
+          <div className="signer-fee">
+            <span className="signer-fee-label">Signer Fee: </span>
             {signerFee} BTC*
           </div>
         </div>
@@ -44,10 +37,10 @@ const Confirming = ({ signerFeeInSatoshis, error }) => {
   )
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ deposit: { signerFeeInSatoshis, btcConfirmingError }}) => {
   return {
-    signerFeeInSatoshis: state.deposit.signerFeeInSatoshis,
-    error: state.deposit.btcConfirmingError,
+    signerFee: formatSatsToBtc(signerFeeInSatoshis),
+    error: btcConfirmingError,
   }
 }
 

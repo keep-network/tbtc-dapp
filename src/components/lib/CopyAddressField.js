@@ -3,7 +3,7 @@ import QRCode from 'qrcode.react'
 
 import QRCodeIcon from '../svgs/QRCodeIcon'
 
-const CopyAddressField = ({ address, addressUrl }) => {
+const CopyAddressField = ({ address, qrCodeUrl }) => {
   const [isCopied, setIsCopied] = useState(false)
   const hiddenCopyFieldRef = useRef(null)
 
@@ -17,12 +17,12 @@ const CopyAddressField = ({ address, addressUrl }) => {
   return (
     <div className="copy-address-field">
       <div className="copy-address">
-        { addressUrl ? (
+        { qrCodeUrl ? (
           <div className="qr-code-wrapper">
             <QRCodeIcon />
             <div className="qr-code">
               <QRCode
-                value={addressUrl}
+                value={qrCodeUrl}
                 renderAs="svg"
                 size={225} />
             </div>

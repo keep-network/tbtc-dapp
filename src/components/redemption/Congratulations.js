@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import StatusIndicator from '../svgs/StatusIndicator'
 import BTCLogo from '../svgs/btclogo'
+import { getEtherscanUrl } from '../../utils'
 
 const Congratulations = ({ chainId, depositAddress }) => {
   return (
@@ -24,13 +25,10 @@ const Congratulations = ({ chainId, depositAddress }) => {
           <p>Enjoy your Bitcoin</p>
         </div>
         <div className='cta'>
-          <button className="black">
-            <a href={
-              `https://${chainId === 3 ? 'ropsten.' : ''}etherscan.io/token/${depositAddress}`
-            } target="_blank" rel="noopener noreferrer">
-              View your transaction
-            </a>
-          </button>
+          <a href={getEtherscanUrl(chainId, depositAddress)}
+            target="_blank" rel="noopener noreferrer">
+            View your transaction
+          </a>
         </div>
       </div>
     </div>
