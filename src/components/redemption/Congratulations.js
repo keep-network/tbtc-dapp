@@ -25,12 +25,10 @@ const Congratulations = ({ chainId, depositAddress }) => {
           <p>Enjoy your Bitcoin</p>
         </div>
         <div className='cta'>
-          <button className="black">
-            <a href={getEtherscanUrl(chainId, depositAddress)}
-              target="_blank" rel="noopener noreferrer">
-              View your transaction
-            </a>
-          </button>
+          <a href={getEtherscanUrl(chainId, depositAddress)}
+            target="_blank" rel="noopener noreferrer">
+            View your transaction
+          </a>
         </div>
       </div>
     </div>

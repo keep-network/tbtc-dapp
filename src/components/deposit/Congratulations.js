@@ -38,10 +38,8 @@ const Congratulations = ({ depositAddress, lotInTbtc, chainId }) => {
         <div className="bond-duration">
           Bond duration: 6 months
         </div>
-        <button className="black">
-          <a href={getEtherscanUrl(chainId, depositAddress)}
-            target="_blank" rel="noopener noreferrer">view on Etherscan</a>
-        </button>
+        <a href={getEtherscanUrl(chainId, depositAddress)}
+          target="_blank" rel="noopener noreferrer">view on Etherscan</a>
       </div>
     </div>
   </div>

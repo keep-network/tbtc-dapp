@@ -1,18 +1,7 @@
 button, .button {
     &.black {
         --button-color: #{$black};
-
-        a {
-            color: $black;
-            text-decoration: none;
-        }
-
-        &:hover:enabled {
-            a {
-                color: $white;
-            }
-        }
-     }
+    }
 
     border: 3px solid var(--button-color);
     padding: 20px 40px;
@@ -24,8 +13,9 @@ button, .button {
     transform: scale(1);
     transition: transform 150ms ease-in-out;
     cursor: pointer;
+    text-decoration: none;
 
-    &:hover:enabled {
+    &:hover {
         background-color: var(--button-color);
         color: #{$white};
         transform: scale(1.05);
@@ -35,5 +25,10 @@ button, .button {
         border-color: #{$light-grey};
         color: #{$light-grey};
         cursor: unset;
+
+        &:hover {
+            background-color: $white;
+            transform: none;
+        }
     }
 }

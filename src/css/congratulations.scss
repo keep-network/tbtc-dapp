@@ -18,10 +18,14 @@
                     border-color: $grey;
                 }
             }
+        }
 
-            button {
-                margin-bottom: 100px;
-            }
+        .description a,
+        .cta a {
+            @extend .button;
+            @extend .button.black;
+            margin-bottom: 100px;
+            display: inline-block;
         }
     }
 }
