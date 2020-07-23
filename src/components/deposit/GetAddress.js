@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
+import Description from "../lib/Description"
 import StatusIndicator from '../svgs/StatusIndicator'
 
 const GetAddress = ({ status, error }) => {
@@ -24,12 +25,9 @@ const GetAddress = ({ status, error }) => {
           Initiating deposit
         </div>
         <hr />
-        <div className="description">
+        <Description error={error}>
           {statusText}
-        </div>
-        <div className="error">
-          { error }
-        </div>
+        </Description>
       </div>
     </div >
   )

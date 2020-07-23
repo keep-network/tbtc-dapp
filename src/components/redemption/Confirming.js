@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import Description from "../lib/Description"
 import StatusIndicator from '../svgs/StatusIndicator'
 
 const Confirming = ({ txHash, btcNetwork, error }) => {
@@ -20,24 +21,17 @@ const Confirming = ({ txHash, btcNetwork, error }) => {
           { error ? 'Error confirming transaction' : 'Confirming...' }
         </div>
         <hr />
-        <div className="description">
+        <Description error={error}>
           <p>We're waiting to confirm your transaction.</p>
           {
             txHash
-            ? <a className=""href={blockExplorerUrl}
+            ? <a href={blockExplorerUrl}
                 target="_blank" rel="noopener noreferrer">
                   Follow along in block explorer
               </a>
             : ''
           }
-          {
-            error
-            ? <div className="error">
-                { error }
-              </div>
-            : ''
-          }
-        </div>
+        </Description>
       </div>
     </div>
   )

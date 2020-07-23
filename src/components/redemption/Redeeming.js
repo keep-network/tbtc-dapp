@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
+import Description from "../lib/Description"
 import StatusIndicator from '../svgs/StatusIndicator'
 import { requestRedemption } from '../../actions'
 
@@ -29,12 +30,9 @@ const RedeemingComponent = ({ requestRedemption, error }) => {
           { error ? 'Error redeeming bond' : 'Redeeming...'}
         </div>
         <hr />
-        <div className="description">
+        <Description error={error}>
           <p>We’re waiting for you to confirm invoice details in your Wallet.</p>
-        </div>
-        <div className="error">
-          { error }
-        </div>
+        </Description>
       </div>
     </div>
   )

@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import { requestADeposit } from '../../actions'
+import Description from "../lib/Description"
 import StatusIndicator from '../svgs/StatusIndicator'
 
 const Invoice = ({ requestADeposit, error }) => {
@@ -23,12 +24,9 @@ const Invoice = ({ requestADeposit, error }) => {
           { error ? 'Error initiating deposit' : 'Initiating deposit' }
         </div>
         <hr />
-        <div className="description">
+        <Description error={error}>
           Initiating...
-        </div>
-        <div className="error">
-          { error }
-        </div>
+        </Description>
       </div>
     </div >
   )

@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import Description from "../lib/Description"
 import StatusIndicator from '../svgs/StatusIndicator'
 
 const Signing = ({ error }) => {
@@ -17,12 +18,9 @@ const Signing = ({ error }) => {
           { error ? 'Error signing your transaction' : 'Waiting on signing group' }
         </div>
         <hr />
-        <div className="description">
+        <Description error={error}>
           <p>We’re waiting for the deposit signing group to build and sign your Bitcoin transaction.</p>
-        </div>
-        <div className="error">
-          { error }
-        </div>
+        </Description>
       </div>
     </div>
   )
