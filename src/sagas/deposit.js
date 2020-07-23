@@ -7,6 +7,7 @@ import { METAMASK_TX_DENIED_ERROR } from '../chain'
 import { notifyTransactionConfirmed } from '../lib/notifications/actions'
 import { navigateTo } from '../lib/router/actions'
 import { TBTCLoaded } from '../wrappers/web3'
+import { logError } from './lib'
 import { resumeRedemption } from './redemption'
 
 import BN from "bn.js"
@@ -199,12 +200,7 @@ export function* requestAvailableLotSizes() {
             },
         })
     } catch (error) {
-        yield put({
-            type: DEPOSIT_AVAILABLE_LOT_SIZES_ERROR,
-            payload: {
-                error: error.message,
-            },
-        })
+        yield* logError(DEPOSIT_AVAILABLE_LOT_SIZES_ERROR, error)
     }
 }
 
@@ -226,12 +222,7 @@ export function* requestADeposit() {
             lotSizeInSatoshis)
     } catch (error) {
         if (error.message.includes(METAMASK_TX_DENIED_ERROR)) return
-        yield put({
-            type: DEPOSIT_REQUEST_ERROR,
-            payload: {
-                error: error.message,
-            }
-        })
+        yield* logError(DEPOSIT_REQUEST_ERROR, error)
         return
     }
     yield put({ type: DEPOSIT_REQUEST_METAMASK_SUCCESS })
@@ -272,12 +263,7 @@ export function* getBitcoinAddress() {
             }
         })
     } catch (error) {
-        yield put({
-            type: DEPOSIT_BTC_ADDRESS_ERROR,
-            payload: {
-                error: error.message,
-            }
-        })
+        yield* logError(DEPOSIT_BTC_ADDRESS_ERROR, error)
         return
     }
 
@@ -293,12 +279,7 @@ export function* getBitcoinAddress() {
             }
         })
     } catch (error) {
-        yield put({
-            type: DEPOSIT_BTC_AMOUNTS_ERROR,
-            payload: {
-                error: error.message,
-            }
-        })
+        yield* logError(DEPOSIT_BTC_AMOUNTS_ERROR, error)
         return
     }
 
@@ -333,12 +314,7 @@ export function* autoSubmitDepositProof() {
             }
         })
     } catch (error) {
-        yield put({
-            type: BTC_TX_ERROR,
-            payload: {
-                error: error.message,
-            }
-        })
+        yield* logError(BTC_TX_ERROR, error)
         return
     }
 
@@ -360,12 +336,7 @@ export function* autoSubmitDepositProof() {
             }
         })
     } catch (error) {
-        yield put({
-            type: BTC_TX_CONFIRMING_ERROR,
-            payload: {
-                error: error.message
-            }
-        })
+        yield* logError(BTC_TX_CONFIRMING_ERROR, error)
         return
     }
 
@@ -387,12 +358,7 @@ export function* autoSubmitDepositProof() {
             }
         })
     } catch (error) {
-        yield put({
-            type: DEPOSIT_PROVE_BTC_TX_ERROR,
-            payload: {
-                error: error.message
-            }
-        })
+        yield* logError(DEPOSIT_PROVE_BTC_TX_ERROR, error)
         return
     }
 
@@ -400,12 +366,7 @@ export function* autoSubmitDepositProof() {
         yield put({ type: DEPOSIT_MINT_TBTC })
         yield call([deposit, deposit.mintTBTC])
     } catch (error) {
-        yield put({
-            type: DEPOSIT_MINT_TBTC_ERROR,
-            payload: {
-                error: error.message,
-            }
-        })
+        yield* logError(DEPOSIT_MINT_TBTC_ERROR, error)
         return
     }
 
