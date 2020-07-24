@@ -1,4 +1,5 @@
 .home {
+    box-sizing: border-box;
     font-family: 'apercu-mono-regular-pro';
     max-width: map-get($breakpoints, 'md');
     margin: 3em auto 0;
@@ -93,7 +94,9 @@
         }
     }
 
-    @media (max-width: #{map-get($breakpoints, 'md')}) {
+    @include media-breakpoint-down('md') {
+        max-width: 100%;
+
         .title {
             font-size: 2.75em;
 
@@ -133,6 +136,16 @@
             .line-and-sinker {
                 line-height: 1em;
                 font-size: .75em;
+            }
+        }
+    }
+
+    @include media-breakpoint-down('sm') {
+        .mint-or-redeem {
+            flex-direction: column;
+
+            a:first-of-type {
+                margin-bottom: 1em;
             }
         }
     }
