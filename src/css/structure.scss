@@ -25,6 +25,17 @@ $app-max-widths: (
     }
 }
 
+@mixin media-breakpoint-down($bp_key) {
+    $max: map-get($breakpoints, $bp_key);
+    @if $max {
+        @media (max-width: $max) {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+}
+
 .container {
     box-sizing: border-box;
 
