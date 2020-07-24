@@ -3,9 +3,10 @@ import { useWeb3React } from '@web3-react/core'
 import { InjectedConnector } from '@web3-react/injected-connector'
 import { LedgerConnector } from '../../connectors/ledger'
 import { TrezorConnector } from '../../connectors/trezor'
+import { getChainId, getWsUrl } from '../../connectors/utils'
 
-const CHAIN_ID = process.env.CHAIN_ID || 1101
-const ETH_RPC_URL = process.env.ETH_RPC_URL || 'ws://localhost:8546'
+const CHAIN_ID = getChainId()
+const ETH_RPC_URL = getWsUrl()
 
 // Connectors.
 const injectedConnector = new InjectedConnector({})

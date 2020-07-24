@@ -1,5 +1,7 @@
 import Common from 'ethereumjs-common'
 import { Transaction } from 'ethereumjs-tx'
+import { getNetworkIdFromArtifact } from '@keep-network/tbtc.js'
+import config from './config.json'
 
 /**
  * Builds a Transaction object for a custom chain.
@@ -45,4 +47,21 @@ export function hexToPaddedBuffer(hexString, padLength) {
   hexString = hexString.startsWith('0x') ? hexString.slice(2) : hexString
   hexString = hexString.padStart(padLength, '0')
   return new Buffer(hexString, 'hex')
+}
+
+export const getChainId = () => {
+  if (process.env.NODE_ENV === "development") {
+    // private chains (default), change if you use a different one
+    return 1337
+  }
+  // For KEEP internal testnet, ropsten and mainnet `chainId == networkId`
+  return Number(getNetworkIdFromArtifact())
+}
+
+export const getWsUrl = () => {
+  if (process.env.NODE_ENV === "development") {
+    // Ganache web socket url, change if you use a different one
+    return "ws://localhost:8545"
+  }
+  return config[getChainId()].wsURL
 }
