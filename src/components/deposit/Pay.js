@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom"
 
 import StatusIndicator from '../svgs/StatusIndicator'
 import CopyAddressField from '../lib/CopyAddressField'
+import Description from "../lib/Description"
 
 import { formatSatsToBtc } from '../../utils'
 
@@ -30,7 +31,7 @@ const PayComponent = ({ btcAddress, btcAmount, signerFee, error }) => {
           Pay: {btcAmount} BTC
         </div>
         <hr />
-        <div className="description">
+        <Description error={error}>
           <div>
             Scan the QR code or click to copy the address below into your wallet.
           </div>
@@ -38,11 +39,8 @@ const PayComponent = ({ btcAddress, btcAmount, signerFee, error }) => {
             <span className="signer-fee-label">Signer Fee: </span>
             {signerFee} BTC*
           </div>
-        </div>
-        <CopyAddressField address={btcAddress} qrCodeUrl={btcURL} />
-        <div className="error">
-          { error }
-        </div>
+          <CopyAddressField address={btcAddress} qrCodeUrl={btcURL} />
+        </Description>
       </div>
     </div>
   )

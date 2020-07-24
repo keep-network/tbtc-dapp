@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import history from '../../history'
 import { requestPermission } from '../../lib/notifications'
 import { selectLotSize, requestAvailableLotSizes } from '../../actions'
+import Description from "../lib/Description"
 import StatusIndicator from '../svgs/StatusIndicator'
 import BTCLogo from '../svgs/btclogo'
 import { useWeb3React } from '@web3-react/core'
@@ -51,13 +52,11 @@ const Start = ({
         { error ? 'Error getting available lot sizes' : 'Select Lot Size' }
       </div>
       <hr />
-      <div className={error ? "error" : "description"}>
-        { error ? error : (
-          <LotSizeSelector
-            lotSizes={availableLotSizes}
-            onSelect={selectLotSize} />
-        )}
-      </div>
+      <Description error={error}>
+        <LotSizeSelector
+          lotSizes={availableLotSizes}
+          onSelect={selectLotSize} />
+      </Description>
       <div className='cta'>
         <button
           onClick={handleClickPay}

@@ -7,6 +7,7 @@ import { call, put, select } from 'redux-saga/effects'
 
 import { navigateTo } from '../lib/router/actions'
 import { DEPOSIT_RESOLVED } from "./deposit"
+import { logError } from "./lib"
 
 export const UPDATE_ADDRESSES = 'UPDATE_ADDRESSES'
 export const UPDATE_TX_HASH = 'UPDATE_TX_HASH'
@@ -57,12 +58,7 @@ export function* requestRedemption() {
 
         yield* runRedemption(redemption)
     } catch (error) {
-        yield put({
-            type: REDEMPTION_REQUEST_ERROR,
-            payload: {
-                error: error.message,
-            }
-        })
+        yield* logError(REDEMPTION_REQUEST_ERROR, error)
     }
 }
 
@@ -86,12 +82,7 @@ export function* resumeRedemption() {
 
         yield* runRedemption(redemption)
     } catch (error) {
-        yield put({
-            type: REDEMPTION_REQUEST_ERROR,
-            payload: {
-                error: error.message,
-            }
-        })
+        yield* logError(REDEMPTION_REQUEST_ERROR, error)
     }
 }
 
@@ -116,12 +107,7 @@ function* runRedemption(redemption) {
 
         yield put(navigateTo('/deposit/' + depositAddress + '/redemption/confirming'))
     } catch (error) {
-        yield put({
-            type: SIGN_TX_ERROR,
-            payload: {
-                error: error.message,
-            }
-        })
+        yield* logError(SIGN_TX_ERROR, error)
         return
     }
 
@@ -130,12 +116,7 @@ function* runRedemption(redemption) {
 
         yield put(navigateTo('/deposit/' + depositAddress + '/redemption/prove'))
     } catch (error) {
-        yield put({
-            type: POLL_FOR_CONFIRMATIONS_ERROR,
-            payload: {
-                error: error.message,
-            }
-        })
+        yield* logError(POLL_FOR_CONFIRMATIONS_ERROR, error)
         return
     }
 
@@ -147,11 +128,6 @@ function* runRedemption(redemption) {
 
         yield put(navigateTo('/deposit/' + depositAddress + '/redemption/congratulations'))
     } catch (error) {
-        yield put({
-            type: REDEMPTION_PROVE_BTC_TX_ERROR,
-            payload: {
-                error: error.message
-            }
-        })
+        yield* logError(REDEMPTION_PROVE_BTC_TX_ERROR, error)
     }
 }

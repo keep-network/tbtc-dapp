@@ -8,6 +8,9 @@ import { Provider } from 'react-redux'
 import { Router, Route } from 'react-router-dom'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
+// Create console history
+import 'console.history'
+
 // Styles
 import './css/app.scss'
 
@@ -45,7 +48,14 @@ import reducers from './reducers'
 import history from './history'
 
 // Set up our store
-const sagaMiddleware = createSagaMiddleware()
+const sagaMiddleware = createSagaMiddleware({
+  // Log any uncaught exceptions. If any error is not handled in a saga, it
+  // bubbles up to the root saga to find its way here
+  onError: (error) => {
+    console.error(error)
+  }
+})
+
 const middleware = [
   routerMiddleware,
   notificationMiddleware,
