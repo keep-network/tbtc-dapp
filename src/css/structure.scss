@@ -36,9 +36,15 @@ $app-max-widths: (
     }
 }
 
-.container {
+html {
     box-sizing: border-box;
+}
 
+*, ::after, ::before {
+    box-sizing: inherit;
+}
+
+.container {
     @include media-breakpoint-up('md') {
         padding: 0;
         max-width: map-get($app-max-widths, 'md');
@@ -61,7 +67,6 @@ $app-max-widths: (
     font-size: 1.5em;
     margin: 0 auto;
     padding: 40px;
-    box-sizing: border-box;
 
     @extend .container;
 }
@@ -78,10 +83,6 @@ $app-max-widths: (
         flex-direction: column;
         margin: 0 auto 30px;
         position: relative;
-
-        > * {
-            box-sizing: border-box;
-        }
 
         .step {
             flex: 0 1;
