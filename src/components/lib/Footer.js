@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 
-import TBTCLogo from '../svgs/TBTCLogo'
 import Check from '../svgs/Check'
 
 const validEmailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -61,9 +60,8 @@ class Footer extends Component {
         <div className="footer-content">
           <div className="white-paper">
             <div className="white-paper-label">
-              Learn how
+              Learn more about tBTC
             </div>
-            <hr />
             <div className="white-paper-link">
               <a href="http://docs.keep.network/tbtc/index.pdf" target="_blank" rel="noopener noreferrer">
                 Read the Spec >>>>
@@ -97,18 +95,6 @@ class Footer extends Component {
             </div>
           )
         }
-        <div className="footer-content">
-          <div className="footer-bottom">
-            <div className="footer-logo">
-              <TBTCLogo width="150" />
-            </div>
-            <div className="footer-links">
-              <a href="https://tbtc.network/about" target="_blank" rel="noopener noreferrer">
-                about
-              </a>
-            </div>
-          </div>
-        </div>
       </footer>
     )
   }

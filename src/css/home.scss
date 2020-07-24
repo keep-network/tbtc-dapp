@@ -1,5 +1,7 @@
 .home {
     font-family: 'apercu-mono-regular-pro';
+    max-width: map-get($breakpoints, 'md');
+    margin: 3em auto 0;
 
     .title {
         font-size: 4em;
@@ -31,6 +33,8 @@
         margin: 80px 0 170px 0;
 
         a {
+            @extend .button;
+            @extend .button.black;
             text-decoration: none!important;
             flex: 0;
             position: relative;
@@ -47,15 +51,14 @@
         margin-top: 110px;
         border-width: 1px 0;
         border-style: solid;
-        border-color: #{$light-blue};
-        background-color: #{$lighter-grey};
+        border-color: $black;
         font-size: .75em;
 
         ol {
             counter-reset: step-by-step;
             list-style: none;
 
-            width: #{$content-width};
+            width: #{map-get($breakpoints, 'md')};
             margin: 0 auto;
             padding: 75px 0;
             display: flex;
@@ -64,12 +67,10 @@
                 counter-increment: step-by-step;
 
                 flex: 1;
-                color: #{$dark-grey};
 
                 &::before {
                     content: "0" #{counter(step-by-step)};
                     display: block;
-                    color: #{$blue};
                     font-weight: bold;
                     line-height: 2em;
                 }
@@ -92,7 +93,7 @@
         }
     }
 
-    @media (max-width: #{$content-width}) {
+    @media (max-width: #{map-get($breakpoints, 'md')}) {
         .title {
             font-size: 2.75em;
 

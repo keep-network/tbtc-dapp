@@ -27,11 +27,6 @@
             }
         }
 
-        &.success > input {
-            color: $success;
-            border-color: $success;
-        }
-
         &.alert > input {
             color: $alert;
             border-color: $alert;
@@ -41,6 +36,17 @@
             position: absolute;
             right: 12px;
             top: 42px;
+        }
+
+        .check-icon {
+            circle {
+                fill: $black;
+                stroke: $black;
+            }
+
+            path {
+                stroke: $white;
+            }
         }
     }
 }

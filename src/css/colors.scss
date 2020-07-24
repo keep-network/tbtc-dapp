@@ -1,17 +1,14 @@
-$white: #fff;
-$black: #000;
+$white: #fffdfc;
+$black: #111010;
 $lighter-grey: #f9f9f9;
 $light-grey: #bababa;
-$grey: #666;
+$grey: #999390;
 $dark-grey: #333;
-$blue: #479CFF;
-$light-blue: rgb(155, 207, 255);
 $purple: #370C5F;
 
 $loading: $purple;
 $loading-desaturated: lighter($purple, 33%);
-$alert: #E7755C;
-$alert-desaturated: #FFDDD6;
+$alert: #9C3131;
 $notify: #479CFF;
 $notify-desaturated: #D4E8FF;
 $success: #5CE783;

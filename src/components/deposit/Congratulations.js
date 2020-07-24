@@ -1,21 +1,24 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import Lottie from 'react-lottie'
 
 import StatusIndicator from '../svgs/StatusIndicator'
-import TLogo from '../svgs/tlogo'
-import { BitcoinHelpers } from '@keep-network/tbtc.js'
+import * as tbtcLogoAnimationData from '../animation/tBTC-logo-animate.json'
+import CopyAddressField from '../lib/CopyAddressField'
+import { formatSatsToBtc, getEtherscanUrl } from '../../utils'
 
-import BigNumber from "bignumber.js"
-BigNumber.set({ DECIMAL_PLACES: 8 })
-
-const Congratulations = ({ depositAddress, lotInSatoshis, signerFeeInSatoshis }) => {
-  const mintedSatoshis = lotInSatoshis.sub(signerFeeInSatoshis)
-  const lotInTbtc = (new BigNumber(mintedSatoshis.toString())).div(BitcoinHelpers.satoshisPerBtc.toString())
-
+const Congratulations = ({ depositAddress, lotInTbtc, chainId }) => {
   return <div className="congratulations">
     <div className="page-top">
-      <StatusIndicator purple>
-        <TLogo height={100} width={100} />
+      <StatusIndicator donut fadeIn>
+        <Lottie options={{
+            loop: false,
+            autoplay: true,
+            animationData: tbtcLogoAnimationData.default,
+            rendererSettings: {
+              preserveAspectRatio: 'xMidYMid slice'
+            }
+          }} width="125%" height="125%" />
       </StatusIndicator>
     </div>
     <div className="page-body">
@@ -27,32 +30,29 @@ const Congratulations = ({ depositAddress, lotInSatoshis, signerFeeInSatoshis })
       </div>
       <hr />
       <div className="description">
+        <div className="deposit-address-label">Deposit Address:</div>
+        <CopyAddressField address={depositAddress} />
         <div className="description-content">
-          You are now the proud beneficiary of {lotInTbtc.toNumber()} TBTC
+          You are now the proud beneficiary of {lotInTbtc} TBTC
         </div>
         <div className="bond-duration">
           Bond duration: 6 months
         </div>
-        {/* TODO: Update to use CopyInputField */}
-        {
-          depositAddress && depositAddress.length > 0
-          ? <div>
-              <br />
-              <h3>TDT ID:</h3>
-              { depositAddress }
-            </div>
-          : ''
-        }
+        <a href={getEtherscanUrl(chainId, depositAddress)}
+          target="_blank" rel="noopener noreferrer">view on Etherscan</a>
       </div>
     </div>
   </div>
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
+  const { depositAddress, lotInSatoshis, signerFeeInSatoshis } = state.deposit
+  const mintedSatoshis = lotInSatoshis.sub(signerFeeInSatoshis)
+
   return {
-    depositAddress: state.deposit.depositAddress,
-    lotInSatoshis: state.deposit.lotInSatoshis,
-    signerFeeInSatoshis: state.deposit.signerFeeInSatoshis,
+    depositAddress,
+    lotInTbtc: formatSatsToBtc(mintedSatoshis),
+    chainId: state.tbtc.chainId,
   }
 }
 
