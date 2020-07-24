@@ -79,6 +79,10 @@ $app-max-widths: (
         margin: 0 auto 30px;
         position: relative;
 
+        > * {
+            box-sizing: border-box;
+        }
+
         .step {
             flex: 0 1;
             color: $grey;
@@ -115,6 +119,11 @@ $app-max-widths: (
             flex: 1 1;
             min-height: 100px;
             position: relative;
+
+            button {
+                @extend .button.black;
+                font-size: 1em;
+            }
         }
 
         .error {
