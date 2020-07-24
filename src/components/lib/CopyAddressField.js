@@ -15,30 +15,28 @@ const CopyAddressField = ({ address, qrCodeUrl }) => {
   }
 
   return (
-    <div className="copy-address-field">
-      <div className="copy-address">
-        { qrCodeUrl ? (
-          <div className="qr-code-wrapper">
-            <QRCodeIcon />
-            <div className="qr-code">
-              <QRCode
-                value={qrCodeUrl}
-                renderAs="svg"
-                size={225} />
-            </div>
+    <div className="copy-address-field" onClick={handleCopyClick}>
+      { qrCodeUrl ? (
+        <div className="qr-code-wrapper">
+          <QRCodeIcon />
+          <div className="qr-code">
+            <QRCode
+              value={qrCodeUrl}
+              renderAs="svg"
+              size={225} />
           </div>
-        ) : ''}
-        <div className="address" onClick={handleCopyClick}>
-          {address}
         </div>
-        <div className="copy-text">
-          { isCopied ? 'copied!' : 'copy' }
-        </div>
+      ) : ''}
+      <div className="address">
+        {address}
+      </div>
+      <div className="copy-text">
+        { isCopied ? 'copied!' : 'copy' }
       </div>
       <textarea
-          className="hidden-copy-field"
-          ref={hiddenCopyFieldRef}
-          defaultValue={address || ''} />
+        className="hidden-copy-field"
+        ref={hiddenCopyFieldRef}
+        defaultValue={address || ''} />
     </div>
   )
 }

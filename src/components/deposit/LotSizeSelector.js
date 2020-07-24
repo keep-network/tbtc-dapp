@@ -10,7 +10,7 @@ const LotSizeOption = ({ lotSize, onClick, selected }) => {
       onClick={handleClick}>
         <input type="radio" id={lotSize} name="lot-size" value={lotSize} 
           checked={selected} readOnly />
-        <label className="lot-size-option-label">
+        <label className="lot-size-option-label" htmlFor={lotSize}>
           {lotSize}&nbsp;&nbsp;฿
         </label>
     </li>

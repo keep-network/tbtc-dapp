@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
+import Description from "../lib/Description"
 import StatusIndicator from '../svgs/StatusIndicator'
 
-const GetAddress = ({ status, btcAddressError }) => {
+const GetAddress = ({ status, error }) => {
   const [statusText, setStatusText] = useState('Generating BTC address...')
   useEffect(() => {
     if (status === 3) {
@@ -24,12 +25,9 @@ const GetAddress = ({ status, btcAddressError }) => {
           Initiating deposit
         </div>
         <hr />
-        <div className="description">
+        <Description error={error}>
           {statusText}
-        </div>
-        <div className="error">
-          { btcAddressError }
-        </div>
+        </Description>
       </div>
     </div >
   )
@@ -38,7 +36,7 @@ const GetAddress = ({ status, btcAddressError }) => {
 const mapStateToProps = (state, ownProps) => {
   return {
     status: state.deposit.invoiceStatus,
-    btcAddressError: state.deposit.btcAddressError,
+    error: state.deposit.btcAddressError,
   }
 }
 
