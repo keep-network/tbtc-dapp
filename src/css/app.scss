@@ -60,7 +60,7 @@ a {
         color: $white;
     }
 
-    @media (max-width: #{map-get($breakpoints, 'sm')}) {
+    @include media-breakpoint-down('sm') {
         padding: 55px 15px 15px;
         background-position: center 20px;
 
@@ -143,10 +143,18 @@ a {
             &:hover {
                 cursor: pointer;
             }
+
+            @include media-breakpoint-down('sm') {
+                svg {
+                    display: block;
+                    margin: 0 auto 3px;
+                }
+            
+            }
         }
     }
 
-    @media (max-width: #{map-get($breakpoints, 'md')}) {
+    @include media-breakpoint-down('md') {
         .nav {
             margin: 30px 0 80px 0;
         }
