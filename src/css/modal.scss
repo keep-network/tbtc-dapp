@@ -28,6 +28,7 @@
         margin: 200px auto;
         padding: 20px 25px 40px 80px;
         width: #{map-get($breakpoints, 'md')};
+        max-width: calc(100% - 40px);
         background-color: #{$white};
         border: 1px solid black;
     }
