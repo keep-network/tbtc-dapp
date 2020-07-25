@@ -143,8 +143,12 @@
         .mint-or-redeem {
             flex-direction: column;
 
-            a:first-of-type {
-                margin-bottom: 1em;
+            a {
+                padding: 20px;
+
+                &:first-of-type {
+                    margin-bottom: 1em;
+                }
             }
         }
     }

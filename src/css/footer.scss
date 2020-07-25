@@ -243,4 +243,12 @@ footer {
             }
         }
     }
+
+    @include media-breakpoint-down('sm') {
+        .footer-content {
+            .download-error-button {
+                font-size: 1.25em;
+            }
+        }
+    }
 }
