@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import Description from "../lib/Description"
 import StatusIndicator from '../svgs/StatusIndicator'
 import { formatSatsToBtc } from '../../utils'
 
@@ -18,7 +19,7 @@ const Confirming = ({ signerFee, error }) => {
           { error ? 'Error confirming transaction' : 'Confirming...' }
         </div>
         <hr />
-        <div className="description">
+        <Description error={error}>
           <div>
             Waiting for transaction confirmations. We’ll send you a browser
             notification when your TBTC is ready to be minted.
@@ -28,10 +29,7 @@ const Confirming = ({ signerFee, error }) => {
             <span className="signer-fee-label">Signer Fee: </span>
             {signerFee} BTC*
           </div>
-        </div>
-        <div className="error">
-          { error }
-        </div>
+        </Description>
       </div>
     </div>
   )

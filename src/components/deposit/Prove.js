@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { useParams, withRouter } from 'react-router-dom'
 
+import Description from "../lib/Description"
 import StatusIndicator from '../svgs/StatusIndicator'
 
 function Prove(props) {
@@ -16,7 +17,7 @@ class ProveComponent extends Component {
   }
 
   render() {
-    const { provingDeposit, proveDepositError } = this.props
+    const { provingDeposit, error } = this.props
 
     return (
       <div className="prove">
@@ -31,22 +32,19 @@ class ProveComponent extends Component {
             {
               provingDeposit
               ? 'Submitting Proof...'
-              : proveDepositError
+              : error
                 ? 'Error submitting proof'
                 : 'Received!'
             }
           </div>
           <hr />
-          <div className="description">
+          <Description error={error}>
             {
               provingDeposit
               ? 'Generating SPV and submitting to the sidechain...'
               : 'Finally, let’s submit proof to the sidechain and get you your TBTC.'
             }
-          </div>
-          <div className="error">
-            { proveDepositError }
-          </div>
+          </Description>
         </div>
       </div>
     )
@@ -57,7 +55,7 @@ class ProveComponent extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
       provingDeposit: state.deposit.provingDeposit,
-      proveDepositError: state.deposit.proveDepositError
+      error: state.deposit.proveDepositError
   }
 }
 

@@ -7,6 +7,7 @@
         "@web3-react/injected-connector": "^6.0.7",
         "bignumber.js": "^9.0.0",
         "classnames": "^2.2.6",
+        "console.history": "^1.5.1",
         "history": "^4.9.0",
         "node-sass": "^4.13.1",
         "npm-run-all": "^4.1.2",

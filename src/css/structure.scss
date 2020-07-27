@@ -26,6 +26,8 @@ $app-max-widths: (
 }
 
 .container {
+    box-sizing: border-box;
+
     @include media-breakpoint-up('md') {
         padding: 0;
         max-width: map-get($app-max-widths, 'md');

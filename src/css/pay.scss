@@ -1,12 +1,16 @@
 .pay {
     .page-body {
         .signer-fee {
-            margin-top: 40px;
+            margin: 40px;
 
             .signer-fee-label {
                 font-family: 'apercu-bold-pro';
             }
         }
+    }
+
+    .copy-address-field {
+        font-size: 1.125em;
     }
 
     .confirming  {
