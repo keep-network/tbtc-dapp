@@ -215,6 +215,13 @@ export function* requestADeposit() {
     let deposit
     try {
         const lotSizeInBtc = yield select(state => state.deposit.lotSize)
+
+        // If lot size is null, redirect user to start over
+        if (!lotSizeInBtc) {
+            yield put(navigateTo('/deposit'))
+            return
+        }
+
         const lotSizeInSatoshis =
             new BN(lotSizeInBtc * BitcoinHelpers.satoshisPerBtc.toNumber())
 
