@@ -3,6 +3,7 @@ button, .button {
         --button-color: #{$black};
     }
 
+    box-sizing: border-box;
     border: 3px solid var(--button-color);
     padding: 20px 40px;
     font-family: 'apercu-mono-regular-pro';
@@ -30,5 +31,13 @@ button, .button {
             background-color: $white;
             transform: none;
         }
+    }
+
+    @include media-breakpoint-down('sm') {
+        width: 100%;
+        padding: 20px 14px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 1em;
     }
 }

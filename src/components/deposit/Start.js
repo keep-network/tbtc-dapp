@@ -61,7 +61,6 @@ const Start = ({
         <button
           onClick={handleClickPay}
           disabled={typeof account === 'undefined' || !lotSize}
-          className="black"
           >
           Create Address
         </button>

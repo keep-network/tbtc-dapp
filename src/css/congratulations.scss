@@ -12,11 +12,9 @@
 
             .copy-address-field {
                 margin: 36px auto;
-
-                .copy-address {
-                    background-color: rgba($grey, 0.2);
-                    border-color: $grey;
-                }
+                max-width: 578px;
+                background-color: rgba($grey, 0.2);
+                border-color: $grey;
             }
         }
 

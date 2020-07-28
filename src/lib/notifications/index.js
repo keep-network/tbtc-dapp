@@ -1,5 +1,5 @@
 export const iconPath = '/favicon.ico'
 
 export const requestPermission = () => {
-    return Notification.requestPermission()
+    return window.Notification && window.Notification.requestPermission()
 }
