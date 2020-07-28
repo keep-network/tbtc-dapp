@@ -7,6 +7,7 @@ footer {
     background-color: #{$black};
     padding: 100px 0;
     overflow: hidden;
+    position: relative;
 
     .footer-content {
         @extend .container;
@@ -77,6 +78,16 @@ footer {
         }
     }
 
+    .version-info {
+        position: absolute;
+        left: 22px;
+        bottom: 15px;
+        text-transform: uppercase;
+        color: $grey;
+        font-family: 'apercu-regular-pro', sans-serif;
+        font-size: 0.8rem;
+    }
+
     &.include-subscription {
         padding: 0;
 
@@ -96,7 +107,7 @@ footer {
 
         .mailing-list {
             background-color: $white;
-            padding: 75px 100px;
+            padding: 75px 100px 100px;
             position: relative;
 
             form {
@@ -214,7 +225,7 @@ footer {
 
             .mailing-list {
                 width: 100%;
-                padding: 60px 40px;
+                padding: 60px 40px 80px;
                 box-sizing: border-box;
 
                 form {
