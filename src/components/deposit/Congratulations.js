@@ -30,10 +30,11 @@ const Congratulations = ({ depositAddress, lotInTbtc, chainId }) => {
       </div>
       <hr />
       <div className="description">
-        <div className="deposit-address-label">Deposit Address:</div>
+        <div className="tdt-id-label">TDT ID:</div>
         <CopyAddressField address={depositAddress} />
         <div className="description-content">
-          You are now the proud beneficiary of {lotInTbtc} TBTC
+          <p>You are now the proud beneficiary of {lotInTbtc} TBTC.</p>
+          <p>Please store your TDT ID for future redemption.</p>
         </div>
         <div className="bond-duration">
           Bond duration: 6 months
