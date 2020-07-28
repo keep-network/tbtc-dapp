@@ -82,7 +82,7 @@ function* restoreState(nextStepMap, stateKey) {
                 }
             })
 
-            const lotInSatoshis = yield call([deposit, deposit.getSatoshiLotSize])
+            const lotInSatoshis = yield call([deposit, deposit.getLotSizeSatoshis])
             const signerFeeTbtc = yield call([deposit, deposit.getSignerFeeTBTC])
             const signerFeeInSatoshis = signerFeeTbtc.div(tbtc.satoshisPerTbtc)
             yield put({
@@ -268,7 +268,7 @@ export function* getBitcoinAddress() {
     }
 
     try {
-        const lotInSatoshis = yield call([deposit, deposit.getSatoshiLotSize])
+        const lotInSatoshis = yield call([deposit, deposit.getLotSizeSatoshis])
         const signerFeeTbtc = yield call([deposit, deposit.getSignerFeeTBTC])
         const signerFeeInSatoshis = signerFeeTbtc.div(tbtc.satoshisPerTbtc)
         yield put({
