@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import Check from '../svgs/Check'
+import { version } from '../../../package.json'
 
 const validEmailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
@@ -74,14 +75,14 @@ class Footer extends Component {
             </div>
             <div className="white-paper-link">
               <a href="http://docs.keep.network/tbtc/index.pdf" target="_blank" rel="noopener noreferrer">
-                Read the Spec >>>>
+                Read the Spec {`>>>>`}
               </a>
             </div>
           </div>
           <a
             className="download-error-button" onClick={this.handleDownloadError}
             href={this.state.errorLogUrl}
-            download={`tbtc-dapp-console-log-${new Date().getTime()}.json`}>
+            download={`tbtc-dapp-v${version}-log-${new Date().getTime()}.json`}>
               Download Error Log ↓
           </a>
         </div>
@@ -111,6 +112,7 @@ class Footer extends Component {
             </div>
           )
         }
+        <div className="version-info">{`v${version}`}</div>
       </footer>
     )
   }
