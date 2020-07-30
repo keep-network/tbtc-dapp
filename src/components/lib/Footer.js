@@ -82,7 +82,7 @@ class Footer extends Component {
           <a
             className="download-error-button" onClick={this.handleDownloadError}
             href={this.state.errorLogUrl}
-            download={`tbtc-dapp-v${version}-log-${new Date().getTime()}.json`}>
+            download={`tbtc-dapp-v${version}-log-${new Date().getTime()}.txt`}>
               Download Error Log ↓
           </a>
         </div>
