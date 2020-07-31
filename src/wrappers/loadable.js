@@ -31,7 +31,7 @@ function LoadableBase({ children, restoreDepositState, restoreRedemptionState, r
     if(!depositStateRestored) {
         return <div className="pay">
             <div className="page-top">
-                <p>Loading...</p>
+                <p>Connect Wallet to Continue</p>
             </div>
             <div className="page-body">
             </div>

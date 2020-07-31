@@ -49,7 +49,12 @@ const Start = ({
         Step 1/5
       </div>
       <div className="title">
-        { error ? 'Error getting available lot sizes' : 'Select Lot Size' }
+        { typeof account === 'undefined'
+          ? 'Connect Wallet to Continue'
+          : (error
+            ? 'Error getting available lot sizes'
+            : 'Select Lot Size')
+        }
       </div>
       <hr />
       <Description error={error}>
