@@ -62,13 +62,7 @@
         overflow: hidden;
         min-width: 1px;
         text-transform: uppercase;
-
-        &:hover {
-            text-overflow: unset;
-            white-space: unset;
-            overflow: unset;
-            word-wrap: break-word;
-        }
+        margin: 0 16px;
     }
 
     .copy-text {
@@ -83,9 +77,24 @@
             }
         }
     }
-}
 
-.hidden-copy-field {
-    position: absolute;
-    right: 999999px;
+    .hidden-copy-field {
+        position: absolute;
+        right: 999999px;
+    }
+
+    @media (max-width: 830px) {
+        .qr-code-wrapper {
+            .qr-code {
+                left: -40px;
+                transform: none;
+
+                // carets
+                &:before,
+                &:after {
+                    left: 20%;
+                }
+            }
+        }
+    }
 }

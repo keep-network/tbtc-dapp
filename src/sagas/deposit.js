@@ -118,7 +118,7 @@ function* restoreState(nextStepMap, stateKey) {
             // TODO Fork on active vs await
             yield put(navigateTo('/deposit/' + depositAddress + nextStep))
 
-            yield* onStateRestored(depositState)
+            yield* onStateRestored(tbtc, depositState)
 
             break
 
@@ -166,10 +166,7 @@ export function* restoreRedemptionState() {
     yield* restoreState(REDEMPTION_STEP_MAP, "redemption")
 }
 
-export function* onStateRestored(depositState) {
-    /** @type {TBTC} */
-    const tbtc = yield TBTCLoaded
-
+export function* onStateRestored(tbtc, depositState) {
     switch(depositState) {
         case tbtc.Deposit.State.AWAITING_SIGNER_SETUP:
             yield* getBitcoinAddress()
@@ -215,6 +212,13 @@ export function* requestADeposit() {
     let deposit
     try {
         const lotSizeInBtc = yield select(state => state.deposit.lotSize)
+
+        // If lot size is null, redirect user to start over
+        if (!lotSizeInBtc) {
+            yield put(navigateTo('/deposit'))
+            return
+        }
+
         const lotSizeInSatoshis =
             new BN(lotSizeInBtc * BitcoinHelpers.satoshisPerBtc.toNumber())
 
