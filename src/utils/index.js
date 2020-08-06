@@ -9,5 +9,5 @@ export function formatSatsToBtc(sats) {
 }
 
 export function getEtherscanUrl(chainId, address) {
-    return `https://${chainId === 3 ? 'ropsten.' : ''}etherscan.io/token/${address}`
+    return `https://${chainId === 3 ? 'ropsten.' : ''}etherscan.io/address/${address}`
 }
