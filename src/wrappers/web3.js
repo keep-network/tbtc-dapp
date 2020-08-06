@@ -43,9 +43,7 @@ export let TBTCLoaded = TBTCLoadedDeferred.promise
 
 const initializeContracts = async (web3, connector, onTBTCLoaded) => {
     // Initialise default account.
-    const accounts = await web3.eth.getAccounts()
-    web3.eth.defaultAccount = accounts[0]
-
+    web3.eth.defaultAccount = await connector.getAccount()
     // Log the netId/chainId.
     const netId = await web3.eth.net.getId()
     const chainId = await web3.eth.getChainId()

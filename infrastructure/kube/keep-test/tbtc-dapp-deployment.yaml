@@ -25,3 +25,14 @@ spec:
         image: gcr.io/keep-test-f3e0/tbtc-dapp
         ports:
           - containerPort: 80
+        env:
+        - name: ETH_WS_URL
+          valueFrom:
+            configMapKeyRef:
+              name: eth-network-ropsten
+              key: ws-url
+        - name: ETH_CHAIN_ID
+          valueFrom:
+            configMapKeyRef:
+              name: eth-network-ropsten
+              key: network-id
