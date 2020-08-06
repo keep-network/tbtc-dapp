@@ -53,7 +53,7 @@ const mapStateToProps = (state) => {
   return {
     depositAddress,
     lotInTbtc: formatSatsToBtc(mintedSatoshis),
-    chainId: state.tbtc.chainId,
+    chainId: state.tbtc.web3.chainId,
   }
 }
 

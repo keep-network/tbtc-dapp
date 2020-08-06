@@ -36,8 +36,8 @@ const Congratulations = ({ chainId, depositAddress }) => {
 }
 
 const mapStateToProps = (state) => ({
-  depositAddress: state.deposit.depositAddress,
-  chainId: state.tbtc.chainId,
+  depositAddress: state.redemption.depositAddress,
+  chainId: state.tbtc.web3.chainId,
 })
 
 export default connect(
