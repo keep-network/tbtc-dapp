@@ -2,7 +2,7 @@
     "name": "tbtc-dapp",
     "version": "0.16.4-rc",
     "dependencies": {
-        "@keep-network/tbtc.js": ">0.15.0-rc <0.15.0",
+        "@keep-network/tbtc.js": ">0.18.0-rc <0.18.0",
         "@web3-react/core": "^6.0.7",
         "@web3-react/injected-connector": "^6.0.7",
         "bignumber.js": "^9.0.0",
