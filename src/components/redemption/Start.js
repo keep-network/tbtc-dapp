@@ -93,7 +93,7 @@ class Start extends Component {
             Step 1/6
           </div>
           <div className="title">
-            Redeem bond
+            Redeem Bond
           </div>
           <hr />
           <div className="description">
