@@ -54,7 +54,7 @@ const initializeContracts = async (web3, connector, onTBTCLoaded) => {
     const tbtc = await TBTC.withConfig({
         web3: web3,
         bitcoinNetwork: "testnet",
-        electrum: config.electrum
+        electrum: config.electrum.testnet
     })
 
     TBTCLoadedDeferred.resolve(tbtc)
