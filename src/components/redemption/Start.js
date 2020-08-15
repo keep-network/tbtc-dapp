@@ -37,12 +37,17 @@ class Start extends Component {
 
   handleDepositAddressChange = (evt) => {
     const address = evt.target.value
+    const addressHexed = web3.utils.toHex(address)
 
-    const isValid = web3.utils.isAddress(address)
-    const hasError = ! isValid
+    const isValidAddr = web3.utils.isAddress(address)
+    const isValidAddrDecimal = web3.utils.isAddress(addressHexed)
 
+    const isValid = isValidAddr || isValidAddrDecimal
+    const addr = isValidAddrDecimal ? addressHexed : address
+    const hasError = ! isValid && ! isValidAddrDecimal
+    
     this.setState({
-      depositAddress: address,
+      depositAddress: addr,
       depositAddressIsValid: isValid,
       depositAddressHasError: hasError
     })
