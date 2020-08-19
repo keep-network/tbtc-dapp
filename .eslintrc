@@ -1,0 +1,20 @@
+{
+  "extends": [
+    "eslint-config-keep",
+    "plugin:react/recommended"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 2017,
+    "sourceType": "module"
+  },
+  "rules": {
+    // Fixes eslint no-invalid-this error for fat arrow class methods
+    "no-invalid-this": 0
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}
