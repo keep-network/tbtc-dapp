@@ -1,4 +1,4 @@
-import { SET_ETHEREUM_ACCOUNT } from '../actions/index.js'
+import { SET_ETHEREUM_ACCOUNT } from "../actions/index.js"
 
 const initialState = ""
 

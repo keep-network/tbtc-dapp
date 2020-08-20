@@ -1,22 +1,22 @@
 import TransportU2F from "@ledgerhq/hw-transport-u2f"
-import AppEth from '@ledgerhq/hw-app-eth'
-import { AbstractConnector } from '@web3-react/abstract-connector'
-import Web3ProviderEngine from 'web3-provider-engine'
-import { LedgerSubprovider } from './ledger_subprovider'
-import CacheSubprovider from 'web3-provider-engine/subproviders/cache.js'
-import WebsocketSubprovider from 'web3-provider-engine/subproviders/websocket'
+import AppEth from "@ledgerhq/hw-app-eth"
+import { AbstractConnector } from "@web3-react/abstract-connector"
+import Web3ProviderEngine from "web3-provider-engine"
+import { LedgerSubprovider } from "./ledger_subprovider"
+import CacheSubprovider from "web3-provider-engine/subproviders/cache.js"
+import WebsocketSubprovider from "web3-provider-engine/subproviders/websocket"
 
 /**
  * An implementation of a LedgerConnector for web3-react, based on the original
  * `@web3-react/ledger-connector`.
- * 
+ *
  * Some differences:
- * 
- * 1. The original doesn't expose the LedgerJS client API. 
+ *
+ * 1. The original doesn't expose the LedgerJS client API.
  *    We will probably want access to this in future, eg. signing BTC transactions
- * 
- * 2. The original doesn't work with event subscriptions, as it assumes a HTTP RPC 
- *    endpoint. Event subscriptions use `eth_subscribe`, which Ganache does not 
+ *
+ * 2. The original doesn't work with event subscriptions, as it assumes a HTTP RPC
+ *    endpoint. Event subscriptions use `eth_subscribe`, which Ganache does not
  *    support out-of-the-box. Assuming a Websocket provider is simpler for our case.
  */
 export class LedgerConnector extends AbstractConnector {
@@ -28,7 +28,7 @@ export class LedgerConnector extends AbstractConnector {
     pollingInterval,
     requestTimeoutMs,
     accountFetchingConfigs,
-    baseDerivationPath
+    baseDerivationPath,
   }) {
     super({ supportedChainIds: [chainId] })
 
@@ -45,7 +45,7 @@ export class LedgerConnector extends AbstractConnector {
    */
   async activate() {
     if (!this.provider) {
-      let ledgerEthereumClientFactoryAsync = async () => {
+      const ledgerEthereumClientFactoryAsync = async () => {
         const ledgerConnection = await TransportU2F.create()
         // Ledger will automatically timeout the U2F "sign" request after `exchangeTimeout` ms.
         // The default is set at an annoyingly low threshold, of 10,000ms, wherein the connection breaks
@@ -58,13 +58,15 @@ export class LedgerConnector extends AbstractConnector {
         return ledgerEthClient
       }
 
-      const engine = new Web3ProviderEngine({ pollingInterval: this.pollingInterval })
+      const engine = new Web3ProviderEngine({
+        pollingInterval: this.pollingInterval,
+      })
       engine.addProvider(
         new LedgerSubprovider({
           chainId: this.chainId,
           ledgerEthereumClientFactoryAsync,
           accountFetchingConfigs: this.accountFetchingConfigs,
-          baseDerivationPath: this.baseDerivationPath
+          baseDerivationPath: this.baseDerivationPath,
         })
       )
       engine.addProvider(new CacheSubprovider())

@@ -1,36 +1,46 @@
-import React, { Component } from 'react'
+import React, { Component } from "react"
+import PropTypes from "prop-types"
 
 const ContractContext = React.createContext({})
 
 class ContractWrapper extends Component {
-    state = {}
+  state = {}
 
-    componentDidMount() {
-        // Here, build contracts and save to state
-        const someContract = "TODO"
+  componentDidMount() {
+    // Here, build contracts and save to state
+    const someContract = "TODO"
 
-        this.setState({ someContract })
-    }
+    this.setState({ someContract })
+  }
 
-    render() {
-        const { someContract } = this.state
+  render() {
+    const { someContract } = this.state
 
-        const contextValue = { someContract }
+    const contextValue = { someContract }
 
-        return (
-            <ContractContext.Provider value={contextValue}>
-                {this.props.children}
-            </ContractContext.Provider>
-        )
-    }
+    return (
+      <ContractContext.Provider value={contextValue}>
+        {this.props.children}
+      </ContractContext.Provider>
+    )
+  }
+}
+
+ContractWrapper.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
 }
 
 function withSomeContract(Child) {
-    return (props) => (
-        <ContractContext.Consumer>
-            {({ someContract }) => <Child {...props} someContract={someContract} />}
-        </ContractContext.Consumer>
+  return function WrappedWithSomeContract(props) {
+    return (
+      <ContractContext.Consumer>
+        {({ someContract }) => <Child {...props} someContract={someContract} />}
+      </ContractContext.Consumer>
     )
+  }
 }
 
 const ContractConsumer = ContractContext.Consumer

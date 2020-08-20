@@ -1,13 +1,18 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { useParams, withRouter } from 'react-router-dom'
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import { useParams, withRouter } from "react-router-dom"
+import PropTypes from "prop-types"
 
 import Description from "../lib/Description"
-import StatusIndicator from '../svgs/StatusIndicator'
+import StatusIndicator from "../svgs/StatusIndicator"
 
 function Prove(props) {
   const params = useParams()
   return <ProveComponent {...props} address={props.address || params.address} />
+}
+
+Prove.propTypes = {
+  address: PropTypes.string,
 }
 
 class ProveComponent extends Component {
@@ -25,25 +30,19 @@ class ProveComponent extends Component {
           <StatusIndicator pulse />
         </div>
         <div className="page-body">
-          <div className="step">
-            Step 4/5
-          </div>
+          <div className="step">Step 4/5</div>
           <div className="title">
-            {
-              provingDeposit
-              ? 'Submitting Proof...'
+            {provingDeposit
+              ? "Submitting Proof..."
               : error
-                ? 'Error submitting proof'
-                : 'Received!'
-            }
+              ? "Error submitting proof"
+              : "Received!"}
           </div>
           <hr />
           <Description error={error}>
-            {
-              provingDeposit
-              ? 'Generating SPV and submitting to the sidechain...'
-              : 'Finally, let’s submit proof to the sidechain and get you your TBTC.'
-            }
+            {provingDeposit
+              ? "Generating SPV and submitting to the sidechain..."
+              : "Finally, let’s submit proof to the sidechain and get you your TBTC."}
           </Description>
         </div>
       </div>
@@ -51,14 +50,17 @@ class ProveComponent extends Component {
   }
 }
 
+ProveComponent.propTypes = {
+  provingDeposit: PropTypes.bool,
+  error: PropTypes.string,
+  address: PropTypes.string,
+}
 
 const mapStateToProps = (state, ownProps) => {
   return {
-      provingDeposit: state.deposit.provingDeposit,
-      error: state.deposit.proveDepositError
+    provingDeposit: state.deposit.provingDeposit,
+    error: state.deposit.proveDepositError,
   }
 }
 
-export default withRouter(connect(
-  mapStateToProps,
-)(Prove))
+export default withRouter(connect(mapStateToProps)(Prove))
