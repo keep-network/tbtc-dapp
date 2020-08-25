@@ -23,7 +23,7 @@
         "react-lottie": "^1.2.3",
         "react-redux": "^7.1.0",
         "react-router-dom": "^5.1.2",
-        "react-scripts": "3.0.1",
+        "react-scripts": "3.4.3",
         "redux": "^4.0.4",
         "redux-devtools-extension": "^2.13.8",
         "redux-saga": "^1.0.5",
@@ -39,10 +39,8 @@
         "test": "react-scripts test --env=jsdom",
         "eject": "react-scripts eject",
         "publish": "REACT_APP_STATIC=true npm run build",
-        "lint": "eslint ."
-    },
-    "eslintConfig": {
-        "extends": "react-app"
+        "lint": "eslint src/",
+        "lint:fix": "eslint --fix src/"
     },
     "browserslist": {
         "production": [
@@ -55,5 +53,12 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "devDependencies": {
+        "babel-eslint": "^10.1.0",
+        "eslint": "^6.6.0",
+        "eslint-config-keep": "git+https://github.com/keep-network/eslint-config-keep.git",
+        "eslint-plugin-react": "^7.20.6",
+        "prettier": "^2.0.5"
     }
 }

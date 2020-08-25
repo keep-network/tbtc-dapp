@@ -25,6 +25,28 @@ jobs:
           paths:
             - package.json
             - package-lock.json
+  lint:
+    executor: docker-node
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - restore_cache:
+          keys:
+            # When lock file changes, use increasingly general patterns to restore cache.
+            - v1-npm-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - v1-npm-deps-{{ .Branch }}-
+            - v1-npm-deps-
+      - run: npm ci
+      - save_cache:
+          key: v1-npm-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+      - run:
+          name: Lint Implementation
+          command: |
+            set -ex
+            npm run lint
   build_dapp:
     executor: docker-thesis-buildpack
     steps:
@@ -79,6 +101,10 @@ workflows:
     jobs:
       - resolve_latest:
           context: keep-dev
+      - lint:
+          context: keep-dev
+          requires:
+            - resolve_latest
       - build_dapp:
           context: keep-dev
           requires:

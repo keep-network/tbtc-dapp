@@ -1,50 +1,56 @@
-import React, { Component } from 'react'
-import TLogo from './tlogo'
+import React, { Component } from "react"
+import TLogo from "./tlogo"
 
 // Modified from https://codepen.io/quasimondo/pen/lDdrF
-let colors = [
-  [236,119,94],
-  [252,209,199],
-  [203,252,199],
-  [92,231,133],
-  [212,167,255],
-  [55,12,95]
+const colors = [
+  [236, 119, 94],
+  [252, 209, 199],
+  [203, 252, 199],
+  [92, 231, 133],
+  [212, 167, 255],
+  [55, 12, 95],
 ]
-let step = 0;
-let gradientSpeed = .1
-let colorIndices = [0,1,2,3]
+let step = 0
+const gradientSpeed = 0.1
+const colorIndices = [0, 1, 2, 3]
 
 const updateGradient = (gradientEl) => {
+  /* eslint-disable camelcase */
+  const c0_0 = colors[colorIndices[0]]
+  const c0_1 = colors[colorIndices[1]]
+  const c1_0 = colors[colorIndices[2]]
+  const c1_1 = colors[colorIndices[3]]
 
-  let c0_0 = colors[colorIndices[0]]
-  let c0_1 = colors[colorIndices[1]]
-  let c1_0 = colors[colorIndices[2]]
-  let c1_1 = colors[colorIndices[3]]
+  const istep = 1 - step
+  const r1 = Math.round(istep * c0_0[0] + step * c0_1[0])
+  const g1 = Math.round(istep * c0_0[1] + step * c0_1[1])
+  const b1 = Math.round(istep * c0_0[2] + step * c0_1[2])
+  const color1 = `rgb(${r1},${g1},${b1})`
 
-  let istep = 1 - step;
-  let r1 = Math.round(istep * c0_0[0] + step * c0_1[0])
-  let g1 = Math.round(istep * c0_0[1] + step * c0_1[1])
-  let b1 = Math.round(istep * c0_0[2] + step * c0_1[2])
-  let color1 = `rgb(${r1},${g1},${b1})`
+  const r2 = Math.round(istep * c1_0[0] + step * c1_1[0])
+  const g2 = Math.round(istep * c1_0[1] + step * c1_1[1])
+  const b2 = Math.round(istep * c1_0[2] + step * c1_1[2])
+  const color2 = `rgb(${r2},${g2},${b2})`
 
-  let r2 = Math.round(istep * c1_0[0] + step * c1_1[0])
-  let g2 = Math.round(istep * c1_0[1] + step * c1_1[1])
-  let b2 = Math.round(istep * c1_0[2] + step * c1_1[2])
-  let color2 = `rgb(${r2},${g2},${b2})`
+  gradientEl.setAttribute(
+    "style",
+    `background: linear-gradient(to left, ${color1} 0%, ${color2} 100%)`
+  )
 
-  gradientEl.setAttribute("style", `background: linear-gradient(to left, ${color1} 0%, ${color2} 100%)`)
-  
-  step += gradientSpeed;
-  if ( step >= 1 ) {
+  step += gradientSpeed
+  if (step >= 1) {
     step %= 1
     colorIndices[0] = colorIndices[1]
     colorIndices[2] = colorIndices[3]
-    
-    //pick two new target color indices
-    //do not pick the same as the current one
-    colorIndices[1] = ( colorIndices[1] + Math.floor( 1 + Math.random() * (colors.length - 1))) % colors.length
-    colorIndices[3] = ( colorIndices[3] + Math.floor( 1 + Math.random() * (colors.length - 1))) % colors.length
-    
+
+    // pick two new target color indices
+    // do not pick the same as the current one
+    colorIndices[1] =
+      (colorIndices[1] + Math.floor(1 + Math.random() * (colors.length - 1))) %
+      colors.length
+    colorIndices[3] =
+      (colorIndices[3] + Math.floor(1 + Math.random() * (colors.length - 1))) %
+      colors.length
   }
 }
 
@@ -55,7 +61,9 @@ class WavyClipped extends Component {
   }
 
   componentDidMount() {
-    this.intervalId = setInterval(() => { updateGradient(this.gradientEl.current) }, 100)
+    this.intervalId = setInterval(() => {
+      updateGradient(this.gradientEl.current)
+    }, 100)
   }
 
   componentWillUnmount() {
@@ -67,34 +75,64 @@ class WavyClipped extends Component {
       <div className="wavy-clipped">
         <div className="gradient" ref={this.gradientEl} />
         <TLogo />
-        <svg className="wavy-svg" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 628 629" style={{enableBackground: "new 0 0 628 629"}}>
+        <svg
+          className="wavy-svg"
+          version="1.1"
+          id="Layer_1"
+          x="0px"
+          y="0px"
+          viewBox="0 0 628 629"
+          style={{ enableBackground: "new 0 0 628 629" }}
+        >
           <g>
             <defs>
-              <rect id="SVGID_1_" width="628" height="629" style={{background: "white"}} />
+              <rect
+                id="SVGID_1_"
+                width="628"
+                height="629"
+                style={{ background: "white" }}
+              />
             </defs>
             <clipPath id="SVGID_2_">
-              <use xlinkHref="#SVGID_1_"  style={{overflow: "visible"}} />
+              <use xlinkHref="#SVGID_1_" style={{ overflow: "visible" }} />
             </clipPath>
           </g>
           <g>
-            <path className="st0" d="M301.8,323.7C301.9,323.7,301.9,323.7,301.8,323.7L301.8,323.7C301.8,323.7,301.8,323.7,301.8,323.7z"/>
-            <path className="st0" d="M323.4,304.8c-0.1-0.1-0.1-0.2-0.1-0.3c0-0.2,0-0.2,0-0.4c0-0.1,0-0.2,0-0.3s-0.1-0.2-0.2-0.3
+            <path
+              className="st0"
+              d="M301.8,323.7C301.9,323.7,301.9,323.7,301.8,323.7L301.8,323.7C301.8,323.7,301.8,323.7,301.8,323.7z"
+            />
+            <path
+              className="st0"
+              d="M323.4,304.8c-0.1-0.1-0.1-0.2-0.1-0.3c0-0.2,0-0.2,0-0.4c0-0.1,0-0.2,0-0.3s-0.1-0.2-0.2-0.3
               c-0.1,0-0.2-0.2-0.3-0.2s-0.2,0-0.3,0c-0.2,0-0.2,0-0.4,0c-0.1,0-0.3-0.1-0.4-0.1c0,0.1,0.1,0.1,0.1,0.2c0.1,0.2,0.1,0.2,0.1,0.4
               c0.1,0.1,0.1,0.2,0.1,0.3c0,0.2,0.1,0.2,0.2,0.3c0,0.1,0.2,0.2,0.2,0.2c0.1,0.1,0.2,0.1,0.3,0.1c0.2,0,0.2,0,0.4,0.1
-              C323.1,304.8,323.2,304.8,323.4,304.8C323.3,304.9,323.3,304.9,323.4,304.8L323.4,304.8z"/>
-            <path className="st0" d="M318.7,339.3c0.2,0.1,0.5,0.1,0.6,0c0.2,0,0.3-0.2,0.5-0.3c0.2-0.2,0.2-0.3,0.3-0.5s0.2-0.4,0.3-0.5
+              C323.1,304.8,323.2,304.8,323.4,304.8C323.3,304.9,323.3,304.9,323.4,304.8L323.4,304.8z"
+            />
+            <path
+              className="st0"
+              d="M318.7,339.3c0.2,0.1,0.5,0.1,0.6,0c0.2,0,0.3-0.2,0.5-0.3c0.2-0.2,0.2-0.3,0.3-0.5s0.2-0.4,0.3-0.5
               c0.2-0.2,0.3-0.3,0.5-0.4c-0.2,0.1-0.5,0.2-0.7,0.1c-0.2,0-0.4-0.1-0.5-0.2c-0.2-0.1-0.3-0.2-0.5-0.2c-0.2,0-0.4,0.1-0.5,0.1
               c-0.2,0-0.3,0.1-0.5,0.2c-0.1,0.1-0.2,0.2-0.3,0.4c-0.2,0.2-0.2,0.3-0.4,0.5c-0.1,0.1-0.2,0.1-0.3,0.2c0.1,0,0.2,0,0.3,0.1
-              c0.2,0.1,0.5,0.2,0.6,0.3C318.4,339.2,318.6,339.2,318.7,339.3z"/>
-            <path className="st0" d="M316.9,338.8c-0.2,0-0.4,0-0.6-0.1c-0.2-0.1-0.4-0.2-0.5-0.3c-0.2-0.1-0.3-0.2-0.5-0.2
+              c0.2,0.1,0.5,0.2,0.6,0.3C318.4,339.2,318.6,339.2,318.7,339.3z"
+            />
+            <path
+              className="st0"
+              d="M316.9,338.8c-0.2,0-0.4,0-0.6-0.1c-0.2-0.1-0.4-0.2-0.5-0.3c-0.2-0.1-0.3-0.2-0.5-0.2
               c-0.2-0.1-0.4-0.2-0.5-0.1c-0.2,0.1-0.3,0.2-0.5,0.2c-0.2,0.1-0.2,0.2-0.4,0.3s-0.3,0.3-0.5,0.4c-0.1,0.1-0.3,0.2-0.6,0.2
               c0,0,0.1,0,0.1,0v0.1c0.2,0,0.4,0,0.5,0.2c0.2,0.1,0.4,0.2,0.5,0.4c0.2,0.1,0.3,0.2,0.5,0.3c0.2,0.1,0.4,0.1,0.5,0.1
-              c0.2,0,0.4-0.1,0.5-0.2c0.2-0.1,0.2-0.2,0.4-0.4c0.1-0.2,0.2-0.3,0.4-0.5C316.5,339,316.7,339,316.9,338.8L316.9,338.8z"/>
-            <path className="st0" d="M303.5,323.3c0,0.1,0,0.2,0,0.2c0,0.1,0.1,0.2,0.2,0.2c0.1,0.1,0.2,0.2,0.2,0.2c0.1,0,0.2,0,0.2,0s0.2,0,0.3,0
+              c0.2,0,0.4-0.1,0.5-0.2c0.2-0.1,0.2-0.2,0.4-0.4c0.1-0.2,0.2-0.3,0.4-0.5C316.5,339,316.7,339,316.9,338.8L316.9,338.8z"
+            />
+            <path
+              className="st0"
+              d="M303.5,323.3c0,0.1,0,0.2,0,0.2c0,0.1,0.1,0.2,0.2,0.2c0.1,0.1,0.2,0.2,0.2,0.2c0.1,0,0.2,0,0.2,0s0.2,0,0.3,0
               c0.1,0,0.2,0,0.3,0.1l0,0c-0.1-0.1-0.1-0.1-0.1-0.2c-0.1-0.2-0.1-0.2-0.1-0.3c-0.1-0.1-0.1-0.2-0.1-0.2c0-0.1-0.1-0.2-0.1-0.3
               c-0.2,0-0.2-0.1-0.2-0.1c-0.1,0-0.2,0-0.2,0c-0.1,0-0.2,0-0.3,0c-0.2,0-0.2-0.1-0.3-0.2c0.1,0.1,0.2,0.2,0.2,0.3
-              C303.5,323,303.5,323.2,303.5,323.3z"/>
-            <path className="st0" d="M-1.3-1v629h628V-1H-1.3z M607.9,218.5c-0.3,1.3-0.6,2.6-1.1,3.7c-0.5,1.2-1,2.3-1.6,3.5
+              C303.5,323,303.5,323.2,303.5,323.3z"
+            />
+            <path
+              className="st0"
+              d="M-1.3-1v629h628V-1H-1.3z M607.9,218.5c-0.3,1.3-0.6,2.6-1.1,3.7c-0.5,1.2-1,2.3-1.6,3.5
               c-0.9,2.1-1.9,4.1-2.4,6.1c-0.5,2.1-0.3,4.9,0.2,6.7c0.5,1.8,1.6,4.3,3,5.9c1.4,1.5,3.2,2.7,5,4.1c2,1.5,4.2,3,5.8,5
               c2,2.3,3.2,5,3.7,7.8l-2.2,0.4c-0.5-2.7-1.7-4.9-3.3-6.7c-0.8-0.9-1.6-1.7-2.5-2.5c-0.9-0.8-1.9-1.5-2.9-2.2
               c-1.9-1.4-3.8-2.8-5.4-4.4c-1.8-1.9-3.1-4.8-3.6-7c-1.4-4.8,0.4-10.1,2.3-14.3c0.5-1.1,1-2.2,1.4-3.3c0.4-1.1,0.8-2.3,1-3.4
@@ -6148,14 +6186,18 @@ class WavyClipped extends Component {
               c2.6-3.9,5.5-8.1,4.4-13.6l2.2-0.4c0.2,1.5,0.3,2.9,0.2,4.3c-0.1,0.4-0.1,0.7-0.2,1.1c-0.1,0.4-0.2,0.7-0.2,1.1
               c-0.2,0.7-0.5,1.5-0.8,2.2c-1,2.5-2.4,4.6-3.8,6.7c-1.3,1.9-2.5,3.6-3.3,5.5c-0.5,1-0.8,2.2-0.9,3.3c-0.2,1.2-0.2,2.3-0.2,3.3
               c0.2,1.9,0.9,4.6,2.1,6.4c1.2,1.7,2.7,3.2,4.3,4.9c1.6,1.8,3.4,3.6,4.7,5.9c1.6,2.7,2.4,5.4,2.5,8.4h-0.2
-              C624.8,317.3,624.1,320,622.5,322.6z"/>
-            <path className="st0" d="M300.1,304.3c-0.1,0-0.2,0.1-0.3,0.1c-0.2,0.1-0.2,0.2-0.3,0.2c-0.1,0.1-0.2,0.2-0.2,0.3c0,0.1,0,0.2,0,0.3
+              C624.8,317.3,624.1,320,622.5,322.6z"
+            />
+            <path
+              className="st0"
+              d="M300.1,304.3c-0.1,0-0.2,0.1-0.3,0.1c-0.2,0.1-0.2,0.2-0.3,0.2c-0.1,0.1-0.2,0.2-0.2,0.3c0,0.1,0,0.2,0,0.3
               s0,0.2,0,0.4c0,0.2-0.1,0.3-0.2,0.4l0,0c-0.1,0.2-0.2,0.2-0.3,0.3c-0.2,0.1-0.2,0.2-0.4,0.2c-0.1,0-0.2,0-0.3,0.1
               c-0.1,0-0.2,0.2-0.2,0.2c-0.1,0.1-0.1,0.2-0.1,0.3c0,0.1,0.1,0.2,0.1,0.3c0,0.2,0.1,0.2,0.1,0.4c0,0.1,0,0.2-0.1,0.3l0,0
               c0.1-0.1,0.1-0.2,0.3-0.3c0.1-0.1,0.2-0.1,0.3-0.2c0.2-0.1,0.2-0.1,0.3-0.2c0.1-0.1,0.2-0.2,0.2-0.2c0-0.1,0.1-0.2,0.1-0.3
               s0-0.2,0-0.3c0-0.2,0-0.2,0-0.4c0.1-0.2,0.1-0.2,0.2-0.4l0,0c0.1-0.1,0.1-0.1,0.3-0.2c0.2,0,0.2-0.1,0.4-0.1c0.1,0,0.1,0,0.1,0
               c0.1,0,0.2-0.1,0.2-0.1c0.1-0.1,0.1-0.1,0.2-0.2c0.1-0.1,0.2-0.2,0.2-0.3c0-0.1,0-0.2,0-0.3c0-0.2,0-0.2,0-0.4
-              c0-0.2,0.1-0.3,0.2-0.4c-0.2,0.2-0.2,0.2-0.4,0.2C300.3,304.3,300.2,304.3,300.1,304.3z"/>
+              c0-0.2,0.1-0.3,0.2-0.4c-0.2,0.2-0.2,0.2-0.4,0.2C300.3,304.3,300.2,304.3,300.1,304.3z"
+            />
           </g>
         </svg>
       </div>

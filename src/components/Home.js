@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component } from "react"
+import PropTypes from "prop-types"
 
-import history from '../history'
+import history from "../history"
 
 class Home extends Component {
-
   handleClickDeposit = (evt) => {
     evt.preventDefault()
     evt.stopPropagation()
 
-    history.push('/deposit')
+    history.push("/deposit")
   }
 
   handleClickRedeem = (evt) => {
     evt.preventDefault()
     evt.stopPropagation()
 
-    history.push('/redeem')
+    history.push("/redeem")
   }
 
   render() {
@@ -26,61 +26,56 @@ class Home extends Component {
       <div className="home">
         <div className="title">
           Bitcoin,
-		      <br />
+          <br />
           On
-		      <br />
+          <br />
           Ethereum
-		      <div className="subtitle">
+          <div className="subtitle">
             <div className="vertical-aligned">
-              { isMobile
-                ? <span>
-                    No games,
-                    <br />
-                    just math.
-                  </span>
-                : <span>No games, just math.</span>
-              }
-		        </div>
+              {isMobile ? (
+                <span>
+                  No games,
+                  <br />
+                  just math.
+                </span>
+              ) : (
+                <span>No games, just math.</span>
+              )}
+            </div>
           </div>
         </div>
-        {
-          noEntry
-          ? ''
-          : (
-            <div className="mint-or-redeem">
-              <a href="/deposit" onClick={this.handleClickDeposit}>
-                Deposit
-              </a>
-              <a href="/redeem" onClick={this.handleClickRedeem}>
-                Redeem
-              </a>
-            </div>
-          )
-        }
+        {noEntry ? (
+          ""
+        ) : (
+          <div className="mint-or-redeem">
+            <a href="/deposit" onClick={this.handleClickDeposit}>
+              Deposit
+            </a>
+            <a href="/redeem" onClick={this.handleClickRedeem}>
+              Redeem
+            </a>
+          </div>
+        )}
         <div className="step-by-step">
           <ol>
-            <li>
-              Deposit BTC
-            </li>
-            <li>
-              Mint TBTC
-		        </li>
-            <li>
-              Lend and earn interest on your BTC.
-		        </li>
+            <li>Deposit BTC</li>
+            <li>Mint TBTC</li>
+            <li>Lend and earn interest on your BTC.</li>
           </ol>
         </div>
         <div className="mission-statement">
-          <div className="hook">
-            No middlemen. Period.
-		      </div>
+          <div className="hook">No middlemen. Period.</div>
           <div className="line-and-sinker">
             Deposit and redeem BTC in DeFi without intermediaries.
-		      </div>
+          </div>
         </div>
       </div>
     )
   }
+}
+
+Home.propTypes = {
+  noEntry: PropTypes.bool,
 }
 
 export default Home

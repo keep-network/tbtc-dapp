@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 
 const QRCodeIcon = ({ size = 25, color = "#111010" }) => (
   <svg
@@ -25,5 +26,10 @@ const QRCodeIcon = ({ size = 25, color = "#111010" }) => (
     <path fill={color} d="M0 40H10V50H0z"></path>
   </svg>
 )
+
+QRCodeIcon.propTypes = {
+  size: PropTypes.number,
+  color: PropTypes.string,
+}
 
 export default QRCodeIcon

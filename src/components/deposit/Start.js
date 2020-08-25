@@ -1,22 +1,23 @@
-import React, { useEffect } from 'react'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+import React, { useEffect } from "react"
+import { bindActionCreators } from "redux"
+import { connect } from "react-redux"
+import PropTypes from "prop-types"
 
-import history from '../../history'
-import { requestPermission } from '../../lib/notifications'
-import { selectLotSize, requestAvailableLotSizes } from '../../actions'
+import history from "../../history"
+import { requestPermission } from "../../lib/notifications"
+import { selectLotSize, requestAvailableLotSizes } from "../../actions"
 import Description from "../lib/Description"
-import StatusIndicator from '../svgs/StatusIndicator'
-import BTCLogo from '../svgs/btclogo'
-import { useWeb3React } from '@web3-react/core'
-import LotSizeSelector from './LotSizeSelector'
-import { formatSatsToBtc } from '../../utils'
+import StatusIndicator from "../svgs/StatusIndicator"
+import BTCLogo from "../svgs/btclogo"
+import { useWeb3React } from "@web3-react/core"
+import LotSizeSelector from "./LotSizeSelector"
+import { formatSatsToBtc } from "../../utils"
 
 const handleClickPay = (evt) => {
   evt.preventDefault()
   evt.stopPropagation()
 
-  history.push('/deposit/new')
+  history.push("/deposit/new")
 }
 
 const Start = ({
@@ -24,13 +25,13 @@ const Start = ({
   availableLotSizes = [],
   lotSize,
   selectLotSize,
-  error
+  error,
 }) => {
   useEffect(() => {
     requestPermission()
   }, [])
 
-  let { account } = useWeb3React()
+  const { account } = useWeb3React()
 
   useEffect(() => {
     if (account) {
@@ -38,51 +39,57 @@ const Start = ({
     }
   }, [account, requestAvailableLotSizes])
 
-  return <div className="deposit-start">
-    <div className="page-top">
-      <StatusIndicator>
-        <BTCLogo height={100} width={100} />
-      </StatusIndicator>
-    </div>
-    <div className="page-body">
-      <div className="step">
-        Step 1/5
+  return (
+    <div className="deposit-start">
+      <div className="page-top">
+        <StatusIndicator>
+          <BTCLogo height={100} width={100} />
+        </StatusIndicator>
       </div>
-      <div className="title">
-        { error ? 'Error getting available lot sizes' : 'Select Lot Size' }
-      </div>
-      <hr />
-      <Description error={error}>
-        <LotSizeSelector
-          lotSizes={availableLotSizes}
-          onSelect={selectLotSize} />
-      </Description>
-      <div className='cta'>
-        <button
-          onClick={handleClickPay}
-          disabled={typeof account === 'undefined' || !lotSize}
+      <div className="page-body">
+        <div className="step">Step 1/5</div>
+        <div className="title">
+          {error ? "Error getting available lot sizes" : "Select Lot Size"}
+        </div>
+        <hr />
+        <Description error={error}>
+          <LotSizeSelector
+            lotSizes={availableLotSizes}
+            onSelect={selectLotSize}
+          />
+        </Description>
+        <div className="cta">
+          <button
+            onClick={handleClickPay}
+            disabled={typeof account === "undefined" || !lotSize}
           >
-          Create Address
-        </button>
+            Create Address
+          </button>
+        </div>
       </div>
     </div>
-  </div>
+  )
+}
+
+Start.propTypes = {
+  requestAvailableLotSizes: PropTypes.func,
+  availableLotSizes: PropTypes.arrayOf(PropTypes.string),
+  lotSize: PropTypes.string,
+  selectLotSize: PropTypes.func,
+  error: PropTypes.string,
 }
 
 const mapStateToProps = ({ deposit }) => ({
   lotSize: deposit.lotSize,
-  availableLotSizes: deposit.availableLotSizes.map(ls => formatSatsToBtc(ls)),
+  availableLotSizes: deposit.availableLotSizes.map((ls) => formatSatsToBtc(ls)),
   error: deposit.lotSizeError,
 })
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
-    { selectLotSize, requestAvailableLotSizes, },
+    { selectLotSize, requestAvailableLotSizes },
     dispatch
   )
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Start)
+export default connect(mapStateToProps, mapDispatchToProps)(Start)

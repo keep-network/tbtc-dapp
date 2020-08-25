@@ -1,7 +1,7 @@
-import Common from 'ethereumjs-common'
-import { Transaction } from 'ethereumjs-tx'
-import { getNetworkIdFromArtifact } from '@keep-network/tbtc.js'
-import config from './config.json'
+import Common from "ethereumjs-common"
+import { Transaction } from "ethereumjs-tx"
+import { getNetworkIdFromArtifact } from "@keep-network/tbtc.js"
+import config from "./config.json"
 
 /**
  * Builds a Transaction object for a custom chain.
@@ -11,19 +11,21 @@ import config from './config.json'
  */
 export const buildTransactionForChain = (txData, chainId) => {
   const common = Common.forCustomChain(
-      'mainnet',
-      {
-          name: 'keep-dev',
-          chainId: chainId,
-      },
-      'petersburg', ['petersburg']
-    )
+    "mainnet",
+    {
+      name: "keep-dev",
+      chainId: chainId,
+    },
+    "petersburg",
+    ["petersburg"]
+  )
   return new Transaction(txData, { common })
 }
 
 /**
  * Gets the `chainId` from a signed `v`.
- * @param {string} v Hex string for `v` 
+ * @param {string} v Hex string for `v`
+ * @return {number} The chain id
  */
 export const getChainIdFromSignedV = (v) => {
   // After a transaction is signed, the `v` component of the signature (v,r,s)
@@ -44,9 +46,9 @@ export const getChainIdFromSignedV = (v) => {
  * @return {Buffer} The padded hex as a Buffer.
  */
 export function hexToPaddedBuffer(hexString, padLength) {
-  hexString = hexString.startsWith('0x') ? hexString.slice(2) : hexString
-  hexString = hexString.padStart(padLength, '0')
-  return new Buffer(hexString, 'hex')
+  hexString = hexString.startsWith("0x") ? hexString.slice(2) : hexString
+  hexString = hexString.padStart(padLength, "0")
+  return new Buffer(hexString, "hex")
 }
 
 export const getChainId = () => {
