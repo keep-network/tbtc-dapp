@@ -29,9 +29,19 @@ const PayComponent = ({ btcAddress, btcAmount, signerFee, error }) => {
       </div>
       <div className="page-body">
         <div className="step">Step 2/5</div>
-        <div className="title">Pay: {btcAmount} BTC</div>
+        <div className="title">Pay EXACTLY: {btcAmount} BTC</div>
         <hr />
         <Description error={error}>
+          <div className="warning">
+            <p>To avoid loss of funds, do NOT fund from an exchange.</p>
+
+            <p>
+              Exchanges transfers can result in Bitcoin transactions that cannot
+              be proven on Ethereum. If you have BTC in an exchange, transfer
+              through an intermediary wallet and make a single transaction to
+              the deposit&apos;s funding address.
+            </p>
+          </div>
           <div>
             Scan the QR code or click to copy the address below into your
             wallet.
