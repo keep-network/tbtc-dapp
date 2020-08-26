@@ -35,6 +35,7 @@ export const DEPOSIT_AUTO_SUBMIT_PROOF = "DEPOSIT_AUTO_SUBMIT_PROOF"
 
 export const BTC_TX_SEEN = "BTC_TX_SEEN"
 export const BTC_TX_ERROR = "BTC_TX_ERROR"
+export const BTC_TX_REQUIRED_CONFIRMATIONS = "BTC_TX_REQUIRED_CONFIRMATIONS"
 export const BTC_TX_CONFIRMED_WAIT = "BTC_TX_CONFIRMED_WAIT"
 export const BTC_TX_CONFIRMED = "BTC_TX_CONFIRMED"
 export const BTC_TX_CONFIRMED_ALL = "BTC_TX_CONFIRMED_ALL"
@@ -389,6 +390,14 @@ export function* autoSubmitDepositProof() {
   yield put(navigateTo("/deposit/" + deposit.address + "/pay/confirming"))
 
   try {
+    const requiredConfirmations = yield deposit.requiredConfirmations
+    yield put({
+      type: BTC_TX_REQUIRED_CONFIRMATIONS,
+      payload: {
+        requiredConfirmations,
+      },
+    })
+
     const confirmations = yield autoSubmission.fundingConfirmations
 
     yield put({
