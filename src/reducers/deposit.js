@@ -9,6 +9,7 @@ import {
   BTC_TX_ERROR,
   BTC_TX_CONFIRMED_WAIT,
   BTC_TX_CONFIRMED,
+  BTC_TX_CONFIRMED_ALL,
   BTC_TX_CONFIRMING_ERROR,
   DEPOSIT_AUTO_SUBMIT_PROOF,
   DEPOSIT_PROVE_BTC_TX_BEGIN,
@@ -32,6 +33,7 @@ const initialState = {
   fundingOutputIndex: null,
   btcConfirming: false,
   btcConfirmingTxID: null,
+  confirmations: 0,
   invoiceStatus: 0,
   isStateReady: false,
   lotSize: null,
@@ -128,6 +130,12 @@ const deposit = (state = initialState, action) => {
         btcConfirming: true,
       }
     case BTC_TX_CONFIRMED:
+      return {
+        ...state,
+        btcConfirmingTxID: action.payload.btcConfirmingTxID,
+        confirmations: action.payload.confirmations,
+      }
+    case BTC_TX_CONFIRMED_ALL:
       return {
         ...state,
         btcConfirmingTxID: action.payload.btcConfirmingTxID,
