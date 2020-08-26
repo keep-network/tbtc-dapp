@@ -2,6 +2,7 @@ import {
   UPDATE_ADDRESSES,
   UPDATE_TX_HASH,
   SIGN_TX_ERROR,
+  REDEMPTION_REQUIRED_CONFIRMATIONS,
   REDEMPTION_CONFIRMATION,
   REDEMPTION_CONFIRMATION_ERROR,
   REDEMPTION_PROVE_BTC_TX_BEGIN,
@@ -20,7 +21,7 @@ const initialState = {
   unsignedTransaction: null,
   txHash: null,
   requiredConfirmations: 1,
-  confirmations: null,
+  confirmations: 0,
   confirmationError: null,
   redemption: null,
   isStateReady: false,
@@ -58,6 +59,11 @@ const redemption = (state = initialState, action) => {
       return {
         ...state,
         txHash: action.payload.txHash,
+      }
+    case REDEMPTION_REQUIRED_CONFIRMATIONS:
+      return {
+        ...state,
+        requiredConfirmations: action.payload.requiredConfirmations,
       }
     case REDEMPTION_CONFIRMATION:
       return {

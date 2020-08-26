@@ -13,6 +13,8 @@ import { logError } from "./lib"
 export const UPDATE_ADDRESSES = "UPDATE_ADDRESSES"
 export const UPDATE_TX_HASH = "UPDATE_TX_HASH"
 export const SIGN_TX_ERROR = "SIGN_TX_ERROR"
+export const REDEMPTION_REQUIRED_CONFIRMATIONS =
+  "REDEMPTION_REQUIRED_CONFIRMATIONS"
 export const REDEMPTION_CONFIRMATION = "REDEMPTION_CONFIRMATION"
 export const REDEMPTION_CONFIRMATION_ERROR = "REDEMPTION_CONFIRMATION_ERROR"
 export const REDEMPTION_REQUESTED = "REDEMPTION_REQUESTED"
@@ -153,11 +155,18 @@ function* runRedemption(redemption) {
 
   try {
     const txHash = yield autoSubmission.broadcastTransactionID
-
     yield put({
       type: UPDATE_TX_HASH,
       payload: {
         txHash,
+      },
+    })
+
+    const requiredConfirmations = yield redemption.deposit.requiredConfirmations
+    yield put({
+      type: REDEMPTION_REQUIRED_CONFIRMATIONS,
+      payload: {
+        requiredConfirmations,
       },
     })
 
