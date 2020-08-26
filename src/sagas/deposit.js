@@ -1,5 +1,5 @@
 import { call, put, select, take, delay, fork } from "redux-saga/effects"
-import { eventChannel } from "redux-saga"
+import { eventChannel, END } from "redux-saga"
 
 import { BitcoinHelpers } from "@keep-network/tbtc.js"
 
@@ -303,10 +303,19 @@ export function* getBitcoinAddress() {
   yield* autoSubmitDepositProof()
 }
 
-function setupConfirmationListener(deposit) {
+function createConfirmationChannel(deposit) {
   return eventChannel((emit) => {
-    const listener = ({ transactionID, confirmations }) => {
-      emit({ transactionID, confirmations })
+    const listener = ({
+      transactionID,
+      confirmations,
+      requiredConfirmations,
+    }) => {
+      emit({ transactionID, confirmations, requiredConfirmations })
+
+      // Close channel once we have all the required confirmations
+      if (confirmations === requiredConfirmations) {
+        emit(END)
+      }
     }
 
     deposit.onReceivedFundingConfirmation(listener)
@@ -319,9 +328,9 @@ function setupConfirmationListener(deposit) {
 }
 
 function* watchForFundingConfirmations(deposit) {
-  yield delay(1000)
+  yield delay(500)
 
-  const confirmationChannel = yield call(setupConfirmationListener, deposit)
+  const confirmationChannel = yield call(createConfirmationChannel, deposit)
   try {
     while (true) {
       const { transactionID, confirmations } = yield take(confirmationChannel)
@@ -334,7 +343,7 @@ function* watchForFundingConfirmations(deposit) {
       }
     }
   } finally {
-    console.debug("confirmation listening terminated")
+    console.debug("And now, the watch has ended")
   }
 }
 
