@@ -33,7 +33,7 @@ const initialState = {
   fundingOutputIndex: null,
   btcConfirming: false,
   btcConfirmingTxID: null,
-  confirmations: 0,
+  confirmations: null,
   invoiceStatus: 0,
   isStateReady: false,
   lotSize: null,
