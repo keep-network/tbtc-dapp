@@ -29,13 +29,13 @@ const initialState = {
 
 const redemption = (state = initialState, action) => {
   switch (action.type) {
+    case RESET_STATE:
+      return initialState
     case RESTORE_REDEMPTION_STATE:
       return {
         ...state,
         depositAddress: action.payload.depositAddress,
       }
-    case RESET_STATE:
-      return initialState
     case DEPOSIT_STATE_RESTORED:
       return {
         ...state,

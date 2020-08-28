@@ -23,7 +23,7 @@ import {
   DEPOSIT_AVAILABLE_LOT_SIZES_REQUESTED,
   DEPOSIT_AVAILABLE_LOT_SIZES_ERROR,
 } from "../sagas/deposit"
-import { RESTORE_DEPOSIT_STATE, SELECT_LOT_SIZE } from "../actions"
+import { RESET_STATE, RESTORE_DEPOSIT_STATE, SELECT_LOT_SIZE } from "../actions"
 
 const initialState = {
   btcAddress: null,
@@ -44,6 +44,8 @@ const initialState = {
 
 const deposit = (state = initialState, action) => {
   switch (action.type) {
+    case RESET_STATE:
+      return initialState
     case RESTORE_DEPOSIT_STATE:
       return {
         ...state,

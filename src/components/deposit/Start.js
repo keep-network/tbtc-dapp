@@ -5,7 +5,11 @@ import PropTypes from "prop-types"
 
 import history from "../../history"
 import { requestPermission } from "../../lib/notifications"
-import { selectLotSize, requestAvailableLotSizes } from "../../actions"
+import {
+  selectLotSize,
+  requestAvailableLotSizes,
+  resetState,
+} from "../../actions"
 import Description from "../lib/Description"
 import StatusIndicator from "../svgs/StatusIndicator"
 import BTCLogo from "../svgs/btclogo"
@@ -21,6 +25,7 @@ const handleClickPay = (evt) => {
 }
 
 const Start = ({
+  resetState,
   requestAvailableLotSizes,
   availableLotSizes = [],
   lotSize,
@@ -29,7 +34,8 @@ const Start = ({
 }) => {
   useEffect(() => {
     requestPermission()
-  }, [])
+    resetState()
+  }, [resetState])
 
   const { account } = useWeb3React()
 
@@ -72,6 +78,7 @@ const Start = ({
 }
 
 Start.propTypes = {
+  resetState: PropTypes.func,
   requestAvailableLotSizes: PropTypes.func,
   availableLotSizes: PropTypes.arrayOf(PropTypes.string),
   lotSize: PropTypes.string,
@@ -87,7 +94,7 @@ const mapStateToProps = ({ deposit }) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
-    { selectLotSize, requestAvailableLotSizes },
+    { selectLotSize, requestAvailableLotSizes, resetState },
     dispatch
   )
 }
