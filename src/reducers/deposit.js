@@ -76,6 +76,7 @@ const deposit = (state = initialState, action) => {
       return {
         ...state,
         invoiceStatus: 1,
+        requestDepositError: null,
       }
     case DEPOSIT_REQUEST_SUCCESS:
       return {
@@ -99,7 +100,7 @@ const deposit = (state = initialState, action) => {
       return {
         ...state,
         btcAddress: action.payload.btcAddress,
-        btcAddressError: undefined,
+        btcAddressError: null,
       }
     case DEPOSIT_BTC_ADDRESS_ERROR:
     case DEPOSIT_BTC_AMOUNTS_ERROR:
@@ -117,6 +118,7 @@ const deposit = (state = initialState, action) => {
       return {
         ...state,
         didSubmitDepositProof: true,
+        btcTxError: null,
       }
     case BTC_TX_SEEN:
       return {
@@ -133,6 +135,7 @@ const deposit = (state = initialState, action) => {
       return {
         ...state,
         btcConfirming: true,
+        btcConfirmingError: null,
       }
     case BTC_TX_REQUIRED_CONFIRMATIONS:
       return {
