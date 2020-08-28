@@ -2,7 +2,9 @@ import {
   UPDATE_ADDRESSES,
   UPDATE_TX_HASH,
   SIGN_TX_ERROR,
-  POLL_FOR_CONFIRMATIONS_ERROR,
+  REDEMPTION_REQUIRED_CONFIRMATIONS,
+  REDEMPTION_CONFIRMATION,
+  REDEMPTION_CONFIRMATION_ERROR,
   REDEMPTION_PROVE_BTC_TX_BEGIN,
   REDEMPTION_PROVE_BTC_TX_SUCCESS,
   REDEMPTION_PROVE_BTC_TX_ERROR,
@@ -19,8 +21,8 @@ const initialState = {
   unsignedTransaction: null,
   txHash: null,
   requiredConfirmations: 1,
-  confirmations: null,
-  pollForConfirmationsError: null,
+  confirmations: 0,
+  confirmationError: null,
   redemption: null,
   isStateReady: false,
 }
@@ -58,10 +60,20 @@ const redemption = (state = initialState, action) => {
         ...state,
         txHash: action.payload.txHash,
       }
-    case POLL_FOR_CONFIRMATIONS_ERROR:
+    case REDEMPTION_REQUIRED_CONFIRMATIONS:
       return {
         ...state,
-        pollForConfirmationsError: action.payload.pollForConfirmationsError,
+        requiredConfirmations: action.payload.requiredConfirmations,
+      }
+    case REDEMPTION_CONFIRMATION:
+      return {
+        ...state,
+        confirmations: action.payload.confirmations,
+      }
+    case REDEMPTION_CONFIRMATION_ERROR:
+      return {
+        ...state,
+        confirmationError: action.payload.error,
       }
     case REDEMPTION_REQUESTED:
       return {

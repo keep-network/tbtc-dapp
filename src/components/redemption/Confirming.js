@@ -5,7 +5,13 @@ import PropTypes from "prop-types"
 import Description from "../lib/Description"
 import StatusIndicator from "../svgs/StatusIndicator"
 
-const Confirming = ({ txHash, btcNetwork, error }) => {
+const Confirming = ({
+  txHash,
+  btcNetwork,
+  error,
+  requiredConfirmations,
+  confirmations,
+}) => {
   const blockExplorerUrl = `https://blockstream.info/${
     btcNetwork === "testnet" ? "testnet/" : ""
   }tx/${txHash}`
@@ -22,7 +28,13 @@ const Confirming = ({ txHash, btcNetwork, error }) => {
         </div>
         <hr />
         <Description error={error}>
-          <p>We&apos;re waiting to confirm your transaction.</p>
+          <p>
+            Waiting for {requiredConfirmations} transaction{" "}
+            {`confirmation${requiredConfirmations > 1 ? "s" : ""}`}.
+          </p>
+          <p>
+            {confirmations} / {requiredConfirmations} blocks confirmed
+          </p>
           {txHash ? (
             <a
               href={blockExplorerUrl}
@@ -44,13 +56,17 @@ Confirming.propTypes = {
   txHash: PropTypes.string,
   btcNetwork: PropTypes.string,
   error: PropTypes.string,
+  requiredConfirmations: PropTypes.number,
+  confirmations: PropTypes.number,
 }
 
 const mapStateToProps = (state) => {
   return {
     txHash: state.redemption.txHash,
-    error: state.redemption.pollForConfirmationsError,
+    error: state.redemption.confirmationError,
     btcNetwork: state.tbtc.btcNetwork,
+    requiredConfirmations: state.redemption.requiredConfirmations,
+    confirmations: state.redemption.confirmations,
   }
 }
 
