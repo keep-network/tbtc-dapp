@@ -67,6 +67,7 @@ const redemption = (state = initialState, action) => {
       return {
         ...state,
         requiredConfirmations: action.payload.requiredConfirmations,
+        confirmationError: null,
       }
     case REDEMPTION_CONFIRMATION:
       return {
@@ -82,6 +83,8 @@ const redemption = (state = initialState, action) => {
       return {
         ...state,
         redemption: action.payload.redemption,
+        requestRedemptionError: null,
+        signTxError: null,
       }
     case REDEMPTION_REQUEST_ERROR:
       return {
