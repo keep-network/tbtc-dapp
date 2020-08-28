@@ -24,6 +24,7 @@ import {
   DEPOSIT_AVAILABLE_LOT_SIZES_ERROR,
 } from "../sagas/deposit"
 import { RESET_STATE, RESTORE_DEPOSIT_STATE, SELECT_LOT_SIZE } from "../actions"
+import { HISTORY_PUSH } from "../lib/router/actions"
 
 const initialState = {
   btcAddress: null,
@@ -158,14 +159,14 @@ const deposit = (state = initialState, action) => {
       return {
         ...state,
         provingDeposit: true,
-        proveDepositError: undefined,
+        proveDepositError: null,
       }
     case DEPOSIT_PROVE_BTC_TX_SUCCESS:
       return {
         ...state,
         tbtcMintedTxID: action.payload.tbtcMintedTxID,
         provingDeposit: false,
-        proveDepositError: undefined,
+        proveDepositError: null,
       }
     case DEPOSIT_PROVE_BTC_TX_ERROR:
     case DEPOSIT_MINT_TBTC_ERROR:
@@ -173,6 +174,16 @@ const deposit = (state = initialState, action) => {
         ...state,
         provingDeposit: false,
         proveDepositError: action.payload.error,
+      }
+    case HISTORY_PUSH:
+      return {
+        ...state,
+        lotSizeError: null,
+        requestDepositError: null,
+        btcAddressError: null,
+        btcTxError: null,
+        btcConfirmingError: null,
+        proveDepositError: null,
       }
     default:
       return state
