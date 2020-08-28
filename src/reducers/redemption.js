@@ -12,7 +12,7 @@ import {
   REDEMPTION_REQUEST_ERROR,
 } from "../sagas/redemption"
 
-import { RESTORE_REDEMPTION_STATE } from "../actions"
+import { RESTORE_REDEMPTION_STATE, RESET_STATE } from "../actions"
 import { DEPOSIT_STATE_RESTORED, DEPOSIT_RESOLVED } from "../sagas/deposit"
 
 const initialState = {
@@ -34,6 +34,8 @@ const redemption = (state = initialState, action) => {
         ...state,
         depositAddress: action.payload.depositAddress,
       }
+    case RESET_STATE:
+      return initialState
     case DEPOSIT_STATE_RESTORED:
       return {
         ...state,

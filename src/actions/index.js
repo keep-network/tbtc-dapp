@@ -45,6 +45,12 @@ export function restoreRedemptionState(depositAddress) {
   }
 }
 
+export const RESET_STATE = "RESET_STATE"
+
+export function resetState() {
+  return { type: RESET_STATE }
+}
+
 // Deposit
 export const REQUEST_A_DEPOSIT = "REQUEST_A_DEPOSIT"
 

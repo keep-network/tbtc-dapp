@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import classnames from "classnames"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
@@ -10,11 +10,11 @@ import StatusIndicator from "../svgs/StatusIndicator"
 import TLogo from "../svgs/tlogo"
 import Check from "../svgs/Check"
 import X from "../svgs/X"
-import { saveAddresses } from "../../actions"
+import { saveAddresses, resetState } from "../../actions"
 
 import web3 from "web3"
 
-const Start = ({ saveAddresses }) => {
+const Start = ({ saveAddresses, resetState }) => {
   const initialAddressState = {
     address: "",
     isValid: false,
@@ -22,6 +22,10 @@ const Start = ({ saveAddresses }) => {
   }
   const [depositAddress, setDepositAddress] = useState(initialAddressState)
   const [btcAddress, setBtcAddress] = useState(initialAddressState)
+
+  useEffect(() => {
+    resetState()
+  }, [resetState])
 
   const handleClickConfirm = (evt) => {
     evt.preventDefault()
@@ -126,12 +130,14 @@ const Start = ({ saveAddresses }) => {
 
 Start.propTypes = {
   saveAddresses: PropTypes.func,
+  resetState: PropTypes.func,
 }
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       saveAddresses,
+      resetState,
     },
     dispatch
   )
