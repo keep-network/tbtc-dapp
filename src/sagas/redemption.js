@@ -3,12 +3,11 @@ import { TBTCLoaded } from "../wrappers/web3"
 /** @typedef { import("@keep-network/tbtc.js").Redemption } Redemption */
 /** @typedef { import("@keep-network/tbtc.js").Deposit } Deposit */
 
-import { call, put, select, take, delay, fork } from "redux-saga/effects"
-import { eventChannel, END } from "redux-saga"
+import { call, put, select, fork } from "redux-saga/effects"
 
 import { navigateTo } from "../lib/router/actions"
 import { DEPOSIT_RESOLVED } from "./deposit"
-import { logError } from "./lib"
+import { logError, watchForConfirmations } from "./lib"
 
 export const UPDATE_ADDRESSES = "UPDATE_ADDRESSES"
 export const UPDATE_TX_HASH = "UPDATE_TX_HASH"
@@ -98,50 +97,6 @@ export function* resumeRedemption() {
   }
 }
 
-function createConfirmationChannel(redemption) {
-  return eventChannel((emit) => {
-    const listener = ({
-      transactionID,
-      confirmations,
-      requiredConfirmations,
-    }) => {
-      emit({ transactionID, confirmations, requiredConfirmations })
-
-      // Close channel once we have all the required confirmations
-      if (confirmations === requiredConfirmations) {
-        emit(END)
-      }
-    }
-
-    redemption.onReceivedConfirmation(listener)
-
-    // no-op
-    // eventChannel subscriber must return an unsubscribe, but tbtc.js does not
-    // currently provide one
-    return () => {}
-  })
-}
-
-function* watchForConfirmations(redemption) {
-  yield delay(500)
-
-  const confirmationChannel = yield call(createConfirmationChannel, redemption)
-  try {
-    while (true) {
-      const { confirmations } = yield take(confirmationChannel)
-      yield delay(50)
-      if (confirmations) {
-        yield put({
-          type: REDEMPTION_CONFIRMATION,
-          payload: { confirmations },
-        })
-      }
-    }
-  } finally {
-    console.debug("And now, the watch has ended")
-  }
-}
-
 /**
  * @param {Redemption} redemption
  */
@@ -149,7 +104,12 @@ function* runRedemption(redemption) {
   const autoSubmission = redemption.autoSubmit()
   const depositAddress = redemption.deposit.address
 
-  yield fork(watchForConfirmations, redemption)
+  yield fork(
+    watchForConfirmations,
+    redemption,
+    "onReceivedConfirmation",
+    REDEMPTION_CONFIRMATION
+  )
 
   yield put(navigateTo("/deposit/" + depositAddress + "/redemption/signing"))
 

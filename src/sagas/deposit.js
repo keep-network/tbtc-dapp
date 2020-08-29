@@ -1,5 +1,4 @@
-import { call, put, select, take, delay, fork } from "redux-saga/effects"
-import { eventChannel, END } from "redux-saga"
+import { call, put, select, fork } from "redux-saga/effects"
 
 import { BitcoinHelpers } from "@keep-network/tbtc.js"
 
@@ -8,7 +7,7 @@ import { METAMASK_TX_DENIED_ERROR } from "../chain"
 import { notifyTransactionConfirmed } from "../lib/notifications/actions"
 import { navigateTo } from "../lib/router/actions"
 import { TBTCLoaded } from "../wrappers/web3"
-import { logError } from "./lib"
+import { logError, watchForConfirmations } from "./lib"
 import { resumeRedemption } from "./redemption"
 
 import BN from "bn.js"
@@ -304,50 +303,6 @@ export function* getBitcoinAddress() {
   yield* autoSubmitDepositProof()
 }
 
-function createConfirmationChannel(deposit) {
-  return eventChannel((emit) => {
-    const listener = ({
-      transactionID,
-      confirmations,
-      requiredConfirmations,
-    }) => {
-      emit({ transactionID, confirmations, requiredConfirmations })
-
-      // Close channel once we have all the required confirmations
-      if (confirmations === requiredConfirmations) {
-        emit(END)
-      }
-    }
-
-    deposit.onReceivedFundingConfirmation(listener)
-
-    // no-op
-    // eventChannel subscriber must return an unsubscribe, but tbtc.js does not
-    // currently provide one
-    return () => {}
-  })
-}
-
-function* watchForFundingConfirmations(deposit) {
-  yield delay(500)
-
-  const confirmationChannel = yield call(createConfirmationChannel, deposit)
-  try {
-    while (true) {
-      const { transactionID, confirmations } = yield take(confirmationChannel)
-      yield delay(50)
-      if (confirmations) {
-        yield put({
-          type: BTC_TX_CONFIRMED,
-          payload: { btcConfirmedTxID: transactionID, confirmations },
-        })
-      }
-    }
-  } finally {
-    console.debug("And now, the watch has ended")
-  }
-}
-
 export function* autoSubmitDepositProof() {
   /** @type Deposit */
   const deposit = yield select((state) => state.deposit.deposit)
@@ -363,7 +318,12 @@ export function* autoSubmitDepositProof() {
 
   yield put({ type: DEPOSIT_AUTO_SUBMIT_PROOF })
 
-  yield fork(watchForFundingConfirmations, deposit)
+  yield fork(
+    watchForConfirmations,
+    deposit,
+    "onReceivedFundingConfirmation",
+    BTC_TX_CONFIRMED
+  )
 
   try {
     const fundingTx = yield autoSubmission.fundingTransaction
