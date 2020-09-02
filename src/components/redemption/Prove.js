@@ -1,8 +1,9 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React from "react"
+import { connect } from "react-redux"
+import PropTypes from "prop-types"
 
 import Description from "../lib/Description"
-import StatusIndicator from '../svgs/StatusIndicator'
+import StatusIndicator from "../svgs/StatusIndicator"
 
 const Prove = ({ error }) => (
   <div className="prove">
@@ -10,12 +11,8 @@ const Prove = ({ error }) => (
       <StatusIndicator pulse />
     </div>
     <div className="page-body">
-      <div className="step">
-        Step 5/6
-      </div>
-      <div className="title">
-        Confirmed
-      </div>
+      <div className="step">Step 5/6</div>
+      <div className="title">Confirmed</div>
       <hr />
       <Description error={error}>
         Finally, we are submitting proof to the sidechain and get you your BTC.
@@ -24,13 +21,15 @@ const Prove = ({ error }) => (
   </div>
 )
 
+Prove.propTypes = {
+  error: PropTypes.string,
+}
+
 const mapStateToProps = (state, ownProps) => {
   return {
-      provingRedemption: state.redemption.provingRedemption,
-      error: state.redemption.proveRedemptionError
+    provingRedemption: state.redemption.provingRedemption,
+    error: state.redemption.proveRedemptionError,
   }
 }
 
-export default connect(
-  mapStateToProps,
-)(Prove)
+export default connect(mapStateToProps)(Prove)

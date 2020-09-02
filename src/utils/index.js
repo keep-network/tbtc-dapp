@@ -1,13 +1,16 @@
-import { BitcoinHelpers } from '@keep-network/tbtc.js'
+import { BitcoinHelpers } from "@keep-network/tbtc.js"
 
 import BigNumber from "bignumber.js"
 BigNumber.set({ DECIMAL_PLACES: 8 })
 
 export function formatSatsToBtc(sats) {
-    return new BigNumber(sats.toString())
-        .div(BitcoinHelpers.satoshisPerBtc.toString()).toString()
+  return new BigNumber(sats.toString())
+    .div(BitcoinHelpers.satoshisPerBtc.toString())
+    .toString()
 }
 
 export function getEtherscanUrl(chainId, address) {
-    return `https://${chainId === 3 ? 'ropsten.' : ''}etherscan.io/address/${address}`
+  return `https://${
+    chainId === 3 ? "ropsten." : ""
+  }etherscan.io/address/${address}`
 }

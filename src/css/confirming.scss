@@ -9,6 +9,8 @@
             a {
                 @extend .button;
                 @extend .button.black;
+                display: inline-block;
+                margin-top: 1em;
             }
         }
     }

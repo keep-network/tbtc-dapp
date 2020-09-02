@@ -1,4 +1,4 @@
-import { TBTC_LOADED } from '../actions/index.js'
+import { TBTC_LOADED } from "../actions/index.js"
 
 const initialState = {
   web3: {

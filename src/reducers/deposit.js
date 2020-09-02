@@ -8,7 +8,9 @@ import {
   BTC_TX_SEEN,
   BTC_TX_ERROR,
   BTC_TX_CONFIRMED_WAIT,
+  BTC_TX_REQUIRED_CONFIRMATIONS,
   BTC_TX_CONFIRMED,
+  BTC_TX_CONFIRMED_ALL,
   BTC_TX_CONFIRMING_ERROR,
   DEPOSIT_AUTO_SUBMIT_PROOF,
   DEPOSIT_PROVE_BTC_TX_BEGIN,
@@ -32,6 +34,8 @@ const initialState = {
   fundingOutputIndex: null,
   btcConfirming: false,
   btcConfirmingTxID: null,
+  requiredConfirmations: 1,
+  confirmations: 0,
   invoiceStatus: 0,
   isStateReady: false,
   lotSize: null,
@@ -68,14 +72,14 @@ const deposit = (state = initialState, action) => {
     case DEPOSIT_REQUEST_BEGIN:
       return {
         ...state,
-        invoiceStatus: 1
+        invoiceStatus: 1,
       }
     case DEPOSIT_REQUEST_SUCCESS:
       return {
         ...state,
         depositAddress: action.payload.depositAddress,
         invoiceStatus: 2,
-        isStateReady: true
+        isStateReady: true,
       }
     case DEPOSIT_REQUEST_ERROR:
       return {
@@ -86,13 +90,13 @@ const deposit = (state = initialState, action) => {
       return {
         ...state,
         deposit: action.payload.deposit,
-        invoiceStatus: 3
+        invoiceStatus: 3,
       }
     case DEPOSIT_BTC_ADDRESS:
       return {
         ...state,
         btcAddress: action.payload.btcAddress,
-        btcAddressError: undefined
+        btcAddressError: undefined,
       }
     case DEPOSIT_BTC_ADDRESS_ERROR:
     case DEPOSIT_BTC_AMOUNTS_ERROR:
@@ -115,7 +119,7 @@ const deposit = (state = initialState, action) => {
       return {
         ...state,
         btcDepositedTxID: action.payload.btcDepositedTxID,
-        fundingOutputIndex: action.payload.fundingOutputIndex
+        fundingOutputIndex: action.payload.fundingOutputIndex,
       }
     case BTC_TX_ERROR:
       return {
@@ -125,9 +129,20 @@ const deposit = (state = initialState, action) => {
     case BTC_TX_CONFIRMED_WAIT:
       return {
         ...state,
-        btcConfirming: true
+        btcConfirming: true,
+      }
+    case BTC_TX_REQUIRED_CONFIRMATIONS:
+      return {
+        ...state,
+        requiredConfirmations: action.payload.requiredConfirmations,
       }
     case BTC_TX_CONFIRMED:
+      return {
+        ...state,
+        btcConfirmingTxID: action.payload.btcConfirmingTxID,
+        confirmations: action.payload.confirmations,
+      }
+    case BTC_TX_CONFIRMED_ALL:
       return {
         ...state,
         btcConfirmingTxID: action.payload.btcConfirmingTxID,
@@ -141,21 +156,21 @@ const deposit = (state = initialState, action) => {
       return {
         ...state,
         provingDeposit: true,
-        proveDepositError: undefined
+        proveDepositError: undefined,
       }
     case DEPOSIT_PROVE_BTC_TX_SUCCESS:
       return {
         ...state,
         tbtcMintedTxID: action.payload.tbtcMintedTxID,
         provingDeposit: false,
-        proveDepositError: undefined
+        proveDepositError: undefined,
       }
     case DEPOSIT_PROVE_BTC_TX_ERROR:
     case DEPOSIT_MINT_TBTC_ERROR:
       return {
         ...state,
         provingDeposit: false,
-        proveDepositError: action.payload.error
+        proveDepositError: action.payload.error,
       }
     default:
       return state

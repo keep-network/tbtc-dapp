@@ -1,18 +1,18 @@
-import WebsocketSubprovider from 'web3-provider-engine/subproviders/websocket'
-import { AbstractConnector } from '@web3-react/abstract-connector'
-import Web3ProviderEngine from 'web3-provider-engine'
-import CacheSubprovider from 'web3-provider-engine/subproviders/cache.js'
-import { TrezorSubprovider } from './trezor_subprovider'
-import TrezorConnect from 'trezor-connect'
+import WebsocketSubprovider from "web3-provider-engine/subproviders/websocket"
+import { AbstractConnector } from "@web3-react/abstract-connector"
+import Web3ProviderEngine from "web3-provider-engine"
+import CacheSubprovider from "web3-provider-engine/subproviders/cache.js"
+import { TrezorSubprovider } from "./trezor_subprovider"
+import TrezorConnect from "trezor-connect"
 
 /**
  * An implementation of a TrezorConnector for web3-react, based on the original
  * `@web3-react/trezor-connector`.
- * 
+ *
  * Some differences:
- * 
- * 1. The original doesn't work with event subscriptions, as it assumes a HTTP RPC 
- *    endpoint. Event subscriptions use `eth_subscribe`, which Ganache does not 
+ *
+ * 1. The original doesn't work with event subscriptions, as it assumes a HTTP RPC
+ *    endpoint. Event subscriptions use `eth_subscribe`, which Ganache does not
  *    support out-of-the-box. Assuming a Websocket provider is simpler for our case.
  */
 export class TrezorConnector extends AbstractConnector {
@@ -25,10 +25,10 @@ export class TrezorConnector extends AbstractConnector {
     requestTimeoutMs,
     config = {},
     manifestEmail,
-    manifestAppUrl
+    manifestAppUrl,
   }) {
     super({
-      supportedChainIds: [chainId], 
+      supportedChainIds: [chainId],
     })
 
     this.chainId = chainId
@@ -44,11 +44,18 @@ export class TrezorConnector extends AbstractConnector {
     if (!this.provider) {
       TrezorConnect.manifest({
         email: this.manifestEmail,
-        appUrl: this.manifestAppUrl
+        appUrl: this.manifestAppUrl,
       })
 
-      const engine = new Web3ProviderEngine({ pollingInterval: this.pollingInterval })
-      engine.addProvider(new TrezorSubprovider({ trezorConnectClientApi: TrezorConnect, ...this.config }))
+      const engine = new Web3ProviderEngine({
+        pollingInterval: this.pollingInterval,
+      })
+      engine.addProvider(
+        new TrezorSubprovider({
+          trezorConnectClientApi: TrezorConnect,
+          ...this.config,
+        })
+      )
       engine.addProvider(new CacheSubprovider())
       engine.addProvider(new WebsocketSubprovider({ rpcUrl: this.url }))
       this.provider = engine

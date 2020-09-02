@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
+import React, { useState, useEffect } from "react"
+import { connect } from "react-redux"
+import PropTypes from "prop-types"
 
 import Description from "../lib/Description"
-import StatusIndicator from '../svgs/StatusIndicator'
+import StatusIndicator from "../svgs/StatusIndicator"
 
 const GetAddress = ({ status, error }) => {
-  const [statusText, setStatusText] = useState('Generating BTC address...')
+  const [statusText, setStatusText] = useState("Generating BTC address...")
   useEffect(() => {
     if (status === 3) {
-      setStatusText('Fetching BTC address...')
+      setStatusText("Fetching BTC address...")
     }
   }, [status])
 
@@ -18,19 +19,18 @@ const GetAddress = ({ status, error }) => {
         <StatusIndicator pulse />
       </div>
       <div className="page-body">
-        <div className="step">
-          Step 2/5
-        </div>
-        <div className="title">
-          Initiating deposit
-        </div>
+        <div className="step">Step 2/5</div>
+        <div className="title">Initiating deposit</div>
         <hr />
-        <Description error={error}>
-          {statusText}
-        </Description>
+        <Description error={error}>{statusText}</Description>
       </div>
-    </div >
+    </div>
   )
+}
+
+GetAddress.propTypes = {
+  status: PropTypes.number,
+  error: PropTypes.string,
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -40,7 +40,4 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  null,
-)(GetAddress)
+export default connect(mapStateToProps, null)(GetAddress)
