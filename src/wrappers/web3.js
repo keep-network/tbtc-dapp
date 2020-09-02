@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import Web3 from "web3"
-import TBTC, { EthereumHelpers, BitcoinHelpers } from "@keep-network/tbtc.js"
+import TBTC from "@keep-network/tbtc.js"
 import { Web3ReactProvider, useWeb3React } from "@web3-react/core"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
@@ -52,17 +52,12 @@ const initializeContracts = async (web3, connector, onTBTCLoaded) => {
 
   Web3LoadedDeferred.resolve(web3)
 
-  const tbtc = (await EthereumHelpers.isMainnet(web3))
-    ? await TBTC.withConfig({
-        web3: web3,
-        bitcoinNetwork: BitcoinHelpers.Network.MAINNET,
-        electrum: config.electrum.mainnet,
-      })
-    : await TBTC.withConfig({
-        web3: web3,
-        bitcoinNetwork: BitcoinHelpers.Network.TESTNET,
-        electrum: config.electrum.testnet,
-      })
+  const currentConfig = config[chainId.toString()]
+  const tbtc = await TBTC.withConfig({
+    web3: web3,
+    bitcoinNetwork: currentConfig.bitcoinNetwork,
+    electrum: currentConfig.electrum,
+  })
 
   TBTCLoadedDeferred.resolve(tbtc)
 
