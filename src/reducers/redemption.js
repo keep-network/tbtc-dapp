@@ -12,7 +12,8 @@ import {
   REDEMPTION_REQUEST_ERROR,
 } from "../sagas/redemption"
 
-import { RESTORE_REDEMPTION_STATE } from "../actions"
+import { RESTORE_REDEMPTION_STATE, RESET_STATE } from "../actions"
+import { HISTORY_PUSH } from "../lib/router/actions"
 import { DEPOSIT_STATE_RESTORED, DEPOSIT_RESOLVED } from "../sagas/deposit"
 
 const initialState = {
@@ -29,6 +30,8 @@ const initialState = {
 
 const redemption = (state = initialState, action) => {
   switch (action.type) {
+    case RESET_STATE:
+      return initialState
     case RESTORE_REDEMPTION_STATE:
       return {
         ...state,
@@ -64,6 +67,7 @@ const redemption = (state = initialState, action) => {
       return {
         ...state,
         requiredConfirmations: action.payload.requiredConfirmations,
+        confirmationError: null,
       }
     case REDEMPTION_CONFIRMATION:
       return {
@@ -79,6 +83,8 @@ const redemption = (state = initialState, action) => {
       return {
         ...state,
         redemption: action.payload.redemption,
+        requestRedemptionError: null,
+        signTxError: null,
       }
     case REDEMPTION_REQUEST_ERROR:
       return {
@@ -89,19 +95,27 @@ const redemption = (state = initialState, action) => {
       return {
         ...state,
         provingRedemption: true,
-        proveRedemptionError: undefined,
+        proveRedemptionError: null,
       }
     case REDEMPTION_PROVE_BTC_TX_SUCCESS:
       return {
         ...state,
         provingRedemption: false,
-        proveRedemptionError: undefined,
+        proveRedemptionError: null,
       }
     case REDEMPTION_PROVE_BTC_TX_ERROR:
       return {
         ...state,
         provingRedemption: false,
         proveRedemptionError: action.payload.error,
+      }
+    case HISTORY_PUSH:
+      return {
+        ...state,
+        requestRedemptionError: null,
+        signTxError: null,
+        confirmationError: null,
+        proveRedemptionError: null,
       }
     default:
       return state

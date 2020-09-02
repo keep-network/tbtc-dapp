@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { useState, useEffect } from "react"
 import classnames from "classnames"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
@@ -10,45 +10,43 @@ import StatusIndicator from "../svgs/StatusIndicator"
 import TLogo from "../svgs/tlogo"
 import Check from "../svgs/Check"
 import X from "../svgs/X"
-import { saveAddresses } from "../../actions"
+import { saveAddresses, resetState } from "../../actions"
 
 import web3 from "web3"
 
-class Start extends Component {
-  state = {
-    depositAddress: "",
-    depositAddressIsValid: false,
-    btcAddress: "",
-    btcAddressIsValid: false,
+const Start = ({ saveAddresses, resetState }) => {
+  const initialAddressState = {
+    address: "",
+    isValid: false,
+    hasError: false,
   }
+  const [depositAddress, setDepositAddress] = useState(initialAddressState)
+  const [btcAddress, setBtcAddress] = useState(initialAddressState)
 
-  handleClickConfirm = (evt) => {
+  useEffect(() => {
+    resetState()
+  }, [resetState])
+
+  const handleClickConfirm = (evt) => {
     evt.preventDefault()
     evt.stopPropagation()
 
-    const { saveAddresses } = this.props
-    const { btcAddress, depositAddress } = this.state
-
     saveAddresses({
-      btcAddress,
-      depositAddress,
+      btcAddress: btcAddress.address,
+      depositAddress: depositAddress.address,
     })
   }
 
-  handleDepositAddressChange = (evt) => {
+  const handleDepositAddressChange = (evt) => {
     const address = evt.target.value
 
     const isValid = web3.utils.isAddress(address)
     const hasError = !isValid
 
-    this.setState({
-      depositAddress: address,
-      depositAddressIsValid: isValid,
-      depositAddressHasError: hasError,
-    })
+    setDepositAddress({ address, isValid, hasError })
   }
 
-  verifyBtcAddress = (btcAddress) => {
+  const verifyBtcAddress = (btcAddress) => {
     try {
       return BitcoinHelpers.Address.toScript(btcAddress)
     } catch (err) {
@@ -57,102 +55,89 @@ class Start extends Component {
     }
   }
 
-  handleBtcAddressChange = (evt) => {
+  const handleBtcAddressChange = (evt) => {
     // TODO: Validate btc address
     const address = evt.target.value
 
-    const isValid = this.verifyBtcAddress(address)
+    const isValid = verifyBtcAddress(address)
     const hasError = !isValid
 
-    this.setState({
-      btcAddress: address,
-      btcAddressIsValid: isValid,
-      btcAddressHasError: hasError,
-    })
+    setBtcAddress({ address, isValid, hasError })
   }
 
-  render() {
-    const {
-      depositAddress,
-      depositAddressIsValid,
-      depositAddressHasError,
-      btcAddress,
-      btcAddressIsValid,
-      btcAddressHasError,
-    } = this.state
-
-    return (
-      <div className="redemption-start">
-        <div className="page-top">
-          <StatusIndicator donut>
-            <TLogo height={100} width={100} />
-          </StatusIndicator>
+  return (
+    <div className="redemption-start">
+      <div className="page-top">
+        <StatusIndicator donut>
+          <TLogo height={100} width={100} />
+        </StatusIndicator>
+      </div>
+      <div className="page-body">
+        <div className="step">Step 1/6</div>
+        <div className="title">Redeem bond</div>
+        <hr />
+        <div className="description">
+          <div
+            className={classnames("paste-field", {
+              success: depositAddress.isValid,
+              alert: depositAddress.hasError,
+            })}
+          >
+            <label htmlFor="deposit-address">What was your TDT ID?</label>
+            <input
+              type="text"
+              id="deposit-address"
+              onChange={handleDepositAddressChange}
+              value={depositAddress.address}
+              placeholder="Enter TDT ID"
+            />
+            {depositAddress.isValid && <Check height="28px" width="28px" />}
+            {depositAddress.hasError && <X height="28px" width="28px" />}
+          </div>
+          <div
+            className={classnames("paste-field", {
+              success: btcAddress.isValid,
+              alert: btcAddress.hasError,
+            })}
+          >
+            <label htmlFor="btc-address">
+              Where should we send your Bitcoin?
+            </label>
+            <input
+              type="text"
+              id="btc-address"
+              onChange={handleBtcAddressChange}
+              value={btcAddress.address}
+              placeholder="Enter BTC Address"
+            />
+            {btcAddress.isValid && <Check height="28px" width="28px" />}
+            {btcAddress.hasError && <X height="28px" width="28px" />}
+          </div>
         </div>
-        <div className="page-body">
-          <div className="step">Step 1/6</div>
-          <div className="title">Redeem bond</div>
-          <hr />
-          <div className="description">
-            <div
-              className={classnames("paste-field", {
-                success: depositAddressIsValid,
-                alert: depositAddressHasError,
-              })}
-            >
-              <label htmlFor="deposit-address">What was your TDT ID?</label>
-              <input
-                type="text"
-                id="deposit-address"
-                onChange={this.handleDepositAddressChange}
-                value={depositAddress}
-                placeholder="Enter TDT ID"
-              />
-              {depositAddressIsValid && <Check height="28px" width="28px" />}
-              {depositAddressHasError && <X height="28px" width="28px" />}
-            </div>
-            <div
-              className={classnames("paste-field", {
-                success: btcAddressIsValid,
-                alert: btcAddressHasError,
-              })}
-            >
-              <label htmlFor="btc-address">
-                Where should we send your Bitcoin?
-              </label>
-              <input
-                type="text"
-                id="btc-address"
-                onChange={this.handleBtcAddressChange}
-                value={btcAddress}
-                placeholder="Enter BTC Address"
-              />
-              {btcAddressIsValid && <Check height="28px" width="28px" />}
-              {btcAddressHasError && <X height="28px" width="28px" />}
-            </div>
-          </div>
-          <div className="cta">
-            <button
-              onClick={this.handleClickConfirm}
-              disabled={!depositAddressIsValid || !btcAddressIsValid}
-              className="black"
-            >
-              Redeem
-            </button>
-          </div>
+        <div className="cta">
+          <button
+            onClick={handleClickConfirm}
+            disabled={!depositAddress.isValid || !btcAddress.isValid}
+            className="black"
+          >
+            Redeem
+          </button>
         </div>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 Start.propTypes = {
   saveAddresses: PropTypes.func,
+  resetState: PropTypes.func,
 }
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       saveAddresses,
+      resetState,
     },
     dispatch
   )

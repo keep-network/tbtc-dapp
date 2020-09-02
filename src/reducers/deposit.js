@@ -23,7 +23,8 @@ import {
   DEPOSIT_AVAILABLE_LOT_SIZES_REQUESTED,
   DEPOSIT_AVAILABLE_LOT_SIZES_ERROR,
 } from "../sagas/deposit"
-import { RESTORE_DEPOSIT_STATE, SELECT_LOT_SIZE } from "../actions"
+import { RESET_STATE, RESTORE_DEPOSIT_STATE, SELECT_LOT_SIZE } from "../actions"
+import { HISTORY_PUSH } from "../lib/router/actions"
 
 const initialState = {
   btcAddress: null,
@@ -44,6 +45,8 @@ const initialState = {
 
 const deposit = (state = initialState, action) => {
   switch (action.type) {
+    case RESET_STATE:
+      return initialState
     case RESTORE_DEPOSIT_STATE:
       return {
         ...state,
@@ -73,6 +76,7 @@ const deposit = (state = initialState, action) => {
       return {
         ...state,
         invoiceStatus: 1,
+        requestDepositError: null,
       }
     case DEPOSIT_REQUEST_SUCCESS:
       return {
@@ -96,7 +100,7 @@ const deposit = (state = initialState, action) => {
       return {
         ...state,
         btcAddress: action.payload.btcAddress,
-        btcAddressError: undefined,
+        btcAddressError: null,
       }
     case DEPOSIT_BTC_ADDRESS_ERROR:
     case DEPOSIT_BTC_AMOUNTS_ERROR:
@@ -114,6 +118,7 @@ const deposit = (state = initialState, action) => {
       return {
         ...state,
         didSubmitDepositProof: true,
+        btcTxError: null,
       }
     case BTC_TX_SEEN:
       return {
@@ -130,6 +135,7 @@ const deposit = (state = initialState, action) => {
       return {
         ...state,
         btcConfirming: true,
+        btcConfirmingError: null,
       }
     case BTC_TX_REQUIRED_CONFIRMATIONS:
       return {
@@ -156,14 +162,14 @@ const deposit = (state = initialState, action) => {
       return {
         ...state,
         provingDeposit: true,
-        proveDepositError: undefined,
+        proveDepositError: null,
       }
     case DEPOSIT_PROVE_BTC_TX_SUCCESS:
       return {
         ...state,
         tbtcMintedTxID: action.payload.tbtcMintedTxID,
         provingDeposit: false,
-        proveDepositError: undefined,
+        proveDepositError: null,
       }
     case DEPOSIT_PROVE_BTC_TX_ERROR:
     case DEPOSIT_MINT_TBTC_ERROR:
@@ -171,6 +177,16 @@ const deposit = (state = initialState, action) => {
         ...state,
         provingDeposit: false,
         proveDepositError: action.payload.error,
+      }
+    case HISTORY_PUSH:
+      return {
+        ...state,
+        lotSizeError: null,
+        requestDepositError: null,
+        btcAddressError: null,
+        btcTxError: null,
+        btcConfirmingError: null,
+        proveDepositError: null,
       }
     default:
       return state
