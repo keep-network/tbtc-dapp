@@ -1,24 +1,26 @@
 {
-    "electrum": {
-      "testnet": {
-        "server": "electrumx-server.test.tbtc.network",
-        "port": 8443,
-        "protocol": "wss"
-      },
-      "testnetTCP": {
-        "server": "electrumx-server.test.tbtc.network",
-        "port": 50002,
-        "protocol": "ssl"
-      },
-      "mainnet": {
+  "1": {
+    "bitcoinNetwork": "main",
+      "electrum": {
         "server": "electrumx-server.tbtc.network",
         "port": 8443,
         "protocol": "wss"
-      },
-      "mainnetTCP": {
-        "server": "electrumx-server.tbtc.network",
-        "port": 50002,
-        "protocol": "ssl"
       }
+  },
+  "3": {
+    "bitcoinNetwork": "testnet",
+    "electrum": {
+        "server": "electrumx-server.test.tbtc.network",
+        "port": 8443,
+        "protocol": "wss"
     }
+  },
+  "1101": {
+    "bitcoinNetwork": "regtest",
+    "electrum": {
+        "server": "127.0.0.1",
+        "port": 50003,
+        "protocol": "ws"
+    }
+  }
 }
