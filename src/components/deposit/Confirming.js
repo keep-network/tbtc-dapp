@@ -17,10 +17,12 @@ const Confirming = ({
     error={error}
     requiredConfirmations={requiredConfirmations}
     confirmations={confirmations}
-    extraMessage="We’ll send
-    you a browser notification when your TBTC is ready to be minted."
   >
     <div>
+      <p>
+        We’ll send you a browser notification when your TBTC is ready to be
+        minted.
+      </p>
       <p>
         <i>A watched block never boils.</i>
       </p>

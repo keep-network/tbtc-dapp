@@ -11,7 +11,6 @@ const Confirming = ({
   requiredConfirmations,
   confirmations,
   children,
-  extraMessage,
 }) => {
   return (
     <div className={className}>
@@ -27,8 +26,7 @@ const Confirming = ({
         <Description error={error}>
           <div>
             Waiting for {requiredConfirmations} transaction{" "}
-            {`confirmation${requiredConfirmations > 1 ? "s" : ""}`}.{" "}
-            {extraMessage}
+            {`confirmation${requiredConfirmations > 1 ? "s" : ""}`}.
             <p>
               {confirmations} / {requiredConfirmations} blocks confirmed
             </p>
@@ -50,7 +48,6 @@ Confirming.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
-  extraMessage: PropTypes.string,
 }
 
 export default Confirming
