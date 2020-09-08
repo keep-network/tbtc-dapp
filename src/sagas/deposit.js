@@ -62,7 +62,6 @@ function* restoreState(nextStepMap, stateKey) {
   /** @type {BN} */
   const depositState = yield call([deposit, deposit.getCurrentState])
 
-  let finalCalls = null
   const nextStep = nextStepMap[depositState]
 
   switch (depositState) {
@@ -70,9 +69,6 @@ function* restoreState(nextStepMap, stateKey) {
       throw new Error("Unexpected state.")
 
     case tbtc.Deposit.State.AWAITING_WITHDRAWAL_PROOF:
-      finalCalls = resumeRedemption
-    // Explicitly fall through.
-
     case tbtc.Deposit.State.AWAITING_WITHDRAWAL_SIGNATURE:
     case tbtc.Deposit.State.AWAITING_BTC_FUNDING_PROOF:
     case tbtc.Deposit.State.REDEEMED:
@@ -95,10 +91,6 @@ function* restoreState(nextStepMap, stateKey) {
           signerFeeInSatoshis,
         },
       })
-
-      if (finalCalls) {
-        yield* finalCalls()
-      }
 
     // FIXME Check to see if Electrum has already seen a tx for payment
     // FIXME and fast-forward to /pay/confirming if so.
@@ -181,6 +173,7 @@ export function* onStateRestored(tbtc, depositState) {
       yield* autoSubmitDepositProof()
       break
     case tbtc.Deposit.State.AWAITING_WITHDRAWAL_SIGNATURE:
+    case tbtc.Deposit.State.AWAITING_WITHDRAWAL_PROOF:
       yield* resumeRedemption()
       break
     default:
