@@ -2,8 +2,7 @@ import React from "react"
 import { connect } from "react-redux"
 import PropTypes from "prop-types"
 
-import Description from "../lib/Description"
-import StatusIndicator from "../svgs/StatusIndicator"
+import ConfirmingBase from "../lib/Confirming"
 import { formatSatsToBtc } from "../../utils"
 
 const Confirming = ({
@@ -11,39 +10,29 @@ const Confirming = ({
   error,
   requiredConfirmations,
   confirmations,
-}) => {
-  return (
-    <div className="pay pay-confirming">
-      <div className="page-top">
-        <StatusIndicator pulse />
-      </div>
-      <div className="page-body">
-        <div className="step">Step 3/5</div>
-        <div className="title">
-          {error ? "Error confirming transaction" : "Confirming..."}
-        </div>
-        <hr />
-        <Description error={error}>
-          <div>
-            Waiting for {requiredConfirmations} transaction{" "}
-            {`confirmation${requiredConfirmations > 1 ? "s" : ""}`}. We’ll send
-            you a browser notification when your TBTC is ready to be minted.
-            <p>
-              {confirmations} / {requiredConfirmations} blocks confirmed
-            </p>
-            <p>
-              <i>A watched block never boils.</i>
-            </p>
-          </div>
-          <div className="signer-fee">
-            <span className="signer-fee-label">Signer Fee: </span>
-            {signerFee} BTC*
-          </div>
-        </Description>
-      </div>
+}) => (
+  <ConfirmingBase
+    className="pay pay-confirming"
+    stepStatus="3/5"
+    error={error}
+    requiredConfirmations={requiredConfirmations}
+    confirmations={confirmations}
+  >
+    <div>
+      <p>
+        We’ll send you a browser notification when your TBTC is ready to be
+        minted.
+      </p>
+      <p>
+        <i>A watched block never boils.</i>
+      </p>
     </div>
-  )
-}
+    <div className="signer-fee">
+      <span className="signer-fee-label">Signer Fee: </span>
+      {signerFee} BTC*
+    </div>
+  </ConfirmingBase>
+)
 
 Confirming.propTypes = {
   signerFee: PropTypes.string,

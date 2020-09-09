@@ -2,8 +2,7 @@ import React from "react"
 import { connect } from "react-redux"
 import PropTypes from "prop-types"
 
-import Description from "../lib/Description"
-import StatusIndicator from "../svgs/StatusIndicator"
+import ConfirmingBase from "../lib/Confirming"
 
 const Confirming = ({
   txHash,
@@ -17,38 +16,21 @@ const Confirming = ({
   }tx/${txHash}`
 
   return (
-    <div className="confirming">
-      <div className="page-top">
-        <StatusIndicator pulse />
-      </div>
-      <div className="page-body">
-        <div className="step">Step 4/6</div>
-        <div className="title">
-          {error ? "Error confirming transaction" : "Confirming..."}
-        </div>
-        <hr />
-        <Description error={error}>
-          <p>
-            Waiting for {requiredConfirmations} transaction{" "}
-            {`confirmation${requiredConfirmations > 1 ? "s" : ""}`}.
-          </p>
-          <p>
-            {confirmations} / {requiredConfirmations} blocks confirmed
-          </p>
-          {txHash ? (
-            <a
-              href={blockExplorerUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Follow along in block explorer
-            </a>
-          ) : (
-            ""
-          )}
-        </Description>
-      </div>
-    </div>
+    <ConfirmingBase
+      className="confirming"
+      stepStatus="4/6"
+      error={error}
+      requiredConfirmations={requiredConfirmations}
+      confirmations={confirmations}
+    >
+      {txHash ? (
+        <a href={blockExplorerUrl} target="_blank" rel="noopener noreferrer">
+          Follow along in block explorer
+        </a>
+      ) : (
+        ""
+      )}
+    </ConfirmingBase>
   )
 }
 
