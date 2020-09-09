@@ -47,11 +47,12 @@ const mapStateToProps = ({
     btcConfirmingError,
     requiredConfirmations,
     confirmations,
+    stateRestorationError,
   },
 }) => {
   return {
     signerFee: formatSatsToBtc(signerFeeInSatoshis),
-    error: btcConfirmingError,
+    error: btcConfirmingError || stateRestorationError,
     requiredConfirmations,
     confirmations,
   }

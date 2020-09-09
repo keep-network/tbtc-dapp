@@ -59,7 +59,8 @@ ProveComponent.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   return {
     provingDeposit: state.deposit.provingDeposit,
-    error: state.deposit.proveDepositError,
+    error:
+      state.deposit.proveDepositError || state.deposit.stateRestorationError,
   }
 }
 

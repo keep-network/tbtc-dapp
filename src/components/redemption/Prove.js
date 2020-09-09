@@ -12,7 +12,9 @@ const Prove = ({ error }) => (
     </div>
     <div className="page-body">
       <div className="step">Step 5/6</div>
-      <div className="title">Confirmed</div>
+      <div className="title">
+        {error ? "Error proving redemption" : "Confirmed"}
+      </div>
       <hr />
       <Description error={error}>
         Finally, we are submitting proof to the sidechain and get you your BTC.
@@ -28,7 +30,9 @@ Prove.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   return {
     provingRedemption: state.redemption.provingRedemption,
-    error: state.redemption.proveRedemptionError,
+    error:
+      state.redemption.proveRedemptionError ||
+      state.deposit.stateRestorationError,
   }
 }
 

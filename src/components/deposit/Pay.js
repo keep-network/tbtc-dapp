@@ -70,13 +70,14 @@ const mapStateToProps = (state) => {
     lotInSatoshis,
     signerFeeInSatoshis,
     btcTxError,
+    stateRestorationError,
   } = state.deposit
 
   return {
     btcAddress,
     btcAmount: formatSatsToBtc(lotInSatoshis),
     signerFee: formatSatsToBtc(signerFeeInSatoshis),
-    error: btcTxError,
+    error: btcTxError || stateRestorationError,
   }
 }
 

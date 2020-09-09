@@ -45,7 +45,8 @@ Confirming.propTypes = {
 const mapStateToProps = (state) => {
   return {
     txHash: state.redemption.txHash,
-    error: state.redemption.confirmationError,
+    error:
+      state.redemption.confirmationError || state.deposit.stateRestorationError,
     btcNetwork: state.tbtc.btcNetwork,
     requiredConfirmations: state.redemption.requiredConfirmations,
     confirmations: state.redemption.confirmations,

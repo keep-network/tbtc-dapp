@@ -20,7 +20,9 @@ const GetAddress = ({ status, error }) => {
       </div>
       <div className="page-body">
         <div className="step">Step 2/5</div>
-        <div className="title">Initiating deposit</div>
+        <div className="title">
+          {error ? "Error initiating deposit" : "Initiating deposit"}
+        </div>
         <hr />
         <Description error={error}>{statusText}</Description>
       </div>
@@ -36,7 +38,7 @@ GetAddress.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   return {
     status: state.deposit.invoiceStatus,
-    error: state.deposit.btcAddressError,
+    error: state.deposit.btcAddressError || state.deposit.stateRestorationError,
   }
 }
 
