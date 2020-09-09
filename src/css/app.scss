@@ -187,6 +187,10 @@ a {
 
     .page-top {
         margin-bottom: 25px;
+
+        .error {
+            color: $alert;
+        }
     }
 }
 

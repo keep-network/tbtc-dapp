@@ -20,6 +20,7 @@ import {
   DEPOSIT_REQUEST_BEGIN,
   DEPOSIT_RESOLVED,
   DEPOSIT_STATE_RESTORED,
+  DEPOSIT_STATE_RESTORATION_ERROR,
   DEPOSIT_AVAILABLE_LOT_SIZES_REQUESTED,
   DEPOSIT_AVAILABLE_LOT_SIZES_ERROR,
 } from "../sagas/deposit"
@@ -56,6 +57,12 @@ const deposit = (state = initialState, action) => {
       return {
         ...state,
         isStateReady: true,
+        stateRestorationError: null,
+      }
+    case DEPOSIT_STATE_RESTORATION_ERROR:
+      return {
+        ...state,
+        stateRestorationError: action.payload.error,
       }
     case DEPOSIT_AVAILABLE_LOT_SIZES_REQUESTED:
       return {
@@ -187,6 +194,7 @@ const deposit = (state = initialState, action) => {
         btcTxError: null,
         btcConfirmingError: null,
         proveDepositError: null,
+        stateRestorationError: null,
       }
     default:
       return state

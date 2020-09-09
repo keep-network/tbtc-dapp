@@ -15,6 +15,7 @@ function LoadableBase({
   restoreDepositState,
   restoreRedemptionState,
   restorer,
+  error,
 }) {
   // Wait for web3 connected
   const { active: web3Active } = useWeb3React()
@@ -46,7 +47,7 @@ function LoadableBase({
     return (
       <div className="pay">
         <div className="page-top">
-          <p>Loading...</p>
+          {error ? <p className="error">{error}</p> : <p>Loading...</p>}
         </div>
         <div className="page-body"></div>
       </div>
@@ -55,6 +56,10 @@ function LoadableBase({
 
   return children
 }
+
+const mapStateToProps = (state) => ({
+  error: state.deposit.stateRestorationError,
+})
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
@@ -66,6 +71,6 @@ const mapDispatchToProps = (dispatch) => {
   )
 }
 
-const Loadable = connect(null, mapDispatchToProps)(LoadableBase)
+const Loadable = connect(mapStateToProps, mapDispatchToProps)(LoadableBase)
 
 export default Loadable
