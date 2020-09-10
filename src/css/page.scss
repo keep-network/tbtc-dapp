@@ -1,0 +1,108 @@
+.page-top {
+    margin-bottom: 25px;
+
+    .error {
+        color: $alert;
+    }
+}
+
+.warning {
+    text-align: left;
+    font-family: 'apercu-mono-regular-pro';
+    font-size: 0.75rem;
+    line-height: 1.5rem;
+    background: $alert;
+    border-radius: 8px;
+    color: $white;
+    max-width: 568px;
+    padding: 15px;
+    margin: 0 auto 3em;
+    position: relative;
+    background-image: url(../components/svgs/warning.svg);
+    background-position: 50px center;
+    background-repeat: no-repeat;
+
+    p {
+        line-height: 1.32;
+        max-width: 333px;
+        margin-left: 116px;
+    }
+
+    a {
+        color: $white;
+    }
+
+    @include media-breakpoint-down('sm') {
+        padding: 55px 15px 15px;
+        background-position: center 20px;
+
+        p {
+            margin-left: 0;
+            max-width: none;
+        }
+    }
+}
+
+.deposit-start, .invoice, .pay, .prove, .congratulations, .redemption-start, .confirming {
+    font-family: 'apercu-mono-regular-pro';
+    text-align: center;
+    min-height: 675px;
+
+    .page-body {
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto 30px;
+        position: relative;
+
+        .step {
+            flex: 0 1;
+            color: $grey;
+            font-size: .5em;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .title {
+            flex: 0 1;
+            font-size: 1.75em;
+            font-weight: bold;
+            margin-bottom: 40px;
+            font-family: 'apercu-bold-pro';
+        }
+
+        hr {
+            flex: 0 1;
+            border-style: dashed;
+            border-width: 2px 0 0 0;
+            border-color: $grey;
+            width: 150px;
+            margin: 0 auto 40px auto;
+        }
+
+        .description {
+            flex: 0 1;
+            font-size: .8em;
+            margin-bottom: 40px;
+        }
+
+        .cta {
+            flex: 1 1;
+            min-height: 100px;
+            position: relative;
+
+            button {
+                @extend .button.black;
+                font-size: 1em;
+            }
+        }
+
+        .error {
+            flex: 1 1;
+            font-size: .7em;
+            color: $alert;
+            margin: 25px 0;
+            word-break: break-word;
+        }
+    }
+}
