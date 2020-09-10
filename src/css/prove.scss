@@ -25,28 +25,5 @@
         position: relative;
         overflow: hidden;
         min-width: 460px;
-
-        .peanuts {
-            position: absolute;
-            left: 0;
-            top: 0;
-            transform: rotate(90deg);
-            overflow: hidden;
-
-            svg {
-                path {
-                    fill: #{$purple};
-                }
-            }
-            // right-most
-            svg:first-of-type {
-                transform: translate(-50px, 8px)
-            }
-
-            // left-most
-            svg:last-of-type {
-                transform: translate(-50px, -8px)
-            }
-        }
     }
 }
