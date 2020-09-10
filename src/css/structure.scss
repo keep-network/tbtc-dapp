@@ -1,4 +1,5 @@
-$gutter-width: 32px;
+$grid-base: 8px;
+$gutter-width: $grid-base * 4;
 
 // inspired by bootstrap
 $breakpoints: (
@@ -85,8 +86,36 @@ html, body, #root {
 }
 
 .side-nav {
-    width: 164px;
-    padding-left: $gutter-width;
+    width: 180px;
+    padding: 0 ($gutter-width / 2) 0 $gutter-width;
+
+    ul {
+        padding: 0;
+
+        li {
+            list-style: none;
+            margin: 0 0 $grid-base * 3;
+
+            a {
+                display: block;
+                text-decoration: none;
+                text-transform: uppercase;
+                font-family: 'apercu-regular-pro', sans-serif;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 100%;
+                letter-spacing: 0.15em;
+                padding: $grid-base;
+                border-radius: $grid-base / 2;
+
+                &.active {
+                    background-color: $black;
+                    color: $white;
+                }
+            }
+        }
+    }
 }
 
 .content {

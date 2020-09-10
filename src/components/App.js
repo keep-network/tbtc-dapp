@@ -1,6 +1,6 @@
 import React from "react"
 import { withRouter } from "react-router"
-import { Link } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import PropTypes from "prop-types"
 
 import { Footer, Header } from "./lib"
@@ -15,13 +15,15 @@ function App(props) {
         <nav className="side-nav">
           <ul>
             <li>
-              <Link to="/">Overview</Link>
+              <NavLink to="/" exact>
+                Overview
+              </NavLink>
             </li>
             <li>
-              <Link to="deposit">Mint</Link>
+              <NavLink to="deposit">Mint</NavLink>
             </li>
             <li>
-              <Link to="/redeem">Redeem</Link>
+              <NavLink to="/redeem">Redeem</NavLink>
             </li>
           </ul>
         </nav>

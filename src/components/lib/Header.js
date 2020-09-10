@@ -6,7 +6,7 @@ import Web3Status from "./Web3Status"
 const Header = (props) => (
   <header className="header">
     <div className="logo">
-      <TBTCLogo width="150" />
+      <TBTCLogo width="132" />
     </div>
     <Web3Status />
   </header>
