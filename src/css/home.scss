@@ -46,8 +46,10 @@
     }
 
     .step-by-step {
-        width: 100vw;
-        margin-left: calc((100vw - 100%) / -2);
+        width: calc(100vw - #{$header-width} - #{2 * $gutter-width});
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
         margin-top: 110px;
         border-width: 1px 0;
         border-style: solid;
@@ -93,6 +95,14 @@
         }
     }
 
+    @include media-breakpoint-down('lg') {
+        .step-by-step {
+            ol {
+                width: auto;
+            }
+        }
+    }
+
     @include media-breakpoint-down('md') {
         max-width: 100%;
 
@@ -112,6 +122,7 @@
 
         .step-by-step {
             padding: 10px 20px;
+            width: 100%;
 
             ol {
                 flex-direction: column;
