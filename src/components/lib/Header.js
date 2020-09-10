@@ -4,17 +4,11 @@ import TBTCLogo from "../svgs/TBTCLogo"
 import Web3Status from "./Web3Status"
 
 const Header = (props) => (
-  <header className="nav">
+  <header className="header">
     <div className="logo">
       <TBTCLogo width="150" />
     </div>
-    {
-      // TODO: remove when proper CMS is selected
-      window.location.pathname === "/" ||
-      window.location.pathname.startsWith("/news") ? null : (
-        <Web3Status />
-      )
-    }
+    <Web3Status />
   </header>
 )
 
