@@ -1,5 +1,6 @@
 $grid-base: 8px;
 $gutter-width: $grid-base * 4;
+$header-width: 180px;
 
 // inspired by bootstrap
 $breakpoints: (
@@ -85,44 +86,11 @@ html, body, #root {
     flex-wrap: wrap;
 }
 
-.side-nav {
-    width: 180px;
-    padding: 0 ($gutter-width / 2) 0 $gutter-width;
-
-    ul {
-        padding: 0;
-
-        li {
-            list-style: none;
-            margin: 0 0 $grid-base * 3;
-
-            a {
-                display: block;
-                text-decoration: none;
-                text-transform: uppercase;
-                font-family: 'apercu-regular-pro', sans-serif;
-                font-style: normal;
-                font-weight: 500;
-                font-size: 12px;
-                line-height: 100%;
-                letter-spacing: 0.15em;
-                padding: $grid-base;
-                border-radius: $grid-base / 2;
-
-                &.active {
-                    background-color: $black;
-                    color: $white;
-                }
-            }
-        }
-    }
-}
-
 .content {
     flex: 1;
     background-color: $white;
     padding: $gutter-width;
-    margin: 0 $gutter-width $gutter-width 0;
+    margin:  0 $gutter-width 0 $header-width;
     box-shadow: 0px 30px 40px rgba(153, 147, 144, 0.15);
     border-radius: 8px;
 }

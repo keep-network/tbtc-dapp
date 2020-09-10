@@ -3,12 +3,9 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: $gutter-width $gutter-width ($gutter-width * 2);
+    padding: $gutter-width $gutter-width ($gutter-width * 2);
     width: 100%;
-
-    @include media-breakpoint-down('md') {
-        margin: 30px 0 80px 0;
-    }
+    position: relative;
 
     .hamburger {
         flex-grow: 0;
@@ -81,6 +78,43 @@
                 margin: 0 auto 3px;
             }
 
+        }
+    }
+
+    .side-nav {
+        width: 180px;
+        padding: 0 ($gutter-width / 2) 0 $gutter-width;
+        position: absolute;
+        left: 0;
+        top: 100%;
+
+        ul {
+            padding: 0;
+            margin: 0;
+
+            li {
+                list-style: none;
+                margin: 0 0 $grid-base * 3;
+
+                a {
+                    display: block;
+                    text-decoration: none;
+                    text-transform: uppercase;
+                    font-family: 'apercu-regular-pro', sans-serif;
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 12px;
+                    line-height: 100%;
+                    letter-spacing: 0.15em;
+                    padding: $grid-base;
+                    border-radius: $grid-base / 2;
+
+                    &.active {
+                        background-color: $black;
+                        color: $white;
+                    }
+                }
+            }
         }
     }
 }
