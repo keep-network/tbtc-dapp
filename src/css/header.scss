@@ -71,22 +71,19 @@
         &:hover {
             cursor: pointer;
         }
+    }
 
-        @include media-breakpoint-down('sm') {
-            svg {
-                display: block;
-                margin: 0 auto 3px;
-            }
-
-        }
+    .side-nav-toggle-btn {
+        display: none;
     }
 
     .side-nav {
-        width: 180px;
+        width: $header-width;
         padding: 0 ($gutter-width / 2) 0 $gutter-width;
         position: absolute;
         left: 0;
         top: 100%;
+        transition: left 0.5s ease-in-out;
 
         ul {
             padding: 0;
@@ -114,6 +111,53 @@
                         color: $white;
                     }
                 }
+            }
+        }
+    }
+
+    @include media-breakpoint-down('md') {
+        display: block;
+        padding-bottom: $gutter-width;
+
+        .web3-status {
+            margin: $grid-base * 3 auto 0;
+        }
+
+        .side-nav-toggle-btn {
+            display: block;
+            position: absolute;
+            top: $gutter-width - 5px;
+            right: $gutter-width - 5px;
+            padding: 0;
+            margin: 0;
+            padding: 0;
+            margin: 0;
+            width: 40px;
+            height: 40px;
+
+            background-image: url(../components/svgs/hamburger-open.svg);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: transparent;
+
+            cursor: pointer;
+            border: 0;
+            @include hide-button-text;
+
+            &:hover {
+                background-color: transparent;
+            }
+
+            &.open {
+                background-image: url(../components/svgs/hamburger-close.svg);
+            }
+        }
+
+        .side-nav {
+            left: -($header-width);
+
+            &.open {
+                left: 0;
             }
         }
     }

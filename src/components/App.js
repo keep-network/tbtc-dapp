@@ -1,17 +1,20 @@
-import React from "react"
+import React, { useState } from "react"
 import { withRouter } from "react-router"
 import PropTypes from "prop-types"
+import classNames from "classnames"
 
 import { Footer, Header } from "./lib"
 
-function App(props) {
-  const { children, location } = props
-
+const App = ({ children, location }) => {
+  const [showNav, setShowNav] = useState(false)
+  const toggleNav = () => {
+    setShowNav(!showNav)
+  }
   return (
     <div className="main">
       <div className="app">
-        <Header />
-        <div className="content">
+        <Header showNav={showNav} onToggleBtnClick={toggleNav} />
+        <div className={classNames("content", { "side-nav-open": showNav })}>
           <div className="warning">
             <p>The safety of your funds is important to us.</p>
             <p>

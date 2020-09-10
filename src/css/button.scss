@@ -41,3 +41,9 @@ button, .button {
         font-size: 1em;
     }
 }
+
+@mixin hide-button-text {
+    text-indent: 1000%;
+    white-space: nowrap;
+    overflow: hidden;
+}
