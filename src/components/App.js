@@ -5,7 +5,7 @@ import classNames from "classnames"
 
 import { Footer, Header } from "./lib"
 
-const App = ({ children, location }) => {
+const App = ({ children }) => {
   const [showNav, setShowNav] = useState(false)
   const toggleNav = () => {
     setShowNav(!showNav)
@@ -31,7 +31,7 @@ const App = ({ children, location }) => {
 
           {children}
         </div>
-        <Footer includeSubscription={location.pathname === "/"} />
+        <Footer />
       </div>
     </div>
   )
@@ -42,9 +42,6 @@ App.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
-  location: PropTypes.shape({
-    pathname: PropTypes.string,
-  }),
 }
 
 export default withRouter(App)
