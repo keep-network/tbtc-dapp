@@ -1,3 +1,5 @@
+$gutter-width: 32px;
+
 // inspired by bootstrap
 $breakpoints: (
     sm: 576px,
@@ -59,6 +61,12 @@ html {
     }
 }
 
+.main {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 .app {
     width: 100%;
     flex: 1;
@@ -66,9 +74,27 @@ html {
     font-family: sans-serif;
     font-size: 1.5em;
     margin: 0 auto;
-    padding: 40px;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
 
-    @extend .container;
+.side-nav {
+    width: 164px;
+    padding-left: $gutter-width;
+}
+
+.content {
+    flex: 1;
+}
+
+
+.page-top {
+    margin-bottom: 25px;
+
+    .error {
+        color: $alert;
+    }
 }
 
 .deposit-start, .invoice, .pay, .prove, .congratulations, .redemption-start, .confirming {

@@ -3,6 +3,7 @@
 @import './fonts/apercu.scss';
 @import 'structure.scss';
 @import 'button.scss';
+@import 'header.scss';
 @import 'footer.scss';
 @import 'modal.scss';
 @import 'status-indicator.scss';
@@ -27,12 +28,6 @@ a {
     color: $black;
     text-decoration: underline;
     cursor: pointer;
-}
-
-.main {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
 }
 
 .warning {
@@ -71,126 +66,3 @@ a {
         }
     }
 }
-
-.app {
-    .nav {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        margin: 50px 0;
-
-        .hamburger {
-            flex-grow: 0;
-            cursor: pointer;
-            font-size: 1.5em;
-
-            &:hover {
-                color: #888;
-            }
-        }
-
-        .logo {
-            flex-grow: 0;
-            svg {
-                display: block;
-            }
-        }
-
-        .web3-status {
-            margin-left: 35px;
-            padding: 5px 10px;
-            border: 1px solid transparent;
-            border-radius: 4px;
-            font-size: .6em;
-            font-family: 'apercu-mono-regular-pro';
-
-            &.alert {
-                border-color: #{$alert};
-                color: #{$alert};
-            }
-
-            &.loading,
-            &.notify {
-                border-color: $black;
-                color: $black;
-            }
-
-            &.success {
-                border-color: $black;
-                background-color: $black;
-                color: $white;
-                box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-            }
-
-            svg {
-                display: inline-block;
-                vertical-align: text-bottom;
-
-                circle {
-                    fill: $white;
-                    stroke: $black;
-                }
-
-                path {
-                    stroke: $black;
-                }
-            }
-
-            a {
-                color: unset;
-            }
-
-            &:hover {
-                cursor: pointer;
-            }
-
-            @include media-breakpoint-down('sm') {
-                svg {
-                    display: block;
-                    margin: 0 auto 3px;
-                }
-            
-            }
-        }
-    }
-
-    @include media-breakpoint-down('md') {
-        .nav {
-            margin: 30px 0 80px 0;
-        }
-    }
-
-    .peanut {
-        &.loading {
-            svg {
-                path {
-                    animation: pulse 3s linear infinite;
-                }
-            }
-
-            @keyframes pulse {
-                0% { fill: transparent; }
-                50% { fill: #{$purple}; }
-                100% { fill: transparent; }
-            }
-        }
-
-        &.error {
-            svg {
-                path {
-                    fill: #{$alert};
-                }
-            }
-        }
-    }
-
-    .page-top {
-        margin-bottom: 25px;
-
-        .error {
-            color: $alert;
-        }
-    }
-}
-
