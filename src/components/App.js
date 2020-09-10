@@ -1,6 +1,5 @@
 import React from "react"
 import { withRouter } from "react-router"
-import { NavLink } from "react-router-dom"
 import PropTypes from "prop-types"
 
 import { Footer, Header } from "./lib"
@@ -12,21 +11,6 @@ function App(props) {
     <div className="main">
       <div className="app">
         <Header />
-        <nav className="side-nav">
-          <ul>
-            <li>
-              <NavLink to="/" exact>
-                Overview
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="deposit">Mint</NavLink>
-            </li>
-            <li>
-              <NavLink to="/redeem">Redeem</NavLink>
-            </li>
-          </ul>
-        </nav>
         <div className="content">
           <div className="warning">
             <p>The safety of your funds is important to us.</p>
