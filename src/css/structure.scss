@@ -82,6 +82,12 @@ html, body, #root {
     font-size: 1.5em;
     margin: 0 auto;
     padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+
+    @include media-breakpoint-down('md') {
+        display: block;
+    }
 }
 
 .content {
