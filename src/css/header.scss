@@ -95,14 +95,9 @@
 
                 a {
                     display: block;
+                    @extend %nav;
                     text-decoration: none;
-                    text-transform: uppercase;
-                    font-family: 'apercu-regular-pro', sans-serif;
-                    font-style: normal;
-                    font-weight: 500;
-                    font-size: 12px;
                     line-height: 100%;
-                    letter-spacing: 0.15em;
                     padding: $grid-base;
                     border-radius: $grid-base / 2;
 
