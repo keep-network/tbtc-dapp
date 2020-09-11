@@ -2,6 +2,9 @@ footer {
     margin-top: auto;
     width: 100%;
     padding: $grid-base * 2 $gutter-width;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     .version-info {
         text-transform: uppercase;
@@ -10,5 +13,26 @@ footer {
         font-size: 8px;
         line-height: 100%;
         font-feature-settings: 'tnum' on, 'lnum' on;
+    }
+
+    .help-menu {
+        .tooltip-trigger {
+            @include hide-button-text;
+            background-image: url(../components/svgs/question-mark-circle.svg);
+            background-color: transparent;
+            background-repeat: no-repeat;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            padding: 0;
+
+            &:hover {
+                transform: none;
+            }
+        }
+
+        .tooltip-content {
+            left: -34px;
+        }
     }
 }
