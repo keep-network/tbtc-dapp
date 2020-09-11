@@ -106,6 +106,10 @@
                     padding: $grid-base;
                     border-radius: $grid-base / 2;
 
+                    &:hover {
+                        background-color: $grey--80;
+                    }
+
                     &.active {
                         background-color: $black;
                         color: $white;
