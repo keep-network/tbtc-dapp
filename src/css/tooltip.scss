@@ -11,7 +11,7 @@
         @extend .h5;
 
         position: absolute;
-        bottom: calc(100% + #{$grid-base * 1.5});
+        bottom: calc(100% + #{$grid-base});
         left: 50%;
         transform: translateX(-50%);
         width: max-content;
