@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import classNames from "classnames"
 import PropTypes from "prop-types"
 
@@ -13,8 +13,26 @@ const Tooltip = ({
     setShowContent(!showContent)
   }
 
+  const tooltipRef = useRef(null)
+  useEffect(() => {
+    const clickOutside = (e) => {
+      if (tooltipRef.current && !tooltipRef.current.contains(e.target)) {
+        setShowContent(false)
+      }
+    }
+
+    // Only add the listener if the dropdown is open, and make sure to clean
+    // it up once it's closed
+    if (showContent) {
+      document.addEventListener("click", clickOutside)
+    } else {
+      document.removeEventListener("click", clickOutside)
+    }
+  }, [tooltipRef, showContent])
+
   return (
     <div
+      ref={tooltipRef}
       className={classNames("tooltip", className, { hoverable: revealOnHover })}
     >
       {React.cloneElement(triggerElement, {
