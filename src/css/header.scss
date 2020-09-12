@@ -130,26 +130,29 @@
         .side-nav-toggle-btn {
             display: block;
             position: absolute;
-            top: $gutter-width - 5px;
-            right: $gutter-width - 5px;
+            top: 20px;
+            right: 32px;
             padding: 0;
             margin: 0;
             padding: 0;
             margin: 0;
-            width: 40px;
-            height: 40px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
 
+            background-size: 20px;
+            background-position: center;
             background-image: url(../components/svgs/hamburger-open.svg);
             background-repeat: no-repeat;
             background-position: center;
-            background-color: transparent;
+            background-color: $grey--60;
 
             cursor: pointer;
             border: 0;
             @include hide-button-text;
 
             &:hover {
-                background-color: transparent;
+                background-color: $grey--60;
             }
 
             &.open {
