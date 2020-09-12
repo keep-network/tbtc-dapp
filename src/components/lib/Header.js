@@ -26,7 +26,7 @@ const Header = ({ showNav = false, onToggleBtnClick = () => {} }) => (
           </NavLink>
         </li>
         <li>
-          <NavLink to="deposit">Mint</NavLink>
+          <NavLink to="/deposit">Mint</NavLink>
         </li>
         <li>
           <NavLink to="/redeem">Redeem</NavLink>
