@@ -33,8 +33,7 @@
         margin: 80px 0 170px 0;
 
         a {
-            @extend .button;
-            @extend .button.black;
+            @extend %button-primary;
             text-decoration: none!important;
             flex: 0;
             position: relative;

@@ -92,8 +92,7 @@
             position: relative;
 
             button {
-                @extend .button.black;
-                font-size: 1em;
+                @extend %button-primary;
             }
         }
 

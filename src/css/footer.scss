@@ -25,10 +25,8 @@ footer {
             height: 24px;
             border-radius: 50%;
             padding: 0;
-
-            &:hover {
-                transform: none;
-            }
+            min-width: 0;
+            border: none;
         }
 
         .tooltip-content {
