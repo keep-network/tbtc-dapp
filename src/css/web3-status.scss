@@ -1,0 +1,44 @@
+.web3-status {
+    margin-left: 35px;
+    padding: 5px 10px;
+    font-size: .6em;
+
+    button {
+        background-color: $parchment;
+        @extend %nav;
+        min-width: 0;
+        padding: 5px 14px;
+        line-height: 100%;
+    }
+
+    svg {
+        display: inline-block;
+        vertical-align: text-bottom;
+        margin: 0 10px 0 0;
+    }
+
+    a {
+        color: unset;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &.alert {
+        color: #{$alert};
+    }
+
+    &.loading,
+    &.notify {
+        color: $black;
+    }
+
+    &.success {
+        svg {
+            path {
+                fill: $black;
+            }
+        }
+    }
+}
