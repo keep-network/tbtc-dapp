@@ -132,7 +132,7 @@ function* restoreState(nextStepMap, stateKey) {
       break
 
     default:
-      throw new Error(`Unexpected state ${depositState.toNumber()}.`)
+      throw new Error(`Unexpected state ${depositState}.`)
   }
 
   // Here, we need to look at the logs. getDepositBtcAddress submits a
