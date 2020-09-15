@@ -34,6 +34,17 @@
 }
 
 @font-face {
+    font-family: 'apercu-medium-pro';
+    src: url('./Apercu/apercu-medium-pro-web/apercu-medium-pro.eot');
+    src: url('./Apercu/apercu-medium-pro-web/apercu-medium-pro.eot?#iefix') format('embedded-opentype'),
+         url('./Apercu/apercu-medium-pro-web/apercu-medium-pro.woff2') format('woff2'),
+         url('./Apercu/apercu-medium-pro-web/apercu-medium-pro.woff') format('woff'),
+         url('./Apercu/apercu-medium-pro-web/apercu-medium-pro.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'apercu-regular-pro';
     src: url('./Apercu/apercu-regular-pro-web/apercu-regular-pro.eot');
     src: url('./Apercu/apercu-regular-pro-web/apercu-regular-pro.eot?#iefix') format('embedded-opentype'),
