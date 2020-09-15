@@ -10,6 +10,7 @@ button, %button {
     color: $black;
     border: 1px solid $black;
     border-radius: 45px;
+    background-color: $white;
     cursor: pointer;
     transition: background-color 0.25s ease-in-out;
     text-align: center;
@@ -24,10 +25,14 @@ button, %button {
         color: $white;
     }
 
-    // TODO update disabled style when ready
     &:disabled {
-        opacity: 0.5;
+        color: $grey;
+        border-color: $grey;
         cursor: not-allowed;
+
+        &:hover {
+            background-color: $white;
+        }
     }
 
     @include media-breakpoint-down('sm') {
@@ -43,13 +48,25 @@ button, %button {
     color: $white;
 
     &:hover {
-        background-color: $black;
+        background-color: $grey-60;
+        border-color: $grey-60;
+        color: $parchment;
     }
 
     &:active,
     &.active {
-        background-color: $mint;
-        border-color: $mint;
+        background-color: $black;
+        border-color: $black;
+    }
+
+    &:disabled {
+        color: $grey--60;
+        border-color: $grey;
+        background-color: $grey;
+
+        &:hover {
+            background-color: $grey;
+        }
     }
 }
 
