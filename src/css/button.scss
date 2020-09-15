@@ -26,8 +26,8 @@ button, %button {
     }
 
     &:disabled {
-        color: $grey;
-        border-color: $grey;
+        color: $graphite;
+        border-color: $graphite;
         cursor: not-allowed;
 
         &:hover {
@@ -48,8 +48,8 @@ button, %button {
     color: $white;
 
     &:hover {
-        background-color: $grey-60;
-        border-color: $grey-60;
+        background-color: $graphite-tint-60;
+        border-color: $graphite-tint-60;
         color: $parchment;
     }
 
@@ -60,12 +60,12 @@ button, %button {
     }
 
     &:disabled {
-        color: $grey--60;
-        border-color: $grey;
-        background-color: $grey;
+        color: $graphite-shade-60;
+        border-color: $graphite;
+        background-color: $graphite;
 
         &:hover {
-            background-color: $grey;
+            background-color: $graphite;
         }
     }
 }

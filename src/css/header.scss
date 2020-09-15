@@ -101,7 +101,7 @@
                     border-radius: $grid-base / 2;
 
                     &:hover {
-                        background-color: $grey--80;
+                        background-color: $graphite-shade-80;
                     }
 
                     &.active {
@@ -140,14 +140,14 @@
             background-image: url(../components/svgs/hamburger-open.svg);
             background-repeat: no-repeat;
             background-position: center;
-            background-color: $grey--60;
+            background-color: $graphite-shade-60;
 
             cursor: pointer;
             border: 0;
             @include hide-button-text;
 
             &:hover {
-                background-color: $grey--60;
+                background-color: $graphite-shade-60;
             }
 
             &.open {
