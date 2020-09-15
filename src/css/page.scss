@@ -8,7 +8,6 @@
 
 .warning {
     text-align: left;
-    font-family: 'apercu-mono-regular-pro';
     font-size: 0.75rem;
     line-height: 1.5rem;
     background: $alert;
@@ -44,7 +43,6 @@
 }
 
 .deposit-start, .invoice, .pay, .prove, .congratulations, .redemption-start, .confirming {
-    font-family: 'apercu-mono-regular-pro';
     text-align: center;
     min-height: 675px;
 
