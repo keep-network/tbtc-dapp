@@ -22,12 +22,20 @@ function getNetwork(chainId) {
   }
 }
 
+function getAccountLabel(account) {
+  if (!account) {
+    return ""
+  }
+
+  return `${account.slice(0, 5)}···${account.slice(-4)}`
+}
+
 export const Web3Status = ({
   isWalletModalOpen,
   openWalletModal,
   closeWalletModal,
 }) => {
-  const { active, chainId } = useWeb3React()
+  const { account, active, chainId } = useWeb3React()
   const network = getNetwork(chainId)
 
   return (
@@ -51,7 +59,7 @@ export const Web3Status = ({
         </div>
         <button>
           <Wallet />
-          {active ? "Connected" : "Connect"}
+          {active ? getAccountLabel(account) : "Connect"}
         </button>
       </div>
     </div>
