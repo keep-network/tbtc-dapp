@@ -1,7 +1,22 @@
 .web3-status {
-    margin-left: 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 5px 10px;
-    font-size: .6em;
+
+    .network-status {
+        margin-right: 18px;
+        color: $graphite;
+
+        svg {
+            margin-right: 10px;
+            vertical-align: middle;
+
+            path {
+                fill: $graphite;
+            }
+        }
+    }
 
     button {
         background-color: $parchment;
@@ -9,12 +24,12 @@
         min-width: 0;
         padding: 5px 14px;
         line-height: 100%;
-    }
 
-    svg {
-        display: inline-block;
-        vertical-align: text-bottom;
-        margin: 0 10px 0 0;
+        svg {
+            display: inline-block;
+            vertical-align: text-bottom;
+            margin: 0 10px 0 0;
+        }
     }
 
     a {
@@ -39,6 +54,28 @@
             path {
                 fill: $black;
             }
+        }
+
+        .network-status {
+            color: $black;
+
+            &.ropsten {
+                color: $mint;
+
+                svg {
+                    path {
+                        fill: $mint;
+                    }
+                }
+            }
+        }
+    }
+
+    @include media-breakpoint-down('sm') {
+        flex-direction: column;
+
+        .network-status {
+            margin: 0 0 $grid-base;
         }
     }
 }
