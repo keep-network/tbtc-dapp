@@ -55,7 +55,6 @@
         .step {
             flex: 0 1;
             color: $grey;
-            font-size: .5em;
             font-weight: bold;
             text-transform: uppercase;
             margin-bottom: 30px;
@@ -63,10 +62,8 @@
 
         .title {
             flex: 0 1;
-            font-size: 1.75em;
-            font-weight: bold;
+            @extend %h1;
             margin-bottom: 40px;
-            font-family: 'apercu-bold-pro';
         }
 
         hr {
@@ -80,7 +77,6 @@
 
         .description {
             flex: 0 1;
-            font-size: .8em;
             margin-bottom: 40px;
         }
 
@@ -96,7 +92,6 @@
 
         .error {
             flex: 1 1;
-            font-size: .7em;
             color: $alert;
             margin: 25px 0;
             word-break: break-word;
