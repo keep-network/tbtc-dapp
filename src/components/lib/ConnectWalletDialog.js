@@ -1,8 +1,9 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
 import { useWeb3React } from "@web3-react/core"
 import { InjectedConnector } from "@web3-react/injected-connector"
 import { LedgerConnector } from "../../connectors/ledger"
+import { LEDGER_DERIVATION_PATHS } from "../../connectors/ledger_subprovider"
 import { TrezorConnector } from "../../connectors/trezor"
 import { getChainId, getWsUrl } from "../../connectors/utils"
 
@@ -15,13 +16,13 @@ const injectedConnector = new InjectedConnector({})
 const ledgerLiveConnector = new LedgerConnector({
   chainId: CHAIN_ID,
   url: ETH_RPC_URL,
-  baseDerivationPath: "44'/60'/0'/0",
+  baseDerivationPath: LEDGER_DERIVATION_PATHS.LEDGER_LIVE,
 })
 
 const ledgerLegacyConnector = new LedgerConnector({
   chainId: CHAIN_ID,
   url: ETH_RPC_URL,
-  baseDerivationPath: "44'/60'/0'",
+  baseDerivationPath: LEDGER_DERIVATION_PATHS.LEDGER_LEGACY,
 })
 
 const trezorConnector = new TrezorConnector({
@@ -48,12 +49,14 @@ const WALLETS = [
     icon: "/images/ledger.svg",
     connector: ledgerLegacyConnector,
     isHardwareWallet: true,
+    withAccountPagination: true,
   },
   {
     name: "Ledger Live",
     icon: "/images/ledger.svg",
     connector: ledgerLiveConnector,
     isHardwareWallet: true,
+    withAccountPagination: true,
   },
   {
     name: "Trezor",
@@ -69,13 +72,47 @@ export const ConnectWalletDialog = ({ shown, onConnected, onClose }) => {
   const [chosenWallet, setChosenWallet] = useState({})
   const [error, setError] = useState(null)
   const [availableAccounts, setAvailableAccounts] = useState([])
+  const [isFetching, setIsFetching] = useState(false)
+  const [accountsOffset, setAccountsOffset] = useState(0)
+
+  useEffect(() => {
+    let shouldSetState = true
+
+    if (
+      chosenWallet.isHardwareWallet &&
+      chosenWallet.name &&
+      chosenWallet.name.includes("Ledger")
+    ) {
+      setIsFetching(true)
+      chosenWallet.connector
+        .getAccounts(5, accountsOffset)
+        .then((accounts) => {
+          if (shouldSetState) {
+            setAvailableAccounts(accounts)
+            setIsFetching(false)
+          }
+        })
+        .catch((error) => {
+          if (shouldSetState) {
+            setIsFetching(false)
+            setError(error.toString())
+          }
+        })
+    }
+
+    return () => {
+      shouldSetState = false
+    }
+  }, [accountsOffset, chosenWallet])
 
   async function chooseWallet(wallet) {
     try {
       setChosenWallet(wallet)
       if (wallet.isHardwareWallet) {
         await wallet.connector.activate()
-        setAvailableAccounts(await wallet.connector.getAccounts())
+        if (!wallet.withAccountPagination) {
+          setAvailableAccounts(await wallet.connector.getAccounts())
+        }
       } else {
         await activateProvider(null, wallet)
       }
@@ -127,6 +164,11 @@ export const ConnectWalletDialog = ({ shown, onConnected, onClose }) => {
           availableAccounts={availableAccounts}
           active={active}
           onAccountSelect={activateProvider}
+          withPagination={chosenWallet && chosenWallet.withAccountPagination}
+          onNext={() => setAccountsOffset((prevOffset) => prevOffset + 5)}
+          onPrev={() => setAccountsOffset((prevOffset) => prevOffset - 5)}
+          shouldDisplayPrev={accountsOffset > 0}
+          isFetching={isFetching}
         />
       </div>
     </div>
@@ -210,8 +252,19 @@ const ChooseAccount = ({
   availableAccounts,
   active,
   onAccountSelect,
+  withPagination,
+  onNext,
+  onPrev,
+  shouldDisplayPrev,
+  isFetching,
 }) => {
-  if (wallet.isHardwareWallet && availableAccounts.length !== 0 && !active) {
+  if (isFetching) {
+    return <div>Loading wallet accounts...</div>
+  } else if (
+    wallet.isHardwareWallet &&
+    availableAccounts.length !== 0 &&
+    !active
+  ) {
     return (
       <>
         <div className="title mb-2">Select account</div>
@@ -224,6 +277,28 @@ const ChooseAccount = ({
             {account}
           </div>
         ))}
+        {withPagination && (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            {shouldDisplayPrev && (
+              <span className="cursor-pointer" onClick={onPrev}>
+                prev
+              </span>
+            )}
+            <span
+              className="cursor-pointer"
+              style={{ marginLeft: "auto" }}
+              onClick={onNext}
+            >
+              next
+            </span>
+          </div>
+        )}
       </>
     )
   }
@@ -236,6 +311,11 @@ ChooseAccount.propTypes = {
   availableAccounts: PropTypes.arrayOf(PropTypes.string),
   active: PropTypes.bool,
   onAccountSelect: PropTypes.func,
+  onNext: PropTypes.func,
+  onPrev: PropTypes.func,
+  shouldDisplayPrev: PropTypes.bool,
+  isFetching: PropTypes.bool,
+  withPagination: PropTypes.bool,
 }
 
 const ConnectedView = ({ wallet, account }) => {

@@ -2,6 +2,11 @@ import { LedgerSubprovider as LedgerSubprovider0x } from "@0x/subproviders/lib/s
 import web3Utils from "web3-utils"
 import { hexToPaddedBuffer, buildTransactionForChain } from "./utils"
 
+export const LEDGER_DERIVATION_PATHS = {
+  LEDGER_LIVE: `m/44'/60'/x'/0/0`,
+  LEDGER_LEGACY: `m/44'/60'/0'/x`,
+}
+
 /**
  * A custom Ledger subprovider, inheriting from the 0x Subprovider.
  *
@@ -10,10 +15,49 @@ import { hexToPaddedBuffer, buildTransactionForChain } from "./utils"
  */
 class LedgerSubprovider extends LedgerSubprovider0x {
   chainId
+  addressToPathMap = {}
+  pathToAddressMap = {}
 
   constructor(config) {
     super(config)
     this.chainId = config.chainId
+  }
+
+  async getAccountsAsync(numberOfAccounts, accountsOffSet = 0) {
+    const addresses = []
+    for (
+      let index = accountsOffSet;
+      index < numberOfAccounts + accountsOffSet;
+      index++
+    ) {
+      const address = await this.getAddress(index)
+      addresses.push(address)
+    }
+
+    return addresses
+  }
+
+  async getAddress(index) {
+    const path = this._baseDerivationPath.replace("x", index)
+
+    let ledgerResponse
+    try {
+      this._ledgerClientIfExists = await this._createLedgerClientAsync()
+      ledgerResponse = await this._ledgerClientIfExists.getAddress(
+        path,
+        this._shouldAlwaysAskForConfirmation,
+        true
+      )
+    } finally {
+      await this._destroyLedgerClientAsync()
+    }
+
+    const address = web3Utils.toChecksumAddress(ledgerResponse.address)
+
+    this.addressToPathMap[address] = path
+    this.pathToAddressMap[path] = address
+
+    return address
   }
 
   async signTransactionAsync(txParams) {
@@ -21,16 +65,14 @@ class LedgerSubprovider extends LedgerSubprovider0x {
     if (txParams.from === undefined || !web3Utils.isAddress(txParams.from)) {
       throw new Error("Invalid address")
     }
-    const initialDerivedKeyInfo = await this._initialDerivedKeyInfoAsync()
-    const derivedKeyInfo = this._findDerivedKeyInfoForAddress(
-      initialDerivedKeyInfo,
-      txParams.from
-    )
+
+    const fullDerivationPath = this.addressToPathMap[
+      web3Utils.toChecksumAddress(txParams.from)
+    ]
 
     this._ledgerClientIfExists = await this._createLedgerClientAsync()
 
     try {
-      const fullDerivationPath = derivedKeyInfo.derivationPath
       const tx = buildTransactionForChain(txParams, this.chainId)
 
       // Set the EIP155 bits
