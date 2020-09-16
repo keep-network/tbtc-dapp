@@ -32,6 +32,65 @@
         }
     }
 
+    .account-btn {
+        position: relative;
+        overflow: visible;
+
+        &:hover {
+            &:after {
+                content: 'COPY';
+                display: block;
+                background-color: $black;
+                color: $white;
+                line-height: 100%;
+                padding: 8px 13px;
+                border-radius: $grid-base;
+
+                position: absolute;
+                top: calc(100% + 5px);
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            // caret for copy tooltip
+            &:before {
+                content: '';
+                display: block;
+                width: 0;
+                height: 0;
+                border-left: 5px solid transparent;
+                border-right: 5px solid transparent;
+                border-bottom: 5px solid $black;
+
+                position: absolute;
+                top: calc(100% + 1px);
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
+        &:active {
+            color: $black;
+        }
+
+        &:focus {
+            outline: 0;
+        }
+
+        &.copied {
+            &:hover {
+                &:after {
+                    content: 'COPIED!';
+                }
+            }
+        }
+    }
+
+    .hidden-copy-field {
+        position: absolute;
+        right: 999999px;
+    }
+
     a {
         color: unset;
     }

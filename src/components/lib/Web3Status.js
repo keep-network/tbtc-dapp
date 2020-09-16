@@ -1,10 +1,10 @@
-import React from "react"
+import React, { useState, useRef, useEffect } from "react"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
 import PropTypes from "prop-types"
 import { useWeb3React } from "@web3-react/core"
 
-import NetworkStatus from "../svgs/NetworkStatus"
+import NetworkStatusIcon from "../svgs/NetworkStatus"
 import Wallet from "../svgs/Wallet"
 import { ConnectWalletDialog } from "./ConnectWalletDialog"
 import { openWalletModal, closeWalletModal } from "../../actions"
@@ -22,12 +22,70 @@ function getNetwork(chainId) {
   }
 }
 
-function getAccountLabel(account) {
-  if (!account) {
-    return ""
+const NetworkStatus = ({ chainId }) => {
+  const network = getNetwork(chainId)
+
+  return (
+    <div
+      className={`network-status ${network.toLowerCase().replace(" ", "-")}`}
+    >
+      <NetworkStatusIcon />
+      {network}
+    </div>
+  )
+}
+
+NetworkStatus.propTypes = {
+  chainId: PropTypes.number,
+}
+
+const AccountButton = ({ account }) => {
+  const [isCopied, setIsCopied] = useState(false)
+  const hiddenCopyFieldRef = useRef(null)
+
+  const handleCopyClick = () => {
+    hiddenCopyFieldRef.current.select()
+    document.execCommand("copy")
+    hiddenCopyFieldRef.current.blur()
+    setIsCopied(true)
   }
 
-  return `${account.slice(0, 5)}···${account.slice(-4)}`
+  const accountBtnRef = useRef(null)
+  useEffect(() => {
+    const clickOutside = (e) => {
+      if (accountBtnRef.current && !accountBtnRef.current.contains(e.target)) {
+        setIsCopied(false)
+        document.removeEventListener("click", clickOutside)
+      }
+    }
+
+    // Only add the listener once the user clicks to copy
+    if (isCopied) {
+      document.addEventListener("click", clickOutside)
+    }
+  }, [accountBtnRef, isCopied])
+
+  return (
+    <>
+      <button
+        className={`account-btn ${isCopied ? "copied" : ""}`}
+        onClick={handleCopyClick}
+        ref={accountBtnRef}
+      >
+        <Wallet />
+        {account ? `${account.slice(0, 5)}···${account.slice(-4)}` : `Connect`}
+      </button>
+      <textarea
+        className="hidden-copy-field"
+        ref={hiddenCopyFieldRef}
+        defaultValue={account || ""}
+      />
+    </>
+  )
+}
+
+AccountButton.propTypes = {
+  account: PropTypes.string,
 }
 
 export const Web3Status = ({
@@ -36,7 +94,6 @@ export const Web3Status = ({
   closeWalletModal,
 }) => {
   const { account, active, chainId } = useWeb3React()
-  const network = getNetwork(chainId)
 
   return (
     <div>
@@ -45,22 +102,16 @@ export const Web3Status = ({
         onClose={closeWalletModal}
         shown={isWalletModalOpen}
       />
-      <div
-        className={`web3-status${active ? " success" : " notify"}`}
-        onClick={openWalletModal}
-      >
-        <div
-          className={`network-status ${network
-            .toLowerCase()
-            .replace(" ", "-")}`}
-        >
-          <NetworkStatus />
-          {network}
-        </div>
-        <button>
-          <Wallet />
-          {active ? getAccountLabel(account) : "Connect"}
-        </button>
+      <div className={`web3-status${active ? " success" : " notify"}`}>
+        <NetworkStatus chainId={chainId} />
+        {active ? (
+          <AccountButton account={account} />
+        ) : (
+          <button onClick={openWalletModal}>
+            <Wallet />
+            Connect
+          </button>
+        )}
       </div>
     </div>
   )
