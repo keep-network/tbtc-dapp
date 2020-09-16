@@ -97,8 +97,11 @@ export class LedgerConnector extends AbstractConnector {
     return this.defaultAccount
   }
 
-  async getAccounts(numberOfAccounts = 15) {
-    return await this.provider._providers[0].getAccountsAsync(numberOfAccounts)
+  async getAccounts(numberOfAccounts = 5, accountsOffSet = 0) {
+    return await this.provider._providers[0].getAccountsAsync(
+      numberOfAccounts,
+      accountsOffSet
+    )
   }
 
   setDefaultAccount(account) {
