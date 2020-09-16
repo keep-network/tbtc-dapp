@@ -76,7 +76,7 @@ export const ConnectWalletDialog = ({ shown, onConnected, onClose }) => {
   const [accountsOffset, setAccountsOffset] = useState(0)
 
   useEffect(() => {
-    let shoudlSetState = true
+    let shouldSetState = true
 
     if (
       chosenWallet.isHardwareWallet &&
@@ -87,13 +87,13 @@ export const ConnectWalletDialog = ({ shown, onConnected, onClose }) => {
       chosenWallet.connector
         .getAccounts(5, accountsOffset)
         .then((accounts) => {
-          if (shoudlSetState) {
+          if (shouldSetState) {
             setAvailableAccounts(accounts)
             setIsFetching(false)
           }
         })
         .catch((error) => {
-          if (shoudlSetState) {
+          if (shouldSetState) {
             setIsFetching(false)
             setError(error.toString())
           }
@@ -101,7 +101,7 @@ export const ConnectWalletDialog = ({ shown, onConnected, onClose }) => {
     }
 
     return () => {
-      shoudlSetState = false
+      shouldSetState = false
     }
   }, [accountsOffset, chosenWallet])
 
