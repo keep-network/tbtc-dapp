@@ -6,7 +6,10 @@ import { version } from "../../../package.json"
 const Footer = () => {
   return (
     <footer>
-      <div className="version-info">{`v${version}`}</div>
+      <div className="version-info">
+        <div className="version-number">{`v${version}`}</div>
+        <div className="stage">Alpha</div>
+      </div>
       <Tooltip
         className="help-menu"
         triggerElement={<button>Help Menu Toggle</button>}
