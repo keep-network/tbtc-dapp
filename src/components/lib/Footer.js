@@ -41,7 +41,7 @@ const Footer = () => {
           </li>
           <li>
             <a
-              href="http://docs.keep.network/tbtc/index.pdf"
+              href="http://docs.keep.network/tbtc/"
               target="_blank"
               rel="noopener noreferrer"
             >
