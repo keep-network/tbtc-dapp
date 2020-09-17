@@ -67,11 +67,7 @@
         }
     }
 
-    &.hoverable {
-        &:hover {
-            .tooltip-content {
-                display: block;
-            }
-        }
+    &.hoverable:hover .tooltip-content, .tooltip-content.visible {
+        display: block;
     }
 }
