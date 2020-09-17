@@ -124,3 +124,18 @@ export function setRenderContent(renderContent) {
     },
   }
 }
+
+export const OPEN_WALLET_MODAL = "OPEN_WALLET_MODAL"
+export const CLOSE_WALLET_MODAL = "CLOSE_WALLET_MODAL"
+
+export function openWalletModal() {
+  return {
+    type: OPEN_WALLET_MODAL,
+  }
+}
+
+export function closeWalletModal() {
+  return {
+    type: CLOSE_WALLET_MODAL,
+  }
+}

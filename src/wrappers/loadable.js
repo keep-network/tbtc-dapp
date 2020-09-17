@@ -2,7 +2,11 @@ import React, { useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { bindActionCreators } from "redux"
 import { connect, useSelector } from "react-redux"
-import { restoreDepositState, restoreRedemptionState } from "../actions"
+import {
+  restoreDepositState,
+  restoreRedemptionState,
+  openWalletModal,
+} from "../actions"
 import { useWeb3React } from "@web3-react/core"
 
 export const RESTORER = {
@@ -16,6 +20,7 @@ function LoadableBase({
   restoreRedemptionState,
   restorer,
   error,
+  openWalletModal,
 }) {
   // Wait for web3 connected
   const { active: web3Active } = useWeb3React()
@@ -33,6 +38,8 @@ function LoadableBase({
       } else {
         throw new Error("Unknown restorer.")
       }
+    } else if (!web3Active) {
+      openWalletModal()
     }
   }, [
     web3Active,
@@ -41,6 +48,7 @@ function LoadableBase({
     restorer,
     restoreDepositState,
     restoreRedemptionState,
+    openWalletModal,
   ])
 
   if (!depositStateRestored) {
@@ -66,6 +74,7 @@ const mapDispatchToProps = (dispatch) => {
     {
       restoreDepositState,
       restoreRedemptionState,
+      openWalletModal,
     },
     dispatch
   )
