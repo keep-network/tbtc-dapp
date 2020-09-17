@@ -51,7 +51,9 @@ RedeemingComponent.propTypes = {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  error: state.redemption.requestRedemptionError,
+  error:
+    state.redemption.requestRedemptionError ||
+    state.deposit.stateRestorationError,
 })
 
 const mapDispatchToProps = (dispatch) => {

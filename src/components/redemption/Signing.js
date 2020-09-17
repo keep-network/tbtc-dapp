@@ -35,7 +35,7 @@ Signing.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-  error: state.redemption.signTxError,
+  error: state.redemption.signTxError || state.deposit.stateRestorationError,
 })
 
 export default connect(mapStateToProps)(Signing)

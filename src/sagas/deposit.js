@@ -28,6 +28,7 @@ export const DEPOSIT_RESOLVED = "DEPOSIT_RESOLVED"
 export const DEPOSIT_BTC_ADDRESS = "DEPOSIT_BTC_ADDRESS"
 export const DEPOSIT_BTC_ADDRESS_ERROR = "DEPOSIT_BTC_ADDRESS_ERROR"
 export const DEPOSIT_STATE_RESTORED = "DEPOSIT_STATE_RESTORED"
+export const DEPOSIT_STATE_RESTORATION_ERROR = "DEPOSIT_STATE_RESTORATION_ERROR"
 export const DEPOSIT_BTC_AMOUNTS = "DEPOSIT_BTC_AMOUNTS"
 export const DEPOSIT_BTC_AMOUNTS_ERROR = "DEPOSIT_BTC_AMOUNTS_ERROR"
 export const DEPOSIT_AUTO_SUBMIT_PROOF = "DEPOSIT_AUTO_SUBMIT_PROOF"
@@ -50,97 +51,95 @@ function* restoreState(nextStepMap, stateKey) {
   /** @type {TBTC} */
   const tbtc = yield TBTCLoaded
 
-  const depositAddress = yield select((state) => state[stateKey].depositAddress)
-  const deposit = yield tbtc.Deposit.withAddress(depositAddress)
-  yield put({
-    type: DEPOSIT_RESOLVED,
-    payload: {
-      deposit,
-    },
-  })
+  try {
+    const depositAddress = yield select(
+      (state) => state[stateKey].depositAddress
+    )
+    const deposit = yield tbtc.Deposit.withAddress(depositAddress)
+    yield put({
+      type: DEPOSIT_RESOLVED,
+      payload: {
+        deposit,
+      },
+    })
 
-  /** @type {BN} */
-  const depositState = yield call([deposit, deposit.getCurrentState])
+    /** @type {BN} */
+    const depositState = yield call([deposit, deposit.getCurrentState])
 
-  let finalCalls = null
-  const nextStep = nextStepMap[depositState]
+    const nextStep = nextStepMap[depositState]
 
-  switch (depositState) {
-    case tbtc.Deposit.State.START:
-      throw new Error("Unexpected state.")
+    switch (depositState) {
+      case tbtc.Deposit.State.START:
+        throw new Error("Unexpected state.")
 
-    case tbtc.Deposit.State.AWAITING_WITHDRAWAL_PROOF:
-      finalCalls = resumeRedemption
-    // Explicitly fall through.
+      case tbtc.Deposit.State.AWAITING_WITHDRAWAL_PROOF:
+      case tbtc.Deposit.State.AWAITING_WITHDRAWAL_SIGNATURE:
+      case tbtc.Deposit.State.AWAITING_BTC_FUNDING_PROOF:
+      case tbtc.Deposit.State.REDEEMED:
+      case tbtc.Deposit.State.ACTIVE:
+        const btcAddress = yield call([deposit, deposit.getBitcoinAddress])
+        yield put({
+          type: DEPOSIT_BTC_ADDRESS,
+          payload: {
+            btcAddress,
+          },
+        })
 
-    case tbtc.Deposit.State.AWAITING_WITHDRAWAL_SIGNATURE:
-    case tbtc.Deposit.State.AWAITING_BTC_FUNDING_PROOF:
-    case tbtc.Deposit.State.REDEEMED:
-    case tbtc.Deposit.State.ACTIVE:
-      const btcAddress = yield call([deposit, deposit.getBitcoinAddress])
-      yield put({
-        type: DEPOSIT_BTC_ADDRESS,
-        payload: {
-          btcAddress,
-        },
-      })
+        const lotInSatoshis = yield call([deposit, deposit.getLotSizeSatoshis])
+        const signerFeeTbtc = yield call([deposit, deposit.getSignerFeeTBTC])
+        const signerFeeInSatoshis = signerFeeTbtc.div(tbtc.satoshisPerTbtc)
+        yield put({
+          type: DEPOSIT_BTC_AMOUNTS,
+          payload: {
+            lotInSatoshis,
+            signerFeeInSatoshis,
+          },
+        })
 
-      const lotInSatoshis = yield call([deposit, deposit.getLotSizeSatoshis])
-      const signerFeeTbtc = yield call([deposit, deposit.getSignerFeeTBTC])
-      const signerFeeInSatoshis = signerFeeTbtc.div(tbtc.satoshisPerTbtc)
-      yield put({
-        type: DEPOSIT_BTC_AMOUNTS,
-        payload: {
-          lotInSatoshis,
-          signerFeeInSatoshis,
-        },
-      })
+      // FIXME Check to see if Electrum has already seen a tx for payment
+      // FIXME and fast-forward to /pay/confirming if so.
+      //
+      // FIXME Check to see if we have a transaction in the mempool for
+      // FIXME submitting funding proof, and update state accordingly.
 
-      if (finalCalls) {
-        yield* finalCalls()
-      }
+      // Explicitly fall through.
 
-    // FIXME Check to see if Electrum has already seen a tx for payment
-    // FIXME and fast-forward to /pay/confirming if so.
+      case tbtc.Deposit.State.AWAITING_SIGNER_SETUP:
+        yield put({
+          type: DEPOSIT_STATE_RESTORED,
+        })
+
+        const inVendingMachine = yield call([deposit, deposit.inVendingMachine])
+        if (depositState === tbtc.Deposit.State.ACTIVE && !inVendingMachine) {
+          yield call([deposit, deposit.mintTBTC])
+        }
+
+        // TODO Fork on active vs await
+        yield put(navigateTo("/deposit/" + depositAddress + nextStep))
+
+        yield* onStateRestored(tbtc, depositState)
+
+        break
+
+      // Funding failure states
+      case tbtc.Deposit.State.FRAUD_AWAITING_BTC_FUNDING_PROOF:
+      case tbtc.Deposit.State.FAILED_SETUP:
+        // TODO Update deposit state to reflect situation.
+        break
+
+      default:
+        throw new Error(`Unexpected state ${depositState}.`)
+    }
+
+    // Here, we need to look at the logs. getDepositBtcAddress submits a
+    // signed tx to Metamask, so that's not what we need.
     //
-    // FIXME Check to see if we have a transaction in the mempool for
-    // FIXME submitting funding proof, and update state accordingly.
+    // Then, we need to dispatch an update to the state.
 
-    // Explicitly fall through.
-
-    case tbtc.Deposit.State.AWAITING_SIGNER_SETUP:
-      yield put({
-        type: DEPOSIT_STATE_RESTORED,
-      })
-
-      const inVendingMachine = yield call([deposit, deposit.inVendingMachine])
-      if (depositState === tbtc.Deposit.State.ACTIVE && !inVendingMachine) {
-        yield call([deposit, deposit.mintTBTC])
-      }
-
-      // TODO Fork on active vs await
-      yield put(navigateTo("/deposit/" + depositAddress + nextStep))
-
-      yield* onStateRestored(tbtc, depositState)
-
-      break
-
-    // Funding failure states
-    case tbtc.Deposit.State.FRAUD_AWAITING_BTC_FUNDING_PROOF:
-    case tbtc.Deposit.State.FAILED_SETUP:
-      // TODO Update deposit state to reflect situation.
-      break
-
-    default:
-      throw new Error(`Unexpected state ${depositState}.`)
+    // yield put({ type:  })
+  } catch (error) {
+    yield* logError(DEPOSIT_STATE_RESTORATION_ERROR, error)
   }
-
-  // Here, we need to look at the logs. getDepositBtcAddress submits a
-  // signed tx to Metamask, so that's not what we need.
-  //
-  // Then, we need to dispatch an update to the state.
-
-  // yield put({ type:  })
 }
 
 export function* restoreDepositState() {
@@ -181,6 +180,7 @@ export function* onStateRestored(tbtc, depositState) {
       yield* autoSubmitDepositProof()
       break
     case tbtc.Deposit.State.AWAITING_WITHDRAWAL_SIGNATURE:
+    case tbtc.Deposit.State.AWAITING_WITHDRAWAL_PROOF:
       yield* resumeRedemption()
       break
     default:
