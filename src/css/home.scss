@@ -1,16 +1,9 @@
 .content-home {
-    background-image: url(../images/overview-bg.png);
-    background-repeat: no-repeat;
-    background-position: center bottom;
-    background-size: 992px auto;
-    min-height: 668px;;
+    min-height: 668px;
+    overflow: hidden;
 
     .warning {
         display: none;
-    }
-
-    @include media-2x-resolution {
-        background-image: url(../images/overview-bg@2x.png);
     }
 
     @include media-breakpoint-down('sm') {
@@ -19,6 +12,9 @@
 }
 
 .home {
+    position: relative;
+    text-align: center;
+
     h1 {
         text-align: center;
         margin: 77px 0 65px;
@@ -48,8 +44,15 @@
         a {
             @extend %button-primary;
             display: block;
-
         }
+    }
+
+    .ferro {
+        max-width: 55%;
+        transform: translate(-50%, 0) rotate(126.63deg);
+        transform-origin: center;
+        position: absolute;
+        left: 50%;
     }
 
     @include media-breakpoint-down('sm') {
@@ -62,6 +65,10 @@
                     border-right: 0;
                 }
             }
+        }
+
+        .ferro {
+            max-width: 100%;
         }
     }
 }

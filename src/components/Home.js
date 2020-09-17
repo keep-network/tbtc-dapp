@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 
 import MintLogo from "../components/svgs/TLogoCircle"
 import RedeemLogo from "../components/svgs/RedeemBtcLogo"
+import FerroImg from "../images/ferro.png"
 
 const Home = () => {
   return (
@@ -18,6 +19,7 @@ const Home = () => {
           <Link to="/redeem">Redeem BTC →</Link>
         </div>
       </div>
+      <img className="ferro" src={FerroImg} alt="Ferro" />
     </div>
   )
 }
