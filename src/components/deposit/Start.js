@@ -9,6 +9,7 @@ import {
   selectLotSize,
   requestAvailableLotSizes,
   resetState,
+  openWalletModal,
 } from "../../actions"
 import Description from "../lib/Description"
 import StatusIndicator from "../svgs/StatusIndicator"
@@ -27,6 +28,7 @@ const handleClickPay = (evt) => {
 const Start = ({
   resetState,
   requestAvailableLotSizes,
+  openWalletModal,
   availableLotSizes = [],
   lotSize,
   selectLotSize,
@@ -37,7 +39,13 @@ const Start = ({
     resetState()
   }, [resetState])
 
-  const { account } = useWeb3React()
+  const { account, active } = useWeb3React()
+
+  useEffect(() => {
+    if (!active) {
+      openWalletModal()
+    }
+  })
 
   useEffect(() => {
     if (account) {
@@ -80,6 +88,7 @@ const Start = ({
 Start.propTypes = {
   resetState: PropTypes.func,
   requestAvailableLotSizes: PropTypes.func,
+  openWalletModal: PropTypes.func,
   availableLotSizes: PropTypes.arrayOf(PropTypes.string),
   lotSize: PropTypes.string,
   selectLotSize: PropTypes.func,
@@ -94,7 +103,7 @@ const mapStateToProps = ({ deposit }) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
-    { selectLotSize, requestAvailableLotSizes, resetState },
+    { selectLotSize, requestAvailableLotSizes, resetState, openWalletModal },
     dispatch
   )
 }
