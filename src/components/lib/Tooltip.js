@@ -18,15 +18,13 @@ const Tooltip = ({
     const clickOutside = (e) => {
       if (tooltipRef.current && !tooltipRef.current.contains(e.target)) {
         setShowContent(false)
+        document.removeEventListener("click", clickOutside)
       }
     }
 
-    // Only add the listener if the dropdown is open, and make sure to clean
-    // it up once it's closed
+    // Only add the listener if the dropdown is open
     if (showContent) {
       document.addEventListener("click", clickOutside)
-    } else {
-      document.removeEventListener("click", clickOutside)
     }
   }, [tooltipRef, showContent])
 
