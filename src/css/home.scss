@@ -1,160 +1,65 @@
+.content-home {
+    background-image: url(../images/overview-bg.png);
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: 992px auto;
+    min-height: 668px;;
+
+    .warning {
+        display: none;
+    }
+
+    @include media-2x-resolution {
+        background-image: url(../images/overview-bg@2x.png);
+    }
+
+    @include media-breakpoint-down('sm') {
+        background-size: contain;
+    }
+}
+
 .home {
-    max-width: map-get($breakpoints, 'md');
-    margin: 3em auto 0;
-
-    .title {
-        @extend %huge-heading;
-        position: relative;
-        font-family: 'apercu-bold-pro';
-
-        .subtitle {
-            @extend %h2;
-            @extend %font-family-monospace;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            text-align: right;
-
-            .vertical-aligned {
-                position: relative;
-                top: 50%;
-                transform: translateY(-50%);
-            }
-        }
+    h1 {
+        text-align: center;
+        margin: 77px 0 65px;
     }
 
     .mint-or-redeem {
         display: flex;
         flex-direction: row;
-        justify-content: flex-start;
-        margin: 80px 0 170px 0;
+        justify-content: center;
+
+        > div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 64px 36px;
+
+            &:first-of-type {
+                border-right: 1px solid rgba($graphite, 0.5);
+            }
+        }
+
+        svg {
+            margin: 0 0 27px;
+        }
 
         a {
             @extend %button-primary;
-            text-decoration: none!important;
-            flex: 0;
-            position: relative;
+            display: block;
 
-            &:first-of-type {
-                margin-right: 60px;
-            }
-        }
-    }
-
-    .step-by-step {
-        width: calc(100vw - #{$header-width} - #{2 * $gutter-width});
-        position: relative;
-        left: 50%;
-        transform: translateX(-50%);
-        margin-top: 110px;
-        border-width: 1px 0;
-        border-style: solid;
-        border-color: $black;
-
-        ol {
-            counter-reset: step-by-step;
-            list-style: none;
-
-            width: #{map-get($breakpoints, 'md')};
-            margin: 0 auto;
-            padding: 75px 0;
-            display: flex;
-
-            li {
-                counter-increment: step-by-step;
-
-                flex: 1;
-
-                &::before {
-                    content: "0" #{counter(step-by-step)};
-                    display: block;
-                    font-weight: bold;
-                    line-height: 2em;
-                }
-            }
-        }
-    }
-
-    .mission-statement {
-        padding: 60px 0;
-
-        .hook {
-            font-size: 2em;
-            line-height: 2em;
-            font-family: 'apercu-bold-pro';
-        }
-
-        .line-and-sinker {
-            font-size: .8em;
-            line-height: 2em;
-        }
-    }
-
-    @include media-breakpoint-down('lg') {
-        .step-by-step {
-            ol {
-                width: auto;
-            }
-        }
-    }
-
-    @include media-breakpoint-down('md') {
-        max-width: 100%;
-
-        .title {
-            font-size: 2.75em;
-
-            .subtitle {
-                margin: 5px 50px 0 0;
-
-                .vertical-aligned {
-                    float: right;
-                    text-align: left;
-                }
-            }
-        }
-
-        .step-by-step {
-            padding: 10px 20px;
-            width: 100%;
-
-            ol {
-                flex-direction: column;
-                width: 100%;
-                box-sizing: border-box;
-                padding: 30px;
-
-                li {
-                    margin: 30px 0;
-                }
-            }
-        }
-
-        .mission-statement {
-            .hook {
-                line-height: 1em;
-                font-size: 1.5em;
-                margin: 30px 0;
-            }
-
-            .line-and-sinker {
-                line-height: 1em;
-                font-size: .75em;
-            }
         }
     }
 
     @include media-breakpoint-down('sm') {
+
         .mint-or-redeem {
             flex-direction: column;
 
-            a {
-                padding: 20px;
-
+            > div {
                 &:first-of-type {
-                    margin-bottom: 1em;
+                    border-right: 0;
                 }
             }
         }

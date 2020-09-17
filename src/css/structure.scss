@@ -40,6 +40,12 @@ $app-max-widths: (
     }
 }
 
+@mixin media-2x-resolution {
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        @content;
+    }
+}
+
 html {
     box-sizing: border-box;
 }
