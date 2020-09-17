@@ -8,6 +8,7 @@
 
     @include media-breakpoint-down('sm') {
         background-size: contain;
+        padding-bottom: 100px;
     }
 }
 
@@ -48,19 +49,31 @@
     }
 
     .ferro {
-        max-width: 55%;
+        max-width: 600px;
         transform: translate(-50%, 0) rotate(126.63deg);
         transform-origin: center;
         position: absolute;
         left: 50%;
     }
 
+    @include media-breakpoint-up('xl') {
+        .ferro {
+            max-width: 55%;
+        }
+    }
+
     @include media-breakpoint-down('sm') {
+
+        h1 {
+            margin: $gutter-width 0;
+        }
 
         .mint-or-redeem {
             flex-direction: column;
 
             > div {
+                padding: 0 36px $gutter-width * 2;
+
                 &:first-of-type {
                     border-right: 0;
                 }
