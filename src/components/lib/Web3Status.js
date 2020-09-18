@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react"
+import React, { useState, useRef } from "react"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
 import PropTypes from "prop-types"
@@ -7,6 +7,7 @@ import { useWeb3React } from "@web3-react/core"
 import NetworkStatusIcon from "../svgs/NetworkStatus"
 import Wallet from "../svgs/Wallet"
 import { ConnectWalletDialog } from "./ConnectWalletDialog"
+import { useClickOutside } from "../hooks"
 import { openWalletModal, closeWalletModal } from "../../actions"
 
 function getNetwork(chainId) {
@@ -51,19 +52,13 @@ const AccountButton = ({ account }) => {
   }
 
   const accountBtnRef = useRef(null)
-  useEffect(() => {
-    const clickOutside = (e) => {
-      if (accountBtnRef.current && !accountBtnRef.current.contains(e.target)) {
-        setIsCopied(false)
-        document.removeEventListener("click", clickOutside)
-      }
-    }
-
-    // Only add the listener once the user clicks to copy
-    if (isCopied) {
-      document.addEventListener("click", clickOutside)
-    }
-  }, [accountBtnRef, isCopied])
+  useClickOutside(
+    accountBtnRef,
+    () => {
+      setIsCopied(false)
+    },
+    isCopied
+  )
 
   return (
     <>

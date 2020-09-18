@@ -1,6 +1,8 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useRef, useState } from "react"
 import classNames from "classnames"
 import PropTypes from "prop-types"
+
+import { useClickOutside } from "../hooks"
 
 const Tooltip = ({
   triggerElement = <button>Help</button>,
@@ -14,19 +16,13 @@ const Tooltip = ({
   }
 
   const tooltipRef = useRef(null)
-  useEffect(() => {
-    const clickOutside = (e) => {
-      if (tooltipRef.current && !tooltipRef.current.contains(e.target)) {
-        setShowContent(false)
-        document.removeEventListener("click", clickOutside)
-      }
-    }
-
-    // Only add the listener if the dropdown is open
-    if (showContent) {
-      document.addEventListener("click", clickOutside)
-    }
-  }, [tooltipRef, showContent])
+  useClickOutside(
+    tooltipRef,
+    () => {
+      setShowContent(false)
+    },
+    showContent
+  )
 
   return (
     <div
