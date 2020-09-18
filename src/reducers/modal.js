@@ -1,11 +1,11 @@
 import { OPEN_MODAL, CLOSE_MODAL, SET_RENDER_CONTENT } from "../actions"
 
-const intialState = {
+const initialState = {
   isOpen: false,
   renderContent: null,
 }
 
-const modal = (state = intialState, action) => {
+const modal = (state = initialState, action) => {
   switch (action.type) {
     case OPEN_MODAL:
       // console.log("OPEN!")

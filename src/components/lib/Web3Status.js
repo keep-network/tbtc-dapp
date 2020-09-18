@@ -1,12 +1,18 @@
-import React, { useState } from "react"
+import React from "react"
+import { bindActionCreators } from "redux"
+import { connect } from "react-redux"
+import PropTypes from "prop-types"
 import Check from "../svgs/Check"
 import { useWeb3React } from "@web3-react/core"
 import { ConnectWalletDialog } from "./ConnectWalletDialog"
+import { openWalletModal, closeWalletModal } from "../../actions"
 
-export const Web3Status = (props) => {
+export const Web3Status = ({
+  isWalletModalOpen,
+  openWalletModal,
+  closeWalletModal,
+}) => {
   const { active } = useWeb3React()
-
-  const [showConnectWallet, setShowConnectWallet] = useState(false)
 
   let body = (
     <div>
@@ -17,17 +23,12 @@ export const Web3Status = (props) => {
   if (!active) {
     body = (
       <div className="web3-status notify">
-        <span onClick={() => setShowConnectWallet(true)}>
-          Connect to a Wallet
-        </span>
+        <span onClick={openWalletModal}>Connect to a Wallet</span>
       </div>
     )
   } else if (active) {
     body = (
-      <div
-        className="web3-status success"
-        onClick={() => setShowConnectWallet(true)}
-      >
+      <div className="web3-status success" onClick={openWalletModal}>
         <Check width="15px" /> Connected
       </div>
     )
@@ -36,13 +37,27 @@ export const Web3Status = (props) => {
   return (
     <div>
       <ConnectWalletDialog
-        onConnected={() => setShowConnectWallet(false)}
-        onClose={() => setShowConnectWallet(false)}
-        shown={showConnectWallet}
+        onConnected={closeWalletModal}
+        onClose={closeWalletModal}
+        shown={isWalletModalOpen}
       />
       {body}
     </div>
   )
 }
 
-export default Web3Status
+Web3Status.propTypes = {
+  isWalletModalOpen: PropTypes.bool,
+  openWalletModal: PropTypes.func,
+  closeWalletModal: PropTypes.func,
+}
+
+const mapStateToProps = (state) => ({
+  isWalletModalOpen: state.walletModal.isOpen,
+})
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ openWalletModal, closeWalletModal }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Web3Status)

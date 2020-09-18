@@ -3,6 +3,7 @@ import classnames from "classnames"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
 import PropTypes from "prop-types"
+import { useWeb3React } from "@web3-react/core"
 
 import { BitcoinHelpers } from "@keep-network/tbtc.js"
 
@@ -10,11 +11,11 @@ import StatusIndicator from "../svgs/StatusIndicator"
 import TLogo from "../svgs/tlogo"
 import Check from "../svgs/Check"
 import X from "../svgs/X"
-import { saveAddresses, resetState } from "../../actions"
+import { saveAddresses, resetState, openWalletModal } from "../../actions"
 
 import web3 from "web3"
 
-const Start = ({ saveAddresses, resetState }) => {
+const Start = ({ saveAddresses, resetState, openWalletModal }) => {
   const initialAddressState = {
     address: "",
     isValid: false,
@@ -27,9 +28,16 @@ const Start = ({ saveAddresses, resetState }) => {
     resetState()
   }, [resetState])
 
+  const { active } = useWeb3React()
+
   const handleClickConfirm = (evt) => {
     evt.preventDefault()
     evt.stopPropagation()
+
+    if (!active) {
+      openWalletModal()
+      return
+    }
 
     saveAddresses({
       btcAddress: btcAddress.address,
@@ -131,6 +139,7 @@ const Start = ({ saveAddresses, resetState }) => {
 Start.propTypes = {
   saveAddresses: PropTypes.func,
   resetState: PropTypes.func,
+  openWalletModal: PropTypes.func,
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -138,6 +147,7 @@ const mapDispatchToProps = (dispatch) => {
     {
       saveAddresses,
       resetState,
+      openWalletModal,
     },
     dispatch
   )
