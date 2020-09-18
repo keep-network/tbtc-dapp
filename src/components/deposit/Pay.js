@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom"
 import StatusIndicator from "../svgs/StatusIndicator"
 import CopyAddressField from "../lib/CopyAddressField"
 import Description from "../lib/Description"
+import DepositPage from "./DepositPage"
 
 import { formatSatsToBtc } from "../../utils"
 
@@ -23,7 +24,7 @@ const PayComponent = ({ btcAddress, btcAmount, signerFee, error }) => {
   const btcURL = `bitcoin:${btcAddress}?amount=${btcAmount}&label=Single-Use+tBTC+Deposit+Wallet`
 
   return (
-    <div className="pay">
+    <DepositPage className="pay">
       <div className="page-top">
         <StatusIndicator />
       </div>
@@ -53,7 +54,7 @@ const PayComponent = ({ btcAddress, btcAmount, signerFee, error }) => {
           <CopyAddressField address={btcAddress} qrCodeUrl={btcURL} />
         </Description>
       </div>
-    </div>
+    </DepositPage>
   )
 }
 

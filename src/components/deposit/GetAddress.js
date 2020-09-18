@@ -4,6 +4,7 @@ import PropTypes from "prop-types"
 
 import Description from "../lib/Description"
 import StatusIndicator from "../svgs/StatusIndicator"
+import DepositPage from "./DepositPage"
 
 const GetAddress = ({ status, error }) => {
   const [statusText, setStatusText] = useState("Generating BTC address...")
@@ -14,7 +15,7 @@ const GetAddress = ({ status, error }) => {
   }, [status])
 
   return (
-    <div className="invoice">
+    <DepositPage className="invoice">
       <div className="page-top">
         <StatusIndicator pulse />
       </div>
@@ -26,7 +27,7 @@ const GetAddress = ({ status, error }) => {
         <hr />
         <Description error={error}>{statusText}</Description>
       </div>
-    </div>
+    </DepositPage>
   )
 }
 

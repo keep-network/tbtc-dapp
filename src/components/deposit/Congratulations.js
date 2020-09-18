@@ -7,10 +7,11 @@ import StatusIndicator from "../svgs/StatusIndicator"
 import * as tbtcLogoAnimationData from "../animation/tBTC-logo-animate.json"
 import CopyAddressField from "../lib/CopyAddressField"
 import { formatSatsToBtc, getEtherscanUrl } from "../../utils"
+import DepositPage from "./DepositPage"
 
 const Congratulations = ({ depositAddress, lotInTbtc, chainId }) => {
   return (
-    <div className="congratulations">
+    <DepositPage className="congratulations">
       <div className="page-top">
         <StatusIndicator donut fadeIn>
           <Lottie
@@ -48,7 +49,7 @@ const Congratulations = ({ depositAddress, lotInTbtc, chainId }) => {
           </a>
         </div>
       </div>
-    </div>
+    </DepositPage>
   )
 }
 

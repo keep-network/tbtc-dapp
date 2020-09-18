@@ -6,6 +6,7 @@ import PropTypes from "prop-types"
 import { requestADeposit } from "../../actions"
 import Description from "../lib/Description"
 import StatusIndicator from "../svgs/StatusIndicator"
+import DepositPage from "./DepositPage"
 
 const Invoice = ({ requestADeposit, error }) => {
   useEffect(() => {
@@ -13,7 +14,7 @@ const Invoice = ({ requestADeposit, error }) => {
   }, [requestADeposit])
 
   return (
-    <div className="invoice">
+    <DepositPage className="invoice">
       <div className="page-top">
         <StatusIndicator pulse />
       </div>
@@ -25,7 +26,7 @@ const Invoice = ({ requestADeposit, error }) => {
         <hr />
         <Description error={error}>Initiating...</Description>
       </div>
-    </div>
+    </DepositPage>
   )
 }
 
