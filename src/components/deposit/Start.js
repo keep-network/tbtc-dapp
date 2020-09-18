@@ -45,7 +45,7 @@ const Start = ({
     if (!active) {
       openWalletModal()
     }
-  })
+  }, [active, openWalletModal])
 
   useEffect(() => {
     if (account) {

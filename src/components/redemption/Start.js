@@ -34,7 +34,7 @@ const Start = ({ saveAddresses, resetState, openWalletModal }) => {
     if (!active) {
       openWalletModal()
     }
-  })
+  }, [active, openWalletModal])
 
   const handleClickConfirm = (evt) => {
     evt.preventDefault()
