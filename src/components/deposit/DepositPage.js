@@ -1,14 +1,24 @@
 import React from "react"
 import PropTypes from "prop-types"
 import classNames from "classnames"
+import { connect } from "react-redux"
 
 import ProgressPanel, { Step } from "../lib/ProgressPanel"
 
-const DepositPage = ({ children, className }) => {
+const DepositPage = ({
+  children,
+  className,
+  completedStepIndex,
+  activeStepIndex,
+}) => {
   return (
     <div className={classNames("page", "deposit-page", className)}>
       <div className="page-content">{children}</div>
-      <ProgressPanel className="deposit-progress">
+      <ProgressPanel
+        className="deposit-progress"
+        completedStepIndex={completedStepIndex}
+        activeStepIndex={activeStepIndex}
+      >
         <Step title="Start" />
         <Step title="Deposit Size" />
         <Step title="Send BTC" />
@@ -26,6 +36,13 @@ DepositPage.propTypes = {
     PropTypes.node,
   ]),
   className: PropTypes.string,
+  completedStepIndex: PropTypes.number,
+  activeStepIndex: PropTypes.number,
 }
 
-export default DepositPage
+const mapStateToProps = ({ progressPanel }) => ({
+  completedStepIndex: progressPanel.deposit.completedStepIndex,
+  activeStepIndex: progressPanel.deposit.activeStepIndex,
+})
+
+export default connect(mapStateToProps, null)(DepositPage)

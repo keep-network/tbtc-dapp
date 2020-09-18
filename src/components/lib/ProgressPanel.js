@@ -19,8 +19,21 @@ Step.propTypes = {
   completed: PropTypes.bool,
 }
 
-const ProgressPanel = ({ className, children }) => (
-  <ul className={classNames("progress-panel", className)}>{children}</ul>
+const ProgressPanel = ({
+  className,
+  children,
+  completedStepIndex,
+  activeStepIndex,
+}) => (
+  <ul className={classNames("progress-panel", className)}>
+    {React.Children.map(children, (child, index) => {
+      const props = {
+        active: index === activeStepIndex,
+        completed: completedStepIndex !== null && index <= completedStepIndex,
+      }
+      return React.cloneElement(child, props)
+    })}
+  </ul>
 )
 
 ProgressPanel.propTypes = {
@@ -29,6 +42,8 @@ ProgressPanel.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
+  completedStepIndex: PropTypes.number,
+  activeStepIndex: PropTypes.number,
 }
 
 export default ProgressPanel
