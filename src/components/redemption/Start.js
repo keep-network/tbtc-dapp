@@ -30,15 +30,14 @@ const Start = ({ saveAddresses, resetState, openWalletModal }) => {
 
   const { active } = useWeb3React()
 
-  useEffect(() => {
-    if (!active) {
-      openWalletModal()
-    }
-  }, [active, openWalletModal])
-
   const handleClickConfirm = (evt) => {
     evt.preventDefault()
     evt.stopPropagation()
+
+    if (!active) {
+      openWalletModal()
+      return
+    }
 
     saveAddresses({
       btcAddress: btcAddress.address,
