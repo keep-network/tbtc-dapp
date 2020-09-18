@@ -35,6 +35,7 @@
     .account-btn {
         position: relative;
         overflow: visible;
+        text-transform: none;
 
         &:hover {
             &:after {
