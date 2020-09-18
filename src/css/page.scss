@@ -1,3 +1,15 @@
+.page {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    max-width: map-get($breakpoints, 'lg');
+    margin: 0 auto;
+
+    .page-content {
+        width: 71.43%;
+    }
+}
+
 .page-top {
     margin-bottom: 25px;
 
