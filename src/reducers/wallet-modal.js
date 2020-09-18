@@ -1,10 +1,10 @@
 import { OPEN_WALLET_MODAL, CLOSE_WALLET_MODAL } from "../actions"
 
-const intialState = {
+const initialState = {
   isOpen: false,
 }
 
-const walletModal = (state = intialState, action) => {
+const walletModal = (state = initialState, action) => {
   switch (action.type) {
     case OPEN_WALLET_MODAL:
       return {
