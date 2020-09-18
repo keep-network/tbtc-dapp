@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export function useClickOutside(ref, onOutsideClick, shouldAddClickListener) {
   useEffect(() => {
@@ -13,4 +13,18 @@ export function useClickOutside(ref, onOutsideClick, shouldAddClickListener) {
       document.addEventListener("click", clickOutside)
     }
   }, [ref, onOutsideClick, shouldAddClickListener])
+}
+
+export function useClickToCopy() {
+  const [isCopied, setIsCopied] = useState(false)
+  const hiddenCopyFieldRef = useRef(null)
+
+  const handleCopyClick = () => {
+    hiddenCopyFieldRef.current.select()
+    document.execCommand("copy")
+    hiddenCopyFieldRef.current.blur()
+    setIsCopied(true)
+  }
+
+  return { isCopied, setIsCopied, hiddenCopyFieldRef, handleCopyClick }
 }

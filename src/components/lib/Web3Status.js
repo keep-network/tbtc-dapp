@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react"
+import React, { useRef } from "react"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
 import PropTypes from "prop-types"
@@ -7,7 +7,7 @@ import { useWeb3React } from "@web3-react/core"
 import NetworkStatusIcon from "../svgs/NetworkStatus"
 import Wallet from "../svgs/Wallet"
 import { ConnectWalletDialog } from "./ConnectWalletDialog"
-import { useClickOutside } from "../hooks"
+import { useClickOutside, useClickToCopy } from "../hooks"
 import { openWalletModal, closeWalletModal } from "../../actions"
 
 function getNetwork(chainId) {
@@ -41,15 +41,12 @@ NetworkStatus.propTypes = {
 }
 
 const AccountButton = ({ account }) => {
-  const [isCopied, setIsCopied] = useState(false)
-  const hiddenCopyFieldRef = useRef(null)
-
-  const handleCopyClick = () => {
-    hiddenCopyFieldRef.current.select()
-    document.execCommand("copy")
-    hiddenCopyFieldRef.current.blur()
-    setIsCopied(true)
-  }
+  const {
+    isCopied,
+    setIsCopied,
+    hiddenCopyFieldRef,
+    handleCopyClick,
+  } = useClickToCopy()
 
   const accountBtnRef = useRef(null)
   useClickOutside(
