@@ -75,5 +75,11 @@
                 transform: translateX(-50%);
             }
         }
+
+        &.active {
+            .step-title {
+                @extend %font-family-bold;
+            }
+        }
     }
 }
