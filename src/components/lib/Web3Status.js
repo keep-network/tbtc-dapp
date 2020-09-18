@@ -1,4 +1,4 @@
-import React, { useRef } from "react"
+import React from "react"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
 import PropTypes from "prop-types"
@@ -48,14 +48,9 @@ const AccountButton = ({ account }) => {
     handleCopyClick,
   } = useClickToCopy()
 
-  const accountBtnRef = useRef(null)
-  useClickOutside(
-    accountBtnRef,
-    () => {
-      setIsCopied(false)
-    },
-    isCopied
-  )
+  const accountBtnRef = useClickOutside(() => {
+    setIsCopied(false)
+  }, isCopied)
 
   return (
     <>

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react"
+import React, { useState } from "react"
 import classNames from "classnames"
 import PropTypes from "prop-types"
 
@@ -15,14 +15,9 @@ const Tooltip = ({
     setShowContent(!showContent)
   }
 
-  const tooltipRef = useRef(null)
-  useClickOutside(
-    tooltipRef,
-    () => {
-      setShowContent(false)
-    },
-    showContent
-  )
+  const tooltipRef = useClickOutside(() => {
+    setShowContent(false)
+  }, showContent)
 
   return (
     <div

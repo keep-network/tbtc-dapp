@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 
-export function useClickOutside(ref, onOutsideClick, shouldAddClickListener) {
+export function useClickOutside(onOutsideClick, shouldAddClickListener) {
+  const ref = useRef(null)
   useEffect(() => {
     const clickOutside = (e) => {
       if (ref.current && !ref.current.contains(e.target)) {
@@ -13,6 +14,8 @@ export function useClickOutside(ref, onOutsideClick, shouldAddClickListener) {
       document.addEventListener("click", clickOutside)
     }
   }, [ref, onOutsideClick, shouldAddClickListener])
+
+  return ref
 }
 
 export function useClickToCopy() {
