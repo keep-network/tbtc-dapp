@@ -23,7 +23,7 @@ const DepositPage = ({
         <Step title="Deposit Size" />
         <Step title="Send BTC" />
         <Step title="BTC Block Confirmation" />
-        <Step title="Prove Complete" />
+        <Step title="Prove Deposit" />
         <Step title="Complete" />
       </ProgressPanel>
     </div>

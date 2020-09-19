@@ -108,6 +108,10 @@ function* restoreState(nextStepMap, stateKey) {
       case tbtc.Deposit.State.AWAITING_SIGNER_SETUP:
         yield put({
           type: DEPOSIT_STATE_RESTORED,
+          payload: {
+            currentDepositState: depositState,
+            depositStates: tbtc.Deposit.State,
+          },
         })
 
         const inVendingMachine = yield call([deposit, deposit.inVendingMachine])
