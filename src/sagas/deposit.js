@@ -45,6 +45,7 @@ export const DEPOSIT_PROVE_BTC_TX_BEGIN = "DEPOSIT_PROVE_BTC_TX_BEGIN"
 export const DEPOSIT_PROVE_BTC_TX_SUCCESS = "DEPOSIT_PROVE_BTC_TX_SUCCESS"
 export const DEPOSIT_PROVE_BTC_TX_ERROR = "DEPOSIT_PROVE_BTC_TX_ERROR"
 export const DEPOSIT_MINT_TBTC = "DEPOSIT_MINT_TBTC"
+export const DEPOSIT_MINT_TBTC_SUCCESS = "DEPOSIT_MINT_TBTC_SUCCESS"
 export const DEPOSIT_MINT_TBTC_ERROR = "DEPOSIT_MINT_TBTC_ERROR"
 
 function* restoreState(nextStepMap, stateKey) {
@@ -396,6 +397,7 @@ export function* autoSubmitDepositProof() {
   try {
     yield put({ type: DEPOSIT_MINT_TBTC })
     yield call([deposit, deposit.mintTBTC])
+    yield put({ type: DEPOSIT_MINT_TBTC_SUCCESS })
   } catch (error) {
     yield* logError(DEPOSIT_MINT_TBTC_ERROR, error)
     return
