@@ -21,7 +21,7 @@ const DepositPage = ({
   btcConfirmingError,
   proveDepositError,
 }) => {
-  const { hiddenCopyFieldRef, handleCopyClick } = useClickToCopy()
+  const { isCopied, hiddenCopyFieldRef, handleCopyClick } = useClickToCopy()
   return (
     <div className={classNames("page", "deposit-page", className)}>
       <div className="page-content">{children}</div>
@@ -42,7 +42,8 @@ const DepositPage = ({
           {btcAddress ? (
             <>
               <div className="btc-address-copy-click" onClick={handleCopyClick}>
-                <span>{btcAddress}</span> <button>COPY</button>
+                <span>{btcAddress}</span>
+                <button>{isCopied ? "COPIED" : "COPY"}</button>
               </div>
               <textarea
                 className="hidden-copy-field"

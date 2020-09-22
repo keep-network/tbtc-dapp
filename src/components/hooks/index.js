@@ -22,11 +22,19 @@ export function useClickToCopy() {
   const [isCopied, setIsCopied] = useState(false)
   const hiddenCopyFieldRef = useRef(null)
 
+  const scheduleReset = () => {
+    clearTimeout(scheduleReset)
+    setTimeout(() => {
+      setIsCopied(false)
+    }, 8000)
+  }
+
   const handleCopyClick = () => {
     hiddenCopyFieldRef.current.select()
     document.execCommand("copy")
     hiddenCopyFieldRef.current.blur()
     setIsCopied(true)
+    scheduleReset()
   }
 
   return { isCopied, setIsCopied, hiddenCopyFieldRef, handleCopyClick }
