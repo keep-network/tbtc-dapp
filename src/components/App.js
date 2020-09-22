@@ -19,7 +19,13 @@ function App(props) {
           </p>
           <p>
             For more information and options please{" "}
-            <a href="https://discord.gg/Bpzfsgx">visit our Discord community</a>
+            <a
+              href="https://discord.gg/Bpzfsgx"
+              target="_blank"
+              rel="noreferrer"
+            >
+              visit our Discord community ↗
+            </a>
             .
           </p>
         </div>
