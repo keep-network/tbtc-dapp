@@ -14,3 +14,10 @@ export function getEtherscanUrl(chainId, address) {
     chainId === 3 ? "ropsten." : ""
   }etherscan.io/address/${address}`
 }
+
+export function getLotInTbtc(state) {
+  const { lotInSatoshis, signerFeeInSatoshis } = state.deposit
+  const mintedSatoshis = lotInSatoshis.sub(signerFeeInSatoshis)
+
+  return formatSatsToBtc(mintedSatoshis)
+}

@@ -5,7 +5,7 @@ import PropTypes from "prop-types"
 export const Step = ({ title, children, active, completed }) => (
   <li className={classNames("step", { active, completed })}>
     <div className="step-title">{title}</div>
-    <div className="step-details">{children}</div>
+    {children ? <div className="step-details">{children}</div> : ""}
   </li>
 )
 
