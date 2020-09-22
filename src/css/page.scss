@@ -1,16 +1,22 @@
 .page {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: flex-start;
     max-width: map-get($breakpoints, 'lg');
     margin: 0 auto;
     position: relative;
 
     .page-content {
-        width: 71.43%;
+        max-width: map-get($breakpoints, 'md');
     }
 
-    @include media-breakpoint-down('md') {
+    .progress-panel {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    @include media-breakpoint-down('lg') {
         .page-content {
             width: 100%;
         }
