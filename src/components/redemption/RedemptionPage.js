@@ -14,6 +14,8 @@ const RedemptionPage = ({
   completedStepIndex,
   activeStepIndex,
   depositAddress,
+  confirmationError,
+  proveRedemptionError,
 }) => {
   return (
     <div className={classNames("page", "redemption-page", className)}>
@@ -36,12 +38,14 @@ const RedemptionPage = ({
           <StepDetailSuccessOrError
             completedStepIndex={completedStepIndex}
             minCompletedStepIndex={3}
+            error={confirmationError}
           />
         </Step>
         <Step title="Prove Redemption">
           <StepDetailSuccessOrError
             completedStepIndex={completedStepIndex}
             minCompletedStepIndex={4}
+            error={proveRedemptionError}
           />
         </Step>
         <Step title="Complete" />
@@ -59,12 +63,16 @@ RedemptionPage.propTypes = {
   completedStepIndex: PropTypes.number,
   activeStepIndex: PropTypes.number,
   depositAddress: PropTypes.string,
+  confirmationError: PropTypes.string,
+  proveRedemptionError: PropTypes.string,
 }
 
 const mapStateToProps = (state) => ({
   completedStepIndex: state.progressPanel.redemption.completedStepIndex,
   activeStepIndex: state.progressPanel.redemption.activeStepIndex,
   depositAddress: state.redemption.depositAddress,
+  confirmationError: state.redemption.confirmationError,
+  proveRedemptionError: state.redemption.proveRedemptionError,
 })
 
 export default connect(mapStateToProps, null)(RedemptionPage)
