@@ -89,4 +89,24 @@
             }
         }
     }
+
+    .btc-address-copy-click {
+        display: flex;
+        span {
+            width: 87px;
+            word-break: break-all;
+            margin-right: $grid-base;
+        }
+
+        button {
+            display: inline-block;
+            min-width: 0;
+            border: 0;
+            border-radius: 4px;
+            background-color: $parchment;
+            @extend %h6;
+            line-height: 100%;
+            padding: 6px $grid-base;
+        }
+    }
 }

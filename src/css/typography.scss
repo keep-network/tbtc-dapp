@@ -71,6 +71,7 @@ html, body, #root {
     @extend %font-family-regular;
     font-size: 0.5rem;
     line-height: 150%;
+    letter-spacing: normal;
 }
 
 %h6-monospace {
@@ -138,4 +139,9 @@ a {
     color: $black;
     text-decoration: underline;
     cursor: pointer;
+}
+
+.hidden-copy-field {
+    position: absolute;
+    right: 999999px;
 }
