@@ -7,6 +7,7 @@ import PropTypes from "prop-types"
 import Description from "../lib/Description"
 import StatusIndicator from "../svgs/StatusIndicator"
 import { requestRedemption } from "../../actions"
+import RedemptionPage from "./RedemptionPage"
 
 function Redeeming(props) {
   const params = useParams()
@@ -25,7 +26,7 @@ const RedeemingComponent = ({ requestRedemption, error }) => {
   }, [requestRedemption])
 
   return (
-    <div className="confirming">
+    <RedemptionPage className="confirming">
       <div className="page-top">
         <StatusIndicator pulse />
       </div>
@@ -41,7 +42,7 @@ const RedeemingComponent = ({ requestRedemption, error }) => {
           </p>
         </Description>
       </div>
-    </div>
+    </RedemptionPage>
   )
 }
 

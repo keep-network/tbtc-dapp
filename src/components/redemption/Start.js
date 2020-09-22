@@ -12,6 +12,7 @@ import TLogo from "../svgs/tlogo"
 import Check from "../svgs/Check"
 import X from "../svgs/X"
 import { saveAddresses, resetState, openWalletModal } from "../../actions"
+import RedemptionPage from "./RedemptionPage"
 
 import web3 from "web3"
 
@@ -74,7 +75,7 @@ const Start = ({ saveAddresses, resetState, openWalletModal }) => {
   }
 
   return (
-    <div className="redemption-start">
+    <RedemptionPage className="redemption-start">
       <div className="page-top">
         <StatusIndicator donut>
           <TLogo height={100} width={100} />
@@ -131,7 +132,7 @@ const Start = ({ saveAddresses, resetState, openWalletModal }) => {
           </button>
         </div>
       </div>
-    </div>
+    </RedemptionPage>
   )
 }
 

@@ -149,3 +149,7 @@ a {
     position: absolute;
     right: 999999px;
 }
+
+.no-break {
+    word-break: break-all;
+}

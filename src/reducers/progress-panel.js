@@ -7,7 +7,15 @@ import {
   DEPOSIT_PROVE_BTC_TX_BEGIN,
   DEPOSIT_MINT_TBTC_SUCCESS,
   DEPOSIT_STATE_RESTORED,
+  DEPOSIT_RESOLVED,
 } from "../sagas/deposit"
+import {
+  REDEMPTION_REQUESTED,
+  REDEMPTION_AUTO_SUBMIT,
+  UPDATE_TX_HASH,
+  REDEMPTION_PROVE_BTC_TX_BEGIN,
+  REDEMPTION_PROVE_BTC_TX_SUCCESS,
+} from "../sagas/redemption"
 import { RESET_STATE } from "../actions"
 
 const initialState = {
@@ -26,6 +34,7 @@ function getProgressStateFromDepositState(
         activeStepIndex: null,
       }
     case depositStates.ACTIVE:
+    case depositStates.REDEEMED:
       return {
         completedStepIndex: 5,
         activeStepIndex: null,
@@ -78,6 +87,40 @@ const deposit = (state = initialState, action) => {
 
 const redemption = (state = initialState, action) => {
   switch (action.type) {
+    case DEPOSIT_RESOLVED:
+      return {
+        completedStepIndex: 0,
+        activeStepIndex: 1,
+      }
+    case REDEMPTION_REQUESTED:
+      return {
+        completedStepIndex: 1,
+        activeStepIndex: null,
+      }
+    case REDEMPTION_AUTO_SUBMIT:
+      return {
+        completedStepIndex: 1,
+        activeStepIndex: 2,
+      }
+    case UPDATE_TX_HASH:
+      return {
+        completedStepIndex: 2,
+        activeStepIndex: 3,
+      }
+    case REDEMPTION_PROVE_BTC_TX_BEGIN:
+      return {
+        completedStepIndex: 3,
+        activeStepIndex: 4,
+      }
+    case REDEMPTION_PROVE_BTC_TX_SUCCESS:
+      return {
+        completedStepIndex: 5,
+        activeStepIndex: null,
+      }
+    case DEPOSIT_STATE_RESTORED:
+      return getProgressStateFromDepositState(action.payload, state)
+    case RESET_STATE:
+      return initialState
     default:
       return state
   }

@@ -3,6 +3,7 @@ import { connect } from "react-redux"
 import PropTypes from "prop-types"
 
 import ConfirmingBase from "../lib/Confirming"
+import RedemptionPage from "./RedemptionPage"
 
 const Confirming = ({
   txHash,
@@ -16,21 +17,23 @@ const Confirming = ({
   }tx/${txHash}`
 
   return (
-    <ConfirmingBase
-      className="confirming"
-      stepStatus="4/6"
-      error={error}
-      requiredConfirmations={requiredConfirmations}
-      confirmations={confirmations}
-    >
-      {txHash ? (
-        <a href={blockExplorerUrl} target="_blank" rel="noopener noreferrer">
-          Follow along in block explorer
-        </a>
-      ) : (
-        ""
-      )}
-    </ConfirmingBase>
+    <RedemptionPage>
+      <ConfirmingBase
+        className="confirming"
+        stepStatus="4/6"
+        error={error}
+        requiredConfirmations={requiredConfirmations}
+        confirmations={confirmations}
+      >
+        {txHash ? (
+          <a href={blockExplorerUrl} target="_blank" rel="noopener noreferrer">
+            Follow along in block explorer
+          </a>
+        ) : (
+          ""
+        )}
+      </ConfirmingBase>
+    </RedemptionPage>
   )
 }
 
