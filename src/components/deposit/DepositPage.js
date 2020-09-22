@@ -3,7 +3,10 @@ import PropTypes from "prop-types"
 import classNames from "classnames"
 import { connect } from "react-redux"
 
-import ProgressPanel, { Step } from "../lib/ProgressPanel"
+import ProgressPanel, {
+  Step,
+  StepDetailSuccessOrError,
+} from "../lib/ProgressPanel"
 import { useClickToCopy } from "../hooks"
 import { formatSatsToBtc, getLotInTbtc } from "../../utils"
 
@@ -15,6 +18,8 @@ const DepositPage = ({
   btcAmount,
   tbtcAmount,
   btcAddress,
+  btcConfirmingError,
+  proveDepositError,
 }) => {
   const { hiddenCopyFieldRef, handleCopyClick } = useClickToCopy()
   return (
@@ -49,8 +54,20 @@ const DepositPage = ({
             ""
           )}
         </Step>
-        <Step title="BTC Block Confirmation" />
-        <Step title="Prove Deposit" />
+        <Step title="BTC Block Confirmation">
+          <StepDetailSuccessOrError
+            completedStepIndex={completedStepIndex}
+            minCompletedStepIndex={3}
+            error={btcConfirmingError}
+          />
+        </Step>
+        <Step title="Prove Deposit">
+          <StepDetailSuccessOrError
+            completedStepIndex={completedStepIndex}
+            minCompletedStepIndex={4}
+            error={proveDepositError}
+          />
+        </Step>
         <Step title="Complete" />
       </ProgressPanel>
     </div>
@@ -68,6 +85,8 @@ DepositPage.propTypes = {
   btcAmount: PropTypes.string,
   tbtcAmount: PropTypes.string,
   btcAddress: PropTypes.string,
+  btcConfirmingError: PropTypes.string,
+  proveDepositError: PropTypes.string,
 }
 
 const mapStateToProps = (state) => ({
@@ -76,6 +95,8 @@ const mapStateToProps = (state) => ({
   btcAmount: formatSatsToBtc(state.deposit.lotInSatoshis),
   tbtcAmount: getLotInTbtc(state),
   btcAddress: state.deposit.btcAddress,
+  btcConfirmingError: state.deposit.btcConfirmingError,
+  proveDepositError: state.deposit.proveDepositError,
 })
 
 export default connect(mapStateToProps, null)(DepositPage)

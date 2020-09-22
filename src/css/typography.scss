@@ -141,6 +141,10 @@ a {
     cursor: pointer;
 }
 
+.error {
+    color: $alert;
+}
+
 .hidden-copy-field {
     position: absolute;
     right: 999999px;

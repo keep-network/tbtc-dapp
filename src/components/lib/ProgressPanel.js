@@ -19,6 +19,25 @@ Step.propTypes = {
   completed: PropTypes.bool,
 }
 
+export const StepDetailSuccessOrError = ({
+  completedStepIndex,
+  minCompletedStepIndex,
+  error,
+}) => {
+  if (error) {
+    return <div className="error">Failed</div>
+  } else if (completedStepIndex >= minCompletedStepIndex) {
+    return <div>Success</div>
+  }
+  return null
+}
+
+StepDetailSuccessOrError.propTypes = {
+  completedStepIndex: PropTypes.number,
+  minCompletedStepIndex: PropTypes.number,
+  error: PropTypes.string,
+}
+
 const ProgressPanel = ({
   className,
   children,
