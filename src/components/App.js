@@ -20,7 +20,7 @@ function App(props) {
           <p>
             For more information and options please{" "}
             <a
-              href="https://discord.gg/Bpzfsgx"
+              href="https://chat.tbtc.network/"
               target="_blank"
               rel="noreferrer"
             >
