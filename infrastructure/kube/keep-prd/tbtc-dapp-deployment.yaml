@@ -21,6 +21,6 @@ spec:
     spec:
       containers:
       - name: tbtc-dapp
-        image: keepnetwork/tbtc-dapp:v0.17.0
+        image: keepnetwork/tbtc-dapp:v0.17.1
         ports:
           - containerPort: 80
