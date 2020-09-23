@@ -63,7 +63,7 @@ function* restoreState(nextStepMap, stateKey) {
       },
     })
 
-    /** @type {BN} */
+    /** @type {number} */
     const depositState = yield call([deposit, deposit.getCurrentState])
 
     const nextStep = nextStepMap[depositState]
@@ -122,10 +122,19 @@ function* restoreState(nextStepMap, stateKey) {
         break
 
       // Funding failure states
-      case tbtc.Deposit.State.FRAUD_AWAITING_BTC_FUNDING_PROOF:
       case tbtc.Deposit.State.FAILED_SETUP:
-        // TODO Update deposit state to reflect situation.
-        break
+        throw new Error(
+          `Deposit has failed setup. Please try opening a new deposit.`
+        )
+
+      case tbtc.Deposit.State.COURTESY_CALL:
+      case tbtc.Deposit.State.LIQUIDATION_IN_PROGRESS:
+      case tbtc.Deposit.State.FRAUD_LIQUIDATION_IN_PROGRESS:
+      case tbtc.Deposit.State.LIQUIDATED:
+        throw new Error(
+          `Deposit is in a liquidation state. This dApp currently does not ` +
+            `support managing deposit liquidation.`
+        )
 
       default:
         throw new Error(`Unexpected state ${depositState}.`)
