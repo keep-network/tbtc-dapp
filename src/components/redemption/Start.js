@@ -3,6 +3,7 @@ import classnames from "classnames"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
 import PropTypes from "prop-types"
+import { useParams } from "react-router-dom"
 import { useWeb3React } from "@web3-react/core"
 
 import { BitcoinHelpers } from "@keep-network/tbtc.js"
@@ -21,12 +22,26 @@ const Start = ({ saveAddresses, resetState, openWalletModal }) => {
     isValid: false,
     hasError: false,
   }
-  const [depositAddress, setDepositAddress] = useState(initialAddressState)
+
+  const params = useParams()
+
+  const [depositAddress, setDepositAddress] = useState({
+    ...initialAddressState,
+    address: params.address || "",
+  })
   const [btcAddress, setBtcAddress] = useState(initialAddressState)
 
   useEffect(() => {
     resetState()
   }, [resetState])
+
+  useEffect(() => {
+    if (depositAddress.address) {
+      const isValid = web3.utils.isAddress(depositAddress.address)
+      const hasError = !isValid
+      setDepositAddress({ address: depositAddress.address, isValid, hasError })
+    }
+  }, [])
 
   const { active } = useWeb3React()
 

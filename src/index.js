@@ -98,6 +98,11 @@ function AppWrapper() {
               </Loadable>
             </Route>
             <Route path="/redeem" exact component={StartRedemption} />
+            <Route
+              path="/deposit/:address/redeem"
+              exact
+              component={StartRedemption}
+            />
             <Route path="/deposit/:address/redemption" exact>
               <Loadable restorer={RESTORER.REDEMPTION}>
                 <Redeeming />
