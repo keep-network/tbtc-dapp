@@ -6,6 +6,6 @@
         "wsURL": "wss://ropsten.infura.io/ws/v3/59fb36a36fa4474b890c13dd30038be5"
     },
     "1": {
-        "wsURL": "wss://mainnet.infura.io/ws/v3/59fb36a36fa4474b890c13dd30038be5"
+        "wsURL": "wss://mainnet.infura.io/ws/v3/e4b048b1664840839ac525cde1f69959"
     }
 }
