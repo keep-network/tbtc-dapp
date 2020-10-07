@@ -18,6 +18,7 @@ export const REDEMPTION_CONFIRMATION = "REDEMPTION_CONFIRMATION"
 export const REDEMPTION_CONFIRMATION_ERROR = "REDEMPTION_CONFIRMATION_ERROR"
 export const REDEMPTION_REQUESTED = "REDEMPTION_REQUESTED"
 export const REDEMPTION_REQUEST_ERROR = "REDEMPTION_REQUEST_ERROR"
+export const REDEMPTION_AUTO_SUBMIT = "REDEMPTION_AUTO_SUBMIT"
 export const REDEMPTION_PROVE_BTC_TX_BEGIN = "REDEMPTION_PROVE_BTC_TX_BEGIN"
 export const REDEMPTION_PROVE_BTC_TX_SUCCESS = "REDEMPTION_PROVE_BTC_TX_SUCCESS"
 export const REDEMPTION_PROVE_BTC_TX_ERROR = "REDEMPTION_PROVE_BTC_TX_ERROR"
@@ -103,6 +104,8 @@ export function* resumeRedemption() {
 function* runRedemption(redemption) {
   const autoSubmission = redemption.autoSubmit()
   const depositAddress = redemption.deposit.address
+
+  yield put({ type: REDEMPTION_AUTO_SUBMIT })
 
   yield fork(
     watchForConfirmations,

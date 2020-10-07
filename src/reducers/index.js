@@ -6,6 +6,7 @@ import modal from "./modal.js"
 import walletModal from "./wallet-modal.js"
 import account from "./account.js"
 import tbtc from "./tbtc"
+import progressPanel from "./progress-panel.js"
 
 const reducers = combineReducers({
   deposit,
@@ -14,6 +15,7 @@ const reducers = combineReducers({
   walletModal,
   account,
   tbtc,
+  progressPanel,
 })
 
 export default reducers

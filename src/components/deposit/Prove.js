@@ -5,6 +5,7 @@ import PropTypes from "prop-types"
 
 import Description from "../lib/Description"
 import StatusIndicator from "../svgs/StatusIndicator"
+import DepositPage from "./DepositPage"
 
 function Prove(props) {
   const params = useParams()
@@ -25,7 +26,7 @@ class ProveComponent extends Component {
     const { provingDeposit, error } = this.props
 
     return (
-      <div className="prove">
+      <DepositPage className="prove">
         <div className="page-top">
           <StatusIndicator pulse />
         </div>
@@ -45,7 +46,7 @@ class ProveComponent extends Component {
               : "Finally, let’s submit proof to the sidechain and get you your TBTC."}
           </Description>
         </div>
-      </div>
+      </DepositPage>
     )
   }
 }

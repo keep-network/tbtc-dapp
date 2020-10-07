@@ -6,11 +6,12 @@ import PropTypes from "prop-types"
 import StatusIndicator from "../svgs/StatusIndicator"
 import * as tbtcLogoAnimationData from "../animation/tBTC-logo-animate.json"
 import CopyAddressField from "../lib/CopyAddressField"
-import { formatSatsToBtc, getEtherscanUrl } from "../../utils"
+import { getEtherscanUrl, getLotInTbtc } from "../../utils"
+import DepositPage from "./DepositPage"
 
 const Congratulations = ({ depositAddress, lotInTbtc, chainId }) => {
   return (
-    <div className="congratulations">
+    <DepositPage className="congratulations">
       <div className="page-top">
         <StatusIndicator donut fadeIn>
           <Lottie
@@ -48,7 +49,7 @@ const Congratulations = ({ depositAddress, lotInTbtc, chainId }) => {
           </a>
         </div>
       </div>
-    </div>
+    </DepositPage>
   )
 }
 
@@ -58,15 +59,10 @@ Congratulations.propTypes = {
   chainId: PropTypes.number,
 }
 
-const mapStateToProps = (state) => {
-  const { depositAddress, lotInSatoshis, signerFeeInSatoshis } = state.deposit
-  const mintedSatoshis = lotInSatoshis.sub(signerFeeInSatoshis)
-
-  return {
-    depositAddress,
-    lotInTbtc: formatSatsToBtc(mintedSatoshis),
-    chainId: state.tbtc.web3.chainId,
-  }
-}
+const mapStateToProps = (state) => ({
+  depositAddress: state.deposit.depositAddress,
+  lotInTbtc: getLotInTbtc(state),
+  chainId: state.tbtc.web3.chainId,
+})
 
 export default connect(mapStateToProps)(Congratulations)

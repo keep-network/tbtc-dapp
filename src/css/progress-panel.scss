@@ -1,0 +1,120 @@
+.progress-panel {
+    background-color: $white;
+    border: 1px solid rgba($graphite, 0.5);
+    border-radius: $grid-base;
+    margin: 0;
+    padding: 24px 12px 24px 26px;
+    width: 200px;
+    position: relative;
+
+    // Progress bar line
+    &:before {
+        content: '';
+        display: block;
+        width: 4px;
+        height: calc(100% - 48px);
+        background-color: rgba($mint, 0.2);
+        border-radius: 4px;
+
+        position: absolute;
+        top: 24px;
+        left: 26px;
+    }
+
+
+    .step {
+        list-style: none;
+        text-align: left;
+        position: relative;
+        height: 64px;
+
+        > div {
+            margin-left: 24px;
+        }
+
+        .step-title {
+            @extend %h5;
+        }
+
+        .step-details {
+            @extend %h6;
+            color: $graphite;
+            margin-top: $grid-base;
+            margin-bottom: $grid-base;
+        }
+
+        // Progress bar segment
+        &:before {
+            content: '';
+            display: block;
+            width: 4px;
+            height: 0;
+            background-color: $mint;
+            border-radius: 4px;
+            transition: height 0.25s ease-in-out;
+
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        &:last-of-type {
+            height: auto;
+        }
+
+        &.completed {
+            // Progress bar segment
+            &:before {
+                height: 100%;
+            }
+
+            // Check
+            &:after {
+                content: '';
+                display: block;
+                width: 18px;
+                height: 18px;
+                background-image: url(../components/svgs/progress-bar-check.svg);
+
+                position: absolute;
+                left: 2px;
+                top: -3px;
+                transform: translateX(-50%);
+            }
+        }
+
+        &.active {
+            .step-title {
+                @extend %font-family-bold;
+            }
+        }
+    }
+
+    .address-label {
+        word-break: break-all;
+        width: 89px;
+    }
+
+    .btc-address-copy-click {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        span {
+            word-break: break-all;
+            width: 92px;
+            margin-right: 4px;
+        }
+
+        button {
+            display: inline-block;
+            min-width: 0;
+            border: 0;
+            border-radius: 4px;
+            background-color: $parchment;
+            @extend %h6;
+            line-height: 100%;
+            padding: 6px;
+        }
+    }
+}

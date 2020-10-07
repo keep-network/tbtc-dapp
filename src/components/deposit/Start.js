@@ -17,6 +17,7 @@ import BTCLogo from "../svgs/btclogo"
 import { useWeb3React } from "@web3-react/core"
 import LotSizeSelector from "./LotSizeSelector"
 import { formatSatsToBtc } from "../../utils"
+import DepositPage from "./DepositPage"
 
 const handleClickPay = (evt) => {
   evt.preventDefault()
@@ -54,7 +55,7 @@ const Start = ({
   }, [account, requestAvailableLotSizes])
 
   return (
-    <div className="deposit-start">
+    <DepositPage className="deposit-start">
       <div className="page-top">
         <StatusIndicator>
           <BTCLogo height={100} width={100} />
@@ -81,7 +82,7 @@ const Start = ({
           </button>
         </div>
       </div>
-    </div>
+    </DepositPage>
   )
 }
 

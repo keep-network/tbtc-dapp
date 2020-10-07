@@ -1,9 +1,34 @@
+.page {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: map-get($breakpoints, 'lg');
+    margin: 0 auto;
+    position: relative;
+
+    .page-content {
+        max-width: map-get($breakpoints, 'md');
+    }
+
+    .progress-panel {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    @include media-breakpoint-down('lg') {
+        .page-content {
+            width: 100%;
+        }
+        // TODO mobile placement and style
+        .progress-panel {
+            display: none;
+        }
+    }
+}
+
 .page-top {
     margin-bottom: 25px;
-
-    .error {
-        color: $alert;
-    }
 }
 
 .warning {

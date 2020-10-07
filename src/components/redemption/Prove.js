@@ -4,9 +4,10 @@ import PropTypes from "prop-types"
 
 import Description from "../lib/Description"
 import StatusIndicator from "../svgs/StatusIndicator"
+import RedemptionPage from "./RedemptionPage"
 
 const Prove = ({ error }) => (
-  <div className="prove">
+  <RedemptionPage className="prove">
     <div className="page-top">
       <StatusIndicator pulse />
     </div>
@@ -20,7 +21,7 @@ const Prove = ({ error }) => (
         Finally, we are submitting proof to the sidechain and get you your BTC.
       </Description>
     </div>
-  </div>
+  </RedemptionPage>
 )
 
 Prove.propTypes = {

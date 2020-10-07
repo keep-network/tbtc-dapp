@@ -5,10 +5,11 @@ import PropTypes from "prop-types"
 import StatusIndicator from "../svgs/StatusIndicator"
 import BTCLogo from "../svgs/btclogo"
 import { getEtherscanUrl } from "../../utils"
+import RedemptionPage from "./RedemptionPage"
 
 const Congratulations = ({ chainId, depositAddress }) => {
   return (
-    <div className="congratulations">
+    <RedemptionPage className="congratulations">
       <div className="page-top">
         <StatusIndicator>
           <BTCLogo height={100} width={100} />
@@ -31,7 +32,7 @@ const Congratulations = ({ chainId, depositAddress }) => {
           </a>
         </div>
       </div>
-    </div>
+    </RedemptionPage>
   )
 }
 

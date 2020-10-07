@@ -4,10 +4,11 @@ import PropTypes from "prop-types"
 
 import Description from "../lib/Description"
 import StatusIndicator from "../svgs/StatusIndicator"
+import RedemptionPage from "./RedemptionPage"
 
 const Signing = ({ error }) => {
   return (
-    <div className="confirming">
+    <RedemptionPage className="confirming">
       <div className="page-top">
         <StatusIndicator pulse />
       </div>
@@ -26,7 +27,7 @@ const Signing = ({ error }) => {
           </p>
         </Description>
       </div>
-    </div>
+    </RedemptionPage>
   )
 }
 
