@@ -2,37 +2,85 @@ import React from "react"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
 import PropTypes from "prop-types"
-import Check from "../svgs/Check"
 import { useWeb3React } from "@web3-react/core"
+
+import NetworkStatusIcon from "../svgs/NetworkStatus"
+import Wallet from "../svgs/Wallet"
 import { ConnectWalletDialog } from "./ConnectWalletDialog"
+import { useClickOutside, useClickToCopy } from "../hooks"
 import { openWalletModal, closeWalletModal } from "../../actions"
+
+function getNetwork(chainId) {
+  switch (chainId) {
+    case 1:
+      return "Mainnet"
+    case 3:
+      return "Ropsten"
+    case 1101:
+      return "Regtest"
+    default:
+      return "Network Disconnected"
+  }
+}
+
+const NetworkStatus = ({ chainId }) => {
+  const network = getNetwork(chainId)
+
+  return (
+    <div
+      className={`network-status ${network.toLowerCase().replace(" ", "-")}`}
+    >
+      <NetworkStatusIcon />
+      {network}
+    </div>
+  )
+}
+
+NetworkStatus.propTypes = {
+  chainId: PropTypes.number,
+}
+
+const AccountButton = ({ account }) => {
+  const {
+    isCopied,
+    setIsCopied,
+    hiddenCopyFieldRef,
+    handleCopyClick,
+  } = useClickToCopy()
+
+  const accountBtnRef = useClickOutside(() => {
+    setIsCopied(false)
+  }, isCopied)
+
+  return (
+    <>
+      <button
+        className={`account-btn ${isCopied ? "copied" : ""}`}
+        onClick={handleCopyClick}
+        ref={accountBtnRef}
+      >
+        <Wallet />
+        {account ? `${account.slice(0, 5)}···${account.slice(-4)}` : `Connect`}
+      </button>
+      <textarea
+        className="hidden-copy-field"
+        ref={hiddenCopyFieldRef}
+        defaultValue={account || ""}
+      />
+    </>
+  )
+}
+
+AccountButton.propTypes = {
+  account: PropTypes.string,
+}
 
 export const Web3Status = ({
   isWalletModalOpen,
   openWalletModal,
   closeWalletModal,
 }) => {
-  const { active } = useWeb3React()
-
-  let body = (
-    <div>
-      <div className="web3-status loading">Loading...</div>
-    </div>
-  )
-
-  if (!active) {
-    body = (
-      <div className="web3-status notify">
-        <span onClick={openWalletModal}>Connect to a Wallet</span>
-      </div>
-    )
-  } else if (active) {
-    body = (
-      <div className="web3-status success" onClick={openWalletModal}>
-        <Check width="15px" /> Connected
-      </div>
-    )
-  }
+  const { account, active, chainId } = useWeb3React()
 
   return (
     <div>
@@ -41,7 +89,17 @@ export const Web3Status = ({
         onClose={closeWalletModal}
         shown={isWalletModalOpen}
       />
-      {body}
+      <div className={`web3-status${active ? " success" : " notify"}`}>
+        <NetworkStatus chainId={chainId} />
+        {active ? (
+          <AccountButton account={account} />
+        ) : (
+          <button onClick={openWalletModal}>
+            <Wallet />
+            Connect
+          </button>
+        )}
+      </div>
     </div>
   )
 }

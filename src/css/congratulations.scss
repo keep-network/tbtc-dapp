@@ -7,21 +7,20 @@
             }
 
             .tdt-id-label {
-                color: $grey;
+                color: $graphite;
             }
 
             .copy-address-field {
                 margin: 36px auto;
                 max-width: 578px;
-                background-color: rgba($grey, 0.2);
-                border-color: $grey;
+                background-color: rgba($graphite, 0.2);
+                border-color: $graphite;
             }
         }
 
         .description a,
         .cta a {
-            @extend .button;
-            @extend .button.black;
+            @extend %button-primary;
             margin-bottom: 100px;
             display: inline-block;
         }

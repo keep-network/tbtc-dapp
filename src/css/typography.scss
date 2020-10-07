@@ -1,20 +1,141 @@
 @import './fonts/apercu.scss';
 
+$base-font-size: 16px;
+
+// Font family / weight styles
+%font-family-regular {
+    font-family: 'apercu-regular-pro', sans-serif;
+}
+
+%font-family-medium {
+    font-family: 'apercu-medium-pro', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+}
+
+%font-family-bold {
+    font-family: 'apercu-bold-pro', sans-serif;
+}
+
+%font-family-monospace {
+    font-family: 'apercu-mono-medium-pro', sans-serif;
+}
+
+%base-font-style {
+    @extend %font-family-regular;
+    font-size: $base-font-size;
+    line-height: 1.25rem;
+}
+
 html, body, #root {
-    font-family: 'apercu-mono-regular-pro';
+    @extend %base-font-style;
+}
+
+// Headings
+%huge-heading {
+    @extend %font-family-bold;
+    font-size: 3.375rem;
+    line-height: 100%;
+    letter-spacing: -0.01em;
+}
+
+%h1, h1, .h1 {
+    @extend %font-family-medium;
+    font-size: 2.25rem;
+    line-height: 133%;
+}
+
+%h2, h2, .h2 {
+    @extend %font-family-medium;
+    font-size: 1.5rem;
+    line-height: 117%;
+}
+
+%h3, h3, .h3 {
+    @extend %font-family-regular;
+    font-size: 1.125rem;
+    line-height: 1.5%;
+}
+
+%h4, h4, .h4 {
+    @extend %base-font-style;
+}
+
+%h5, h5, .h5 {
+    @extend %font-family-regular;
+    font-size: 0.75rem;
+    line-height: 125%;
+}
+
+%h6, h6, .h6 {
+    @extend %font-family-regular;
+    font-size: 0.5rem;
+    line-height: 150%;
+}
+
+%h6-monospace {
+    @extend %h6;
+    @extend %font-family-monospace;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+// Body styles
+%body-large {
+    @extend %font-family-regular;
+    font-size: 1.125rem;
+    line-height: 133%;
+    font-feature-settings: 'dnom' on, 'numr' on, 'sinf' on;
+    min-width: 400px;
+    max-width: 600px;
+}
+
+%body-medium {
+    @extend %base-font-style;
+    font-feature-settings: 'sinf' on, 'numr' on, 'dnom' on;
+    min-width: 200px;
+    max-width: 500px;
+}
+
+%body-small {
+    @extend %h5;
+    min-width: 100px;
+    max-width: 200px;
+}
+
+// Other styles
+%nav {
+    @extend %h5;
+    @extend %font-family-medium;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+%tabular-numbers {
+    @extend %font-family-regular;
+    font-size: 0.75rem;
+    line-height: 150%;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+}
+
+%captions {
+    @extend %font-family-regular;
+    font-size: 0.5rem;
+    line-height: 125%;
+}
+
+%tiny-monospace {
+    @extend %font-family-monospace;
+    font-weight: 500;
+    font-size: 0.25rem;
+    line-height: 300%;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
 }
 
 a {
     color: $black;
     text-decoration: underline;
     cursor: pointer;
-}
-
-h5,
-.h5 {
-    font-family: 'apercu-regular-pro', sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 15px;
 }

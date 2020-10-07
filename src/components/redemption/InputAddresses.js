@@ -120,7 +120,6 @@ class InputAddresses extends Component {
             <button
               onClick={this.handleClickConfirm}
               disabled={!depositAddressIsValid || !btcAddressIsValid}
-              className="black"
             >
               Confirm redemption
             </button>

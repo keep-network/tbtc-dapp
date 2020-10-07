@@ -7,8 +7,7 @@
             }
 
             a {
-                @extend .button;
-                @extend .button.black;
+                @extend %button-primary;
                 display: inline-block;
                 margin-top: 1em;
             }

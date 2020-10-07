@@ -24,55 +24,6 @@
         }
     }
 
-    .web3-status {
-        margin-left: 35px;
-        padding: 5px 10px;
-        border: 1px solid transparent;
-        border-radius: 4px;
-        font-size: .6em;
-        font-family: 'apercu-mono-regular-pro';
-
-        &.alert {
-            border-color: #{$alert};
-            color: #{$alert};
-        }
-
-        &.loading,
-        &.notify {
-            border-color: $black;
-            color: $black;
-        }
-
-        &.success {
-            border-color: $black;
-            background-color: $black;
-            color: $white;
-            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-        }
-
-        svg {
-            display: inline-block;
-            vertical-align: text-bottom;
-
-            circle {
-                fill: $white;
-                stroke: $black;
-            }
-
-            path {
-                stroke: $black;
-            }
-        }
-
-        a {
-            color: unset;
-        }
-
-        &:hover {
-            cursor: pointer;
-        }
-    }
-
     .side-nav-toggle-btn {
         display: none;
     }
@@ -95,19 +46,14 @@
 
                 a {
                     display: block;
+                    @extend %nav;
                     text-decoration: none;
-                    text-transform: uppercase;
-                    font-family: 'apercu-regular-pro', sans-serif;
-                    font-style: normal;
-                    font-weight: 500;
-                    font-size: 12px;
                     line-height: 100%;
-                    letter-spacing: 0.15em;
                     padding: $grid-base;
                     border-radius: $grid-base / 2;
 
                     &:hover {
-                        background-color: $grey--80;
+                        background-color: $graphite-shade-80;
                     }
 
                     &.active {
@@ -136,6 +82,7 @@
             margin: 0;
             padding: 0;
             margin: 0;
+            min-width: 0;
             width: 48px;
             height: 48px;
             border-radius: 50%;
@@ -145,14 +92,14 @@
             background-image: url(../components/svgs/hamburger-open.svg);
             background-repeat: no-repeat;
             background-position: center;
-            background-color: $grey--60;
+            background-color: $graphite-shade-60;
 
             cursor: pointer;
             border: 0;
             @include hide-button-text;
 
             &:hover {
-                background-color: $grey--60;
+                background-color: $graphite-shade-60;
             }
 
             &.open {

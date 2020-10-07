@@ -8,7 +8,6 @@
 
 .warning {
     text-align: left;
-    font-family: 'apercu-mono-regular-pro';
     font-size: 0.75rem;
     line-height: 1.5rem;
     background: $alert;
@@ -44,7 +43,6 @@
 }
 
 .deposit-start, .invoice, .pay, .prove, .congratulations, .redemption-start, .confirming {
-    font-family: 'apercu-mono-regular-pro';
     text-align: center;
     min-height: 675px;
 
@@ -56,8 +54,7 @@
 
         .step {
             flex: 0 1;
-            color: $grey;
-            font-size: .5em;
+            color: $graphite;
             font-weight: bold;
             text-transform: uppercase;
             margin-bottom: 30px;
@@ -65,24 +62,21 @@
 
         .title {
             flex: 0 1;
-            font-size: 1.75em;
-            font-weight: bold;
+            @extend %h1;
             margin-bottom: 40px;
-            font-family: 'apercu-bold-pro';
         }
 
         hr {
             flex: 0 1;
             border-style: dashed;
             border-width: 2px 0 0 0;
-            border-color: $grey;
+            border-color: $graphite;
             width: 150px;
             margin: 0 auto 40px auto;
         }
 
         .description {
             flex: 0 1;
-            font-size: .8em;
             margin-bottom: 40px;
         }
 
@@ -92,14 +86,12 @@
             position: relative;
 
             button {
-                @extend .button.black;
-                font-size: 1em;
+                @extend %button-primary;
             }
         }
 
         .error {
             flex: 1 1;
-            font-size: .7em;
             color: $alert;
             margin: 25px 0;
             word-break: break-word;

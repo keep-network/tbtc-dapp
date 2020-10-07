@@ -126,7 +126,6 @@ const Start = ({ saveAddresses, resetState, openWalletModal }) => {
           <button
             onClick={handleClickConfirm}
             disabled={!depositAddress.isValid || !btcAddress.isValid}
-            className="black"
           >
             Redeem
           </button>

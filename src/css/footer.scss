@@ -1,18 +1,28 @@
 footer {
     margin-top: auto;
     width: 100%;
-    padding: $grid-base * 2 $gutter-width;
+    padding: 22px $gutter-width $grid-base;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
 
     .version-info {
-        text-transform: uppercase;
-        color: $grey;
-        font-family: 'apercu-regular-pro', sans-serif;
-        font-size: 8px;
-        line-height: 100%;
-        font-feature-settings: 'tnum' on, 'lnum' on;
+        .version-number {
+            @extend %h6;
+            text-transform: uppercase;
+            color: $graphite;
+            line-height: 100%;
+            font-feature-settings: 'tnum' on, 'lnum' on;
+            margin-bottom: 10px;
+        }
+
+        .stage {
+            @extend %tiny-monospace;
+            padding: 2px 4px;
+            border-radius: 8px;
+            background-color: $turmeric;
+            text-align: center;
+        }
     }
 
     .help-menu {
@@ -25,10 +35,8 @@ footer {
             height: 24px;
             border-radius: 50%;
             padding: 0;
-
-            &:hover {
-                transform: none;
-            }
+            min-width: 0;
+            border: none;
         }
 
         .tooltip-content {

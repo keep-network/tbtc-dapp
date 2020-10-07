@@ -1,19 +1,12 @@
-import React, { useState, useRef } from "react"
+import React from "react"
 import QRCode from "qrcode.react"
 import PropTypes from "prop-types"
 
+import { useClickToCopy } from "../hooks"
 import QRCodeIcon from "../svgs/QRCodeIcon"
 
 const CopyAddressField = ({ address, qrCodeUrl }) => {
-  const [isCopied, setIsCopied] = useState(false)
-  const hiddenCopyFieldRef = useRef(null)
-
-  const handleCopyClick = () => {
-    hiddenCopyFieldRef.current.select()
-    document.execCommand("copy")
-    hiddenCopyFieldRef.current.blur()
-    setIsCopied(true)
-  }
+  const { isCopied, hiddenCopyFieldRef, handleCopyClick } = useClickToCopy()
 
   return (
     <div className="copy-address-field" onClick={handleCopyClick}>

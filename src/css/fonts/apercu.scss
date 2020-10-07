@@ -12,12 +12,12 @@
  */
 
 @font-face {
-    font-family: 'apercu-mono-regular-pro';
-    src: url('./Apercu/apercu-mono-regular-pro-web/apercu-mono-regular-pro.eot');
-    src: url('./Apercu/apercu-mono-regular-pro-web/apercu-mono-regular-pro.eot?#iefix') format('embedded-opentype'),
-         url('./Apercu/apercu-mono-regular-pro-web/apercu-mono-regular-pro.woff2') format('woff2'),
-         url('./Apercu/apercu-mono-regular-pro-web/apercu-mono-regular-pro.woff') format('woff'),
-         url('./Apercu/apercu-mono-regular-pro-web/apercu-mono-regular-pro.ttf') format('truetype');
+    font-family: 'apercu-mono-medium-pro';
+    src: url('./Apercu/apercu-mono-medium-pro-web/apercu-mono-medium-pro.eot');
+    src: url('./Apercu/apercu-mono-medium-pro-web/apercu-mono-medium-pro.eot?#iefix') format('embedded-opentype'),
+         url('./Apercu/apercu-mono-medium-pro-web/apercu-mono-medium-pro.woff2') format('woff2'),
+         url('./Apercu/apercu-mono-medium-pro-web/apercu-mono-medium-pro.woff') format('woff'),
+         url('./Apercu/apercu-mono-medium-pro-web/apercu-mono-medium-pro.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -29,6 +29,17 @@
          url('./Apercu/apercu-bold-pro-web/apercu-bold-pro.woff2') format('woff2'),
          url('./Apercu/apercu-bold-pro-web/apercu-bold-pro.woff') format('woff'),
          url('./Apercu/apercu-bold-pro-web/apercu-bold-pro.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'apercu-medium-pro';
+    src: url('./Apercu/apercu-medium-pro-web/apercu-medium-pro.eot');
+    src: url('./Apercu/apercu-medium-pro-web/apercu-medium-pro.eot?#iefix') format('embedded-opentype'),
+         url('./Apercu/apercu-medium-pro-web/apercu-medium-pro.woff2') format('woff2'),
+         url('./Apercu/apercu-medium-pro-web/apercu-medium-pro.woff') format('woff'),
+         url('./Apercu/apercu-medium-pro-web/apercu-medium-pro.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }

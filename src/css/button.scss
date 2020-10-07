@@ -1,45 +1,81 @@
-button, .button {
-    &.black {
-        --button-color: #{$black};
-    }
-
-    box-sizing: border-box;
-    border: 3px solid var(--button-color);
-    padding: 20px 40px;
-    font-family: 'apercu-mono-regular-pro';
-    font-size: 1.25em;
-    color: var(--button-color);
-    background-color: #{$white};
-    white-space: nowrap;
-    transform: scale(1);
-    transition: transform 150ms ease-in-out;
-    cursor: pointer;
+button, %button {
+    @extend %font-family-medium;
+    font-size: 0.75rem;
+    line-height: 117%;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
     text-decoration: none;
+    min-width: 192px;
+    padding: $grid-base $gutter-width;
+    color: $black;
+    border: 1px solid $black;
+    border-radius: 45px;
+    background-color: $white;
+    cursor: pointer;
+    transition: background-color 0.25s ease-in-out;
+    text-align: center;
 
     &:hover {
-        background-color: var(--button-color);
-        color: #{$white};
-        transform: scale(1.05);
+        background-color: $parchment;
+    }
+
+    &:active,
+    &.active {
+        background-color: $black;
+        color: $white;
     }
 
     &:disabled {
-        border-color: #{$light-grey};
-        color: #{$light-grey};
-        cursor: unset;
+        color: $graphite;
+        border-color: $graphite;
+        cursor: not-allowed;
 
         &:hover {
             background-color: $white;
-            transform: none;
         }
     }
 
     @include media-breakpoint-down('sm') {
         width: 100%;
-        padding: 20px 14px;
         overflow: hidden;
         text-overflow: ellipsis;
-        font-size: 1em;
     }
+}
+
+%button-primary {
+    @extend %button;
+    background-color: $black;
+    color: $white;
+
+    &:hover {
+        background-color: $graphite-tint-60;
+        border-color: $graphite-tint-60;
+        color: $parchment;
+    }
+
+    &:active,
+    &.active {
+        background-color: $black;
+        border-color: $black;
+    }
+
+    &:disabled {
+        color: $graphite-shade-60;
+        border-color: $graphite;
+        background-color: $graphite;
+
+        &:hover {
+            background-color: $graphite;
+        }
+    }
+}
+
+%button-medium {
+    @extend %button;
+    font-size: 0.5rem;
+    line-height: 100%;
+    padding: 9px ($gutter-width / 2);
+    min-width: 116px;
 }
 
 @mixin hide-button-text {
