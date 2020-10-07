@@ -40,6 +40,12 @@ $app-max-widths: (
     }
 }
 
+@mixin media-2x-resolution {
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        @content;
+    }
+}
+
 html {
     box-sizing: border-box;
 }
@@ -69,20 +75,14 @@ html, body, #root {
     }
 }
 
-.main {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
 .app {
     width: 100%;
-    flex: 1;
     color: #{$black};
     margin: 0 auto;
     padding: 0;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    min-height: 100vh;
 
     @include media-breakpoint-down('md') {
         display: block;
@@ -99,6 +99,7 @@ html, body, #root {
     transition: transform 0.5s ease-in-out;
 
     @include media-breakpoint-down('md') {
+        min-height: 0;
         margin: 0 $gutter-width 0 $gutter-width;
 
         &.side-nav-open {
