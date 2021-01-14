@@ -88,11 +88,6 @@ class LedgerSubprovider extends LedgerSubprovider0x {
         tx.serialize().toString("hex")
       )
 
-      // Ledger computes the signature over the full 4 bytes of `v`, but the transport layer
-      // only returns the lower 2 bytes. The returned `v` will be wrong for chainId's < 255,
-      // and has to be recomputed by the client [1] [2].
-      // [1]: https://github.com/LedgerHQ/ledgerjs/issues/168
-      // [2]: https://github.com/LedgerHQ/ledger-app-eth/commit/8260268b0214810872dabd154b476f5bb859aac0
       const ledgerSignedV = parseInt(response.v, 16)
 
       // Recompute `v` according to the algorithm detailed in EIP155 [1].
@@ -104,7 +99,7 @@ class LedgerSubprovider extends LedgerSubprovider0x {
       }
 
       // Verify signature `v` value returned from Ledger.
-      if ((signedV & 0xff) !== ledgerSignedV) {
+      if (signedV !== ledgerSignedV) {
         throw new Error("Invalid chainID")
       }
 
