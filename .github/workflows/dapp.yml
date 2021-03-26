@@ -3,16 +3,9 @@ name: Dapp
 on:
   push:
     branches:
-      # TODO: Run only on master after we're fully migrated from Circle CI
-      - "rfc-18/**"
       - master
     # TODO: paths:
   pull_request:
-    branches:
-      # TODO: Run on all branches or only on master (to be decided) 
-      # after we're fully migrated from Circle CI
-      - "rfc-18/**"
-      - master
     # TODO: paths:
   workflow_dispatch:
 
@@ -41,11 +34,10 @@ jobs:
             ${{ runner.os }}-buildx-
 
       - name: Login to Google Container Registry
-        if: | # remove 'rfc-18' condition once workflow tested
-            (startsWith(github.ref, 'refs/heads/rfc-18/')
-              || github.ref == 'refs/heads/master')
-              && (github.event_name == 'push'
-              || github.event_name == 'workflow_dispatch')
+        if: |
+          github.ref == 'refs/heads/master'
+            && (github.event_name == 'push'
+            || github.event_name == 'workflow_dispatch')
         uses: docker/login-action@v1
         with:
           registry: ${{ secrets.GCR_REGISTRY_URL }}
@@ -55,7 +47,7 @@ jobs:
       - name: Build and publish Keep Token Dashboard image
         uses: docker/build-push-action@v2
         env:
-          IMAGE_NAME: 'tbtc-dapp-wip' # TODO: remove '-wip' once full workflow verified
+          IMAGE_NAME: 'tbtc-dapp'
           GOOGLE_PROJECT_ID: ${{ secrets.KEEP_TEST_GOOGLE_PROJECT_ID }}
         with:
           target: build
@@ -64,9 +56,8 @@ jobs:
           # We don't use TAG yet, will be added at later stages of work on RFC-18.
           tags: ${{ secrets.GCR_REGISTRY_URL }}/${{ env.GOOGLE_PROJECT_ID }}/${{ env.IMAGE_NAME }}
           labels: revision=${{ github.sha }}
-          push: | # remove 'rfc-18' condition once workflow tested
-            ${{ (startsWith(github.ref, 'refs/heads/rfc-18/')
-              || github.ref == 'refs/heads/master')
+          push: |
+            ${{ github.ref == 'refs/heads/master'
               && (github.event_name == 'push'
               || github.event_name == 'workflow_dispatch') }} 
           cache-from: type=local,src=/tmp/.buildx-cache
