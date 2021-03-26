@@ -1,3 +1,5 @@
+# GitHub Actions equivalent of this workflow  (.github/workflows/dapp.yml) 
+# has been created as part of work on RFC-18
 version: 2.1
 
 executors:
