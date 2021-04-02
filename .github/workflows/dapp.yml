@@ -69,7 +69,6 @@ jobs:
           IMAGE_NAME: 'tbtc-dapp'
           GOOGLE_PROJECT_ID: ${{ secrets.KEEP_TEST_GOOGLE_PROJECT_ID }}
         with:
-          target: build
           # GCR image should be named according to following convention:
           # HOSTNAME/PROJECT-ID/IMAGE:TAG
           # We don't use TAG yet, will be added at later stages of work on RFC-18.
