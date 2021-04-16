@@ -124,7 +124,7 @@ jobs:
   dapp-lint:
     needs: dapp-detect-changes
     if: |
-      github.event_name != 'pull_request'
+      github.event_name == 'push'
         || needs.dapp-detect-changes.outputs.path-filter == 'true'
     runs-on: ubuntu-latest
     steps:
