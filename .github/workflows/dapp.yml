@@ -66,12 +66,12 @@ jobs:
           node-version: "12.x"
 
       - name: Get upstream packages' versions
-        uses: keep-network/upstream-builds-@main
+        uses: keep-network/upstream-builds-query@main
         id: upstream-builds-query
         with:
           upstream-builds: ${{ github.event.inputs.upstream_builds }}
           query: |
-            tbtcjs-version = github.com/keep-network/tbtc.jsy#version
+            tbtcjs-version = github.com/keep-network/tbtc.js#version
 
       - name: Resolve latest contracts
         run: |
