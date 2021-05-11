@@ -76,8 +76,13 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: "12.x"
+      
+      - name: Resolve latest tbtc.js
+        if: github.event_name != 'workflow_dispatch'
+        run: npm update @keep-network/tbtc.js
 
       - name: Get upstream packages' versions
+        if: github.event_name == 'workflow_dispatch'
         uses: keep-network/upstream-builds-query@main
         id: upstream-builds-query
         with:
@@ -85,7 +90,8 @@ jobs:
           query: |
             tbtcjs-version = github.com/keep-network/tbtc.js#version
 
-      - name: Resolve latest contracts
+      - name: Resolve latest tbtc.js
+        if: github.event_name == 'workflow_dispatch'
         run: |
             npm install --save-exact \
               @keep-network/tbtc.js@${{ steps.upstream-builds-query.outputs.tbtcjs-version }}
