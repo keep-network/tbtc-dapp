@@ -9,6 +9,18 @@ on:
       - "infrastructure/**"
   pull_request:
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment for workflow execution'
+        required: false
+        default: 'dev'
+      upstream_builds:
+        description: 'Upstream builds'
+        required: false
+      upstream_ref:
+        description: 'Git reference to checkout (e.g. branch name)'
+        required: false
+        default: 'master'
 
 jobs:
   dapp-detect-changes:
@@ -16,15 +28,16 @@ jobs:
     outputs:
       path-filter: ${{ steps.filter.outputs.path-filter }}
     steps:
-    - uses: actions/checkout@v2
-      if: github.event_name == 'pull_request' 
-    - uses: dorny/paths-filter@v2
-      if: github.event_name == 'pull_request' 
-      id: filter
-      with:
-        filters: |
-          path-filter:
-            - './!((docs|infrastructure)/**)'
+      - uses: actions/checkout@v2
+        if: github.event_name == 'pull_request'
+
+      - uses: dorny/paths-filter@v2
+        if: github.event_name == 'pull_request'
+        id: filter
+        with:
+          filters: |
+            path-filter:
+              - './!((docs|infrastructure)/**)'
 
   dapp-build-and-publish:
     needs: dapp-detect-changes
@@ -50,7 +63,23 @@ jobs:
           node-version: "12.x"
       
       - name: Resolve latest tbtc.js
+        if: github.event_name != 'workflow_dispatch'
         run: npm update @keep-network/tbtc.js
+
+      - name: Get upstream packages' versions
+        if: github.event_name == 'workflow_dispatch'
+        uses: keep-network/upstream-builds-query@v1
+        id: upstream-builds-query
+        with:
+          upstream-builds: ${{ github.event.inputs.upstream_builds }}
+          query: |
+            tbtcjs-version = github.com/keep-network/tbtc.js#version
+
+      - name: Resolve latest tbtc.js
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+            npm install --save-exact \
+              @keep-network/tbtc.js@${{ steps.upstream-builds-query.outputs.tbtcjs-version }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
@@ -64,9 +93,7 @@ jobs:
             ${{ runner.os }}-buildx-
 
       - name: Login to Google Container Registry
-        if: |
-          github.ref == 'refs/heads/master'
-            && github.event_name != 'pull_request'
+        if: github.event_name == 'workflow_dispatch'
         uses: docker/login-action@v1
         with:
           registry: ${{ env.GCR_REGISTRY_URL }}
@@ -83,16 +110,27 @@ jobs:
           # We don't use TAG yet, will be added at later stages of work on RFC-18.
           tags: ${{ env.GCR_REGISTRY_URL }}/${{ env.GOOGLE_PROJECT_ID }}/${{ env.IMAGE_NAME }}
           labels: revision=${{ github.sha }}
-          push: |
-            ${{ github.ref == 'refs/heads/master'
-              && github.event_name != 'pull_request' }}
+          push: ${{ github.event_name == 'workflow_dispatch' }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
+
+      - name: Notify CI about completion of the workflow
+        if: github.event_name == 'workflow_dispatch'
+        uses: keep-network/notify-workflow-completed@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
+        with:
+          module: "github.com/keep-network/tbtc-dapp"
+          url: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          environment: ${{ github.event.inputs.environment }}
+          upstream_builds: ${{ github.event.inputs.upstream_builds }}
+          upstream_ref: ${{ github.event.inputs.upstream_ref }}
+          version: ${{ github.sha }}
 
   dapp-lint:
     needs: dapp-detect-changes
     if: |
-      github.event_name != 'pull_request'
+      github.event_name == 'push'
         || needs.dapp-detect-changes.outputs.path-filter == 'true'
     runs-on: ubuntu-latest
     steps:
