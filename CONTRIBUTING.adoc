@@ -16,7 +16,7 @@ request.
 3. Follow the <<README.adoc#setup,installation & build steps>> in the
    repository's top-level README.
 4. Setup the recommended <<Development Tooling>>.
-5. Open a PR against the `master` branch and describe the change you are
+5. Open a PR against the `main` branch and describe the change you are
    intending to undertake in the PR description.
 
 Before marking the PR as ready for review, make sure:
