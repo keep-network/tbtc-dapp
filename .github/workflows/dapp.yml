@@ -58,7 +58,7 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: "12.x"
+          node-version: "14.x"
       
       - name: Resolve latest tbtc.js
         if: github.event_name != 'workflow_dispatch'
@@ -146,7 +146,7 @@ jobs:
 
       - uses: actions/setup-node@v2 
         with:
-          node-version: "12.x"
+          node-version: "14.x"
 
       - name: Cache node modules
         uses: actions/cache@v2
