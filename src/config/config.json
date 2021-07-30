@@ -2,9 +2,9 @@
   "1": {
     "bitcoinNetwork": "main",
       "electrum": {
-        "server": "electrumx-server.tbtc.network",
-        "port": 8443,
-        "protocol": "wss"
+        "server": "electrum.bitaroo.net",
+        "port": 50001,
+        "protocol": "tcp"
       }
   },
   "3": {
