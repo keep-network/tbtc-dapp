@@ -91,7 +91,7 @@ jobs:
         with:
           service-key: ${{ secrets.KEEP_TEST_CI_UPLOAD_DAPP_JSON_KEY_BASE64 }}
           project: ${{ env.GOOGLE_PROJECT_ID }}
-          bucket-name: keep-test-tbtc-dapp # TODO: Change to dapp.test.tbtc.network
+          bucket-name: dapp.test.tbtc.network
           set-website: true
           home-page-path: index.html
           error-page-path: index.html
