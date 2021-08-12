@@ -22,7 +22,7 @@ function App(props) {
             <a
               href="https://chat.tbtc.network/"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               visit our Discord community ↗
             </a>
