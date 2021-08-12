@@ -79,9 +79,6 @@ jobs:
             npm install --save-exact \
               @keep-network/tbtc.js@${{ steps.upstream-builds-query.outputs.tbtcjs-version }}
 
-      - name: NPM install
-        run: npm ci
-
       - name: NPM build
         run: npm run build
 
