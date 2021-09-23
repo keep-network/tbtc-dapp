@@ -1,6 +1,6 @@
 {
     "name": "tbtc-dapp",
-    "version": "0.17.6-pre",
+    "version": "0.17.10-dev",
     "dependencies": {
         "@0x/subproviders": "^6.0.8",
         "@keep-network/tbtc.js": ">0.19.5-pre <0.19.5-rc",
