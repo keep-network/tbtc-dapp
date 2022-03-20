@@ -61,6 +61,14 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: "14.x"
+
+      # We need this step because the `@keep-network/tbtc.js` which we update in
+      # next steps has an indirect dependency to `@summa-tx/relay-sol@2.0.2`
+      # package, which downloads one of its sub-dependencies via unathenticated
+      # `git://` protocol. That protocol is no longer supported. Thanks to this
+      # step `https://` is used instead of `git://`.
+      - name: Configure git to don't use unauthenticated protocol
+        run: git config --global url."https://".insteadOf git://
       
       - name: Resolve latest tbtc.js
         if: github.event_name != 'workflow_dispatch'
