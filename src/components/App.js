@@ -18,9 +18,9 @@ function App(props) {
             This dApp is in ALPHA and improper use may lead to LOSS OF FUNDS.
           </p>
           <p>
-            For more information and options please{" "}
+            tBTC v2 minting coming soon. For more information please{" "}
             <a
-              href="https://chat.tbtc.network/"
+              href="https://discord.gg/Threshold"
               target="_blank"
               rel="noopener noreferrer"
             >
