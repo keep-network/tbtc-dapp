@@ -5,7 +5,7 @@ import createSagaMiddleware from "redux-saga"
 import routerMiddleware from "./lib/router/middleware"
 import notificationMiddleware from "./lib/notifications/middleware"
 import { Provider } from "react-redux"
-import { Router, Route } from "react-router-dom"
+import { Router, Route, Redirect } from "react-router-dom"
 import { composeWithDevTools } from "redux-devtools-extension"
 
 // Create console history
@@ -17,15 +17,15 @@ import "./css/app.scss"
 // Components
 import { App, Home } from "./components"
 
-import {
-  Start as StartDeposit,
-  Invoice,
-  GetAddress,
-  Pay,
-  Confirming as ConfirmingDeposit,
-  Prove as ProveDeposit,
-  Congratulations as CongratulationsDeposit,
-} from "./components/deposit"
+// import {
+//   Start as StartDeposit,
+//   Invoice,
+//   GetAddress,
+//   Pay,
+//   Confirming as ConfirmingDeposit,
+//   Prove as ProveDeposit,
+//   Congratulations as CongratulationsDeposit,
+// } from "./components/deposit"
 import {
   Start as StartRedemption,
   Redeeming,
@@ -70,7 +70,7 @@ function AppWrapper() {
         <Web3Wrapper>
           <App>
             <Route path="/" exact component={Home} />
-            <Route path="/deposit" exact component={StartDeposit} />
+            {/* <Route path="/deposit" exact component={StartDeposit} />
             <Route path="/deposit/new" component={Invoice} />
             <Route path="/deposit/:address/get-address">
               <Loadable restorer={RESTORER.DEPOSIT}>
@@ -96,7 +96,7 @@ function AppWrapper() {
               <Loadable restorer={RESTORER.DEPOSIT}>
                 <CongratulationsDeposit />
               </Loadable>
-            </Route>
+            </Route> */}
             <Route path="/redeem" exact component={StartRedemption} />
             <Route
               path="/deposit/:address/redeem"
@@ -127,6 +127,9 @@ function AppWrapper() {
               <Loadable restorer={RESTORER.REDEMPTION}>
                 <CongratulationsRedemption />
               </Loadable>
+            </Route>
+            <Route path="*">
+              <Redirect to="/" />
             </Route>
           </App>
         </Web3Wrapper>

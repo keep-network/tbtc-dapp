@@ -48,9 +48,9 @@ class Home extends Component {
           ""
         ) : (
           <div className="mint-or-redeem">
-            <a href="/deposit" onClick={this.handleClickDeposit}>
+            {/* <a href="/deposit" onClick={this.handleClickDeposit}>
               Deposit
-            </a>
+            </a> */}
             <a href="/redeem" onClick={this.handleClickRedeem}>
               Redeem
             </a>
