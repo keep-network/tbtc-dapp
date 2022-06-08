@@ -41,7 +41,7 @@ const Start = ({ saveAddresses, resetState, openWalletModal }) => {
       const hasError = !isValid
       setDepositAddress({ address: depositAddress.address, isValid, hasError })
     }
-  }, [])
+  }, [depositAddress.address])
 
   const { active } = useWeb3React()
 

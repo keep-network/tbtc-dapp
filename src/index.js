@@ -5,7 +5,7 @@ import createSagaMiddleware from "redux-saga"
 import routerMiddleware from "./lib/router/middleware"
 import notificationMiddleware from "./lib/notifications/middleware"
 import { Provider } from "react-redux"
-import { Router, Route } from "react-router-dom"
+import { Router, Route, Redirect } from "react-router-dom"
 import { composeWithDevTools } from "redux-devtools-extension"
 
 // Create console history
@@ -18,8 +18,6 @@ import "./css/app.scss"
 import { App, Home } from "./components"
 
 import {
-  Start as StartDeposit,
-  Invoice,
   GetAddress,
   Pay,
   Confirming as ConfirmingDeposit,
@@ -70,8 +68,12 @@ function AppWrapper() {
         <Web3Wrapper>
           <App>
             <Route path="/" exact component={Home} />
-            <Route path="/deposit" exact component={StartDeposit} />
-            <Route path="/deposit/new" component={Invoice} />
+            <Route path="/deposit" exact>
+              <Redirect to="/" />
+            </Route>
+            <Route path="/deposit/new">
+              <Redirect to="/" />
+            </Route>
             <Route path="/deposit/:address/get-address">
               <Loadable restorer={RESTORER.DEPOSIT}>
                 <GetAddress />
