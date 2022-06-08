@@ -17,15 +17,13 @@ import "./css/app.scss"
 // Components
 import { App, Home } from "./components"
 
-// import {
-//   Start as StartDeposit,
-//   Invoice,
-//   GetAddress,
-//   Pay,
-//   Confirming as ConfirmingDeposit,
-//   Prove as ProveDeposit,
-//   Congratulations as CongratulationsDeposit,
-// } from "./components/deposit"
+import {
+  GetAddress,
+  Pay,
+  Confirming as ConfirmingDeposit,
+  Prove as ProveDeposit,
+  Congratulations as CongratulationsDeposit,
+} from "./components/deposit"
 import {
   Start as StartRedemption,
   Redeeming,
@@ -70,8 +68,6 @@ function AppWrapper() {
         <Web3Wrapper>
           <App>
             <Route path="/" exact component={Home} />
-            {/* <Route path="/deposit" exact component={StartDeposit} />
-            <Route path="/deposit/new" component={Invoice} />
             <Route path="/deposit/:address/get-address">
               <Loadable restorer={RESTORER.DEPOSIT}>
                 <GetAddress />
@@ -96,7 +92,7 @@ function AppWrapper() {
               <Loadable restorer={RESTORER.DEPOSIT}>
                 <CongratulationsDeposit />
               </Loadable>
-            </Route> */}
+            </Route>
             <Route path="/redeem" exact component={StartRedemption} />
             <Route
               path="/deposit/:address/redeem"
