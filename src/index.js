@@ -68,6 +68,12 @@ function AppWrapper() {
         <Web3Wrapper>
           <App>
             <Route path="/" exact component={Home} />
+            <Route path="/deposit" exact>
+              <Redirect to="/" />
+            </Route>
+            <Route path="/deposit/new">
+              <Redirect to="/" />
+            </Route>
             <Route path="/deposit/:address/get-address">
               <Loadable restorer={RESTORER.DEPOSIT}>
                 <GetAddress />
@@ -123,9 +129,6 @@ function AppWrapper() {
               <Loadable restorer={RESTORER.REDEMPTION}>
                 <CongratulationsRedemption />
               </Loadable>
-            </Route>
-            <Route path="*">
-              <Redirect to="/" />
             </Route>
           </App>
         </Web3Wrapper>
