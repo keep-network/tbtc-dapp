@@ -8,3 +8,5 @@ client/src/eth/artifacts/*.JSON
 
 # Infrastructure
 .secrets*
+
+.envrc
