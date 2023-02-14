@@ -26,6 +26,21 @@ instead of `git://` by executing:
 ```
 git config --global url."https://".insteadOf git://
 ```
+* clone the repository
+* link:https://nodejs.org/en/[Node.js] v14.21.2
+* Python 2.7.18 for `node-gyp`. It is
+  https://opensource.com/article/19/5/python-3-default-mac[suggested] to use
+  `pyenv` to manage multiple Python versions.
+```
+brew install pyenv
+pyenv install 2.7.18
+```
+
+=== Install
+
+```
+npm ci
+
 
 === Run
 

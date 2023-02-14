@@ -1,13 +1,12 @@
 = tbtc Contribution Guide
 
-👍🎉 First off, thanks for taking the time to contribute! 🎉👍 Contributions
-are welcome from anyone on the internet, and even the smallest of fixes
-are appreciated!
+🎉 First off, thanks for taking the time to contribute! 🎉 Contributions are
+welcome from anyone on the internet, and even the smallest of fixes are
+appreciated!
 
-The following is a set of guidelines for contributing to tBTC and its
-packages. These are mostly guidelines, not rules. Use your best
-judgment, and feel free to propose changes to this document in a pull
-request.
+The following is a set of guidelines for contributing to tBTC and its packages.
+These are mostly guidelines, not rules. Use your best judgment, and feel free to
+propose changes to this document in a pull request.
 
 == Getting started
 
@@ -23,6 +22,10 @@ Before marking the PR as ready for review, make sure:
 
 * It passes the linter checks (`npm run lint`); see <<Pre-commit>> to make this
   automatic.
+* It passes the https://github.com/keep-network/tbtc-dapp/actions[continuous
+  integration tests].
+* Your changes have sufficient test coverage (e.g regression tests have
+  been added for bug fixes, unit tests for new features)
 
 == Development Tooling
 
@@ -32,19 +35,21 @@ be signed].
 
 === Continuous Integration
 
-We use https://circleci.com[CircleCI] for continuous integration. All
-CircleCI jobs (including tests, linting) must be green to merge a PR.
+We use https://github.com/keep-network/tbtc-dapp/actions[Github Actions] for
+continuous integration. All jobs (including tests, linting) must be green to
+merge a PR.
 
 === Pre-commit
 
-Pre-commit is a tool to install hooks that check code before commits are
-made. It can be helpful to install this, to automatically run linter
-checks. Follow the https://pre-commit.com/[installation instructions
-here], and then run `pre-commit install` to install the hooks.
+Pre-commit is a tool to install hooks that check code before commits are made.
+It can be helpful to install this, to automatically run linter checks. Follow
+the https://pre-commit.com/[installation instructions here], and then run
+`pre-commit install` to install the hooks.
 
 === Linting
 
-Linters for JavaScript code are set up and run automatically as part of pre-commit hooks.
+Linters for JavaScript code are set up and run automatically as part of
+pre-commit hooks.
 
 If you want to change a rule, or add a custom rule, please propose these
 changes to our https://github.com/keep-network/eslint-config-keep[eslint-config-keep]
