@@ -1,5 +1,5 @@
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tbtc-dapp
@@ -21,6 +21,6 @@ spec:
     spec:
       containers:
       - name: tbtc-dapp
-        image: keepnetwork/tbtc-dapp:v0.17.5
+        image: keepnetwork/tbtc-dapp:v0.17.7
         ports:
           - containerPort: 80
